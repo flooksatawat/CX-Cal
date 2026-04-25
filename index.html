@@ -19,41 +19,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            min-height: 100dvh;
+            height: 100vh;
+            height: 100dvh;
             margin: 0;
+            overflow: hidden;
         }
 
         .app-wrapper {
             background-color: #f8fafc;
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
+            max-width: 440px;
+            height: 100%;
             display: flex;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
         
         @media (min-width: 480px) {
             .app-wrapper {
-                max-width: 440px;
-                height: 90vh;
+                height: 92vh;
                 border-radius: 40px;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
                 border: 8px solid #ffffff;
+                overflow: hidden;
             }
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .nav-item { transition: all 0.2s ease; }
-        .nav-item.active { color: #1e3a8a; }
-        .nav-item.active .nav-icon-bg { background-color: #eff6ff; transform: translateY(-2px); }
-        .nav-item.active i { color: #1e3a8a; }
-
-        .app-view { display: none !important; }
+        .nav-item { transition: all 0.2s ease; cursor: pointer; }
+        .nav-item.active { color: #1e3a8a; transform: translateY(-2px); }
+        
+        .app-view { display: none !important; flex: 1; overflow-y: auto; }
         .app-view.active.block-view { display: block !important; animation: fadeIn 0.3s ease-out forwards; }
         .app-view.active.flex-view { display: flex !important; animation: fadeIn 0.3s ease-out forwards; }
         
@@ -62,38 +60,29 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
-        .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
-
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 10px); }
+        
         /* UI Elements Styles */
-        .header-card { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 12px 20px; text-align: center; flex-shrink: 0; position: relative; cursor: pointer; transition: opacity 0.2s; }
+        .header-card { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 12px 20px; text-align: center; flex-shrink: 0; cursor: pointer; transition: opacity 0.2s; }
         .header-card:active { opacity: 0.9; }
         .header-card h1 { font-weight: 800; letter-spacing: 0.02em; font-size: 1.25rem; }
 
-        /* Gender & Age Input Sync Height */
-        .equal-height-element { height: 56px !important; }
-        .input-box { background-color: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; text-align: center; font-weight: 700; font-size: 1.25rem; width: 100%; color: #0f172a; outline: none; transition: all 0.2s; }
+        .input-box { background-color: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 16px; text-align: center; font-weight: 700; color: #0f172a; outline: none; transition: all 0.2s; width: 100%; }
         .input-box:focus { border-color: #1e3a8a; background-color: white; box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1); }
         
-        .gender-btn { border: 2px solid #e2e8f0; transition: all 0.2s; font-size: 1rem; color: #64748b; background-color: white; border-radius: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .gender-btn { border: 2px solid #e2e8f0; background-color: white; border-radius: 16px; font-weight: 700; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
         .gender-btn.active { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-btn.active-pink { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         
-        .quick-sum-btn { font-size: 11.5px; font-weight: 700; padding: 8px 2px; border-radius: 12px; background-color: #eff6ff; color: #1e40af; border: 1.5px solid #dbeafe; transition: all 0.2s; cursor: pointer; display: block; width: 100%; text-align: center; }
-        .quick-sum-btn:active { transform: scale(0.95); background-color: #dbeafe; }
+        .quick-sum-btn { font-size: 11px; font-weight: 700; padding: 8px 12px; border-radius: 9999px; background-color: #f8fafc; color: #1e3a8a; border: 1px solid #e0e7ff; transition: all 0.2s; cursor: pointer; flex-shrink: 0; }
+        .quick-sum-btn:active { transform: scale(0.95); background-color: #eff6ff; }
 
         .clickable-row { transition: all 0.2s; }
         .clickable-row:active { transform: scale(0.98); opacity: 0.8; }
 
-        /* Custom Scrollbar for Popups */
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
-
         #uiTableBody.show-breakeven .breakeven-target { background-color: #ecfdf5 !important; border-top: 1.5px solid #10b981; border-bottom: 1.5px solid #10b981; }
         #uiTableBody.show-breakeven .breakeven-target td { font-weight: 700; color: #065f46 !important; }
         
-        /* Share Button Base Styles */
         .share-platform-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; border-radius: 20px; border: 1px solid; transition: all 0.2s; cursor: pointer; }
         .share-platform-btn:active { transform: scale(0.95); }
 
@@ -102,131 +91,105 @@
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
-        .listening {
-            animation: pulse-ring 1.5s infinite;
-            background-color: #fef2f2 !important;
-            border-color: #ef4444 !important;
-            color: #ef4444 !important;
-        }
+        .listening { animation: pulse-ring 1.5s infinite; color: #ef4444 !important; }
     </style>
 </head>
 <body>
 
 <div class="app-wrapper">
 
-    <!-- Header Card (คลิกเพื่อเลือกแบบประกัน) -->
-    <header class="header-card rounded-b-[24px] shadow-sm z-40" onclick="openPopup('planSelectorModal')">
+    <!-- Header Card -->
+    <header class="header-card shadow-sm z-40 rounded-b-[24px]" onclick="openPopup('planSelectorModal')">
         <h1 id="mainHeaderTitle">CI Extra Plus</h1>
         <p id="mainHeaderSub" class="text-xs opacity-90 mt-1 font-medium">แตะเพื่อเปลี่ยนแบบประกัน <i class="fas fa-chevron-down text-[10px] ml-1"></i></p>
     </header>
 
-    <!-- เมนูเงื่อนไขการรับประกัน -->
-    <div class="w-full bg-blue-50 border-b border-blue-100 p-3 cursor-pointer hover:bg-blue-100 transition-colors text-center active:bg-blue-200 z-30" onclick="openPopup('insuranceConditionsModal')">
+    <!-- เงื่อนไขการรับประกัน -->
+    <div class="w-full bg-blue-50 border-b border-blue-100 p-2 cursor-pointer hover:bg-blue-100 transition-colors text-center active:bg-blue-200 z-30 shrink-0" onclick="openPopup('insuranceConditionsModal')">
         <h2 class="text-[12px] font-bold text-blue-900 uppercase tracking-wider flex justify-center items-center gap-2">
             <i class="fas fa-info-circle text-blue-600"></i>
             <span>เงื่อนไขการรับประกัน</span>
-            <i class="fas fa-caret-down text-[12px] text-blue-400"></i>
         </h2>
     </div>
 
     <!-- Main Content Area -->
-    <main class="flex-1 w-full overflow-y-auto no-scrollbar pb-24 relative">
-        <div class="px-4 py-5 space-y-4">
+    <main class="flex-1 w-full overflow-y-auto no-scrollbar bg-slate-50">
+        <div class="px-4 py-4 h-full flex flex-col gap-3.5">
         
             <!-- ==============================================
                  VIEW 1: หน้ากรอกข้อมูล (Input View)
                  ============================================== -->
-            <section id="view-input" class="app-view block-view active space-y-4">
+            <section id="view-input" class="app-view block-view active">
                 
-                <div id="voiceControl" onclick="toggleVoiceRecognition()" class="bg-white border-2 border-slate-100 rounded-2xl p-3 shadow-sm flex items-center justify-center gap-3 cursor-pointer transition-all active:scale-95">
-                    <div id="voiceIconContainer" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">
-                        <i id="voiceIcon" class="fas fa-microphone text-sm"></i>
+                <!-- เพศ และ อายุ -->
+                <div class="grid grid-cols-2 gap-3 text-center mb-3.5">
+                    <div class="bg-white p-3.5 rounded-[20px] shadow-sm border border-slate-200">
+                        <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 tracking-wide">เพศ</p>
+                        <div class="flex gap-2 h-[48px]">
+                            <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-btn active">ชาย</button>
+                            <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-btn">หญิง</button>
+                        </div>
                     </div>
-                    <div class="text-left">
-                        <h3 class="text-[13px] font-bold text-slate-800" id="voiceTitle">แตะเพื่อสั่งงานด้วยเสียง</h3>
-                        <p class="text-[9px] text-slate-400 mt-0.5" id="voiceSubtitle">เช่น "CX ชาย 30 ทุน 1 ล้าน 10 ปี"</p>
+                    <div class="bg-white p-3.5 rounded-[20px] shadow-sm border border-slate-200">
+                        <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 tracking-wide">อายุ (ปี)</p>
+                        <input type="number" id="inputAge" value="30" min="0" max="80" class="input-box h-[48px] !py-0 text-xl" oninput="runCalculation('premium')">
                     </div>
                 </div>
 
-                <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200">
-                    <!-- เพศ และ อายุ -->
-                    <div class="grid grid-cols-2 gap-3 text-center mb-4">
-                        <div class="flex flex-col h-full">
-                            <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 tracking-wide">เพศ</p>
-                            <div class="flex gap-2 flex-1">
-                                <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-btn active equal-height-element">ชาย</button>
-                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-btn equal-height-element">หญิง</button>
-                            </div>
-                        </div>
-                        <div class="flex flex-col h-full">
-                            <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 tracking-wide">อายุ (ปี)</p>
-                            <div class="flex-1">
-                                <input type="number" id="inputAge" value="30" min="0" max="80" class="input-box equal-height-element" oninput="runCalculation('premium')">
-                            </div>
-                        </div>
+                <!-- ทุนประกัน -->
+                <div class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-200 mb-3.5">
+                    <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 text-center tracking-wide">ทุนประกัน (บาท)</p>
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 justify-start sm:justify-center">
+                        <button onclick="setSum(100000)" class="quick-sum-btn">1 แสน</button>
+                        <button onclick="setSum(500000)" class="quick-sum-btn">5 แสน</button>
+                        <button onclick="setSum(1000000)" class="quick-sum-btn">1 ล้าน</button>
+                        <button onclick="setSum(3000000)" class="quick-sum-btn">3 ล้าน</button>
+                        <button onclick="setSum(10000000)" class="quick-sum-btn">10 ล้าน</button>
                     </div>
-
-                    <!-- ทุนประกัน -->
-                    <div class="mb-5">
-                        <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 text-center tracking-wide">ทุนประกัน (บาท)</p>
-                        <div class="grid grid-cols-5 gap-1.5 mb-3">
-                            <button onclick="setSum(100000)" class="quick-sum-btn">1 แสน</button>
-                            <button onclick="setSum(500000)" class="quick-sum-btn">5 แสน</button>
-                            <button onclick="setSum(1000000)" class="quick-sum-btn">1 ล้าน</button>
-                            <button onclick="setSum(3000000)" class="quick-sum-btn">3 ล้าน</button>
-                            <button onclick="setSum(10000000)" class="quick-sum-btn">10 ล้าน</button>
-                        </div>
-                        <input type="text" id="inputSum" value="1,000,000" class="input-box text-2xl py-4" oninput="runCalculation('sum')">
-                    </div>
-
-                    <!-- ออมเงิน / เบี้ยประกัน -->
-                    <div>
-                        <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 text-center tracking-wide">ออมเงิน (บาท)</p>
-                        <div class="grid grid-cols-5 gap-1.5 mb-3">
-                            <button onclick="setPremium(12000)" class="quick-sum-btn">12,000</button>
-                            <button onclick="setPremium(24000)" class="quick-sum-btn">24,000</button>
-                            <button onclick="setPremium(36000)" class="quick-sum-btn">36,000</button>
-                            <button onclick="setPremium(48000)" class="quick-sum-btn">48,000</button>
-                            <button onclick="setPremium(60000)" class="quick-sum-btn">60,000</button>
-                        </div>
-                        <input type="text" id="inputPremium" value="0" class="input-box text-2xl py-4" oninput="runCalculation('premium')">
-                    </div>
+                    <input type="text" id="inputSum" value="1,000,000" class="input-box w-full py-3 text-2xl" oninput="runCalculation('sum')">
                 </div>
 
-                <!-- กลุ่มปุ่มเครื่องมือหลัก -->
+                <!-- ออมเงิน / เบี้ยประกัน -->
+                <div class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-200 mb-3.5">
+                    <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 text-center tracking-wide">ออมเงิน (บาท)</p>
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 justify-start sm:justify-center">
+                        <button onclick="setPremium(12000)" class="quick-sum-btn">12,000</button>
+                        <button onclick="setPremium(24000)" class="quick-sum-btn">24,000</button>
+                        <button onclick="setPremium(36000)" class="quick-sum-btn">36,000</button>
+                        <button onclick="setPremium(48000)" class="quick-sum-btn">48,000</button>
+                        <button onclick="setPremium(60000)" class="quick-sum-btn">60,000</button>
+                    </div>
+                    <input type="text" id="inputPremium" value="0" class="input-box w-full py-3 text-2xl" oninput="runCalculation('premium')">
+                </div>
+
+                <!-- ปุ่มเครื่องมือหลัก -->
                 <div class="space-y-3">
-                    <button onclick="showResultModal()" class="w-full bg-[#1e3a8a] text-white rounded-2xl py-4 font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-all text-[15px] flex items-center justify-center gap-2 mt-2 border border-[#1e3a8a]">
+                    <button onclick="showResultModal()" class="w-full bg-[#1e3a8a] text-white rounded-[20px] py-4 font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-all text-[15px] flex items-center justify-center gap-2 border border-[#1e3a8a]">
                         <i class="fas fa-calculator text-lg"></i> <span>คำนวณและดูผลลัพธ์</span>
                     </button>
 
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="openPopup('installmentModal')" class="w-full bg-[#f8fafc] border border-[#e2e8f0] py-4 rounded-2xl text-[13px] font-bold text-[#1e3a8a] flex items-center justify-center gap-2 active:bg-slate-100 transition-colors shadow-sm">
+                        <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 py-3 rounded-2xl text-[13px] font-bold text-[#1e3a8a] flex items-center justify-center gap-2 active:bg-slate-50 transition-colors shadow-sm">
                             <i class="fas fa-credit-card"></i> ตัวเลือกการชำระ
                         </button>
-                        <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] py-4 rounded-2xl text-[13px] font-bold text-[#065f46] flex items-center justify-center gap-2 active:bg-[#d1fae5] transition-colors shadow-sm">
+                        <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] py-3 rounded-2xl text-[13px] font-bold text-[#065f46] flex items-center justify-center gap-2 active:bg-[#d1fae5] transition-colors shadow-sm">
                             <i class="fas fa-money-bill-transfer text-[#10b981]"></i> บัญชีโอนเงิน
                         </button>
                     </div>
                     
-                    <button onclick="window.open('https://esmart.chubblife-agency.in.th/chubb-life-qni/en/home?return=%2Fen%2Fhome', '_blank')" class="w-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 py-4 rounded-2xl text-[14px] font-extrabold text-[#701a75] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm">
+                    <button onclick="openPopup('eSubQniModal')" class="w-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 py-3 rounded-2xl text-[14px] font-extrabold text-[#701a75] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm">
                         <i class="fas fa-laptop-code text-purple-600"></i>
                         <span class="tracking-wide">E-Submission & QNI</span>
                         <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                     </button>
-                </div>
-
-                <!-- Copyright -->
-                <div class="text-center text-[10px] text-slate-400 mt-6 pb-2 font-semibold tracking-wider uppercase opacity-70">
-                    © Satawat Buttrakas
                 </div>
             </section>
 
             <!-- ==============================================
                  VIEW 2: หน้าตารางมูลค่า (Table View)
                  ============================================== -->
-            <section id="view-table" class="app-view flex-view h-full flex-col min-h-[75vh]">
+            <section id="view-table" class="app-view flex-view h-full flex-col">
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col">
-                    
                     <div class="flex justify-between items-center px-4 pt-4 pb-3 border-b border-slate-100">
                         <h3 class="text-base font-bold text-purple-900"><i class="fas fa-table mr-2 text-purple-600"></i> ตารางมูลค่า</h3>
                         <button onclick="openPopup('pdfOptionsModal')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-2 active:scale-95 transition-colors shadow-sm">
@@ -270,24 +233,41 @@
         </div>
     </main>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="absolute bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 pb-safe z-40">
-        <div class="flex items-center h-16 w-full">
-            <button onclick="switchMobileView('view-input', this)" class="nav-item active w-1/2 flex flex-col items-center gap-1 text-slate-400">
-                <div class="nav-icon-bg w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300">
-                    <i class="fas fa-keyboard text-lg"></i>
-                </div>
-                <span class="text-[11px] font-bold">ข้อมูล</span>
+    <!-- Bottom Navigation Bar & Copyright -->
+    <div class="shrink-0 bg-white border-t border-slate-200 z-40 pb-safe">
+        <nav class="flex items-center justify-around h-[60px] w-full px-2">
+            <!-- 1. ข้อมูล -->
+            <button onclick="switchMobileView('view-input', this)" class="nav-item active flex-1 flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-keyboard text-lg"></i>
+                <span class="text-[10px] font-bold">ข้อมูล</span>
             </button>
 
-            <button onclick="switchMobileView('view-table', this)" class="nav-item w-1/2 flex flex-col items-center gap-1 text-slate-400">
-                <div class="nav-icon-bg w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300">
-                    <i class="fas fa-table text-lg"></i>
-                </div>
-                <span class="text-[11px] font-bold">ตารางมูลค่า</span>
+            <!-- 2. ตารางมูลค่า -->
+            <button onclick="switchMobileView('view-table', this)" class="nav-item flex-1 flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-table text-lg"></i>
+                <span class="text-[10px] font-bold">ตารางมูลค่า</span>
             </button>
+
+            <!-- 3. CASH -->
+            <button onclick="alert('ระบบ CASH CHUBB Agency Success Howto (กำลังพัฒนา)')" class="nav-item flex-1 flex flex-col items-center gap-1 text-slate-400">
+                <i class="fas fa-chart-simple text-lg"></i>
+                <span class="text-[10px] font-bold">CASH</span>
+            </button>
+
+            <!-- 4. คำสั่งเสียง -->
+            <button id="voiceNavBtn" onclick="toggleVoiceRecognition()" class="nav-item flex-1 flex flex-col items-center gap-1 text-slate-400 relative">
+                <i id="voiceIcon" class="fas fa-microphone text-lg"></i>
+                <span class="text-[10px] font-bold" id="voiceTitle">คำสั่งเสียง</span>
+            </button>
+        </nav>
+        
+        <!-- Copyright -->
+        <div class="w-full px-8 pb-1 mt-1">
+            <div class="border-t border-slate-200 pt-2 text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase opacity-80">
+                © SATAWAT BUTTRAKAS
+            </div>
         </div>
-    </nav>
+    </div>
 
 </div> <!-- End .app-wrapper -->
 
@@ -321,7 +301,7 @@
         </div>
     </div>
 
-    <!-- Result Modal (ป๊อปอัปสรุปผลประโยชน์ แบบ Original UI) -->
+    <!-- Result Modal (ป๊อปอัปสรุปผลประโยชน์ แบบสมบูรณ์เหมือนภาพตัวอย่าง) -->
     <div id="resultModal" class="fixed inset-0 z-[600] flex items-center justify-center p-4 bg-slate-900/85 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
         <div class="bg-[#f8fafc] w-full max-w-sm rounded-[35px] flex flex-col overflow-hidden max-h-[90vh] transform scale-95 transition-transform duration-300 shadow-2xl">
             <div class="bg-[#1e3a8a] p-5 text-center text-white flex-shrink-0 relative">
@@ -333,6 +313,26 @@
             </div>
             
             <div class="overflow-y-auto flex-1 p-5 no-scrollbar custom-scrollbar bg-white">
+                
+                <!-- กล่องสรุปด้านบน (เพศ, อายุ, ระยะออม, ออมเงิน, ทุนประกัน) -->
+                <div class="grid grid-cols-3 gap-2 mb-3">
+                    <div class="text-center p-2.5 bg-[#f8fafc] rounded-2xl border border-slate-100 shadow-sm"><span class="text-[9px] text-slate-400 font-bold uppercase block mb-0.5">เพศ</span><span id="modalGender" class="text-sm font-bold text-blue-900">-</span></div>
+                    <div class="text-center p-2.5 bg-[#f8fafc] rounded-2xl border border-slate-100 shadow-sm"><span class="text-[9px] text-slate-400 font-bold uppercase block mb-0.5">อายุ</span><span id="modalAge" class="text-sm font-bold text-blue-900">-</span></div>
+                    <div class="text-center p-2.5 bg-[#f8fafc] rounded-2xl border border-slate-100 shadow-sm"><span class="text-[9px] text-slate-400 font-bold uppercase block mb-0.5">ระยะออม</span><span id="modalYears" class="text-sm font-bold text-blue-900">-</span></div>
+                </div>
+                
+                <div class="space-y-2 mb-4">
+                    <div class="flex justify-between items-center p-4 bg-[#f0f9ff] rounded-2xl border border-[#bae6fd] shadow-sm">
+                        <span class="text-[13px] text-[#1d4ed8] font-bold">ออมเงิน</span>
+                        <span id="modalPremium" class="text-lg font-black text-[#1e3a8a] whitespace-nowrap">0 บาท</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-[#ecfdf5] rounded-2xl border border-[#a7f3d0] shadow-sm">
+                        <span class="text-[13px] text-[#047857] font-bold">ทุนประกัน</span>
+                        <span id="modalSum" class="text-lg font-black text-[#065f46] whitespace-nowrap">0.00 บาท</span>
+                    </div>
+                </div>
+
+                <!-- Dynamic Payouts -->
                 <div id="modalDynamicPayouts" class="space-y-4">
                     <!-- ดึงข้อมูลการจ่ายตาม JSON -->
                 </div>
@@ -375,7 +375,37 @@
         </div>
     </div>
 
-    <!-- Modal ตัวเลือกการชำระเงิน (Matching Image) -->
+    <!-- Modal E-Submission & QNI (Matching Image) -->
+    <div id="eSubQniModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
+        <div class="bg-white rounded-[35px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-laptop-code text-[#9333ea] text-lg"></i>
+                    <h3 class="text-lg font-bold text-[#701a75]">เลือกระบบงาน</h3>
+                </div>
+                <button onclick="closePopup('eSubQniModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:bg-slate-100">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <button onclick="window.open('https://esales.cl-agency.in.th/prospects', '_blank')" class="w-full flex justify-between items-center p-4 bg-[#fff7ed] border border-[#fed7aa] rounded-2xl shadow-sm active:scale-95 transition-transform">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white text-[#c2410c] flex items-center justify-center shadow-sm"><i class="fas fa-file-signature text-lg"></i></div>
+                        <span class="text-[15px] font-bold text-[#9a3412]">E-Submission</span>
+                    </div>
+                    <i class="fas fa-external-link-alt text-sm text-[#fb923c]"></i>
+                </button>
+                <button onclick="window.open('https://esmart.chubblife-agency.in.th/chubb-life-qni/en/home?return=%2Fen%2Fhome', '_blank')" class="w-full flex justify-between items-center p-4 bg-[#f0f9ff] border border-[#bae6fd] rounded-2xl shadow-sm active:scale-95 transition-transform">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white text-[#0369a1] flex items-center justify-center shadow-sm"><i class="fas fa-file-signature text-lg"></i></div>
+                        <span class="text-[15px] font-bold text-[#075985]">QNI</span>
+                    </div>
+                    <i class="fas fa-external-link-alt text-sm text-[#38bdf8]"></i>
+                </button>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-5"><i class="fas fa-hand-pointer mr-1"></i> แตะที่ระบบเพื่อเปิดเว็บในแท็บใหม่</p>
+        </div>
+    </div>
+
+    <!-- Modal ตัวเลือกการชำระเงิน -->
     <div id="installmentModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
         <div class="bg-white rounded-[35px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
             <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -403,7 +433,7 @@
         </div>
     </div>
 
-    <!-- Modal บัญชีสำหรับการชำระเงิน (Matching Image) -->
+    <!-- Modal บัญชีสำหรับการชำระเงิน -->
     <div id="paymentModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
         <div class="bg-white rounded-[35px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
             <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
@@ -437,7 +467,7 @@
         </div>
     </div>
 
-    <!-- Generic Share Modal & PDF Modal (Matching Image) -->
+    <!-- Generic Share Modal & PDF Modal -->
     <div id="pdfOptionsModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
         <div class="bg-white rounded-[35px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
             <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4" id="genericShareIconBg">
@@ -446,7 +476,6 @@
             <h3 class="text-xl font-bold text-slate-800 mb-6" id="genericShareTitle">แชร์เฉพาะเบี้ยประกัน</h3>
             
             <div class="grid grid-cols-3 gap-3" id="shareButtonsGrid">
-                <!-- Share buttons layout -->
                 <button class="share-platform-btn bg-[#f0fdf4] border-[#a7f3d0] group" onclick="alert('ไปที่ LINE'); closePopup('pdfOptionsModal')">
                     <div class="w-10 h-10 bg-[#00b900] text-white rounded-xl flex items-center justify-center text-2xl mb-2"><i class="fab fa-line"></i></div>
                     <span class="text-[#059669] text-[10px] font-bold uppercase tracking-wider">LINE</span>
@@ -473,21 +502,14 @@
     <script>
         // ==========================================
         // 1. DATA STRUCTURE (GitHub Ready)
-        // คุณสามารถอัพเดตข้อมูลตรงนี้ผ่านไฟล์ .js ภายนอกได้
         // ==========================================
-
-        // ข้อมูลเบี้ยประกัน (ตัวอย่าง) -> ใส่ Array ข้อมูลจาก CSV ที่แปลงแล้วมาตรงนี้
         const GLOBAL_PREMIUM_RATES = {
-            "10CX": { male: { 0: 35.5, 30: 45.0 }, female: { 0: 30.2, 30: 40.0 } }, // ใส่เพิ่มได้...
+            "10CX": { male: { 0: 35.5, 30: 45.0 }, female: { 0: 30.2, 30: 40.0 } }, 
             "10SLB": { male: { 0: 25.0, 30: 35.0 }, female: { 0: 21.0, 30: 30.0 } }
         };
 
-        // ข้อมูลตารางมูลค่า (CV) -> ใส่ Object ข้อมูลจาก CSV ที่แปลงแล้วมาตรงนี้
-        const GLOBAL_CV_LOOKUP = {
-            // "10CX": { "male": { "0": { "1": 0, "2": 11, ... } } }
-        };
+        const GLOBAL_CV_LOOKUP = {};
 
-        // ข้อมูลรูปแบบประกัน (JSON Schema)
         const MOCK_PLANS_JSON = {
             "plan_10CX": {
                 "id": "10CX", "shortName": "Convertable Term", "payYearsLabel": "ชำระ 10 ปี", "name": "Convertable Term", "subName": "จองสิทธิ เปลี่ยนแบบประกันได้",
@@ -517,7 +539,7 @@
         let lastCalculationData = null;
 
         // ==========================================
-        // Utility Functions สำหรับจัดการ DOM อย่างปลอดภัย
+        // Utility Functions 
         // ==========================================
         function setTextSafe(id, text) {
             const el = document.getElementById(id);
@@ -533,21 +555,18 @@
         // 2. Logic & Engine Functions
         // ==========================================
 
-        // ฟังก์ชันดึงเรทเบี้ย (ดึงจาก Global ถ้ามี ไม่งั้นใช้ค่าจำลอง)
         function getPremiumRate(planId, gender, age) {
             if (GLOBAL_PREMIUM_RATES[planId] && GLOBAL_PREMIUM_RATES[planId][gender] && GLOBAL_PREMIUM_RATES[planId][gender][age]) {
                 return GLOBAL_PREMIUM_RATES[planId][gender][age];
             }
-            // จำลองค่าพื้นฐานหากยังไม่ได้ใส่ข้อมูล
             return gender === 'male' ? 35.5 : 30.2;
         }
 
-        // ฟังก์ชันดึงค่า CV (ดึงจาก Global ถ้ามี ไม่งั้นใช้ค่าจำลอง)
         function getCVRate(planId, gender, age, year) {
             if (GLOBAL_CV_LOOKUP[planId] && GLOBAL_CV_LOOKUP[planId][gender] && GLOBAL_CV_LOOKUP[planId][gender][age]) {
                 return GLOBAL_CV_LOOKUP[planId][gender][age][year] || 0;
             }
-            return null; // Return null เพื่อไปเข้าสูตรจำลอง
+            return null; 
         }
 
         function renderPlanSelector() {
@@ -571,11 +590,12 @@
                 }).join('');
             }
             
-            // อัพเดท Header Card ด้านบน
             setTextSafe('mainHeaderTitle', currentPlanData.shortName);
             setHtmlSafe('mainHeaderSub', `${currentPlanData.subName || 'แตะเพื่อเปลี่ยนแบบประกัน'} <i class="fas fa-chevron-down text-[10px] ml-1"></i>`);
+            setTextSafe('uiSelectedPlanBtn', currentPlanData.shortName);
+            setTextSafe('uiPayYears', `ชำระ: ${currentPlanData.payYears} ปี`);
+            setTextSafe('uiAgeRule', `อายุรับ: ${currentPlanData.conditions.minAge}-${currentPlanData.conditions.maxAge} ปี`);
             
-            // อัพเดทเมนูเงื่อนไข (Modal)
             const ul = document.getElementById('modalConditionsList');
             if (ul && currentPlanData.conditions.rules) {
                 ul.innerHTML = currentPlanData.conditions.rules.map(rule => `<div class="bg-blue-50 p-3 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>${rule}</div>`).join('');
@@ -629,12 +649,12 @@
                 sum = parseFloat(elSum ? elSum.value.replace(/,/g, '') : 0) || 0;
                 premium = (sum / 1000) * rate;
                 if(elPremium) elPremium.value = Math.round(premium).toLocaleString();
-                if(elSum) elSum.value = sum.toLocaleString();
+                if(elSum) elSum.value = sum.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
             } else {
                 premium = parseFloat(elPremium ? elPremium.value.replace(/,/g, '') : 0) || 0;
                 sum = (premium / rate) * 1000;
                 if(elSum) elSum.value = Math.round(sum).toLocaleString();
-                if(elPremium) elPremium.value = premium.toLocaleString();
+                if(elPremium) elPremium.value = premium.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
             }
 
             renderMockTable(premium, sum);
@@ -651,12 +671,11 @@
             const premiumStr = elPremium ? elPremium.value : '0';
             const age = parseInt(elAge ? elAge.value : 0) || 0;
 
-            setTextSafe('modalPlanName', currentPlanData.name);
             setTextSafe('modalGender', currentGender === 'male' ? 'ชาย' : 'หญิง');
             setTextSafe('modalAge', age + ' ปี');
             setTextSafe('modalYears', currentPlanData.payYears + ' ปี');
             setTextSafe('modalPremium', premiumStr + ' บาท');
-            setTextSafe('modalSum', sum.toLocaleString() + ' บาท');
+            setTextSafe('modalSum', sum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' บาท');
 
             const container = document.getElementById('modalDynamicPayouts');
             if (container) {
@@ -689,7 +708,7 @@
                         <span class="text-[11px] font-bold uppercase tracking-wider ${titleClass}">${p.title}</span>
                         <div class="flex justify-between items-end mt-1">
                             <span class="text-[11px] font-bold ${titleClass}">${p.labelLeft}</span>
-                            <span class="text-base font-bold ${textClass} whitespace-nowrap">${Math.round(amount).toLocaleString()} บาท</span>
+                            <span class="text-base font-bold ${textClass} whitespace-nowrap">${amount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} บาท</span>
                         </div>
                         ${linksHtml}
                     </div>`;
@@ -720,7 +739,7 @@
                     <span class="text-[11px] font-bold uppercase tracking-wider text-[#4338ca]">${m.title}</span>
                     <div class="flex justify-between items-end mt-1">
                         <span class="text-[11px] font-bold text-[#4338ca]">จ่าย</span>
-                        <span class="text-base font-bold text-[#5b21b6] whitespace-nowrap">${Math.round(mAmount).toLocaleString()} บาท</span>
+                        <span class="text-base font-bold text-[#5b21b6] whitespace-nowrap">${mAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} บาท</span>
                     </div>
                     ${mLinks}
                 </div>`;
@@ -908,14 +927,16 @@
             
             const iconContainer = document.getElementById('voiceIconContainer');
             const voiceTitle = document.getElementById('voiceTitle');
+            const voiceNavBtn = document.getElementById('voiceNavBtn');
             
             recognition.onstart = function() {
                 isListening = true;
-                if(iconContainer) iconContainer.classList.add('listening');
+                if(iconContainer) iconContainer.classList.add('listening', 'bg-red-100');
                 if(voiceTitle) {
                     voiceTitle.innerText = "กำลังฟัง...";
                     voiceTitle.classList.add('text-red-500');
                 }
+                if(voiceNavBtn) voiceNavBtn.classList.add('text-red-500');
             };
             recognition.onresult = function(event) { processVoiceCommand(event.results[0][0].transcript); };
             recognition.onerror = function() { stopVoiceRecognition(); }; 
@@ -926,12 +947,14 @@
             isListening = false; if (recognition) recognition.stop();
             const iconContainer = document.getElementById('voiceIconContainer');
             const voiceTitle = document.getElementById('voiceTitle');
+            const voiceNavBtn = document.getElementById('voiceNavBtn');
             
-            if(iconContainer) iconContainer.classList.remove('listening');
+            if(iconContainer) iconContainer.classList.remove('listening', 'bg-red-100');
             if(voiceTitle) {
-                voiceTitle.innerText = "แตะเพื่อสั่งงานด้วยเสียง";
+                voiceTitle.innerText = "คำสั่งเสียง";
                 voiceTitle.classList.remove('text-red-500');
             }
+            if(voiceNavBtn) voiceNavBtn.classList.remove('text-red-500');
         }
 
         function processVoiceCommand(text) {
