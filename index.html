@@ -65,17 +65,6 @@
         /* UI Elements Styles */
         .header-card { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 12px 20px; text-align: center; flex-shrink: 0; cursor: pointer; transition: opacity 0.2s; }
         .header-card:active { opacity: 0.9; }
-        .header-card h1 { font-weight: 800; letter-spacing: 0.02em; font-size: 1.25rem; }
-
-        .input-box { background-color: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 16px; text-align: center; font-weight: 700; color: #0f172a; outline: none; transition: all 0.2s; width: 100%; }
-        .input-box:focus { border-color: #1e3a8a; background-color: white; box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1); }
-        
-        .gender-btn { border: 1.5px solid #e2e8f0; background-color: #ffffff; border-radius: 14px; font-weight: 700; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
-        .gender-btn.active { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
-        .gender-btn.active-pink { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
-        
-        .quick-sum-btn { font-size: 11px; font-weight: 700; padding: 6px 4px; border-radius: 9999px; background-color: #ffffff; color: #1e3a8a; border: 1px solid #e0e7ff; transition: all 0.2s; cursor: pointer; flex-shrink: 0; }
-        .quick-sum-btn:active { transform: scale(0.95); background-color: #eff6ff; }
 
         .clickable-row { transition: all 0.2s; }
         .clickable-row:active { transform: scale(0.98); opacity: 0.8; }
@@ -118,6 +107,11 @@
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+
+        /* Input specific classes to match design AND fit screen */
+        .glass-input-card { background: #ffffff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 10px 14px; box-shadow: 0 2px 12px -4px rgba(0, 0, 0, 0.04); }
+        .input-display { width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; text-align: center; font-weight: 800; color: #0f172a; outline: none; transition: all 0.2s; }
+        .input-display:focus { border-color: #1e3a8a; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.08); }
     </style>
 </head>
 <body>
@@ -128,98 +122,102 @@
 <div class="app-wrapper">
 
     <!-- Header Card -->
-    <header class="header-card shadow-sm z-40 rounded-b-[24px] py-3 flex flex-col items-center justify-center shrink-0" onclick="openPopup('planSelectorModal')">
-        <h1 id="mainHeaderTitle" class="text-[1.25rem] leading-tight">CI Extra Plus</h1>
-        <p id="mainHeaderSub" class="text-[10px] opacity-90 mt-0.5 font-medium">แตะเพื่อเปลี่ยนแบบประกัน <i class="fas fa-chevron-down text-[9px] ml-0.5"></i></p>
+    <header class="header-card shadow-sm z-40 rounded-b-[24px] py-2 flex flex-col items-center justify-center shrink-0" onclick="openPopup('planSelectorModal')">
+        <h1 id="mainHeaderTitle" class="text-[1.2rem] leading-tight font-black">Convertable Term</h1>
+        <p id="mainHeaderSub" class="text-[10px] opacity-90 mt-0 font-medium tracking-wide">จองสิทธิ เปลี่ยนแบบประกันได้ <i class="fas fa-chevron-down text-[8px] ml-0.5"></i></p>
     </header>
 
     <!-- เงื่อนไขการรับประกัน -->
-    <div class="w-full bg-blue-50 border-b border-blue-100 py-1.5 px-2 cursor-pointer hover:bg-blue-100 transition-colors text-center active:bg-blue-200 z-30 shrink-0" onclick="openPopup('insuranceConditionsModal')">
-        <h2 class="text-[11px] font-bold text-blue-900 uppercase tracking-wider flex justify-center items-center gap-2">
-            <i class="fas fa-info-circle text-blue-600"></i>
+    <div class="w-full bg-[#f0f7ff] border-b border-blue-100 py-1.5 px-2 cursor-pointer hover:bg-blue-100 transition-colors text-center active:bg-blue-200 z-30 shrink-0" onclick="openPopup('insuranceConditionsModal')">
+        <h2 class="text-[11px] font-bold text-[#1e40af] uppercase tracking-wide flex justify-center items-center gap-2">
+            <i class="fas fa-info-circle text-[#2563eb]"></i>
             <span>เงื่อนไขการรับประกัน</span>
         </h2>
     </div>
 
     <!-- Main Content Area -->
-    <main class="flex-1 w-full overflow-hidden bg-slate-50 flex flex-col relative">
-        <div class="px-4 pt-4 pb-6 flex flex-col h-full overflow-y-auto no-scrollbar w-full">
+    <main class="flex-1 w-full overflow-y-auto no-scrollbar bg-[#f4f7fb] flex flex-col relative">
+        <div class="px-3 pt-3 pb-2 flex flex-col h-full w-full justify-center">
         
             <!-- ==============================================
-                 VIEW 1: หน้ากรอกข้อมูล (Input View)
+                 VIEW 1: หน้ากรอกข้อมูล (Input View) 
                  ============================================== -->
             <section id="view-input" class="app-view block-view active">
-                <div class="flex flex-col gap-4 w-full pb-2">
+                <div class="flex flex-col gap-2 w-full">
                     
-                    <!-- เพศ และ อายุ -->
-                    <div class="grid grid-cols-2 gap-3 text-center shrink-0">
-                        <div class="flex flex-col gap-1.5">
-                            <p class="text-[#64748b] text-[11px] font-bold uppercase tracking-wide">เพศ</p>
-                            <div class="flex gap-2 h-[46px]">
-                                <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-btn active text-sm">ชาย</button>
-                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-btn text-sm">หญิง</button>
+                    <!-- 1. เพศ และ อายุ -->
+                    <div class="grid grid-cols-2 gap-2 shrink-0">
+                        <!-- เพศ -->
+                        <div class="glass-input-card flex flex-col justify-center">
+                            <p class="text-[#64748b] text-[10px] font-bold uppercase tracking-wider text-center mb-1.5">เพศ</p>
+                            <div class="flex gap-1.5 h-[34px]">
+                                <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[10px] border-2 border-[#10b981] bg-[#ecfdf5] text-[#065f46] font-bold text-[12px] transition-all">ชาย</button>
+                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[10px] border-[1.5px] border-slate-200 bg-white text-slate-400 font-bold text-[12px] transition-all">หญิง</button>
                             </div>
                         </div>
-                        <div class="flex flex-col gap-1.5">
-                            <p class="text-[#64748b] text-[11px] font-bold uppercase tracking-wide">อายุ (ปี)</p>
-                            <input type="number" id="inputAge" value="30" min="0" max="80" class="input-box h-[46px] !py-0 text-xl font-black bg-white" oninput="runCalculation('premium')">
+                        <!-- อายุ -->
+                        <div class="glass-input-card flex flex-col justify-center">
+                            <p class="text-[#64748b] text-[10px] font-bold uppercase tracking-wider text-center mb-1.5">อายุ (ปี)</p>
+                            <input type="number" id="inputAge" value="30" min="0" max="80" class="input-display h-[34px] text-lg bg-[#f8fafc]" oninput="runCalculation('premium')">
                         </div>
                     </div>
 
-                    <!-- ทุนประกัน -->
-                    <div class="flex flex-col gap-1.5 w-full shrink-0">
-                        <p class="text-[#64748b] text-[11px] font-bold uppercase text-center tracking-wide">ทุนประกัน (บาท)</p>
-                        <div class="flex gap-1.5 w-full">
-                            <button onclick="setSum(100000)" class="quick-sum-btn flex-1 !px-0 text-center">1 แสน</button>
-                            <button onclick="setSum(500000)" class="quick-sum-btn flex-1 !px-0 text-center">5 แสน</button>
-                            <button onclick="setSum(1000000)" class="quick-sum-btn flex-1 !px-0 text-center">1 ล้าน</button>
-                            <button onclick="setSum(3000000)" class="quick-sum-btn flex-1 !px-0 text-center">3 ล้าน</button>
-                            <button onclick="setSum(10000000)" class="quick-sum-btn flex-1 !px-0 text-center">10 ล้าน</button>
+                    <!-- 2. ทุนประกัน -->
+                    <div class="glass-input-card flex flex-col gap-1.5 shrink-0">
+                        <p class="text-[#64748b] text-[10px] font-bold uppercase tracking-wider text-center">ทุนประกัน (บาท)</p>
+                        <div class="flex gap-1 w-full">
+                            <button onclick="setSum(100000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">1 แสน</button>
+                            <button onclick="setSum(500000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">5 แสน</button>
+                            <button onclick="setSum(1000000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">1 ล้าน</button>
+                            <button onclick="setSum(3000000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">3 ล้าน</button>
+                            <button onclick="setSum(10000000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">10 ล้าน</button>
                         </div>
-                        <input type="text" id="inputSum" value="1,000,000" class="input-box w-full py-3.5 text-2xl font-black bg-white shadow-sm mt-1" oninput="runCalculation('sum')">
+                        <input type="text" id="inputSum" value="1,000,000" class="input-display py-1.5 text-[20px] shadow-inner" oninput="runCalculation('sum')">
                     </div>
 
-                    <!-- ออมเงิน / เบี้ยประกัน -->
-                    <div class="flex flex-col gap-1.5 w-full shrink-0">
-                        <p class="text-[#64748b] text-[11px] font-bold uppercase text-center tracking-wide">ออมเงิน (บาท)</p>
-                        <div class="flex gap-1.5 w-full">
-                            <button onclick="setPremium(12000)" class="quick-sum-btn flex-1 !px-0 text-center">12,000</button>
-                            <button onclick="setPremium(24000)" class="quick-sum-btn flex-1 !px-0 text-center">24,000</button>
-                            <button onclick="setPremium(36000)" class="quick-sum-btn flex-1 !px-0 text-center">36,000</button>
-                            <button onclick="setPremium(48000)" class="quick-sum-btn flex-1 !px-0 text-center">48,000</button>
-                            <button onclick="setPremium(60000)" class="quick-sum-btn flex-1 !px-0 text-center">60,000</button>
+                    <!-- 3. ออมเงิน / เบี้ยประกัน -->
+                    <div class="glass-input-card flex flex-col gap-1.5 shrink-0">
+                        <p class="text-[#64748b] text-[10px] font-bold uppercase tracking-wider text-center">ออมเงิน (บาท)</p>
+                        <div class="flex gap-1 w-full">
+                            <button onclick="setPremium(12000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">12k</button>
+                            <button onclick="setPremium(24000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">24k</button>
+                            <button onclick="setPremium(36000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">36k</button>
+                            <button onclick="setPremium(48000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">48k</button>
+                            <button onclick="setPremium(60000)" class="flex-1 bg-[#f0f4f8] hover:bg-blue-50 text-[#3b82f6] border border-blue-100 rounded-full py-1 text-[10px] font-bold transition-colors">60k</button>
                         </div>
-                        <input type="text" id="inputPremium" value="0" class="input-box w-full py-3.5 text-2xl font-black bg-white shadow-sm mt-1" oninput="runCalculation('premium')">
+                        <input type="text" id="inputPremium" value="0" class="input-display py-1.5 text-[20px] shadow-inner" oninput="runCalculation('premium')">
                     </div>
 
-                    <!-- Action Buttons Group -->
-                    <div class="flex flex-col gap-2.5 mt-3 shrink-0">
+                    <!-- 4. Action Buttons Group -->
+                    <div class="flex flex-col gap-1.5 mt-0 shrink-0">
+                        
                         <!-- แถว 1: รายละเอียด & แชร์ -->
                         <div class="flex gap-2">
-                            <button onclick="showResultModal()" class="flex-1 bg-[#1e3a8a] text-white rounded-2xl py-3.5 font-bold shadow-md shadow-blue-900/20 active:scale-95 transition-all text-[15px] flex items-center justify-center gap-2">
-                                <i class="fas fa-file-invoice text-lg"></i> <span>รายละเอียด</span>
+                            <button onclick="showResultModal()" class="flex-[2] bg-[#243c8c] text-white rounded-[14px] py-2.5 font-bold shadow-md shadow-blue-900/20 active:scale-95 transition-all text-[14px] flex items-center justify-center gap-2">
+                                <i class="fas fa-file-invoice text-lg opacity-90"></i> <span class="tracking-wide">รายละเอียด</span>
                             </button>
-                            <button onclick="openPopup('mainShareModal')" class="bg-[#10b981] text-white rounded-2xl px-6 font-bold shadow-md shadow-emerald-500/20 active:scale-95 transition-all text-[15px] flex items-center justify-center gap-2">
-                                <i class="fas fa-share-nodes text-lg"></i> <span>แชร์</span>
+                            <button onclick="openPopup('mainShareModal')" class="flex-[1] bg-[#28b473] text-white rounded-[14px] px-3 font-bold shadow-md shadow-emerald-500/20 active:scale-95 transition-all text-[14px] flex items-center justify-center gap-1.5">
+                                <i class="fas fa-share-nodes text-lg opacity-90"></i> <span>แชร์</span>
                             </button>
                         </div>
 
                         <!-- แถว 2: ตัวเลือกชำระ & บัญชีโอนเงิน -->
                         <div class="grid grid-cols-2 gap-2">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 py-3 rounded-2xl text-[13px] font-bold text-[#1e3a8a] flex items-center justify-center gap-2 active:bg-slate-50 transition-colors shadow-sm">
-                                <i class="fas fa-credit-card text-[16px]"></i> <span>ตัวเลือกชำระ</span>
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 py-2 rounded-[14px] text-[12px] font-bold text-[#243c8c] flex items-center justify-center gap-2 active:bg-slate-50 transition-colors shadow-sm">
+                                <i class="fas fa-credit-card text-[14px]"></i> <span>ตัวเลือกชำระ</span>
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] py-3 rounded-2xl text-[13px] font-bold text-[#065f46] flex items-center justify-center gap-2 active:bg-[#d1fae5] transition-colors shadow-sm">
-                                <i class="fas fa-money-bill-transfer text-[16px] text-[#10b981]"></i> <span>บัญชีโอนเงิน</span>
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] py-2 rounded-[14px] text-[12px] font-bold text-[#065f46] flex items-center justify-center gap-2 active:bg-[#d1fae5] transition-colors shadow-sm">
+                                <i class="fas fa-money-bill-transfer text-[14px] text-[#10b981]"></i> <span>บัญชีโอนเงิน</span>
                             </button>
                         </div>
 
                         <!-- แถว 3: E-Sub & QNI -->
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 py-3.5 rounded-2xl text-[14px] font-extrabold text-[#701a75] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm">
-                            <i class="fas fa-laptop-code text-purple-600 text-lg"></i>
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 py-2.5 rounded-[14px] text-[13px] font-extrabold text-[#701a75] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm">
+                            <i class="fas fa-laptop-code text-purple-600 text-[15px]"></i>
                             <span class="tracking-wide">E-Submission & QNI</span>
-                            <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
+                            <i class="fas fa-chevron-right text-[9px] ml-1 opacity-50"></i>
                         </button>
+
                     </div>
                 </div>
             </section>
@@ -273,8 +271,8 @@
             <!-- ==============================================
                  VIEW 3: ระบบ CASH (CASH View)
                  ============================================== -->
-            <section id="view-cash" class="app-view block-view w-full">
-                <div class="flex flex-col gap-3 w-full pb-4">
+            <section id="view-cash" class="app-view block-view w-full h-full overflow-hidden">
+                <div class="flex flex-col gap-3 w-full h-full pb-2">
                     
                     <div class="cash-main-btn h-[90px] shrink-0 cursor-default bg-white border-slate-200 shadow-sm rounded-2xl flex flex-col justify-center items-center py-4">
                         <div class="flex items-center justify-center gap-4">
@@ -284,20 +282,20 @@
                         <span class="text-[13px] font-bold tracking-widest mt-1 text-blue-900 text-center">CHUBB Agency Success Howto</span>
                     </div>
 
-                    <div class="flex flex-col gap-3 w-full">
-                        <button onclick="openPopup('caseIncomeModal')" class="sub-menu-btn hover:bg-emerald-50 border-emerald-200">
+                    <div class="flex flex-col gap-2.5 w-full flex-1 overflow-y-auto no-scrollbar">
+                        <button onclick="openPopup('caseIncomeModal')" class="sub-menu-btn flex-1 hover:bg-emerald-50 border-emerald-200 min-h-[50px]">
                             <div class="flex items-center gap-3"><i class="fas fa-wallet text-emerald-600 w-5 text-[18px]"></i><span class="text-emerald-800">รายได้จากเคสนี้</span></div><i class="fas fa-external-link-alt text-[10px] text-emerald-400"></i>
                         </button>
-                        <button onclick="openPopup('comModal')" class="sub-menu-btn hover:bg-amber-50 border-amber-200">
+                        <button onclick="openPopup('comModal')" class="sub-menu-btn flex-1 hover:bg-amber-50 border-amber-200 min-h-[50px]">
                             <div class="flex items-center gap-3"><i class="fas fa-hand-holding-usd text-amber-600 w-5 text-[18px]"></i><span class="text-amber-800">รายได้ที่ได้รับ (คอมมิชชัน)</span></div><i class="fas fa-external-link-alt text-[10px] text-amber-400"></i>
                         </button>
-                        <button onclick="openPopup('mbModal')" class="sub-menu-btn hover:bg-blue-50 border-blue-200">
+                        <button onclick="openPopup('mbModal')" class="sub-menu-btn flex-1 hover:bg-blue-50 border-blue-200 min-h-[50px]">
                             <div class="flex items-center gap-3"><i class="fas fa-gift text-blue-600 w-5 text-[18px]"></i><span class="text-blue-800">โบนัสรายเดือน (MB)</span></div><i class="fas fa-external-link-alt text-[10px] text-blue-400"></i>
                         </button>
-                        <button onclick="openPopup('mybModal')" class="sub-menu-btn hover:bg-violet-50 border-violet-200">
+                        <button onclick="openPopup('mybModal')" class="sub-menu-btn flex-1 hover:bg-violet-50 border-violet-200 min-h-[50px]">
                             <div class="flex items-center gap-3"><i class="fas fa-calendar-check text-violet-600 w-5 text-[18px]"></i><span class="text-violet-800">โบนัสครึ่งปี (MYB)</span></div><i class="fas fa-external-link-alt text-[10px] text-violet-400"></i>
                         </button>
-                        <button onclick="openPopup('nabModal')" class="sub-menu-btn hover:bg-cyan-50 border-cyan-200">
+                        <button onclick="openPopup('nabModal')" class="sub-menu-btn flex-1 hover:bg-cyan-50 border-cyan-200 min-h-[50px]">
                             <div class="flex items-center gap-3"><i class="fas fa-star text-cyan-600 w-5 text-[18px]"></i><span class="text-cyan-800">โบนัสตัวแทนใหม่ (NAB)</span></div><i class="fas fa-external-link-alt text-[10px] text-cyan-400"></i>
                         </button>
                     </div>
@@ -366,7 +364,7 @@
     <div id="insuranceConditionsModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden" onclick="closePopup('insuranceConditionsModal')">
         <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
-                <h3 class="text-lg font-bold text-blue-900"><i class="fas fa-info-circle mr-2 text-blue-600"></i> เงื่อนไขการรับประกัน</h3>
+                <h3 class="text-lg font-bold text-[#1e40af]"><i class="fas fa-info-circle mr-2 text-[#2563eb]"></i> เงื่อนไขการรับประกัน</h3>
                 <button onclick="closePopup('insuranceConditionsModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50">&times;</button>
             </div>
             <div class="text-left space-y-3 text-sm text-slate-700 font-medium" id="modalConditionsList">
@@ -598,6 +596,178 @@
         </div>
     </div>
 
+    <!-- ==================== MODALS ของระบบ CASH ==================== -->
+
+    <!-- 1. Modal รายได้จากเคสนี้ -->
+    <div id="caseIncomeModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden" onclick="closePopup('caseIncomeModal')">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-emerald-900"><i class="fas fa-wallet mr-2 text-emerald-600"></i> รายได้จากเคสนี้</h3>
+                <button onclick="closePopup('caseIncomeModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 pb-2">
+                <div class="info-card border-emerald-200 bg-emerald-50/50 mb-0">
+                    <div class="space-y-1">
+                        <div class="income-row"><div class="income-label"><i class="fas fa-coins text-emerald-600"></i><span class="text-emerald-900">คอมมิชชันปีที่ 1</span></div><span id="caseIncomeComm" class="income-value text-emerald-700">0 บาท</span></div>
+                        <div class="income-row py-2">
+                            <div class="flex flex-col gap-1 text-left">
+                                <div class="income-label"><i class="fas fa-calendar-alt text-blue-500"></i><span class="text-emerald-900">โบนัสรายเดือน (MB)</span></div>
+                                <div id="caseIncomeBonusCalc" class="text-[10px] text-blue-500 font-bold ml-9 opacity-80"></div>
+                            </div>
+                            <span id="caseIncomeBonus" class="income-value text-blue-600">0 บาท</span>
+                        </div>
+                        <div class="income-row py-2 border-none">
+                            <div class="flex flex-col gap-1 text-left">
+                                <div class="income-label"><i class="fas fa-award text-violet-500"></i><span class="text-emerald-900">โบนัสครึ่งปี (MYB)</span></div>
+                                <div id="caseIncomeMYBonusCalc" class="text-[10px] text-violet-500 font-bold ml-9 opacity-80"></div>
+                            </div>
+                            <span id="caseIncomeMYBonus" class="income-value text-violet-600">0 บาท</span>
+                        </div>
+                        <div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-5 rounded-2xl flex justify-between items-center mt-3 shadow-md">
+                            <span class="text-xs font-bold text-white uppercase tracking-widest">รายได้สุทธิ <span id="caseIncomePercent" class="font-normal opacity-90"></span></span>
+                            <span id="caseIncomeTotal" class="text-[20px] font-black text-white whitespace-nowrap">0 บาท</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal คอมมิชชัน -->
+    <div id="comModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden" onclick="closePopup('comModal')">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-amber-900"><i class="fas fa-hand-holding-usd mr-2 text-amber-600"></i> รายได้ที่ได้รับ (คอมมิชชัน)</h3>
+                <button onclick="closePopup('comModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 pb-2">
+                <div class="info-card border-amber-200 bg-amber-50/50 mb-0" id="comList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Modal โบนัสรายเดือน (MB) -->
+    <div id="mbModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden" onclick="closePopup('mbModal')">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-blue-900"><i class="fas fa-gift mr-2 text-blue-600"></i> โบนัสรายเดือน (MB)</h3>
+                <button onclick="closePopup('mbModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-2 text-left">
+                <p class="text-[12px] font-bold text-blue-900 uppercase mb-3 text-center tracking-wide">ระบุยอดสะสมเดิมในเดือนนี้ (บาท)</p>
+                <input type="text" id="existingFYCInput" value="0" class="input-box border-blue-200 bg-white text-sm py-3 mb-4" oninput="handleMBInput(this)">
+                <table class="tier-table mb-table" id="bonusTable">
+                    <tbody>
+                        <tr id="mb-tier1"><td>8,000 - 16,000</td><td>20%</td></tr>
+                        <tr id="mb-tier2"><td>16,001 - 32,000</td><td>25%</td></tr>
+                        <tr id="mb-tier3"><td>32,001 - 64,000</td><td>30%</td></tr>
+                        <tr id="mb-tier4"><td>64,001 ขึ้นไป</td><td>35%</td></tr>
+                    </tbody>
+                </table>
+                <div class="bg-blue-50 border border-blue-100 p-4 rounded-2xl mt-4 shadow-sm text-[12px] space-y-0.5">
+                    <div class="flex justify-between items-center py-1.5 border-b border-blue-200/50 text-slate-600">
+                        <span>FYC เคสปัจจุบัน</span><span id="mbCaseFYCDisplay" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-blue-200/50 text-slate-600">
+                        <span>FYC สะสมเดิม</span><span id="mbExistingFYCDisplay" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-blue-200 text-blue-800 font-bold">
+                        <span>FYC รวม</span><span id="mbTotalFYCDisplay" class="text-[13px]">0</span>
+                    </div>
+                    <div class="pt-2 flex flex-col mt-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-900 text-[13px]">โบนัสที่ได้รับ</span>
+                            <span id="mbCalculatedBonus" class="text-lg font-black text-blue-600 whitespace-nowrap">0 บาท</span>
+                        </div>
+                        <div id="mbBonusCalcMethod" class="text-[10px] text-blue-500 font-bold text-right mt-0.5"></div>
+                    </div>
+                </div>
+                <div id="mbAdvice" class="advice-box shadow-sm mt-4"><i class="fas fa-lightbulb text-amber-500"></i><span id="mbAdviceText">กำลังประมวลผลคำแนะนำ...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Modal โบนัสครึ่งปี (MYB) -->
+    <div id="mybModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden" onclick="closePopup('mybModal')">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-violet-900"><i class="fas fa-calendar-check mr-2 text-violet-600"></i> โบนัสครึ่งปี (MYB)</h3>
+                <button onclick="closePopup('mybModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-2 text-left">
+                <p class="text-[12px] font-bold text-violet-900 uppercase mb-3 text-center tracking-wide">ระบุยอดสะสมเดือนก่อนหน้า (บาท)</p>
+                <input type="text" id="existingHalfYearFYCInput" value="0" class="input-box border-violet-200 bg-white text-sm py-3 mb-4" oninput="handleMYBInput(this)">
+                <table class="tier-table myb-table" id="mybTable">
+                    <tbody>
+                        <tr id="myb-tier1"><td>40,000 - 60,000</td><td>17.5%</td></tr>
+                        <tr id="myb-tier2"><td>60,001 - 100,000</td><td>20.0%</td></tr>
+                        <tr id="myb-tier3"><td>100,001 - 150,000</td><td>22.5%</td></tr>
+                        <tr id="myb-tier4"><td>150,001 - 200,000</td><td>25.0%</td></tr>
+                        <tr id="myb-tier5"><td>200,001 - 250,000</td><td>27.5%</td></tr>
+                        <tr id="myb-tier6"><td>250,001 - 300,000</td><td>30.0%</td></tr>
+                        <tr id="myb-tier7"><td>300,001 - 400,000</td><td>32.5%</td></tr>
+                        <tr id="myb-tier8"><td>400,001 ขึ้นไป</td><td>35.0%</td></tr>
+                    </tbody>
+                </table>
+                <div class="bg-violet-50 border border-violet-100 p-4 rounded-2xl mt-4 shadow-sm text-[12px] space-y-0.5">
+                    <div class="flex justify-between items-center py-1.5 border-b border-violet-200/50 text-slate-600">
+                        <span>FYC เคสปัจจุบัน</span><span id="mybCaseFYCDisplay" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-violet-200/50 text-slate-600">
+                        <span>FYC สะสมเดิม</span><span id="mybMBFYCDisplay" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-violet-200 text-violet-800 font-bold">
+                        <span>FYC รวมครึ่งปี</span><span id="mybTotalFYCDisplay" class="text-[13px]">0</span>
+                    </div>
+                    <div class="pt-2 flex flex-col mt-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-violet-900 text-[13px]">โบนัสที่ได้รับ</span>
+                            <span id="mybCalculatedBonus" class="text-lg font-black text-violet-600 whitespace-nowrap">0 บาท</span>
+                        </div>
+                        <div id="mybBonusCalcMethod" class="text-[10px] text-violet-500 font-bold text-right mt-0.5"></div>
+                    </div>
+                </div>
+                <div id="mybAdvice" class="advice-box shadow-sm mt-4"><i class="fas fa-chart-line text-violet-500"></i><span id="mybAdviceText">กำลังประมวลผลคำแนะนำ...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Modal โบนัสตัวแทนใหม่ (NAB) -->
+    <div id="nabModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden" onclick="closePopup('nabModal')">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-cyan-900"><i class="fas fa-star mr-2 text-cyan-600"></i> โบนัสตัวแทนใหม่ (NAB)</h3>
+                <button onclick="closePopup('nabModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-2 text-left">
+                <select id="nabPhaseSelect" class="input-box text-sm py-2.5 mb-4 bg-white border-cyan-200 text-cyan-900" onchange="updateNABDisplay()">
+                    <option value="p1">เดือนที่ 1 - เดือนที่ 3</option>
+                    <option value="p2">เดือนที่ 4 - เดือนที่ 6</option>
+                </select>
+                <p class="text-[12px] font-bold text-cyan-900 uppercase mb-3 text-center tracking-wide">จำนวนรายสะสมเดิม (ราย)</p>
+                <input type="number" id="existingNABCases" value="0" class="input-box text-sm py-3 mb-4 bg-white border-cyan-200" oninput="updateNABDisplay()">
+                
+                <table class="tier-table mb-4" id="nabTierTable"><tbody id="nabTierBody"></tbody></table>
+                <div class="bg-cyan-50 border border-cyan-100 p-4 rounded-2xl mt-4 shadow-sm text-[12px] space-y-0.5">
+                    <div class="flex justify-between items-center py-1.5 border-b border-cyan-200/50 text-slate-600">
+                        <span>FYC เคสปัจจุบัน</span><span id="nabCaseFYCDisplay" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-cyan-200/50 text-slate-600">
+                        <span>FYC สะสม</span><span id="nabMBMYBFYCDisplay" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-cyan-200 text-cyan-800 font-bold">
+                        <span>FYC รวม</span><span id="nabTotalFYCDisplay" class="text-[13px]">0</span>
+                    </div>
+                    <div class="pt-4 pb-1 flex flex-col items-center text-center">
+                        <p class="text-[10px] font-bold text-cyan-800 uppercase tracking-widest mb-1">โบนัสพิเศษ (NAB)</p>
+                        <p id="nabCalculatedBonus" class="text-2xl font-black text-cyan-600 whitespace-nowrap">0 บาท</p>
+                    </div>
+                </div>
+                <div id="nabAdvice" class="advice-box shadow-sm mt-4 text-sm font-medium"><i class="fas fa-lightbulb text-cyan-500 text-lg"></i><span id="nabAdviceText" class="flex-1">กำลังประมวลผลคำแนะนำ...</span></div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         // ==========================================
@@ -753,10 +923,17 @@
         function setGender(gender) {
             currentGender = gender;
             const btnMale = document.getElementById('btnMale');
-            if(btnMale) btnMale.className = `flex-1 gender-btn text-sm ${gender === 'male' ? 'active' : ''}`;
-            
             const btnFemale = document.getElementById('btnFemale');
-            if(btnFemale) btnFemale.className = `flex-1 gender-btn text-sm ${gender === 'female' ? 'active-pink' : ''}`;
+            
+            // Reset state
+            btnMale.className = "flex-1 rounded-[10px] border-[1.5px] border-slate-200 bg-white text-slate-400 font-bold text-[12px] transition-all";
+            btnFemale.className = "flex-1 rounded-[10px] border-[1.5px] border-slate-200 bg-white text-slate-400 font-bold text-[12px] transition-all";
+
+            if (gender === 'male') {
+                btnMale.className = "flex-1 rounded-[10px] border-2 border-[#10b981] bg-[#ecfdf5] text-[#065f46] font-bold text-[12px] transition-all";
+            } else {
+                btnFemale.className = "flex-1 rounded-[10px] border-2 border-pink-500 bg-pink-50 text-pink-700 font-bold text-[12px] transition-all";
+            }
             
             runCalculation(currentMode);
         }
@@ -1045,6 +1222,23 @@
                 if(iconBg) iconBg.className = "w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4";
             }
             openPopup('pdfOptionsModal');
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const uploadedJSON = JSON.parse(e.target.result);
+                    if(!uploadedJSON.id || !uploadedJSON.rates) throw new Error("รูปแบบ JSON ไม่ถูกต้อง");
+                    const newKey = "plan_" + uploadedJSON.id;
+                    MOCK_PLANS_JSON[newKey] = uploadedJSON;
+                    switchPlan(newKey);
+                    showToast("อัพโหลดรูปแบบประกันใหม่สำเร็จ!", "success");
+                } catch (err) { showToast("เกิดข้อผิดพลาดในการอ่านไฟล์ JSON", "error"); }
+            };
+            reader.readAsText(file);
         }
 
         // ==========================================
