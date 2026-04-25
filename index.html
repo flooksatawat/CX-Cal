@@ -29,7 +29,7 @@
             background-color: #f8fafc;
             width: 100%;
             max-width: 440px;
-            max-height: 100dvh; /* ปรับให้พอดีกับเนื้อหา */
+            height: 100dvh; /* บังคับความสูงเต็มจอแบบคงที่เสมอ */
             display: flex;
             flex-direction: column;
             position: relative;
@@ -38,7 +38,7 @@
         
         @media (min-width: 480px) {
             .app-wrapper {
-                max-height: 92vh; /* ปรับให้พอดีกับเนื้อหา */
+                height: 92vh; /* บังคับความสูงคงที่ในหน้าจอคอม */
                 border-radius: 40px;
                 border: 8px solid #ffffff;
                 overflow: hidden;
@@ -70,7 +70,7 @@
         .input-box { background-color: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 16px; text-align: center; font-weight: 700; color: #0f172a; outline: none; transition: all 0.2s; width: 100%; }
         .input-box:focus { border-color: #1e3a8a; background-color: white; box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1); }
         
-        .gender-btn { border: 2px solid #e2e8f0; background-color: white; border-radius: 16px; font-weight: 700; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+        .gender-btn { border: 2px solid #e2e8f0; background-color: white; border-radius: 12px; font-weight: 700; color: #64748b; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
         .gender-btn.active { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-btn.active-pink { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         
@@ -96,9 +96,8 @@
         /* CASH System Styles */
         .cash-main-btn { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%); color: #0f172a; border: 1px solid #cbd5e1; flex-direction: column; padding: 18px; gap: 2px; box-shadow: 0 4px 10px rgba(148, 163, 184, 0.15); border-radius: 20px; width: 100%; display: flex; align-items: center; justify-content: center; }
         .cash-container { background-color: #ffffff; border-radius: 24px; border: 1px solid #cbd5e1; padding: 14px; margin-top: 10px; }
-        .sub-menu-btn { width: 100%; padding: 14px 20px; font-size: 0.9rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-radius: 16px; margin-bottom: 12px; border: 1.5px solid #e2e8f0; background-color: #ffffff; color: #64748b; cursor: pointer; transition: all 0.2s; }
+        .sub-menu-btn { width: 100%; padding: 14px 20px; font-size: 0.9rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-radius: 16px; border: 1.5px solid #e2e8f0; background-color: #ffffff; color: #64748b; cursor: pointer; transition: all 0.2s; }
         .sub-menu-btn:active { transform: scale(0.97); }
-        .sub-menu-btn:last-child { margin-bottom: 0; }
         
         .info-card { border-radius: 20px; padding: 18px; margin-bottom: 10px; border: 1px solid #e2e8f0; background: #f8fafc; }
         .income-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
@@ -130,7 +129,7 @@
 <div class="app-wrapper">
 
     <!-- Header Card -->
-    <header class="header-card shadow-sm z-40 rounded-b-[24px] py-2 flex flex-col items-center justify-center" onclick="openPopup('planSelectorModal')">
+    <header class="header-card shadow-sm z-40 rounded-b-[24px] py-2 flex flex-col items-center justify-center shrink-0" onclick="openPopup('planSelectorModal')">
         <h1 id="mainHeaderTitle" class="text-[1.2rem] leading-tight">CI Extra Plus</h1>
         <p id="mainHeaderSub" class="text-[10px] opacity-90 mt-0.5 font-medium">แตะเพื่อเปลี่ยนแบบประกัน <i class="fas fa-chevron-down text-[9px] ml-0.5"></i></p>
     </header>
@@ -144,68 +143,97 @@
     </div>
 
     <!-- Main Content Area -->
-    <main class="flex-1 w-full overflow-y-auto no-scrollbar bg-slate-50">
-        <div class="px-4 py-4 flex flex-col gap-2.5">
+    <main class="flex-1 w-full overflow-hidden bg-slate-50 flex flex-col">
+        <div class="px-4 py-3 flex flex-col flex-1 h-full overflow-hidden">
         
             <!-- ==============================================
                  VIEW 1: หน้ากรอกข้อมูล (Input View)
                  ============================================== -->
-            <section id="view-input" class="app-view block-view active">
-                
-                <!-- เพศ และ อายุ -->
-                <div class="grid grid-cols-2 gap-2 text-center mb-0">
-                    <div class="bg-white p-2.5 rounded-[16px] shadow-sm border border-slate-200">
-                        <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 tracking-wide">เพศ</p>
-                        <div class="flex gap-2 h-[38px]">
-                            <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-btn active">ชาย</button>
-                            <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-btn">หญิง</button>
+            <section id="view-input" class="app-view flex-view flex-col flex-1 h-full overflow-hidden active">
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex-1 flex flex-col p-3 pb-2.5 mb-1 overflow-y-auto no-scrollbar gap-1.5">
+                    
+                    <div class="flex justify-between items-center pb-2 border-b border-slate-100 shrink-0">
+                        <h3 class="text-[14px] font-bold text-blue-900"><i class="fas fa-pen-to-square mr-2 text-blue-600"></i> ระบุข้อมูลการคำนวณ</h3>
+                    </div>
+
+                    <!-- เพศ และ อายุ -->
+                    <div class="grid grid-cols-2 gap-2 text-center shrink-0">
+                        <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                            <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 tracking-wide">เพศ</p>
+                            <div class="flex gap-1.5 h-[34px]">
+                                <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-btn active !p-0 text-sm">ชาย</button>
+                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-btn !p-0 text-sm">หญิง</button>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
+                            <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 tracking-wide">อายุ (ปี)</p>
+                            <input type="number" id="inputAge" value="30" min="0" max="80" class="input-box h-[34px] !py-0 text-lg bg-white" oninput="runCalculation('premium')">
                         </div>
                     </div>
-                    <div class="bg-white p-2.5 rounded-[16px] shadow-sm border border-slate-200">
-                        <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 tracking-wide">อายุ (ปี)</p>
-                        <input type="number" id="inputAge" value="30" min="0" max="80" class="input-box h-[38px] !py-0 text-lg" oninput="runCalculation('premium')">
-                    </div>
-                </div>
 
-                <!-- ทุนประกัน -->
-                <div class="bg-white p-3 rounded-[16px] shadow-sm border border-slate-200 mt-2.5">
-                    <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 text-center tracking-wide">ทุนประกัน (บาท)</p>
-                    <div class="flex gap-1 w-full pb-1.5">
-                        <button onclick="setSum(100000)" class="quick-sum-btn flex-1 !px-0 text-center">1 แสน</button>
-                        <button onclick="setSum(500000)" class="quick-sum-btn flex-1 !px-0 text-center">5 แสน</button>
-                        <button onclick="setSum(1000000)" class="quick-sum-btn flex-1 !px-0 text-center">1 ล้าน</button>
-                        <button onclick="setSum(3000000)" class="quick-sum-btn flex-1 !px-0 text-center">3 ล้าน</button>
-                        <button onclick="setSum(10000000)" class="quick-sum-btn flex-1 !px-0 text-center">10 ล้าน</button>
+                    <!-- ทุนประกัน -->
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 shrink-0">
+                        <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 text-center tracking-wide">ทุนประกัน (บาท)</p>
+                        <div class="flex gap-1 w-full pb-1.5">
+                            <button onclick="setSum(100000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">1 แสน</button>
+                            <button onclick="setSum(500000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">5 แสน</button>
+                            <button onclick="setSum(1000000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">1 ล้าน</button>
+                            <button onclick="setSum(3000000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">3 ล้าน</button>
+                            <button onclick="setSum(10000000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">10 ล้าน</button>
+                        </div>
+                        <input type="text" id="inputSum" value="1,000,000" class="input-box w-full py-1.5 text-xl bg-white" oninput="runCalculation('sum')">
                     </div>
-                    <input type="text" id="inputSum" value="1,000,000" class="input-box w-full py-2 text-xl" oninput="runCalculation('sum')">
-                </div>
 
-                <!-- ออมเงิน / เบี้ยประกัน -->
-                <div class="bg-white p-3 rounded-[16px] shadow-sm border border-slate-200 mt-2.5">
-                    <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 text-center tracking-wide">ออมเงิน (บาท)</p>
-                    <div class="flex gap-1 w-full pb-1.5">
-                        <button onclick="setPremium(12000)" class="quick-sum-btn flex-1 !px-0 text-center">12,000</button>
-                        <button onclick="setPremium(24000)" class="quick-sum-btn flex-1 !px-0 text-center">24,000</button>
-                        <button onclick="setPremium(36000)" class="quick-sum-btn flex-1 !px-0 text-center">36,000</button>
-                        <button onclick="setPremium(48000)" class="quick-sum-btn flex-1 !px-0 text-center">48,000</button>
-                        <button onclick="setPremium(60000)" class="quick-sum-btn flex-1 !px-0 text-center">60,000</button>
+                    <!-- ออมเงิน / เบี้ยประกัน -->
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 shrink-0">
+                        <p class="text-slate-500 text-[10px] font-bold uppercase mb-1.5 text-center tracking-wide">ออมเงิน (บาท)</p>
+                        <div class="flex gap-1 w-full pb-1.5">
+                            <button onclick="setPremium(12000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">12,000</button>
+                            <button onclick="setPremium(24000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">24,000</button>
+                            <button onclick="setPremium(36000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">36,000</button>
+                            <button onclick="setPremium(48000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">48,000</button>
+                            <button onclick="setPremium(60000)" class="quick-sum-btn flex-1 !px-0 text-center bg-white text-[10px]">60,000</button>
+                        </div>
+                        <input type="text" id="inputPremium" value="0" class="input-box w-full py-1.5 text-xl bg-white" oninput="runCalculation('premium')">
                     </div>
-                    <input type="text" id="inputPremium" value="0" class="input-box w-full py-2 text-xl" oninput="runCalculation('premium')">
-                </div>
 
-                <!-- ปุ่มคำนวณ -->
-                <div class="mt-3 pb-1">
-                    <button onclick="showResultModal()" class="w-full bg-[#1e3a8a] text-white rounded-[16px] py-3.5 font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-all text-[16px] flex items-center justify-center gap-2 border border-[#1e3a8a]">
-                        <i class="fas fa-calculator text-xl"></i> <span>คำนวณและดูผลลัพธ์</span>
-                    </button>
+                    <!-- Bottom Action Buttons Group -->
+                    <div class="mt-auto pt-1 flex flex-col gap-1.5 shrink-0">
+                        <!-- แถวที่ 1: รายละเอียด & แชร์ -->
+                        <div class="flex gap-1.5">
+                            <button onclick="showResultModal()" class="flex-1 bg-[#1e3a8a] text-white rounded-xl py-2.5 font-bold shadow-md shadow-blue-900/20 active:scale-95 transition-all text-[14px] flex items-center justify-center gap-2">
+                                <i class="fas fa-file-invoice text-lg"></i> <span>รายละเอียด</span>
+                            </button>
+                            <button onclick="openPopup('mainShareModal')" class="bg-emerald-500 text-white rounded-xl px-5 font-bold shadow-md shadow-emerald-500/20 active:scale-95 transition-all text-[14px] flex items-center justify-center gap-2">
+                                <i class="fas fa-share-nodes text-lg"></i> <span>แชร์</span>
+                            </button>
+                        </div>
+
+                        <!-- แถวที่ 2: ตัวเลือกการชำระเงิน & บัญชีโอนเงิน -->
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 py-2 rounded-xl text-[12px] font-bold text-[#1e3a8a] flex items-center justify-center gap-1.5 active:bg-slate-50 transition-colors shadow-sm">
+                                <i class="fas fa-credit-card text-[14px]"></i> <span>ตัวเลือกชำระ</span>
+                            </button>
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] py-2 rounded-xl text-[12px] font-bold text-[#065f46] flex items-center justify-center gap-1.5 active:bg-[#d1fae5] transition-colors shadow-sm">
+                                <i class="fas fa-money-bill-transfer text-[14px] text-[#10b981]"></i> <span>บัญชีโอนเงิน</span>
+                            </button>
+                        </div>
+
+                        <!-- แถวที่ 3: E-Sub & QNI -->
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 py-2 rounded-xl text-[13px] font-extrabold text-[#701a75] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm">
+                            <i class="fas fa-laptop-code text-purple-600"></i>
+                            <span class="tracking-wide">E-Submission & QNI</span>
+                            <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
+                        </button>
+                    </div>
                 </div>
             </section>
 
             <!-- ==============================================
                  VIEW 2: หน้าตารางมูลค่า (Table View)
                  ============================================== -->
-            <section id="view-table" class="app-view block-view">
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col mb-1">
+            <section id="view-table" class="app-view flex-view flex-col h-full overflow-hidden">
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col mb-1">
                     <div class="flex justify-between items-center px-4 pt-4 pb-3 border-b border-slate-100">
                         <h3 class="text-base font-bold text-purple-900"><i class="fas fa-table mr-2 text-purple-600"></i> ตารางมูลค่า</h3>
                         <button onclick="openPopup('pdfOptionsModal')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-2 active:scale-95 transition-colors shadow-sm">
@@ -226,7 +254,7 @@
                         <div id="breakevenSummary" class="hidden px-4 pb-3 text-center transition-all"></div>
                     </div>
 
-                    <div class="overflow-x-auto w-full no-scrollbar">
+                    <div class="overflow-x-auto w-full flex-1 no-scrollbar overflow-y-auto">
                         <table class="w-full text-[12px] text-center border-collapse min-w-[280px]">
                             <thead class="bg-white sticky top-0 text-slate-500 font-bold border-b border-slate-200 shadow-sm z-10">
                                 <tr>
@@ -241,7 +269,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="p-3 bg-slate-50 text-center border-t border-slate-100">
+                    <div class="p-3 bg-slate-50 text-center border-t border-slate-100 shrink-0">
                         <p class="text-[9px] text-slate-400 font-medium" id="cvDataSourceMsg">สถานะข้อมูล: ใช้สูตรจำลอง (เพิ่มข้อมูลได้ทาง Code)</p>
                     </div>
                 </div>
@@ -250,7 +278,7 @@
             <!-- ==============================================
                  VIEW 3: ระบบ CASH (CASH View)
                  ============================================== -->
-            <section id="view-cash" class="app-view block-view">
+            <section id="view-cash" class="app-view flex-view flex-col flex-1 h-full overflow-hidden">
                 
                 <div class="cash-main-btn h-[90px] shrink-0 mb-3 cursor-default">
                     <div class="flex items-center justify-center gap-4">
@@ -260,21 +288,21 @@
                     <span class="text-[13px] font-bold tracking-widest mt-1 text-blue-900 text-center">CHUBB Agency Success Howto</span>
                 </div>
 
-                <div class="cash-container flex flex-col gap-2.5 mb-1">
+                <div class="cash-container flex-1 flex flex-col gap-2.5 mb-1 overflow-y-auto no-scrollbar">
                     <button onclick="openPopup('caseIncomeModal')" class="sub-menu-btn flex-1 hover:bg-emerald-50 border-emerald-200">
                         <div class="flex items-center gap-3"><i class="fas fa-wallet text-emerald-600 w-5 text-[18px]"></i><span class="text-emerald-800">รายได้จากเคสนี้</span></div><i class="fas fa-external-link-alt text-[10px] text-emerald-400"></i>
                     </button>
-                    <button onclick="openPopup('comModal')" class="sub-menu-btn hover:bg-amber-50 border-amber-200">
-                        <div class="flex items-center gap-3"><i class="fas fa-hand-holding-usd text-amber-600 w-5"></i><span class="text-amber-800">รายได้ที่ได้รับ (คอมมิชชัน)</span></div><i class="fas fa-external-link-alt text-[10px] text-amber-400"></i>
+                    <button onclick="openPopup('comModal')" class="sub-menu-btn flex-1 hover:bg-amber-50 border-amber-200">
+                        <div class="flex items-center gap-3"><i class="fas fa-hand-holding-usd text-amber-600 w-5 text-[18px]"></i><span class="text-amber-800">รายได้ที่ได้รับ (คอมมิชชัน)</span></div><i class="fas fa-external-link-alt text-[10px] text-amber-400"></i>
                     </button>
-                    <button onclick="openPopup('mbModal')" class="sub-menu-btn hover:bg-blue-50 border-blue-200">
-                        <div class="flex items-center gap-3"><i class="fas fa-gift text-blue-600 w-5"></i><span class="text-blue-800">โบนัสรายเดือน (MB)</span></div><i class="fas fa-external-link-alt text-[10px] text-blue-400"></i>
+                    <button onclick="openPopup('mbModal')" class="sub-menu-btn flex-1 hover:bg-blue-50 border-blue-200">
+                        <div class="flex items-center gap-3"><i class="fas fa-gift text-blue-600 w-5 text-[18px]"></i><span class="text-blue-800">โบนัสรายเดือน (MB)</span></div><i class="fas fa-external-link-alt text-[10px] text-blue-400"></i>
                     </button>
-                    <button onclick="openPopup('mybModal')" class="sub-menu-btn hover:bg-violet-50 border-violet-200">
-                        <div class="flex items-center gap-3"><i class="fas fa-calendar-check text-violet-600 w-5"></i><span class="text-violet-800">โบนัสครึ่งปี (MYB)</span></div><i class="fas fa-external-link-alt text-[10px] text-violet-400"></i>
+                    <button onclick="openPopup('mybModal')" class="sub-menu-btn flex-1 hover:bg-violet-50 border-violet-200">
+                        <div class="flex items-center gap-3"><i class="fas fa-calendar-check text-violet-600 w-5 text-[18px]"></i><span class="text-violet-800">โบนัสครึ่งปี (MYB)</span></div><i class="fas fa-external-link-alt text-[10px] text-violet-400"></i>
                     </button>
-                    <button onclick="openPopup('nabModal')" class="sub-menu-btn hover:bg-cyan-50 border-cyan-200">
-                        <div class="flex items-center gap-3"><i class="fas fa-star text-cyan-600 w-5"></i><span class="text-cyan-800">โบนัสตัวแทนใหม่ (NAB)</span></div><i class="fas fa-external-link-alt text-[10px] text-cyan-400"></i>
+                    <button onclick="openPopup('nabModal')" class="sub-menu-btn flex-1 hover:bg-cyan-50 border-cyan-200">
+                        <div class="flex items-center gap-3"><i class="fas fa-star text-cyan-600 w-5 text-[18px]"></i><span class="text-cyan-800">โบนัสตัวแทนใหม่ (NAB)</span></div><i class="fas fa-external-link-alt text-[10px] text-cyan-400"></i>
                     </button>
                 </div>
             </section>
@@ -351,7 +379,7 @@
         </div>
     </div>
 
-    <!-- Result Modal (ป๊อปอัปสรุปผลประโยชน์ แบบสมบูรณ์เหมือนภาพตัวอย่าง) -->
+    <!-- Result Modal (ป๊อปอัปสรุปผลประโยชน์) -->
     <div id="resultModal" class="fixed inset-0 z-[600] flex items-center justify-center p-4 bg-slate-900/85 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
         <div class="bg-[#f8fafc] w-full max-w-sm rounded-[35px] flex flex-col overflow-hidden max-h-[90vh] transform scale-95 transition-transform duration-300 shadow-2xl">
             <div class="bg-[#1e3a8a] p-5 text-center text-white flex-shrink-0 relative">
@@ -401,35 +429,11 @@
                     <!-- การ์ดจากไปหรือครบสัญญา -->
                 </div>
 
-                <!-- เครื่องมือเพิ่มเติม (ย้ายมาจากหน้าแรก) -->
-                <div class="grid grid-cols-2 gap-3 mt-5 border-t border-slate-100 pt-5">
-                    <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 py-3.5 rounded-2xl text-[13px] font-bold text-[#1e3a8a] flex flex-col items-center justify-center gap-1.5 active:bg-slate-50 transition-colors shadow-sm">
-                        <i class="fas fa-credit-card text-[20px]"></i> <span>ตัวเลือกการชำระ</span>
-                    </button>
-                    <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] py-3.5 rounded-2xl text-[13px] font-bold text-[#065f46] flex flex-col items-center justify-center gap-1.5 active:bg-[#d1fae5] transition-colors shadow-sm">
-                        <i class="fas fa-money-bill-transfer text-[20px] text-[#10b981]"></i> <span>บัญชีโอนเงิน</span>
-                    </button>
-                    <button onclick="openPopup('eSubQniModal')" class="w-full col-span-2 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 py-3.5 rounded-2xl text-[14px] font-extrabold text-[#701a75] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm">
-                        <i class="fas fa-laptop-code text-purple-600"></i>
-                        <span class="tracking-wide">E-Submission & QNI</span>
-                        <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
-                    </button>
-                </div>
-
+                <!-- ปุ่มท้าย Modal -->
                 <div class="space-y-3 mt-5 border-t border-slate-100 pt-5">
                     <button onclick="closePopup('resultModal'); switchMobileView('view-table', document.querySelectorAll('.nav-item')[1]);" class="w-full bg-[#faf5ff] text-[#6b21a8] border border-[#e9d5ff] py-4 rounded-2xl font-bold flex justify-between px-5 items-center active:scale-95 transition-all text-sm">
                         <div class="flex items-center gap-3"><i class="fas fa-table text-lg opacity-70"></i> <span>ตารางมูลค่ากรมธรรม์</span></div>
                         <i class="fas fa-external-link-alt opacity-50"></i>
-                    </button>
-
-                    <button onclick="openGenericShareModal('premium', 'แชร์เฉพาะเบี้ยประกัน')" class="w-full bg-[#eff6ff] text-[#1e40af] border border-[#bfdbfe] py-4 rounded-2xl font-bold flex justify-between px-5 items-center active:scale-95 transition-all text-sm">
-                        <div class="flex items-center gap-3"><i class="fas fa-coins text-lg opacity-70"></i> <span>แชร์เฉพาะเบี้ยประกัน</span></div>
-                        <i class="fas fa-share-nodes opacity-50"></i>
-                    </button>
-
-                    <button onclick="openGenericShareModal('all', 'แชร์สรุปทั้งหมด')" class="w-full bg-[#1e3a8a] text-white border border-[#1e3a8a] py-4 rounded-2xl font-bold flex justify-between px-5 items-center active:scale-95 transition-all text-sm shadow-md shadow-blue-900/20">
-                        <div class="flex items-center gap-3"><i class="fas fa-file-invoice text-lg opacity-80"></i> <span>แชร์สรุปทั้งหมด</span></div>
-                        <i class="fas fa-share-nodes opacity-70"></i>
                     </button>
 
                     <button onclick="closePopup('resultModal')" class="w-full bg-[#f1f5f9] text-[#64748b] py-4 rounded-2xl font-bold active:scale-95 transition-all text-sm mt-2">
@@ -437,6 +441,34 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal เลือกแชร์ (Main Share Modal) -->
+    <div id="mainShareModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
+        <div class="bg-white rounded-[35px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
+            <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-share-nodes text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-6">เลือกข้อมูลที่ต้องการแชร์</h3>
+            
+            <div class="space-y-3">
+                <button onclick="openGenericShareModal('premium', 'แชร์เฉพาะเบี้ยประกัน'); closePopup('mainShareModal')" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 text-lg"><i class="fas fa-coins"></i></div>
+                        <span class="text-sm font-bold text-slate-700">แชร์เฉพาะเบี้ยประกัน</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-sm text-slate-400"></i>
+                </button>
+                <button onclick="openGenericShareModal('all', 'แชร์สรุปทั้งหมด'); closePopup('mainShareModal')" class="w-full bg-[#eff6ff] border border-[#bfdbfe] p-4 rounded-2xl flex justify-between items-center active:scale-95 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-[#3b82f6] flex items-center justify-center text-white text-lg"><i class="fas fa-file-invoice"></i></div>
+                        <span class="text-sm font-bold text-[#1e3a8a]">แชร์สรุปทั้งหมด</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-sm text-blue-400"></i>
+                </button>
+            </div>
+            <button onclick="closePopup('mainShareModal')" class="mt-6 text-slate-400 hover:text-slate-600 text-sm font-medium w-full py-2">ยกเลิก</button>
         </div>
     </div>
 
@@ -473,28 +505,36 @@
     <!-- Modal ตัวเลือกการชำระเงิน -->
     <div id="installmentModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 hidden">
         <div class="bg-white rounded-[35px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
-            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-share-nodes text-3xl"></i>
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2"><i class="fas fa-credit-card text-[#1e3a8a] text-lg"></i><h3 class="text-lg font-bold text-[#1e3a8a]">ตัวเลือกการชำระเงิน</h3></div>
+                <button onclick="closePopup('installmentModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:bg-slate-100">&times;</button>
             </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-6">แชร์ยอดชำระรายเดือน</h3>
-            
             <div class="space-y-3">
-                <button onclick="triggerInstallmentShare('prem')" class="w-full bg-slate-50 border border-slate-200 p-4 rounded-2xl flex justify-between items-center active:scale-95 transition-all">
+                <div onclick="showToast('เลือกชำระรายเดือน'); closePopup('installmentModal')" class="clickable-row flex justify-between items-center bg-white border border-slate-100 shadow-sm p-4 rounded-2xl cursor-pointer border-l-4 border-l-blue-500">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 text-lg"><i class="fas fa-coins"></i></div>
-                        <span class="text-sm font-bold text-slate-700">แชร์เฉพาะเบี้ยประกัน</span>
+                        <i class="fas fa-calendar-alt text-blue-500 text-xl"></i>
+                        <span class="text-sm font-bold text-slate-700">รายเดือน</span>
                     </div>
-                    <i class="fas fa-chevron-right text-sm text-slate-400"></i>
-                </button>
-                <button onclick="triggerInstallmentShare('all')" class="w-full bg-[#eff6ff] border border-[#bfdbfe] p-4 rounded-2xl flex justify-between items-center active:scale-95 transition-all">
+                </div>
+                <div onclick="showToast('เลือกชำระราย 3 เดือน'); closePopup('installmentModal')" class="clickable-row flex justify-between items-center bg-white border border-slate-100 shadow-sm p-4 rounded-2xl cursor-pointer border-l-4 border-l-blue-500">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#3b82f6] flex items-center justify-center text-white text-lg"><i class="fas fa-file-invoice"></i></div>
-                        <span class="text-sm font-bold text-[#1e3a8a]">แชร์สรุปทั้งหมด</span>
+                        <i class="fas fa-calendar-day text-blue-500 text-xl"></i>
+                        <span class="text-sm font-bold text-slate-700">ราย 3 เดือน</span>
                     </div>
-                    <i class="fas fa-chevron-right text-sm text-blue-400"></i>
-                </button>
+                </div>
+                <div onclick="showToast('เลือกชำระราย 6 เดือน'); closePopup('installmentModal')" class="clickable-row flex justify-between items-center bg-white border border-slate-100 shadow-sm p-4 rounded-2xl cursor-pointer border-l-4 border-l-blue-500">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-calendar-week text-blue-500 text-xl"></i>
+                        <span class="text-sm font-bold text-slate-700">ราย 6 เดือน</span>
+                    </div>
+                </div>
+                <div onclick="showToast('เลือกชำระรายปี'); closePopup('installmentModal')" class="clickable-row flex justify-between items-center bg-white border border-slate-100 shadow-sm p-4 rounded-2xl cursor-pointer border-l-4 border-l-blue-500">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-calendar-check text-blue-500 text-xl"></i>
+                        <span class="text-sm font-bold text-slate-700">รายปี</span>
+                    </div>
+                </div>
             </div>
-            <button onclick="closePopup('installmentModal')" class="mt-6 text-slate-400 hover:text-slate-600 text-sm font-medium w-full py-2">ยกเลิก</button>
         </div>
     </div>
 
