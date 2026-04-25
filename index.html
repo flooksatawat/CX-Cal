@@ -66,9 +66,9 @@
         .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
 
         /* UI Elements Styles */
-        .header-card { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 25px 20px; text-align: center; flex-shrink: 0; position: relative; cursor: pointer; transition: opacity 0.2s; }
+        .header-card { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: white; padding: 12px 20px; text-align: center; flex-shrink: 0; position: relative; cursor: pointer; transition: opacity 0.2s; }
         .header-card:active { opacity: 0.9; }
-        .header-card h1 { font-weight: 800; letter-spacing: 0.02em; font-size: 1.5rem; }
+        .header-card h1 { font-weight: 800; letter-spacing: 0.02em; font-size: 1.25rem; }
 
         /* Gender & Age Input Sync Height */
         .equal-height-element { height: 56px !important; }
@@ -96,6 +96,18 @@
         /* Share Button Base Styles */
         .share-platform-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; border-radius: 20px; border: 1px solid; transition: all 0.2s; cursor: pointer; }
         .share-platform-btn:active { transform: scale(0.95); }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .listening {
+            animation: pulse-ring 1.5s infinite;
+            background-color: #fef2f2 !important;
+            border-color: #ef4444 !important;
+            color: #ef4444 !important;
+        }
     </style>
 </head>
 <body>
@@ -108,7 +120,7 @@
         <p id="mainHeaderSub" class="text-xs opacity-90 mt-1 font-medium">แตะเพื่อเปลี่ยนแบบประกัน <i class="fas fa-chevron-down text-[10px] ml-1"></i></p>
     </header>
 
-    <!-- เมนูเงื่อนไขการรับประกัน (เหมือนต้นฉบับ) -->
+    <!-- เมนูเงื่อนไขการรับประกัน -->
     <div class="w-full bg-blue-50 border-b border-blue-100 p-3 cursor-pointer hover:bg-blue-100 transition-colors text-center active:bg-blue-200 z-30" onclick="openPopup('insuranceConditionsModal')">
         <h2 class="text-[12px] font-bold text-blue-900 uppercase tracking-wider flex justify-center items-center gap-2">
             <i class="fas fa-info-circle text-blue-600"></i>
@@ -126,10 +138,19 @@
                  ============================================== -->
             <section id="view-input" class="app-view block-view active space-y-4">
                 
-                <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200">
+                <div id="voiceControl" onclick="toggleVoiceRecognition()" class="bg-white border-2 border-slate-100 rounded-2xl p-3 shadow-sm flex items-center justify-center gap-3 cursor-pointer transition-all active:scale-95">
+                    <div id="voiceIconContainer" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">
+                        <i id="voiceIcon" class="fas fa-microphone text-sm"></i>
+                    </div>
+                    <div class="text-left">
+                        <h3 class="text-[13px] font-bold text-slate-800" id="voiceTitle">แตะเพื่อสั่งงานด้วยเสียง</h3>
+                        <p class="text-[9px] text-slate-400 mt-0.5" id="voiceSubtitle">เช่น "CX ชาย 30 ทุน 1 ล้าน 10 ปี"</p>
+                    </div>
+                </div>
 
-                    <!-- เพศ และ อายุ (ความสูงเท่ากัน) -->
-                    <div class="grid grid-cols-2 gap-3 text-center mb-5">
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200">
+                    <!-- เพศ และ อายุ -->
+                    <div class="grid grid-cols-2 gap-3 text-center mb-4">
                         <div class="flex flex-col h-full">
                             <p class="text-slate-500 text-[11px] font-bold uppercase mb-2 tracking-wide">เพศ</p>
                             <div class="flex gap-2 flex-1">
@@ -192,16 +213,6 @@
                         <span class="tracking-wide">E-Submission & QNI</span>
                         <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                     </button>
-
-                    <div id="voiceControl" onclick="toggleVoiceRecognition()" class="bg-white border-2 border-slate-100 rounded-2xl p-3 shadow-sm flex items-center justify-center gap-3 cursor-pointer transition-all active:scale-95 mt-2">
-                        <div id="voiceIconContainer" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">
-                            <i id="voiceIcon" class="fas fa-microphone text-sm"></i>
-                        </div>
-                        <div class="text-left">
-                            <h3 class="text-[13px] font-bold text-slate-800" id="voiceTitle">แตะเพื่อสั่งงานด้วยเสียง</h3>
-                            <p class="text-[9px] text-slate-400 mt-0.5" id="voiceSubtitle">เช่น "CX ชาย 30 ทุน 1 ล้าน 10 ปี"</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Copyright -->
@@ -634,9 +645,18 @@
             
             const elSum = document.getElementById('inputSum');
             const elAge = document.getElementById('inputAge');
+            const elPremium = document.getElementById('inputPremium');
             
             const sum = parseFloat(elSum ? elSum.value.replace(/,/g, '') : 0) || 0;
+            const premiumStr = elPremium ? elPremium.value : '0';
             const age = parseInt(elAge ? elAge.value : 0) || 0;
+
+            setTextSafe('modalPlanName', currentPlanData.name);
+            setTextSafe('modalGender', currentGender === 'male' ? 'ชาย' : 'หญิง');
+            setTextSafe('modalAge', age + ' ปี');
+            setTextSafe('modalYears', currentPlanData.payYears + ' ปี');
+            setTextSafe('modalPremium', premiumStr + ' บาท');
+            setTextSafe('modalSum', sum.toLocaleString() + ' บาท');
 
             const container = document.getElementById('modalDynamicPayouts');
             if (container) {
