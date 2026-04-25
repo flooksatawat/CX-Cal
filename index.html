@@ -29,7 +29,7 @@
             background-color: #f8fafc;
             width: 100%;
             max-width: 440px;
-            max-height: 100dvh;
+            max-height: 100dvh; /* ปรับให้พอดีกับเนื้อหา */
             display: flex;
             flex-direction: column;
             position: relative;
@@ -38,7 +38,7 @@
         
         @media (min-width: 480px) {
             .app-wrapper {
-                max-height: 92vh;
+                max-height: 92vh; /* ปรับให้พอดีกับเนื้อหา */
                 border-radius: 40px;
                 border: 8px solid #ffffff;
                 overflow: hidden;
@@ -145,7 +145,7 @@
 
     <!-- Main Content Area -->
     <main class="flex-1 w-full overflow-y-auto no-scrollbar bg-slate-50">
-        <div class="px-4 py-3 flex flex-col gap-2.5 h-full justify-center">
+        <div class="px-4 py-4 flex flex-col gap-2.5">
         
             <!-- ==============================================
                  VIEW 1: หน้ากรอกข้อมูล (Input View)
@@ -193,10 +193,10 @@
                     <input type="text" id="inputPremium" value="0" class="input-box w-full py-2 text-xl" oninput="runCalculation('premium')">
                 </div>
 
-                <!-- ปุ่มเครื่องมือหลัก -->
-                <div class="mt-3">
-                    <button onclick="showResultModal()" class="w-full bg-[#1e3a8a] text-white rounded-[16px] py-3.5 font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-all text-[15px] flex items-center justify-center gap-2 border border-[#1e3a8a]">
-                        <i class="fas fa-calculator text-lg"></i> <span>คำนวณและดูผลลัพธ์</span>
+                <!-- ปุ่มคำนวณ -->
+                <div class="mt-3 pb-1">
+                    <button onclick="showResultModal()" class="w-full bg-[#1e3a8a] text-white rounded-[16px] py-3.5 font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-all text-[16px] flex items-center justify-center gap-2 border border-[#1e3a8a]">
+                        <i class="fas fa-calculator text-xl"></i> <span>คำนวณและดูผลลัพธ์</span>
                     </button>
                 </div>
             </section>
@@ -204,8 +204,8 @@
             <!-- ==============================================
                  VIEW 2: หน้าตารางมูลค่า (Table View)
                  ============================================== -->
-            <section id="view-table" class="app-view flex-view h-full flex-col">
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col">
+            <section id="view-table" class="app-view block-view">
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col mb-1">
                     <div class="flex justify-between items-center px-4 pt-4 pb-3 border-b border-slate-100">
                         <h3 class="text-base font-bold text-purple-900"><i class="fas fa-table mr-2 text-purple-600"></i> ตารางมูลค่า</h3>
                         <button onclick="openPopup('pdfOptionsModal')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-2 active:scale-95 transition-colors shadow-sm">
@@ -226,7 +226,7 @@
                         <div id="breakevenSummary" class="hidden px-4 pb-3 text-center transition-all"></div>
                     </div>
 
-                    <div class="overflow-x-auto overflow-y-auto flex-1 no-scrollbar">
+                    <div class="overflow-x-auto w-full no-scrollbar">
                         <table class="w-full text-[12px] text-center border-collapse min-w-[280px]">
                             <thead class="bg-white sticky top-0 text-slate-500 font-bold border-b border-slate-200 shadow-sm z-10">
                                 <tr>
@@ -252,7 +252,7 @@
                  ============================================== -->
             <section id="view-cash" class="app-view block-view">
                 
-                <div class="cash-main-btn h-[90px] mb-3 cursor-default">
+                <div class="cash-main-btn h-[90px] shrink-0 mb-3 cursor-default">
                     <div class="flex items-center justify-center gap-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="4" height="6" rx="1" fill="#94a3b8" /><rect x="10" y="10" width="4" height="10" rx="1" fill="#64748b" /><rect x="17" y="6" width="4" height="14" rx="1" fill="#1e3a8a" /></svg>
                         <span class="text-xl font-bold tracking-[0.25em] text-slate-900 uppercase">CASH</span>
@@ -260,9 +260,9 @@
                     <span class="text-[13px] font-bold tracking-widest mt-1 text-blue-900 text-center">CHUBB Agency Success Howto</span>
                 </div>
 
-                <div class="cash-container">
-                    <button onclick="openPopup('caseIncomeModal')" class="sub-menu-btn hover:bg-emerald-50 border-emerald-200">
-                        <div class="flex items-center gap-3"><i class="fas fa-wallet text-emerald-600 w-5"></i><span class="text-emerald-800">รายได้จากเคสนี้</span></div><i class="fas fa-external-link-alt text-[10px] text-emerald-400"></i>
+                <div class="cash-container flex flex-col gap-2.5 mb-1">
+                    <button onclick="openPopup('caseIncomeModal')" class="sub-menu-btn flex-1 hover:bg-emerald-50 border-emerald-200">
+                        <div class="flex items-center gap-3"><i class="fas fa-wallet text-emerald-600 w-5 text-[18px]"></i><span class="text-emerald-800">รายได้จากเคสนี้</span></div><i class="fas fa-external-link-alt text-[10px] text-emerald-400"></i>
                     </button>
                     <button onclick="openPopup('comModal')" class="sub-menu-btn hover:bg-amber-50 border-amber-200">
                         <div class="flex items-center gap-3"><i class="fas fa-hand-holding-usd text-amber-600 w-5"></i><span class="text-amber-800">รายได้ที่ได้รับ (คอมมิชชัน)</span></div><i class="fas fa-external-link-alt text-[10px] text-amber-400"></i>
