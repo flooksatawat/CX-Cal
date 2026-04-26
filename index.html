@@ -24,7 +24,7 @@
         
         /* ปรับขนาด Padding และ Font ของปุ่มตัวเลือก เพื่อประหยัดพื้นที่แนวตั้ง */
         .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.85rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-        #btn10CX, #btn20CX { font-size: 13px; letter-spacing: 0.5px; }
+        #btnPlan1, #btnPlan2 { font-size: 13px; letter-spacing: 0.5px; }
         .gender-pill.active-male { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-pill.active-female { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
@@ -115,10 +115,10 @@
                         </div>
 
                         <!-- แผนประกัน (แถวที่ 2) -->
-                        <div class="shrink-0">
+                        <div class="shrink-0" id="planSelectionContainer">
                             <div class="flex gap-2 w-full h-9">
-                                <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
-                                <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
+                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 gender-pill">10CX</button>
+                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 gender-pill active-blue">20CX</button>
                             </div>
                         </div>
 
@@ -151,7 +151,7 @@
                     <div class="pb-1 shrink-0 flex flex-col gap-2.5 mt-1">
                         <!-- สัดส่วน 3:1 (รายละเอียด 3 ส่วน, แชร์ 1 ส่วน) -->
                         <div class="grid grid-cols-4 gap-2.5">
-                            <button onclick="manualTriggerPopup()" class="col-span-3 w-full bg-[#243c94] text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-md hover:bg-[#1e327a] active:scale-95 transition-all">
+                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full bg-[#243c94] text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-md hover:bg-[#1e327a] active:scale-95 transition-all">
                                 <i class="fas fa-file-alt text-base"></i> รายละเอียด
                             </button>
                             <button onclick="openGenericShareModal('all')" class="col-span-1 w-full bg-[#10b981] text-white py-3 rounded-xl font-bold flex justify-center items-center gap-1.5 text-[14px] shadow-md hover:bg-[#059669] active:scale-95 transition-all">
@@ -874,11 +874,11 @@
             </div>
             <h3 class="text-xl font-bold text-slate-800 mb-6">ดำเนินการกับข้อมูล</h3>
             <div class="grid grid-cols-3 gap-3 mb-4">
-                <button onclick="exportTableToPDF('share'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-2 p-3 bg-[#00B900]/10 rounded-2xl border border-[#00B900]/20 active:scale-95 transition-all shadow-sm hover:bg-[#00B900]/20">
+                <button onclick="exportTableToPDF('line'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-2 p-3 bg-[#00B900]/10 rounded-2xl border border-[#00B900]/20 active:scale-95 transition-all shadow-sm hover:bg-[#00B900]/20">
                     <i class="fab fa-line text-[#00B900] text-2xl"></i>
                     <span class="text-[10px] font-bold text-[#00B900] uppercase tracking-wider mt-1">ส่ง LINE (PDF)</span>
                 </button>
-                <button onclick="exportTableToPDF('share'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-2 p-3 bg-[#0084FF]/10 rounded-2xl border border-[#0084FF]/20 active:scale-95 transition-all shadow-sm hover:bg-[#0084FF]/20">
+                <button onclick="exportTableToPDF('messenger'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-2 p-3 bg-[#0084FF]/10 rounded-2xl border border-[#0084FF]/20 active:scale-95 transition-all shadow-sm hover:bg-[#0084FF]/20">
                     <i class="fab fa-facebook-messenger text-[#0084FF] text-2xl"></i>
                     <span class="text-[10px] font-bold text-[#0084FF] uppercase tracking-wider mt-1">ส่ง Messenger (PDF)</span>
                 </button>
@@ -992,6 +992,7 @@
         const setText = (id, text) => { const el = document.getElementById(id); if (el) el.innerText = text; };
         const formatNum = (num) => { const rounded = Math.round(num * 100) / 100; return Number.isInteger(rounded) ? rounded.toLocaleString() : rounded.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); };
         let currentPlan = '20CX', currentGender = 'male', lastCalculationData = null, currentMode = 'sum';
+        let currentPlanOptions = ['10CX', '20CX'];
         
         let cvDataLookup = {};
 
@@ -1047,7 +1048,14 @@
             }, 1500); 
         }
         
-        function setPlan(plan) { currentPlan = plan; document.getElementById('btn10CX').className = `flex-1 gender-pill ${plan==='10CX'?'active-blue':''}`; document.getElementById('btn20CX').className = `flex-1 gender-pill ${plan==='20CX'?'active-blue':''}`; calculate(currentMode); }
+        function setPlan(plan) { 
+            currentPlan = plan; 
+            const btn1 = document.getElementById('btnPlan1');
+            const btn2 = document.getElementById('btnPlan2');
+            if (btn1) btn1.className = `flex-1 gender-pill ${plan === currentPlanOptions[0] ? 'active-blue' : ''}`; 
+            if (btn2) btn2.className = `flex-1 gender-pill ${plan === currentPlanOptions[1] ? 'active-blue' : ''}`; 
+            calculate(currentMode); 
+        }
         function setGender(gender) { currentGender = gender; document.getElementById('btnMale').className = `flex-1 gender-pill ${gender==='male'?'active-male':''}`; document.getElementById('btnFemale').className = `flex-1 gender-pill ${gender==='female'?'active-female':''}`; calculate(currentMode); }
         function handlePremiumInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); calculate('premium'); } }
         function handleSumInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); calculate('sum'); } }
@@ -1367,7 +1375,7 @@
             }
             
             // อัปเดตชื่อตารางด้านบน
-            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600"></i> ${currentPlan} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`;
+            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600"></i> ${currentAppPlan} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`;
 
             const maxYear = 90 - d.age;
             const payYears = parseInt(d.years);
@@ -1579,7 +1587,7 @@
                         // เพิ่มข้อมูล เพศ อายุ และแผน บริเวณด้านบนตาราง
                         doc.setFontSize(14);
                         doc.setTextColor(30, 58, 138); 
-                        doc.text(`${currentPlan} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`, 105, 28, { align: 'center' });
+                        doc.text(`${currentAppPlan} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`, 105, 28, { align: 'center' });
                         
                         if (data.pageNumber === 1 && showBreakeven && beRowIndex !== -1) {
                             doc.setFont(fontName, 'normal');
@@ -1605,12 +1613,18 @@
                     doc.autoPrint();
                     const pdfBlobUrl = doc.output('bloburl');
                     window.open(pdfBlobUrl, '_blank');
-                } else if (actionType === 'share') {
+                } else if (actionType === 'share' || actionType === 'line' || actionType === 'messenger') {
                     const pdfBlob = doc.output('blob');
                     const file = new File([pdfBlob], `CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`, { type: 'application/pdf' });
                     
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        navigator.share({ files: [file], title: 'ตารางมูลค่า CI Extra Plus', text: 'ตารางมูลค่า CI Extra Plus' }).catch(err => console.log('Share failed:', err));
+                        navigator.share({ files: [file], title: 'ตารางมูลค่า CI Extra Plus', text: 'ตารางมูลค่า CI Extra Plus' })
+                            .catch(err => {
+                                console.log('Share failed:', err);
+                                if (err.name === 'NotAllowedError') {
+                                    doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                                }
+                            });
                     } else {
                         showCustomError("เบราว์เซอร์ไม่รองรับการแชร์ไฟล์โดยตรง ระบบจะทำการดาวน์โหลดแทน");
                         doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
@@ -1779,9 +1793,8 @@
             currentGender = gender; 
             document.getElementById('btnMale').className = `flex-1 gender-pill ${gender==='male'?'active-male':''}`; 
             document.getElementById('btnFemale').className = `flex-1 gender-pill ${gender==='female'?'active-female':''}`; 
-            currentPlan = plan; 
-            document.getElementById('btn10CX').className = `flex-1 gender-pill ${plan==='10CX'?'active-blue':''}`; 
-            document.getElementById('btn20CX').className = `flex-1 gender-pill ${plan==='20CX'?'active-blue':''}`; 
+            
+            setPlan(plan);
             
             let calcResult = calculate(mode);
             if (calcResult) {
@@ -1880,6 +1893,7 @@
                 if (platform === 'copy') {
                     handleCopyAndClose(currentShareType);
                 } else {
+                    closePopup('resultModal');
                     shareResult(currentShareType, platform);
                 }
             } else if (currentShareType === 'installmentPrem' || currentShareType === 'installmentAll') {
@@ -1949,29 +1963,49 @@
             return text;
         }
 
+        function copyToClipboardWithFeedback(text, callback, customHTML) {
+            const el = document.createElement('textarea'); 
+            el.value = text; 
+            document.body.appendChild(el); 
+            el.select(); 
+            document.execCommand('copy'); 
+            document.body.removeChild(el); 
+            
+            const toast = document.createElement('div'); 
+            toast.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800/95 text-white px-8 py-6 rounded-3xl text-sm font-bold z-[1000] shadow-2xl text-center backdrop-blur-sm transition-all"; 
+            toast.innerHTML = customHTML;
+            document.body.appendChild(toast); 
+            
+            setTimeout(() => { 
+                toast.style.opacity = "0"; 
+                setTimeout(() => {
+                    toast.remove();
+                    if (callback) callback();
+                }, 300); 
+            }, 1800); 
+        }
+
         function executeShare(text, platform) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
             if (platform === 'line') {
-                window.open('https://line.me/R/msg/text/?' + encodeURIComponent(text), '_blank');
+                const lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text);
+                window.open(lineUrl, '_blank');
             } else if (platform === 'messenger') {
-                if (navigator.share) {
-                    navigator.share({ text: text }).catch(err => console.log('Share failed:', err));
-                } else {
-                    const el = document.createElement('textarea'); 
-                    el.value = text; 
-                    document.body.appendChild(el); 
-                    el.select(); 
-                    document.execCommand('copy'); 
-                    document.body.removeChild(el); 
-                    const toast = document.createElement('div'); 
-                    toast.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-900/95 text-white px-8 py-6 rounded-3xl text-sm font-bold z-[1000] shadow-2xl text-center backdrop-blur-sm transition-all"; 
-                    toast.innerHTML = `<div class="w-14 h-14 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-3"><i class='fab fa-facebook-messenger text-2xl'></i></div><span class="text-base block">คัดลอกข้อความแล้ว</span><span class='text-[11px] font-normal opacity-90 block'>กรุณาวางข้อความในช่องแชท</span>`; 
-                    document.body.appendChild(toast); 
-                    setTimeout(() => { 
-                        toast.style.opacity = "0"; 
-                        setTimeout(() => toast.remove(), 300); 
-                        window.open('https://www.messenger.com/', '_blank'); 
-                    }, 1500);
-                }
+                const fbHtml = `<div class="w-14 h-14 bg-[#0084FF] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg"><i class='fab fa-facebook-messenger text-3xl text-white'></i></div><span class="text-base font-bold block mb-1">คัดลอกข้อความแล้ว</span><span class='text-xs font-medium opacity-90 block text-blue-200'>ระบบกำลังเปิด Messenger...<br>กรุณาวางข้อความในช่องแชท</span>`;
+                
+                copyToClipboardWithFeedback(text, () => {
+                    if (isMobile) {
+                        window.location.href = 'fb-messenger://';
+                        setTimeout(() => {
+                            window.open('https://www.messenger.com/', '_blank');
+                        }, 800);
+                    } else {
+                        window.open('https://www.messenger.com/', '_blank');
+                    }
+                }, fbHtml);
+            } else if (platform === 'copy') {
+                copyToClipboard(text, "คัดลอกเรียบร้อยแล้ว");
             }
         }
 
@@ -2093,12 +2127,73 @@
         function selectAppPlan(planName) {
             closePopup('planSelectModal');
             closePopup('planSearchModal');
-            if (planName === 'CI Extra Plus') {
-                // อยู่ในแผนปัจจุบันอยู่แล้ว ไม่ต้องทำอะไร
+            
+            currentAppPlan = planName;
+            const planInfo = allInsurancePlans.find(p => p.name === planName);
+            const desc = planInfo ? planInfo.desc : "";
+            
+            // Update Header
+            const headerTitle = document.querySelector('#mainHeaderBtn h1');
+            const headerDesc = document.querySelector('#mainHeaderBtn p');
+            if(headerTitle) headerTitle.innerText = planName;
+            if(headerDesc) headerDesc.innerHTML = `${desc} <i class="fas fa-chevron-down text-[8px]"></i>`;
+
+            // Update Main Action Button
+            const mainActionBtn = document.getElementById('mainActionBtn');
+            const targetPlans = ["Life Protector 20", "Supreme Life Protector", "Whole Life Extra", "24 TX"];
+            
+            if (targetPlans.includes(planName)) {
+                mainActionBtn.innerHTML = `<i class="fas fa-table text-base"></i> ตารางมูลค่า`;
+                mainActionBtn.onclick = function() {
+                    const calcData = calculate(currentMode);
+                    if (calcData) switchView('table');
+                    else showCustomError("กรุณาตรวจสอบข้อมูลการคำนวณ");
+                };
+            } else if (planName === 'CI Extra Plus') {
+                mainActionBtn.innerHTML = `<i class="fas fa-file-alt text-base"></i> รายละเอียด`;
+                mainActionBtn.onclick = function() {
+                    manualTriggerPopup();
+                };
             } else {
-                // แสดงข้อความสำหรับแผนอื่นๆ ที่ยังไม่เสร็จ
-                showCustomError(`กำลังพัฒนาระบบสำหรับ : ${planName}`);
+                // แผนอื่นๆ ที่เหลือที่ยังไม่ได้เชื่อมโยงระบบ
+                mainActionBtn.innerHTML = `<i class="fas fa-file-alt text-base"></i> รายละเอียด`;
+                mainActionBtn.onclick = function() {
+                    showCustomError(`กำลังพัฒนาระบบสำหรับ : ${planName}`);
+                };
             }
+
+            // Update Sub-Plan Buttons based on Selected App Plan
+            const planContainer = document.getElementById('planSelectionContainer');
+            const btn1 = document.getElementById('btnPlan1');
+            const btn2 = document.getElementById('btnPlan2');
+            
+            const hideSubPlansFor = ['Life Protector 20', 'Supreme Life Protector', 'Convertable Term', '24 TX', '868 / 818 Elite Saving', 'Century Life + TPD', '3D Health Excellence'];
+
+            if (planName === 'Signature Legacy') {
+                planContainer.classList.remove('hidden');
+                currentPlanOptions = ['5SLB', '10SLB'];
+                currentPlan = '10SLB';
+                if(btn1) { btn1.innerText = '5SLB'; btn1.setAttribute('onclick', "setPlan('5SLB')"); }
+                if(btn2) { btn2.innerText = '10SLB'; btn2.setAttribute('onclick', "setPlan('10SLB')"); }
+            } else if (planName === 'Whole Life Extra') {
+                planContainer.classList.remove('hidden');
+                currentPlanOptions = ['WXN10', 'WXN15'];
+                currentPlan = 'WXN15';
+                if(btn1) { btn1.innerText = 'WXN10'; btn1.setAttribute('onclick', "setPlan('WXN10')"); }
+                if(btn2) { btn2.innerText = 'WXN15'; btn2.setAttribute('onclick', "setPlan('WXN15')"); }
+            } else if (hideSubPlansFor.includes(planName)) {
+                planContainer.classList.add('hidden');
+                currentPlanOptions = [];
+                currentPlan = planName; // ให้ currentPlan มีค่าเป็น plan หลักกรณีไม่มีตัวเลือกระยะเวลา
+            } else {
+                planContainer.classList.remove('hidden');
+                currentPlanOptions = ['10CX', '20CX'];
+                currentPlan = '20CX';
+                if(btn1) { btn1.innerText = '10CX'; btn1.setAttribute('onclick', "setPlan('10CX')"); }
+                if(btn2) { btn2.innerText = '20CX'; btn2.setAttribute('onclick', "setPlan('20CX')"); }
+            }
+            
+            setPlan(currentPlan);
             
             // รีเซ็ตกลับไปหน้าแรกหลังจากปิด Modal (เผื่อเปิดครั้งหน้า)
             setTimeout(() => { changePlanPage(1); document.getElementById('planSearchInput').value = ''; }, 300);
@@ -2304,6 +2399,7 @@
                     modal.classList.add('hidden');
                 }
             });
+            loadThaiFont(); // โหลดฟอนต์รอไว้สำหรับ PDF ล่วงหน้า
             calculate('sum'); 
             setupLongPress(); 
             setupPlanSliderSwipe(); // เริ่มต้นระบบปัดหน้าจอ
