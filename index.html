@@ -75,6 +75,16 @@
         .com-year-pill { background: #fef3c7; border: 1.5px solid #fbbf24; color: #92400e; padding: 3px 12px; border-radius: 20px; font-weight: 700; width: 75px; text-align: center; font-size: 0.75rem; }
         .com-percent-label { font-size: 0.8rem; color: #78350f; margin-left: 12px; flex: 1; font-weight: 600; }
         .com-amount-value { font-size: 1rem; font-weight: 700; color: #78350f; text-align: right; white-space: nowrap; }
+
+        /* AI Advisor Styles */
+        .ai-content p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .ai-content ul { list-style-type: none; padding-left: 0; margin-bottom: 1rem; }
+        .ai-content ul li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .ai-content ul li::before { content: '✨'; position: absolute; left: 0; top: 0; font-size: 0.8rem; }
+        .ai-content h4 { color: #1e3a8a; font-weight: 700; font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .ai-quote { background: #f0fdf4; border-left: 4px solid #10b981; padding: 1rem; border-radius: 0 12px 12px 0; font-style: italic; color: #065f46; margin: 1rem 0; }
+        .spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: #3b82f6; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -292,6 +302,33 @@
             </div>
         </div>
 
+        <!-- ==================== VIEW 4: หน้า AI Advisor ==================== -->
+        <div id="aiView" class="hidden flex-col flex-1 overflow-hidden w-full bg-slate-50">
+            <div class="flex justify-between items-center px-6 pt-5 pb-4 border-b border-slate-200 bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] shrink-0 shadow-sm relative z-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <i class="fas fa-robot text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white leading-tight">MDRT TOT AI Advisor</h3>
+                        <p class="text-[10px] text-blue-100 opacity-90">ระบบวิเคราะห์ข้อมูลขั้นสูง</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="aiLoadingState" class="flex-1 flex flex-col items-center justify-center p-10">
+                <div class="spinner mb-4"></div>
+                <p class="text-sm font-bold text-slate-600">กำลังวิเคราะห์แบบประกันและผลตอบแทน...</p>
+                <p class="text-[10px] text-slate-400 mt-1">ประมวลผลกลยุทธ์การนำเสนอสไตล์ TOT</p>
+            </div>
+
+            <!-- Result State -->
+            <div id="aiResultState" class="hidden flex-1 overflow-y-auto custom-scrollbar p-5 pb-8 ai-content text-sm text-slate-700 bg-white">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+
         <!-- Bottom Navigation Bar -->
         <div class="bg-white border-t border-slate-100 flex flex-col shrink-0 w-full mt-auto rounded-b-[0px] min-[450px]:rounded-b-[35px] shadow-[0_-5px_15px_rgba(0,0,0,0.03)] z-20 relative">
             <div class="flex justify-around items-center px-1 pt-1.5 pb-0.5">
@@ -304,19 +341,16 @@
                     <span class="text-[9px] font-bold">ตารางมูลค่า</span>
                 </button>
                 
-                <!-- เปลี่ยน onclick เป็น switchView('cash') และเพิ่ม ID เพื่อเปลี่ยนสถานะปุ่ม -->
                 <button id="navCashBtn" class="flex flex-col items-center justify-center py-1 w-1/5 text-[#94a3b8] hover:text-[#64748b] transform scale-100 transition-all duration-300" onclick="switchView('cash')">
                     <i class="fas fa-chart-simple text-[18px] mb-0.5"></i>
                     <span class="text-[9px] font-bold">CASH</span>
                 </button>
 
-                <!-- ปุ่มที่ปรึกษา AI (ตรงกลาง) -->
-                <button class="flex flex-col items-center justify-center py-1 w-1/5 text-[#94a3b8] hover:text-[#64748b] transform active:scale-110 transition-all duration-300" onclick="showCustomError('ฟีเจอร์ ที่ปรึกษา AI กำลังพัฒนา')">
+                <button id="navAiBtn" class="flex flex-col items-center justify-center py-1 w-1/5 text-[#94a3b8] hover:text-[#64748b] transform scale-100 transition-all duration-300" onclick="switchView('ai')">
                     <i class="fas fa-robot text-[18px] mb-0.5"></i>
                     <span class="text-[9px] font-bold">ที่ปรึกษา AI</span>
                 </button>
                 
-                <!-- ปิดเอฟเฟกต์การขยายขนาดสำหรับปุ่มคำสั่งเสียง -->
                 <button class="flex flex-col items-center justify-center py-1 w-1/5 text-[#94a3b8] hover:text-[#64748b] transition-colors" onclick="startVoiceRecognition()">
                     <i class="fas fa-microphone text-[18px] mb-0.5" id="navVoiceIcon"></i>
                     <span class="text-[9px] font-bold">คำสั่งเสียง</span>
@@ -329,8 +363,6 @@
     </div>
     
     <!-- ==================== MODALS (POPUPS) ==================== -->
-
-    <!-- Modal CASH Menu ถูกลบออกไปและเปลี่ยนเป็นหน้า View หลักแล้ว -->
 
     <!-- Modals สำหรับ CASH Module ย่อย -->
     <div id="caseIncomeModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
@@ -1448,8 +1480,9 @@
 
         // NAB (New Agent Bonus) Update
         function updateNABDisplay() { 
-            if (!lastCalculationData) return; 
-            const fycFromCase = Math.round(lastCalculationData.premium * COM_RATES[currentPlan][0]); 
+            const effectivePlan = COM_RATES[currentPlan] ? currentPlan : currentAppPlan;
+            if (!lastCalculationData || !COM_RATES[effectivePlan]) return; 
+            const fycFromCase = Math.round(lastCalculationData.premium * COM_RATES[effectivePlan][0]); 
             const existingMBFYC = parseFloat(document.getElementById('existingFYCInput')?.value.replace(/,/g, '')) || 0;
             const existingMYBFYC = parseFloat(document.getElementById('existingHalfYearFYCInput')?.value.replace(/,/g, '')) || 0;
             const existingCases = parseInt(document.getElementById('existingNABCases')?.value) || 0; 
@@ -1505,21 +1538,161 @@
             } 
         }
 
+        // ==================== AI Advisor Module ====================
+        
+        function generateAIAnalysis() {
+            if (!lastCalculationData || lastCalculationData.premium === 0) {
+                // กรณีถูกเรียกโดยไม่มีข้อมูล ป้องกันข้อผิดพลาด (แต่จริงๆ ถูกดักไว้ที่ switchView แล้ว)
+                return;
+            }
+
+            document.getElementById('aiLoadingState').classList.remove('hidden');
+            document.getElementById('aiLoadingState').classList.add('flex');
+            document.getElementById('aiResultState').classList.add('hidden');
+            document.getElementById('aiResultState').innerHTML = '';
+
+            // Simulate AI generating time for better UX
+            setTimeout(() => {
+                const reportHTML = buildTOTReport(lastCalculationData);
+                document.getElementById('aiLoadingState').classList.add('hidden');
+                document.getElementById('aiLoadingState').classList.remove('flex');
+                const resultState = document.getElementById('aiResultState');
+                resultState.innerHTML = reportHTML;
+                resultState.classList.remove('hidden');
+            }, 800);
+        }
+
+        // Local Heuristic Engine for MDRT TOT Analysis
+        function buildTOTReport(d) {
+            const plan = currentAppPlan;
+            const age = d.age;
+            const gender = d.gender;
+            const premium = d.premium;
+            const sum = d.sum;
+            
+            const effectivePlan = COM_RATES[currentPlan] ? currentPlan : currentAppPlan;
+            const fycRate = COM_RATES[effectivePlan] ? COM_RATES[effectivePlan][0] : 0;
+            const fyc = Math.round(premium * fycRate);
+            
+            const mb = window.currentMBBonus || 0;
+            const myb = window.currentMYBBonus || 0;
+            const nab = window.currentNABBonus || 0;
+            
+            const totalIncome = fyc + mb + myb + nab;
+            const incomePercent = premium > 0 ? ((totalIncome / premium) * 100).toFixed(1) : 0;
+
+            let html = '';
+            
+            // 1. Executive Summary
+            html += `
+                <div class="mb-5">
+                    <p class="text-xs text-slate-500 mb-1">ข้อมูลประกอบการวิเคราะห์:</p>
+                    <div class="flex flex-wrap gap-2 text-[11px] font-bold text-blue-800 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                        <span>🏷️ แผน: ${getPlanAbbr(plan)}</span>
+                        <span>👤 ลูกค้า: ${gender} ${age} ปี</span>
+                        <span>💰 เบี้ย: ${formatNum(premium)}</span>
+                        <span>🛡️ ทุน: ${formatNum(sum)}</span>
+                    </div>
+                </div>
+            `;
+
+            // 2. Client Value Proposition (Dynamic Logic)
+            html += `<h4><i class="fas fa-bullseye text-emerald-500"></i> มุมมองคุณค่าสำหรับลูกค้า (Client Value)</h4>`;
+            html += `<ul>`;
+            
+            if (age <= 15) {
+                html += `<li><strong>การปกป้องทุนการศึกษา:</strong> เบี้ยประกัน ${formatNum(premium)} บาทวันนี้ คือการล็อกความเสี่ยง หากเกิดเหตุไม่คาดฝัน กองทุน ${formatNum(sum)} บาท จะดูแลอนาคตของลูกแทนพ่อแม่ทันที</li>`;
+                if (plan === "CI Extra Plus") {
+                    html += `<li><strong>เกราะป้องกันโรคร้ายวัยเด็ก:</strong> ครอบคลุม 15 โรคฮิตที่ค่าใช้จ่ายสูง ช่วยเซฟเงินเก็บของครอบครัวไม่ให้ละลายไปกับค่ารักษาพยาบาล</li>`;
+                }
+            } else if (age > 45) {
+                html += `<li><strong>การจัดสรรสินทรัพย์ (Asset Allocation):</strong> การใช้เงินเพียง ${formatNum(premium)} บาท เพื่อสร้างสินทรัพย์ปลอดภาษี (Tax-free asset) มูลค่า ${formatNum(sum)} บาท ทันทีตั้งแต่วันแรก ถือเป็น Leverage ที่สูงมากในเชิงการเงิน</li>`;
+                if (plan === "CI Extra Plus") {
+                    html += `<li><strong>สวัสดิการยามเกษียณ:</strong> คุ้มครองโรคร้ายแรงที่มักเกิดในวัยเกษียณ หากเป็นโรคร้าย บริษัทหยุดเก็บเบี้ยแต่คุ้มครองต่อ แถมมีวงเงินรักษาพิเศษ (Medical Extra) ไม่กระทบเงินเก็บก้อนอื่น</li>`;
+                }
+            } else {
+                html += `<li><strong>ความมั่งคั่งที่การันตีได้:</strong> วัยทำงานคือช่วงสร้างตัว การมีทุนประกัน ${formatNum(sum)} บาท ช่วยการันตีว่าเป้าหมายทางการเงินของครอบครัวจะไม่สะดุดแม้หัวหน้าครอบครัวจากไป</li>`;
+            }
+
+            if (plan.includes("Whole Life") || plan.includes("Elite") || plan.includes("TX")) {
+                html += `<li><strong>สภาพคล่องอัจฉริยะ (Liquidity):</strong> มีกระแสเงินสดคืนระหว่างทาง ช่วยให้เงินไม่จมและนำไป Reinvest ต่อยอดความมั่งคั่งได้</li>`;
+            }
+            if (plan === "Signature Legacy" || sum >= 10000000) {
+                html += `<li><strong>การส่งมอบมรดก (Wealth Transfer):</strong> นี่ไม่ใช่แค่ประกัน แต่คือเครื่องมือส่งผ่านความมั่งคั่ง (Estate Planning) จากรุ่นสู่รุ่น โดยข้ามขั้นตอนการจัดการมรดกที่ซับซ้อน</li>`;
+            }
+
+            html += `</ul>`;
+
+            // 3. TOT Sales Pitch
+            html += `<h4><i class="fas fa-comment-dollar text-amber-500"></i> กลยุทธ์การเปิดใจ (TOT Sales Pitch)</h4>`;
+            
+            if (plan === "CI Extra Plus" && age > 25) {
+                html += `<div class="ai-quote">"คุณลูกค้าครับ วันนี้เราทำงานหนักเพื่อเก็บเงินไว้ดูแลตัวเองตอนเกษียณ แต่ถ้าโชคร้ายเกิดปัญหาสุขภาพร้ายแรง เงินที่เก็บมาทั้งชีวิตอาจต้องจ่ายให้โรงพยาบาลทั้งหมด... จะดีกว่าไหมครับ ถ้าเราย้ายเงินเก็บเพียงส่วนหนึ่งมาไว้ในแผนนี้ เพื่อให้เงินก้อนนี้ทำหน้าที่เป็น 'การ์ดป้องกัน' เงินเก็บหลักของคุณตลอดไป?"</div>`;
+            } else if (age <= 15) {
+                html += `<div class="ai-quote">"คุณพ่อคุณแม่ครับ ความรักที่เรามีให้ลูกประเมินค่าไม่ได้ แต่เราสามารถตีมูลค่าคำมั่นสัญญาของเราเป็นตัวเลขได้ กรมธรรม์ฉบับนี้คือจดหมายรักที่การันตีว่า ไม่ว่าอนาคตจะเกิดอะไรขึ้น ทุนการศึกษาของน้องจะถูกเตรียมพร้อมไว้อย่างสมบูรณ์แบบครับ"</div>`;
+            } else if (sum >= 5000000) {
+                html += `<div class="ai-quote">"คนเก่งอย่างคุณลูกค้า รู้วิธีหาเงินและต่อยอดเงินได้ดีกว่าใครอยู่แล้วครับ สิ่งที่ผมนำเสนอวันนี้ไม่ใช่การลงทุนเพื่อหาผลตอบแทนสูงสุด แต่เป็น 'Financial Parachute' ที่ใช้เงินก้อนเล็ก ไปค้ำประกันเงินก้อนใหญ่ เพื่อปกป้องธุรกิจและครอบครัวจากความเสี่ยงที่ควบคุมไม่ได้ครับ"</div>`;
+            } else {
+                html += `<div class="ai-quote">"ความเสี่ยงที่สุดในชีวิต ไม่ใช่การที่เราลงทุนแล้วขาดทุนนะครับ แต่คือการที่เรามีเวลาดูแลครอบครัวไม่นานพอตามที่ตั้งใจไว้... แผนนี้จะเข้ามาซื้อเวลาและปิดความเสี่ยงนั้นให้คุณลูกค้าครับ"</div>`;
+            }
+
+            // 4. Agent Strategy
+            html += `<h4><i class="fas fa-chart-pie text-purple-500"></i> มุมมองเชิงธุรกิจสำหรับตัวแทน</h4>`;
+            
+            let focusText = "";
+            if (fyc >= 50000) focusText = "เคสนี้คือ <strong>High-Impact Case</strong>";
+            else if (fyc >= 20000) focusText = "เคสนี้คือ <strong>Standard Growth Case</strong>";
+            else focusText = "เคสนี้คือ <strong>Activity Case</strong>";
+
+            html += `
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 mb-3">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs text-slate-500">คอมมิชชันปีแรก (FYC)</span>
+                        <span class="font-bold text-slate-800">${fyc.toLocaleString()} ฿</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs text-slate-500">รวมโบนัส (MB + MYB + NAB)</span>
+                        <span class="font-bold text-blue-600">+ ${(mb + myb + nab).toLocaleString()} ฿</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2 pt-2 border-t border-slate-200">
+                        <span class="text-sm font-bold text-slate-700">รายได้สุทธิจากเคสนี้</span>
+                        <span class="text-lg font-black text-emerald-600">${totalIncome.toLocaleString()} ฿ <span class="text-[10px] text-emerald-500">(${incomePercent}%)</span></span>
+                    </div>
+                </div>
+            `;
+
+            html += `<ul>`;
+            html += `<li>${focusText} ที่สร้างรายได้รวมถึง <strong>${incomePercent}%</strong> ของเบี้ยประกัน ถือเป็นอัตราทด (Leverage) ของเวลาและแรงงานที่คุ้มค่ามาก</li>`;
+            
+            if (totalIncome < 10000) {
+                html += `<li><strong>กลยุทธ์:</strong> ปิดเคสนี้เพื่อสร้างโมเมนตัม และขอ Referral จากลูกค้าเพื่อขยายฐานตลาดทันที</li>`;
+            } else if (fyc < 64000) {
+                html += `<li><strong>กลยุทธ์:</strong> มุ่งเป้าหาเคสแบบนี้เพิ่มอีก เพื่อดัน FYC ให้ทะลุ 64,000 บาท/เดือน ซึ่งจะปลดล็อก Monthly Bonus ระดับสูงสุด (35%) ในเดือนถัดไป</li>`;
+            } else {
+                html += `<li><strong>กลยุทธ์:</strong> สุดยอดมาก! คุณปลดล็อกโบนัสระดับท็อปแล้ว รักษามาตรฐานและนำ Service Standard ของเคสนี้ไปใช้กับกลุ่มลูกค้า High Net Worth ต่อไป</li>`;
+            }
+            html += `</ul>`;
+
+            return html;
+        }
+
         // ==================== ระบบสลับหน้าต่าง (Navigation) ====================
         function switchView(targetView) {
             const views = {
                 'main': document.getElementById('mainView'),
                 'table': document.getElementById('tableView'),
-                'cash': document.getElementById('cashView')
+                'cash': document.getElementById('cashView'),
+                'ai': document.getElementById('aiView')
             };
             const navBtns = {
                 'main': document.getElementById('navMainBtn'),
                 'table': document.getElementById('navTableBtn'),
-                'cash': document.getElementById('navCashBtn')
+                'cash': document.getElementById('navCashBtn'),
+                'ai': document.getElementById('navAiBtn')
             };
 
-            // ตรวจสอบข้อมูลก่อนเข้าหน้าตาราง หรือ CASH
-            if ((targetView === 'table' || targetView === 'cash') && !lastCalculationData) {
+            // ตรวจสอบข้อมูลก่อนเข้าหน้าตาราง หรือ CASH หรือ AI
+            if ((targetView === 'table' || targetView === 'cash' || targetView === 'ai') && !lastCalculationData) {
                 showCustomError("กรุณาคำนวณเบี้ยประกันก่อน");
                 return;
             }
@@ -1527,6 +1700,7 @@
             // เตรียมข้อมูลก่อนแสดงผล
             if (targetView === 'table') generatePolicyTableData();
             if (targetView === 'cash') refreshAllDisplays();
+            if (targetView === 'ai') generateAIAnalysis();
 
             // ซ่อนทุกหน้าต่าง
             Object.values(views).forEach(view => {
@@ -1542,6 +1716,7 @@
                     btn.classList.replace('text-[#243c94]', 'text-[#94a3b8]');
                     btn.classList.replace('text-purple-600', 'text-[#94a3b8]');
                     btn.classList.replace('text-blue-600', 'text-[#94a3b8]');
+                    btn.classList.replace('text-indigo-600', 'text-[#94a3b8]');
                     btn.classList.replace('scale-110', 'scale-100');
                 }
             });
@@ -1558,6 +1733,7 @@
                 if (targetView === 'main') navBtns[targetView].classList.replace('text-[#94a3b8]', 'text-[#243c94]');
                 if (targetView === 'table') navBtns[targetView].classList.replace('text-[#94a3b8]', 'text-purple-600');
                 if (targetView === 'cash') navBtns[targetView].classList.replace('text-[#94a3b8]', 'text-blue-600');
+                if (targetView === 'ai') navBtns[targetView].classList.replace('text-[#94a3b8]', 'text-indigo-600');
             }
         }
 
