@@ -2412,9 +2412,10 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (platform === 'line') {
-                const lineUrl = 'https://access.line.me/dialog/share?text=' + encodeURIComponent(text);
+                // ใช้รูปแบบ URL Scheme ของ LINE โดยตรง เพื่อรองรับข้อความยาวและการเว้นบรรทัดอย่างสมบูรณ์
+                const lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text);
                 
-                // แก้ไขปัญหาแท็บค้างบนมือถือ โดยการสลับหน้าจอโดยตรง
+                // แก้ไขปัญหาแท็บค้างบนมือถือ โดยการสลับหน้าจอไปที่แอป LINE ทันที
                 if (isMobile) {
                     window.location.href = lineUrl;
                 } else {
