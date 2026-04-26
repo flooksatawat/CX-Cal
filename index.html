@@ -22,7 +22,7 @@
         .input-box-rounded:focus { border-color: #3b82f6; background-color: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
         /* ปรับขนาด Padding และ Font ของปุ่มตัวเลือก เพื่อประหยัดพื้นที่แนวตั้ง */
-        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 6px 4px; font-size: 0.9rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; }
+        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.8rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; }
         .gender-pill.active-male { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-pill.active-female { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
@@ -96,36 +96,26 @@
             <!-- ส่วนเนื้อหาฟอร์มกรอกข้อมูล ปรับลดระยะห่าง -->
             <div class="content-area mt-2" id="manualInputs">
                 
-                <!-- กล่องค้นหาข้อความแบบย่อขนาด -->
-                <div class="flex gap-2 mb-3 bg-white rounded-full p-1 border border-slate-200 shadow-sm">
-                    <input type="text" id="textCommand" class="flex-1 bg-transparent text-xs px-4 outline-none font-medium text-slate-600" placeholder="พิมพ์คำสั่งด่วน: ช30, 1ล้าน, 20ปี" onkeypress="handleEnter(event)">
-                    <button onclick="processTextCommand()" class="bg-blue-50 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0 hover:bg-blue-100 transition-colors">
-                        <i class="fas fa-search text-xs"></i>
-                    </button>
-                </div>
-
-                <div class="w-full space-y-3">
-                    <!-- เพศ & อายุ -->
-                    <div class="grid grid-cols-2 gap-3">
+                <div class="w-full space-y-2.5">
+                    <!-- เพศ, อายุ, แผนประกัน (รวมกัน 1 แถวประหยัดพื้นที่) -->
+                    <div class="grid grid-cols-3 gap-2">
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">เพศ</p>
-                            <div class="flex gap-2">
+                            <div class="flex gap-1">
                                 <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-pill active-male">ชาย</button>
                                 <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-pill">หญิง</button>
                             </div>
                         </div>
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">อายุ (ปี)</p>
-                            <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded py-1.5 font-bold text-lg" oninput="calculate(currentMode)">
+                            <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded py-[5px] font-bold text-base" oninput="calculate(currentMode)">
                         </div>
-                    </div>
-
-                    <!-- แผนประกัน (ปรับให้เต็มจอเหมือนเพศ) -->
-                    <div>
-                        <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">แผนประกัน</p>
-                        <div class="flex gap-2 w-full">
-                            <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
-                            <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
+                        <div>
+                            <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">แผน</p>
+                            <div class="flex gap-1 w-full">
+                                <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
+                                <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
+                            </div>
                         </div>
                     </div>
 
@@ -139,7 +129,7 @@
                             <button onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
                             <button onclick="setQuickSum(10000000)" class="quick-pill">10 ล้าน</button>
                         </div>
-                        <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1.5 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
+                        <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                     </div>
 
                     <!-- ออมเงิน -->
@@ -152,7 +142,7 @@
                             <button onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
                             <button onclick="setQuickPremium(60000)" class="quick-pill">60,000</button>
                         </div>
-                        <input type="text" id="premiumInput" class="input-box-rounded py-1.5 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
+                        <input type="text" id="premiumInput" class="input-box-rounded py-1 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                     </div>
                     
                     <!-- ปุ่มการดำเนินการหลัก -->
@@ -1598,8 +1588,9 @@
             openPopup('resultModal'); 
         }
 
-        function processTextCommand() { 
-            const textRaw = document.getElementById('textCommand').value; 
+        function processTextCommand(voiceText = null) { 
+            const inputEl = document.getElementById('textCommand');
+            const textRaw = voiceText || (inputEl ? inputEl.value : ''); 
             if(!textRaw) return; 
             let t = textRaw.toLowerCase().replace(/,/g, ''); 
 
@@ -1673,7 +1664,7 @@
             let calcResult = calculate(mode);
             if (calcResult) {
                 openModal(calcResult); 
-                document.getElementById('textCommand').value = ""; 
+                if(inputEl) inputEl.value = ""; 
             }
         }
 
@@ -1889,7 +1880,7 @@
                 voiceRecog.onstart = () => { isVoiceListening = true; document.getElementById('navVoiceIcon').className = "fas fa-microphone listening-active text-red-500 text-[22px] mb-1.5"; }; 
                 voiceRecog.onend = () => { isVoiceListening = false; document.getElementById('navVoiceIcon').className = "fas fa-microphone text-[22px] mb-1.5"; };
                 voiceRecog.onerror = () => { isVoiceListening = false; document.getElementById('navVoiceIcon').className = "fas fa-microphone text-[22px] mb-1.5"; };
-                voiceRecog.onresult = (event) => { document.getElementById('textCommand').value = event.results[0][0].transcript; processTextCommand(); }; 
+                voiceRecog.onresult = (event) => { processTextCommand(event.results[0][0].transcript); }; 
             }
             try { voiceRecog.start(); } catch(e) { console.error(e); }
         }
