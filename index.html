@@ -23,14 +23,14 @@
         .input-box-rounded:focus { border-color: #3b82f6; background-color: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
         /* ปรับขนาด Padding และ Font ของปุ่มตัวเลือก เพื่อประหยัดพื้นที่แนวตั้ง */
-        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.85rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 0; font-size: 0.9rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; height: 100%; }
         #btnPlan1, #btnPlan2 { font-size: 13px; letter-spacing: 0.5px; }
         .gender-pill.active-male { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-pill.active-female { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
         
-        .quick-pill { font-size: 11px; font-weight: 700; padding: 6px 0; border-radius: 9999px; background-color: white; color: #3b82f6; border: 1.5px solid #e0e7ff; transition: all 0.2s; flex: 1; text-align: center; }
-        .quick-pill:hover { background-color: #e0f2fe; border-color: #bae6fd; color: #1e40af; } /* ไฮไลท์สีฟ้าอ่อนตอน Hover */
+        .quick-pill { font-size: 11px; font-weight: 600; padding: 6px 0; border-radius: 9999px; background-color: #f8fafc; color: #475569; border: 1px solid #e2e8f0; transition: all 0.2s; flex: 1; text-align: center; }
+        .quick-pill:hover { background-color: #e0f2fe; border-color: #bae6fd; color: #1e40af; }
         .quick-pill:active { background-color: #eff6ff; transform: scale(0.95); }
         .quick-pill.disabled-pill { background-color: #f1f5f9 !important; border-color: #e2e8f0 !important; color: #cbd5e1 !important; pointer-events: none; }
 
@@ -98,27 +98,28 @@
 
             <!-- ส่วนเนื้อหาฟอร์มกรอกข้อมูล -->
             <div class="content-area mt-2" id="manualInputs">
-                
                 <div class="w-full flex flex-col flex-1 min-h-0">
-                    <!-- ส่วนฟอร์ม ให้ขยายเต็มพื้นที่ที่เหลือและมีช่องว่างกำลังดี -->
-                    <div class="flex-1 flex flex-col justify-evenly py-1">
-                        <!-- เพศ & อายุ (แถวที่ 1) -->
-                        <div class="grid grid-cols-2 gap-4 shrink-0">
+                    
+                    <!-- ส่วนฟอร์ม จัดกลุ่มแบบ Card-style ให้ดูเป็นระเบียบและกระชับ -->
+                    <div class="flex-1 flex flex-col justify-center gap-3 sm:gap-4 py-2 overflow-y-auto custom-scrollbar">
+                        
+                        <!-- เพศ & อายุ -->
+                        <div class="grid grid-cols-2 gap-3 shrink-0">
                             <div>
-                                <div class="flex gap-2 h-9">
-                                    <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-pill active-male">ชาย</button>
-                                    <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-pill">หญิง</button>
+                                <div class="flex gap-2 h-10">
+                                    <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-pill active-male text-[15px]">ชาย</button>
+                                    <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-pill text-[15px]">หญิง</button>
                                 </div>
                             </div>
                             <div>
-                                <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded h-9 font-bold text-base" oninput="calculate(currentMode)" placeholder="อายุ (ปี)">
+                                <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded h-10 font-bold text-[17px]" oninput="calculate(currentMode)" placeholder="อายุ (ปี)">
                             </div>
                         </div>
 
-                        <!-- แผนประกัน (แถวที่ 2) -->
+                        <!-- แผนประกัน -->
                         <div class="shrink-0" id="planSelectionWrapper">
                             <p id="planSelectionLabel" class="text-slate-400 text-[11px] font-bold mb-1.5 text-center hidden">เลือกค่าห้อง</p>
-                            <div class="flex gap-1 w-full h-9" id="planSelectionContainer">
+                            <div class="flex gap-1 w-full h-10" id="planSelectionContainer">
                                 <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 gender-pill">10CX</button>
                                 <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 gender-pill active-blue">20CX</button>
                                 <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 gender-pill hidden">60</button>
@@ -126,48 +127,60 @@
                             </div>
                         </div>
                         
-                        <!-- 3D Extra & Advance Options (แสดงเฉพาะเมื่อเลือก 3D) -->
+                        <!-- 3D Extra & Advance Options -->
                         <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-4 shrink-0">
                             <div>
                                 <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">เลือก Extra</p>
-                                <button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill active-blue h-9 text-[#1e40af]">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i></button>
+                                <button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill active-blue h-10 text-[#1e40af]">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i></button>
                             </div>
                             <div>
                                 <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">เลือก Advance</p>
-                                <button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill active-blue h-9 text-[#1e40af]">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i></button>
+                                <button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill active-blue h-10 text-[#1e40af]">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i></button>
                             </div>
                         </div>
 
-                        <!-- ทุนประกัน -->
-                        <div class="shrink-0">
-                            <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ทุนประกัน (บาท)</p>
-                            <div class="flex gap-1 mb-2">
+                        <!-- ทุนประกัน Card -->
+                        <div class="shrink-0 bg-white rounded-2xl p-2 sm:p-3 border border-slate-100 shadow-sm">
+                            <p class="text-slate-400 text-[11px] font-bold mb-2 text-center">ทุนประกัน (บาท)</p>
+                            <div class="flex gap-1 mb-2.5">
                                 <button id="sumPill1" onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button>
                                 <button id="sumPill2" onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button>
                                 <button id="sumPill3" onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
                                 <button id="sumPill4" onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
                                 <button id="sumPill5" onclick="setQuickSum(5000000)" class="quick-pill">5 ล้าน</button>
                             </div>
-                            <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-2 text-base font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
+                            <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded h-11 text-[18px] font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                         </div>
 
-                        <!-- ออมเงิน -->
-                        <div class="shrink-0" id="premiumContainer">
-                            <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ออมเงิน (บาท)</p>
-                            <div class="flex gap-1 mb-2">
+                        <!-- ออมเงิน Card -->
+                        <div class="shrink-0 bg-white rounded-2xl p-2 sm:p-3 border border-slate-100 shadow-sm" id="premiumContainer">
+                            <p class="text-slate-400 text-[11px] font-bold mb-2 text-center">ออมเงิน (บาท)</p>
+                            <div class="flex gap-1 mb-2.5">
                                 <button id="premPill1" onclick="setQuickPremium(12000)" class="quick-pill">12,000</button>
                                 <button id="premPill2" onclick="setQuickPremium(24000)" class="quick-pill">24,000</button>
                                 <button id="premPill3" onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
                                 <button id="premPill4" onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
                                 <button id="premPill5" onclick="setQuickPremium(60000)" class="quick-pill">60,000</button>
                             </div>
-                            <input type="text" id="premiumInput" class="input-box-rounded py-2 text-base font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
+                            <input type="text" id="premiumInput" class="input-box-rounded h-11 text-[18px] font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
+                        </div>
+
+                        <!-- กระแสเงินสด Card -->
+                        <div class="shrink-0 bg-white rounded-2xl p-2 sm:p-3 border border-slate-100 shadow-sm hidden" id="cashFlowContainer">
+                            <p class="text-slate-400 text-[11px] font-bold mb-2 text-center tracking-wide">กระแสเงินสด (บาท/ปี)</p>
+                            <div class="flex gap-1 mb-2.5">
+                                <button onclick="setQuickCashFlow(10000)" class="quick-pill">1 หมื่น</button>
+                                <button onclick="setQuickCashFlow(50000)" class="quick-pill">5 หมื่น</button>
+                                <button onclick="setQuickCashFlow(100000)" class="quick-pill">1 แสน</button>
+                                <button onclick="setQuickCashFlow(300000)" class="quick-pill">3 แสน</button>
+                                <button onclick="setQuickCashFlow(500000)" class="quick-pill">5 แสน</button>
+                            </div>
+                            <input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded h-11 text-[18px] font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleCashFlowInput(this)">
                         </div>
                     </div>
                     
-                    <!-- ปุ่มการดำเนินการหลัก ยึดติดด้านล่าง เพิ่มช่องว่างให้กดง่ายขึ้น -->
-                    <div class="pb-1 shrink-0 flex flex-col gap-2.5 mt-1">
-                        <!-- สัดส่วน 3:1 (รายละเอียด 3 ส่วน, แชร์ 1 ส่วน) -->
+                    <!-- ปุ่มการดำเนินการหลัก -->
+                    <div class="pb-1 shrink-0 flex flex-col gap-2.5 mt-2">
                         <div class="grid grid-cols-4 gap-2.5">
                             <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full bg-[#243c94] text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-md hover:bg-[#1e327a] active:scale-95 transition-all">
                                 <i class="fas fa-file-alt text-base"></i> รายละเอียด
@@ -197,7 +210,9 @@
         <!-- ==================== VIEW 2: หน้าตารางมูลค่า (Full Screen) ==================== -->
         <div id="tableView" class="hidden flex-col flex-1 overflow-hidden w-full bg-white">
             <div class="flex justify-between items-center px-4 pt-5 pb-3 border-b border-slate-200 bg-white shrink-0 relative z-20">
-                <h3 id="tableHeaderTitle" class="text-[15px] font-bold text-purple-900 leading-tight flex items-center whitespace-nowrap overflow-hidden text-ellipsis"><i class="fas fa-table mr-2 text-purple-600"></i> ตารางมูลค่า</h3>
+                <h3 id="tableHeaderTitle" class="text-[14px] sm:text-[15px] font-bold text-purple-900 leading-tight flex items-center whitespace-nowrap overflow-hidden text-ellipsis w-[75%]">
+                    <!-- Title generated by JS -->
+                </h3>
                 <button onclick="openPopup('pdfOptionsModal')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1.5 active:scale-95 transition-colors shadow-sm shrink-0 ml-2">
                     <i class="fas fa-file-pdf"></i>
                     <span>PDF/แชร์</span>
@@ -220,14 +235,9 @@
             <!-- ส่วนที่แก้ไขเพื่อล็อค Header ให้อยู่กับที่ และขยายเต็มพื้นที่ -->
             <div class="flex-1 min-h-0 flex flex-col bg-white">
                 <div class="overflow-y-auto flex-1 custom-scrollbar policy-table-wrapper relative" id="pdfTableTarget">
-                    <table class="w-full text-[11px] min-[380px]:text-[13px] text-center border-collapse">
+                    <table class="w-full text-[11px] min-[380px]:text-[12px] sm:text-[13px] text-center border-collapse">
                         <thead class="sticky top-0 z-30" id="policyTableHead">
-                            <tr class="text-slate-500 shadow-sm text-[10px] min-[380px]:text-[12px]">
-                                <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] border-b border-slate-200 w-[15%]">อายุ</th>
-                                <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] border-b border-slate-200 w-[28%]">ออมเงิน</th>
-                                <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200 w-[28%]">ออมสะสม</th>
-                                <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200 w-[29%]">เงินสดพร้อมใช้</th>
-                            </tr>
+                            <!-- JS จะสร้างส่วนนี้ เพื่อรองรับ 4 หรือ 5 คอลัมน์ -->
                         </thead>
                         <tbody id="policyTableBody"></tbody>
                     </table>
@@ -1107,10 +1117,29 @@
         const LIFE_RATES = { "10CX": { "male": [28.81, 29.03, 29.77, 30.14, 30.92, 31.32, 31.73, 32.58, 33.02, 33.50, 33.98, 34.40, 34.83, 35.21, 35.64, 36.03, 36.45, 36.79, 37.12, 37.45, 37.79, 39.86, 40.45, 41.03, 42.71, 43.89, 44.01, 44.70, 45.97, 47.28, 49.23, 50.04, 50.87, 51.73, 53.25, 54.17, 56.42, 57.41, 58.44, 59.49, 61.26, 62.39, 63.54, 64.73, 65.96, 66.45, 68.51, 69.84, 72.02, 74.26, 76.59, 79.85, 82.36, 84.06, 86.74, 89.54, 91.49, 94.52, 96.69, 98.96, 101.36, 103.89, 106.57, 109.43, 112.48, 115.74], "female": [25.92, 26.10, 26.38, 26.67, 27.34, 27.65, 27.98, 28.31, 28.65, 29.40, 29.77, 30.15, 30.51, 30.91, 31.28, 31.62, 32.00, 32.32, 32.64, 32.93, 33.63, 35.97, 36.50, 37.05, 38.09, 38.68, 38.79, 39.91, 41.06, 41.74, 42.95, 43.67, 44.97, 45.74, 47.10, 47.94, 48.79, 49.66, 50.57, 51.50, 52.45, 54.08, 55.10, 56.83, 57.92, 59.73, 60.90, 62.10, 64.08, 65.37, 67.47, 69.65, 71.89, 73.41, 74.98, 77.46, 79.16, 81.82, 84.59, 86.54, 88.60, 91.72, 94.02, 96.46, 99.06, 101.85] }, "20CX": { "male": [16.21, 16.33, 16.75, 16.96, 17.40, 17.63, 17.87, 18.35, 18.61, 18.89, 19.17, 19.41, 19.66, 19.90, 20.15, 20.37, 20.63, 20.82, 21.01, 21.18, 21.39, 22.54, 22.87, 23.21, 24.16, 24.52, 24.91, 25.31, 26.04, 26.79, 27.88, 28.37, 28.86, 29.37, 29.91, 30.46, 31.02, 31.61, 32.21, 32.84, 33.48, 34.56, 35.26, 35.58, 36.33, 36.68, 37.05, 38.33, 39.66, 41.08, 42.55, 44.60, 45.75, 47.49, 48.80, 50.76, 52.86, 54.53, 56.93, 59.54, 61.72, 64.76, 68.07, 70.96, 74.11, 77.57], "female": [14.39, 14.69, 14.84, 15.01, 15.38, 15.56, 15.74, 15.93, 16.34, 16.54, 16.76, 16.97, 17.21, 17.42, 17.65, 17.86, 18.06, 18.25, 18.43, 18.60, 18.69, 19.73, 20.02, 20.32, 20.90, 21.23, 21.29, 21.63, 22.27, 22.92, 23.60, 24.00, 24.42, 24.85, 25.29, 25.75, 26.55, 27.04, 27.55, 28.08, 28.97, 30.25, 30.85, 31.84, 32.49, 33.17, 33.48, 34.20, 35.37, 36.16, 37.43, 38.31, 39.24, 40.70, 41.75, 43.37, 45.09, 46.93, 48.91, 51.03, 52.75, 55.22, 57.90, 60.20, 62.71, 65.48] } };
         const CI_RATES = { "10CX": { "male": [6.97, 6.88, 6.92, 6.86, 6.89, 6.82, 6.78, 6.86, 6.88, 6.92, 7.01, 7.08, 7.16, 7.23, 7.32, 7.40, 7.50, 7.64, 7.79, 7.95, 8.11, 8.66, 8.88, 9.12, 9.60, 9.97, 10.11, 10.38, 10.80, 11.24, 11.84, 12.14, 12.46, 12.78, 13.25, 13.58, 14.22, 14.55, 14.88, 15.23, 15.79, 16.20, 16.65, 17.13, 17.64, 17.97, 18.73, 19.31, 20.12, 20.98, 21.88, 23.07, 24.07, 24.87, 25.97, 27.11, 28.01, 29.23, 30.22, 31.30, 32.48, 33.84, 35.40, 37.20, 39.27, 41.64], "female": [7.08, 7.03, 7.02, 7.01, 7.08, 7.06, 7.06, 7.10, 7.16, 7.35, 7.47, 7.59, 7.69, 7.82, 7.94, 8.05, 8.18, 8.36, 8.54, 8.71, 9.01, 9.76, 10.04, 10.32, 10.76, 11.07, 11.25, 11.73, 12.24, 12.61, 13.17, 13.50, 14.01, 14.36, 14.89, 15.23, 15.58, 15.92, 16.25, 16.58, 16.90, 17.43, 17.75, 18.28, 18.60, 19.13, 19.42, 19.68, 20.15, 20.37, 20.81, 21.23, 21.66, 21.84, 22.05, 22.54, 22.83, 23.41, 24.03, 24.43, 24.84, 25.56, 26.04, 26.57, 27.18, 27.91] }, "20CX": { "male": [4.08, 4.02, 4.03, 3.99, 4.00, 3.96, 3.93, 3.97, 3.98, 4.00, 4.06, 4.10, 4.15, 4.21, 4.27, 4.33, 4.39, 4.49, 4.60, 4.70, 4.81, 5.16, 5.32, 5.49, 5.80, 6.00, 6.19, 6.39, 6.69, 7.01, 7.44, 7.69, 7.96, 8.24, 8.53, 8.83, 9.16, 9.49, 9.85, 10.23, 10.65, 11.23, 11.74, 12.14, 12.72, 13.19, 13.67, 14.52, 15.43, 16.39, 17.43, 18.76, 19.76, 21.08, 22.25, 23.76, 25.38, 26.84, 28.72, 30.76, 32.63, 35.07, 37.76, 40.32, 43.14, 46.24], "female": [4.05, 4.07, 4.06, 4.04, 4.08, 4.06, 4.06, 4.07, 4.16, 4.21, 4.27, 4.34, 4.42, 4.49, 4.58, 4.66, 4.74, 4.86, 4.99, 5.11, 5.23, 5.62, 5.81, 6.02, 6.31, 6.53, 6.69, 6.94, 7.29, 7.67, 8.07, 8.35, 8.63, 8.92, 9.23, 9.53, 9.96, 10.28, 10.60, 10.92, 11.39, 12.01, 12.36, 12.87, 13.23, 13.60, 13.80, 14.16, 14.69, 15.06, 15.61, 16.00, 16.41, 17.03, 17.51, 18.24, 19.04, 19.91, 20.86, 21.90, 22.78, 23.99, 25.32, 26.49, 27.81, 29.29] } };
 
-        // CASH Data Add-on
+        // CASH Data Add-on (จำลองเรทคอมมิชชั่นเพื่อใช้ทดสอบครอบคลุมทุกแบบประกัน)
         const COM_RATES = { 
             "10CX": [0.20, 0.10, 0.07, 0.02, 0.01, 0.01], 
-            "20CX": [0.30, 0.16, 0.10, 0.02, 0.01, 0.01, 0.01, 0.01] 
+            "20CX": [0.30, 0.16, 0.10, 0.02, 0.01, 0.01, 0.01, 0.01],
+            "5SLB": [0.15, 0.05, 0.05, 0.02, 0.01],
+            "10SLB": [0.25, 0.10, 0.05, 0.02, 0.01, 0.01],
+            "WXN10": [0.20, 0.10, 0.05, 0.02, 0.01, 0.01],
+            "WXN15": [0.25, 0.12, 0.08, 0.02, 0.01, 0.01],
+            "10": [0.25, 0.10, 0.05, 0.02, 0.01, 0.01],
+            "20": [0.35, 0.15, 0.10, 0.05, 0.02, 0.01],
+            "60": [0.40, 0.20, 0.10, 0.05, 0.02, 0.01],
+            "90": [0.40, 0.20, 0.10, 0.05, 0.02, 0.01],
+            "HX15": [0.40, 0.15, 0.10, 0.05],
+            "HX20": [0.40, 0.15, 0.10, 0.05],
+            "HX40": [0.40, 0.15, 0.10, 0.05],
+            "HX60": [0.40, 0.15, 0.10, 0.05],
+            "HX150": [0.40, 0.15, 0.10, 0.05],
+            "HX300": [0.40, 0.15, 0.10, 0.05],
+            "Life Protector 20": [0.30, 0.15, 0.10, 0.05, 0.02],
+            "Supreme Life Protector": [0.35, 0.15, 0.10, 0.05, 0.02],
+            "Convertable Term": [0.20, 0.10, 0.05, 0.02],
+            "24 TX": [0.10, 0.05, 0.02, 0.01],
+            "868 / 818 Elite Saving": [0.12, 0.05, 0.02, 0.01]
         };
 
         function openPopup(id) {
@@ -1206,6 +1235,9 @@
         function setQuickSum(val) { const el = document.getElementById('sumInsuredInput'); if(el) { el.value = val.toLocaleString(); calculate('sum'); } }
         function setQuickPremium(val) { const el = document.getElementById('premiumInput'); if(el) { el.value = val.toLocaleString(); calculate('premium'); } }
         
+        function handleCashFlowInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); calculate(currentMode); } }
+        function setQuickCashFlow(val) { const el = document.getElementById('cashFlowInput'); if(el) { el.value = val.toLocaleString(); calculate(currentMode); } }
+
         function getDiscount(sum, plan) { if (plan === '10CX') { if (sum >= 5000000) return 3.0; if (sum >= 1000000) return 2.0; } else { if (sum >= 5000000) return 1.5; if (sum >= 1000000) return 1.0; if (sum >= 800000) return 0.5; } return 0; }
         
         function calculate(source) { 
@@ -1213,31 +1245,57 @@
             const ageInput = document.getElementById('ageInput'); 
             const age = parseInt(ageInput ? ageInput.value : 0) || 0; 
             const totalRate = (LIFE_RATES[currentPlan]?.[currentGender]?.[age] || 0) + (CI_RATES[currentPlan]?.[currentGender]?.[age] || 0); 
-            if (totalRate <= 0) return null; 
+            
             let fSum = 0, fPrem = 0; 
-            if (source === 'sum') { 
+            
+            // กรณีแผนอื่นๆ ที่ยังไม่มี Rate ในระบบ ให้คำนวณจากค่าที่กรอกมาโดยตรง
+            if (totalRate <= 0) {
                 const sumInput = document.getElementById('sumInsuredInput'); 
+                const premInput = document.getElementById('premiumInput');
                 fSum = parseFloat(sumInput ? sumInput.value.replace(/,/g, '') : 0) || 0; 
-                if (age >= 0 && age <= 15 && fSum > 3000000) { showCustomError("อายุ 0-15 ปี ทำทุนประกันสูงสุดได้ 3 ล้านบาท"); return null; } 
-                if (age >= 16 && fSum > 10000000) { showCustomError("อายุ 16 ปีขึ้นไป ทำทุนประกันสูงสุดได้ 10 ล้านบาท"); return null; } 
-                fPrem = Math.round((fSum / 1000) * (totalRate - getDiscount(fSum, currentPlan))); 
-                const premInput = document.getElementById('premiumInput'); 
-                if(premInput) premInput.value = fPrem.toLocaleString(); 
-            } else { 
-                const premInput = document.getElementById('premiumInput'); 
-                fPrem = parseFloat(premInput ? premInput.value.replace(/,/g, '') : 50000) || 0; 
-                for (let d_val of (currentPlan === '10CX' ? [3, 2, 0] : [1.5, 1, 0.5, 0])) { 
-                    let s = (fPrem * 1000) / (totalRate - d_val); 
-                    if (getDiscount(s + 1, currentPlan) === d_val) { fSum = s; break; } 
+                fPrem = parseFloat(premInput ? premInput.value.replace(/,/g, '') : 0) || 0; 
+            } else {
+                if (source === 'sum') { 
+                    const sumInput = document.getElementById('sumInsuredInput'); 
+                    fSum = parseFloat(sumInput ? sumInput.value.replace(/,/g, '') : 0) || 0; 
+                    if (age >= 0 && age <= 15 && fSum > 3000000) { showCustomError("อายุ 0-15 ปี ทำทุนประกันสูงสุดได้ 3 ล้านบาท"); return null; } 
+                    if (age >= 16 && fSum > 10000000) { showCustomError("อายุ 16 ปีขึ้นไป ทำทุนประกันสูงสุดได้ 10 ล้านบาท"); return null; } 
+                    fPrem = Math.round((fSum / 1000) * (totalRate - getDiscount(fSum, currentPlan))); 
+                    const premInput = document.getElementById('premiumInput'); 
+                    if(premInput) premInput.value = fPrem.toLocaleString(); 
+                } else { 
+                    const premInput = document.getElementById('premiumInput'); 
+                    fPrem = parseFloat(premInput ? premInput.value.replace(/,/g, '') : 50000) || 0; 
+                    for (let d_val of (currentPlan === '10CX' ? [3, 2, 0] : [1.5, 1, 0.5, 0])) { 
+                        let s = (fPrem * 1000) / (totalRate - d_val); 
+                        if (getDiscount(s + 1, currentPlan) === d_val) { fSum = s; break; } 
+                    } 
+                    if (fSum === 0) fSum = (fPrem * 1000) / totalRate; 
+                    if (age >= 0 && age <= 15 && fSum > 3000000) { showCustomError("เบี้ยที่ระบุทำให้ทุนประกันเกิน 3 ล้านบาท สำหรับเด็ก"); return null; } 
+                    if (age >= 16 && fSum > 10000000) { showCustomError("อายุ 16-65 ปี ทำทุนประกันสูงสุดได้ 10 ล้านบาท"); return null; } 
+                    const sumInput = document.getElementById('sumInsuredInput'); 
+                    if(sumInput) sumInput.value = formatNum(fSum); 
                 } 
-                if (fSum === 0) fSum = (fPrem * 1000) / totalRate; 
-                if (age >= 0 && age <= 15 && fSum > 3000000) { showCustomError("เบี้ยที่ระบุทำให้ทุนประกันเกิน 3 ล้านบาท สำหรับเด็ก"); return null; } 
-                if (age >= 16 && fSum > 10000000) { showCustomError("อายุ 16-65 ปี ทำทุนประกันสูงสุดได้ 10 ล้านบาท"); return null; } 
-                const sumInput = document.getElementById('sumInsuredInput'); 
-                if(sumInput) sumInput.value = formatNum(fSum); 
-            } 
-            lastCalculationData = { premium: fPrem, sum: fSum, gender: currentGender==='male'?'ชาย':'หญิง', age: age, years: currentPlan==='10CX'?'10':'20' }; 
-            refreshAllDisplays(); 
+            }
+            
+            const cashFlowInput = document.getElementById('cashFlowInput');
+            const cashFlowVal = parseFloat(cashFlowInput ? cashFlowInput.value.replace(/,/g, '') : 0) || 0;
+            
+            let yearsStr = '20';
+            const matchYears = currentPlan.match(/\d+/);
+            if (matchYears) yearsStr = matchYears[0];
+            
+            lastCalculationData = { 
+                premium: fPrem, sum: fSum, 
+                gender: currentGender==='male'?'ชาย':'หญิง', 
+                age: age, 
+                years: yearsStr,
+                cashFlow: cashFlowVal
+            }; 
+            
+            if (totalRate > 0) {
+                refreshAllDisplays(); 
+            }
             
             return lastCalculationData; 
         }
@@ -1460,29 +1518,8 @@
                 'cash': document.getElementById('navCashBtn')
             };
 
-            // สร้างข้อมูลจำลองให้เสมอถ้าจะเปิดหน้าตารางมูลค่าแต่ยังไม่มีข้อมูล (เพื่อให้เปิดแท็บได้เสมอ)
-            if (targetView === 'table' && !lastCalculationData) {
-                const ageInput = document.getElementById('ageInput');
-                const sumInput = document.getElementById('sumInsuredInput');
-                const premInput = document.getElementById('premiumInput');
-                
-                let yearsStr = '20';
-                if(currentPlan) {
-                    const matchYears = currentPlan.match(/\d+/);
-                    if (matchYears) yearsStr = matchYears[0];
-                }
-
-                lastCalculationData = { 
-                    premium: parseFloat(premInput ? premInput.value.replace(/,/g, '') : 0) || 0, 
-                    sum: parseFloat(sumInput ? sumInput.value.replace(/,/g, '') : 0) || 0, 
-                    gender: currentGender === 'male' ? 'ชาย' : 'หญิง', 
-                    age: parseInt(ageInput ? ageInput.value : 0) || 30, 
-                    years: yearsStr 
-                };
-            }
-
-            // ตรวจสอบข้อมูลก่อนเข้า CASH (ยังคงบังคับให้มีข้อมูลก่อน)
-            if (targetView === 'cash' && !lastCalculationData) {
+            // ตรวจสอบข้อมูลก่อนเข้าหน้าตาราง หรือ CASH
+            if ((targetView === 'table' || targetView === 'cash') && !lastCalculationData) {
                 showCustomError("กรุณาคำนวณเบี้ยประกันก่อน");
                 return;
             }
@@ -1524,28 +1561,30 @@
             }
         }
 
+        // Helper function สำหรับแปลงชื่อเต็มเป็นชื่อย่อ
+        function getPlanAbbr(planName) {
+            const abbrMap = {
+                "CI Extra Plus": "CX",
+                "Life Protector 20": "LPB",
+                "Supreme Life Protector": "SLPA",
+                "Signature Legacy": "SLB",
+                "Convertable Term": "TLA",
+                "Century Life + TPD": "CLA",
+                "3D Health Excellence": "3D",
+                "Whole Life Extra": "WXN",
+                "24 TX": "TX",
+                "868 / 818 Elite Saving": "Elite"
+            };
+            return abbrMap[planName] || planName;
+        }
+
         // ==================== ตารางมูลค่า ====================
         function generatePolicyTableData() {
             if (!lastCalculationData) return;
             const d = lastCalculationData;
             
-            // เช็คว่าแผนปัจจุบันต้องแสดงกระแสเงินสดหรือไม่
-            const plansWithCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"];
-            const showCashFlow = plansWithCashFlow.includes(currentAppPlan);
-
-            // ปรับ Header ของตาราง ย้ายกระแสเงินสดมาไว้ก่อนเงินสดพร้อมใช้ เพื่อให้เงินสดพร้อมใช้อยู่ขวาสุด
-            const theadHtml = `
-                <tr class="text-slate-500 shadow-sm text-[10px] min-[380px]:text-[12px]">
-                    <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] border-b border-slate-200 ${showCashFlow ? 'w-[12%]' : 'w-[15%]'}">อายุ</th>
-                    <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] border-b border-slate-200 ${showCashFlow ? 'w-[19%]' : 'w-[28%]'}">ออมเงิน</th>
-                    <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200 ${showCashFlow ? 'w-[21%]' : 'w-[28%]'}">ออมสะสม</th>
-                    ${showCashFlow ? '<th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] text-teal-600 border-b border-slate-200 w-[24%]">กระแสเงินสด</th>' : ''}
-                    <th class="py-3 px-0.5 min-[380px]:px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200 ${showCashFlow ? 'w-[24%]' : 'w-[29%]'}">เงินสดพร้อมใช้</th>
-                </tr>
-            `;
-            const theadEl = document.getElementById('policyTableHead');
-            if (theadEl) theadEl.innerHTML = theadHtml;
-
+            const showCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(currentAppPlan);
+            
             // Format แผน และ ทุนประกัน
             let sumDisplay = '';
             if (d.sum >= 1000000 && d.sum % 1000000 === 0) {
@@ -1556,9 +1595,21 @@
                 sumDisplay = formatNum(d.sum) + ' บาท';
             }
             
-            // อัปเดตชื่อตารางด้านบน
-            const planAbbr = getPlanAbbr(currentAppPlan, currentPlan);
-            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600"></i> ${planAbbr} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`;
+            // อัปเดตชื่อตารางด้านบน โดยใช้ชื่อย่อ
+            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600 shrink-0"></i> <span class="truncate">${getPlanAbbr(currentAppPlan)} ${d.gender} ${d.age} ทุน ${sumDisplay}</span>`;
+
+            // สร้าง Header ของตารางใหม่ เพื่อรองรับคอลัมน์กระแสเงินสด
+            let theadHtml = `
+                <tr class="text-slate-500 shadow-sm text-[10px] min-[380px]:text-[11px] sm:text-[12px]">
+                    <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200 ${showCashFlow ? 'w-[10%]' : 'w-[15%]'}">อายุ</th>
+                    <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200 ${showCashFlow ? 'w-[20%]' : 'w-[28%]'}">ออมเงิน</th>
+                    <th class="py-3 px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200 ${showCashFlow ? 'w-[22%]' : 'w-[28%]'}">ออมสะสม</th>
+                    ${showCashFlow ? `<th class="py-3 px-1 font-bold bg-[#f8fafc] text-emerald-600 border-b border-slate-200 w-[24%]">กระแสเงินสด</th>` : ''}
+                    <th class="py-3 px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200 ${showCashFlow ? 'w-[24%]' : 'w-[29%]'}">เงินสดพร้อมใช้</th>
+                </tr>
+            `;
+            document.getElementById('policyTableHead').innerHTML = theadHtml;
+
 
             const maxYear = 90 - d.age;
             const payYears = parseInt(d.years);
@@ -1597,6 +1648,11 @@
                     cvTotal = (d.sum / 1000) * cvPer1000;
                 }
 
+                let cashFlowAmt = 0;
+                if (showCashFlow) {
+                    cashFlowAmt = d.cashFlow; // ปัจจุบันใช้ค่าแบบง่ายจาก input ตรงๆ
+                }
+
                 let isBeRow = false;
                 if (!foundBreakeven && totalPremium > 0 && cvTotal >= totalPremium) {
                     foundBreakeven = true;
@@ -1605,32 +1661,20 @@
                     isBeRow = true;
                 }
 
-                // การคำนวณกระแสเงินสด (จำลองตัวเลขให้เห็นภาพชัดเจน)
-                let cashFlowVal = 0; 
-                let cashFlowText = "-";
-                if (showCashFlow) {
-                    if (currentAppPlan === "868 / 818 Elite Saving") {
-                        cashFlowVal = d.sum * 0.08; // จำลองคืน 8%
-                    } else {
-                        cashFlowVal = d.sum * 0.01; // จำลองคืน 1%
-                    }
-                    if (cashFlowVal > 0) cashFlowText = Math.round(cashFlowVal).toLocaleString();
-                }
-
                 let trClass = "border-b border-slate-100 transition-colors";
                 if (isBeRow) trClass += " breakeven-target";
                 else trClass += " hover:bg-slate-50";
 
                 html += `
                     <tr class="${trClass}">
-                        <td class="py-3 px-0.5 min-[380px]:px-1 text-slate-600 font-medium relative">
+                        <td class="py-3 px-1 text-slate-600 font-medium relative">
                             <div class="be-badge absolute left-0 top-1/2 -translate-y-1/2 w-1 h-full bg-emerald-500 rounded-r-md hidden"></div>
                             ${d.age + y}
                         </td>
-                        <td class="py-3 px-0.5 min-[380px]:px-1 text-slate-600">${y <= payYears ? Math.round(annualPremium).toLocaleString() : "-"}</td>
-                        <td class="py-3 px-0.5 min-[380px]:px-1 text-blue-600">${Math.round(totalPremium).toLocaleString()}</td>
-                        ${showCashFlow ? `<td class="py-3 px-0.5 min-[380px]:px-1 text-teal-600 font-bold">${cashFlowText}</td>` : ''}
-                        <td class="py-3 px-0.5 min-[380px]:px-1 text-amber-600 font-bold">${Math.round(cvTotal).toLocaleString()}</td>
+                        <td class="py-3 px-1 text-slate-600">${y <= payYears ? Math.round(annualPremium).toLocaleString() : "-"}</td>
+                        <td class="py-3 px-1 text-blue-600">${Math.round(totalPremium).toLocaleString()}</td>
+                        ${showCashFlow ? `<td class="py-3 px-1 text-emerald-600 font-bold">${Math.round(cashFlowAmt).toLocaleString()}</td>` : ''}
+                        <td class="py-3 px-1 text-amber-600 font-bold">${Math.round(cvTotal).toLocaleString()}</td>
                     </tr>
                 `;
             }
@@ -1711,10 +1755,12 @@
                 const showBreakeven = document.getElementById('toggleBreakeven')?.checked;
                 let beRowIndex = -1;
                 let beAgeStr = '', beYearStr = '', beCVStr = '';
-
-                // เช็คว่าแผนปัจจุบันต้องแสดงกระแสเงินสดหรือไม่
-                const plansWithCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"];
-                const showCashFlow = plansWithCashFlow.includes(currentAppPlan);
+                
+                const showCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(currentAppPlan);
+                let headRow = ['อายุ', 'ออมเงิน', 'ออมสะสม'];
+                if (showCashFlow) headRow.push('กระแสเงินสด');
+                headRow.push('เงินสดพร้อมใช้');
+                headRow.push('ทุนประกัน');
 
                 trs.forEach((tr, index) => {
                     const tds = tr.querySelectorAll('td');
@@ -1727,18 +1773,13 @@
                         beRowIndex = index;
                         beAgeStr = rowData[0];
                         beYearStr = beAgeStr - d.age;
-                        // ดึงค่าเงินสดพร้อมใช้จากคอลัมน์สุดท้าย
-                        beCVStr = showCashFlow ? rowData[4] : rowData[3];
+                        beCVStr = rowData[showCashFlow ? 4 : 3];
                     }
                 });
 
-                let tableHead = showCashFlow 
-                    ? [['อายุ', 'ออมเงิน', 'ออมสะสม', 'กระแสเงินสด', 'เงินสดพร้อมใช้', 'ทุนประกัน']]
-                    : [['อายุ', 'ออมเงิน', 'ออมสะสม', 'เงินสดพร้อมใช้', 'ทุนประกัน']];
-
                 doc.autoTable({
                     startY: (showBreakeven && beRowIndex !== -1) ? 40 : 34,
-                    head: tableHead,
+                    head: [headRow],
                     body: tableRows,
                     theme: 'plain', 
                     margin: { top: 34, bottom: 15, left: 15, right: 15 },
@@ -1746,36 +1787,44 @@
                     headStyles: { fillColor: [248, 250, 252], textColor: [100, 116, 139], fontStyle: 'bold', lineWidth: { top: 0, bottom: 0.1, left: 0, right: 0 }, lineColor: [226, 232, 240] },
                     bodyStyles: { textColor: [71, 85, 105], lineWidth: { top: 0, bottom: 0.1, left: 0, right: 0 }, lineColor: [241, 245, 249] },
                     didParseCell: function (data) {
-                        const cashFlowIndex = showCashFlow ? 3 : -1;
-                        const cvIndex = showCashFlow ? 4 : 3;
-                        const sumIndex = showCashFlow ? 5 : 4;
-
                         if (data.section === 'head') {
                             if (data.column.index === 2) data.cell.styles.textColor = [37, 99, 235]; 
-                            if (showCashFlow && data.column.index === cashFlowIndex) data.cell.styles.textColor = [13, 148, 136]; // สี Teal
-                            if (data.column.index === cvIndex) data.cell.styles.textColor = [217, 119, 6]; 
-                            if (data.column.index === sumIndex) data.cell.styles.textColor = [16, 185, 129]; // สีเขียวสำหรับหัวข้อทุนประกัน
+                            if (showCashFlow) {
+                                if (data.column.index === 3) data.cell.styles.textColor = [16, 185, 129];
+                                if (data.column.index === 4) data.cell.styles.textColor = [217, 119, 6];
+                                if (data.column.index === 5) data.cell.styles.textColor = [16, 185, 129];
+                            } else {
+                                if (data.column.index === 3) data.cell.styles.textColor = [217, 119, 6]; 
+                                if (data.column.index === 4) data.cell.styles.textColor = [16, 185, 129];
+                            }
                         }
                         if (data.section === 'body') {
                             if (data.column.index === 0) data.cell.styles.fontStyle = 'bold'; 
                             if (data.column.index === 2) data.cell.styles.textColor = [37, 99, 235]; 
+                            if (showCashFlow) {
+                                if (data.column.index === 3) {
+                                    data.cell.styles.textColor = [16, 185, 129]; 
+                                    data.cell.styles.fontStyle = 'bold';
+                                }
+                                if (data.column.index === 4) {
+                                    data.cell.styles.textColor = [217, 119, 6]; 
+                                    data.cell.styles.fontStyle = 'bold';
+                                }
+                                if (data.column.index === 5) {
+                                    data.cell.styles.textColor = [16, 185, 129]; 
+                                    data.cell.styles.fontStyle = 'bold';
+                                }
+                            } else {
+                                if (data.column.index === 3) {
+                                    data.cell.styles.textColor = [217, 119, 6]; 
+                                    data.cell.styles.fontStyle = 'bold';
+                                }
+                                if (data.column.index === 4) {
+                                    data.cell.styles.textColor = [16, 185, 129]; 
+                                    data.cell.styles.fontStyle = 'bold';
+                                }
+                            }
                             
-                            if (showCashFlow && data.column.index === cashFlowIndex) {
-                                data.cell.styles.textColor = [13, 148, 136]; 
-                                data.cell.styles.fontStyle = 'bold';
-                            }
-                            if (data.column.index === cvIndex) {
-                                data.cell.styles.textColor = [217, 119, 6]; 
-                                data.cell.styles.fontStyle = 'bold';
-                            }
-                            if (showCashFlow && data.column.index === cashFlowIndex) {
-                                data.cell.styles.textColor = [13, 148, 136]; 
-                                data.cell.styles.fontStyle = 'bold';
-                            }
-                            if (data.column.index === sumIndex) {
-                                data.cell.styles.textColor = [16, 185, 129]; // สีเขียวสำหรับตัวเลขทุนประกัน
-                                data.cell.styles.fontStyle = 'bold';
-                            }
                             if (showBreakeven && data.row.index === beRowIndex) {
                                 data.cell.styles.fillColor = [236, 253, 245]; 
                                 data.cell.styles.textColor = [6, 95, 70]; 
@@ -1793,7 +1842,6 @@
                         doc.setTextColor(255, 255, 255); 
                         doc.text('CI Extra Plus', 105, 13, { align: 'center' });
                         
-                        // Format แผน และ ทุนประกัน สำหรับ PDF
                         let sumDisplay = '';
                         if (d.sum >= 1000000 && d.sum % 1000000 === 0) {
                             sumDisplay = (d.sum / 1000000) + ' ล้านบาท';
@@ -1803,17 +1851,15 @@
                             sumDisplay = formatNum(d.sum) + ' บาท';
                         }
                         
-                        // เพิ่มข้อมูล เพศ อายุ และแผน บริเวณด้านบนตาราง
                         doc.setFontSize(14);
                         doc.setTextColor(30, 58, 138); 
-                        const planAbbr = getPlanAbbr(currentAppPlan, currentPlan);
-                        doc.text(`${planAbbr} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`, 105, 28, { align: 'center' });
+                        doc.text(`${getPlanAbbr(currentAppPlan)} ${d.gender} ${d.age} ทุน ${sumDisplay}`, 105, 28, { align: 'center' });
                         
                         if (data.pageNumber === 1 && showBreakeven && beRowIndex !== -1) {
                             doc.setFont(fontName, 'normal');
                             doc.setFontSize(13);
                             doc.setTextColor(6, 95, 70); 
-                            doc.text(`🎯 จุดคุ้มทุน: ปีที่ ${beYearStr} (อายุ ${beAgeStr} ปี) | เงินพร้อมใช้: ${beCVStr} บาท`, 105, 35, { align: 'center' });
+                            doc.text(`🎯 จุดคุ้มทุน: ปีที่ ${beYearStr} (อายุ ${beAgeStr} ปี) | เงินสดพร้อมใช้: ${beCVStr} บาท`, 105, 35, { align: 'center' });
                         }
                     }
                 });
@@ -1829,28 +1875,30 @@
                     doc.text(`หน้า ${i} / ${pageCount}`, 195, 290, { align: 'right' });
                 }
 
+                const pdfFileName = `${getPlanAbbr(currentAppPlan)}_ตารางมูลค่า_อายุ${d.age}.pdf`;
+
                 if (actionType === 'print') {
                     doc.autoPrint();
                     const pdfBlobUrl = doc.output('bloburl');
                     window.open(pdfBlobUrl, '_blank');
                 } else if (actionType === 'share' || actionType === 'line' || actionType === 'messenger') {
                     const pdfBlob = doc.output('blob');
-                    const file = new File([pdfBlob], `CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`, { type: 'application/pdf' });
+                    const file = new File([pdfBlob], pdfFileName, { type: 'application/pdf' });
                     
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        navigator.share({ files: [file], title: 'ตารางมูลค่า CI Extra Plus', text: 'ตารางมูลค่า CI Extra Plus' })
+                        navigator.share({ files: [file], title: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}`, text: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}` })
                             .catch(err => {
                                 console.log('Share failed:', err);
                                 if (err.name === 'NotAllowedError') {
-                                    doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                                    doc.save(pdfFileName);
                                 }
                             });
                     } else {
                         showCustomError("เบราว์เซอร์ไม่รองรับการแชร์ไฟล์โดยตรง ระบบจะทำการดาวน์โหลดแทน");
-                        doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                        doc.save(pdfFileName);
                     }
                 } else {
-                    doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                    doc.save(pdfFileName);
                 }
 
             } catch (error) {
@@ -2138,15 +2186,12 @@
             if (!lastCalculationData) return '';
             const d = lastCalculationData;
             
-            const plansWithCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"];
-            const showCashFlow = plansWithCashFlow.includes(currentAppPlan);
-            const cashFlowColIndex = showCashFlow ? 3 : -1;
-            const cvColIndex = showCashFlow ? 4 : 3;
-
             if (type === 'table') {
                 const sumStr = formatNum(d.sum); 
-                const planAbbr = getPlanAbbr(currentAppPlan, currentPlan);
-                let text = `📊 ตารางมูลค่า ${planAbbr}\nเพศ${d.gender} อายุ ${d.age} ปี\nออม ${Math.round(d.premium).toLocaleString()} บ./ปี (${d.years} ปี)\nทุน ${sumStr} บ.\n\n`; 
+                const showCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(currentAppPlan);
+                const cvIndex = showCashFlow ? 4 : 3;
+
+                let text = `📊 ตารางมูลค่า CI Extra Plus\nเพศ${d.gender} อายุ ${d.age} ปี\nออม ${Math.round(d.premium).toLocaleString()} บ./ปี (${d.years} ปี)\nทุน ${sumStr} บ.\n\n`; 
                 
                 const showBreakeven = document.getElementById('toggleBreakeven')?.checked;
                 const tableBody = document.getElementById('policyTableBody');
@@ -2155,7 +2200,7 @@
                 if (showBreakeven && beRow) {
                     const tds = beRow.querySelectorAll('td');
                     const beAge = tds[0].innerText.trim();
-                    text += `🎯 จุดคุ้มทุน ปีที่ ${beAge - d.age} (อายุ ${beAge} ปี)\nเงินสดพร้อมใช้ ${tds[cvColIndex].innerText} บ.\n\n`;
+                    text += `🎯 จุดคุ้มทุน ปีที่ ${beAge - d.age} (อายุ ${beAge} ปี)\nเงินสดพร้อมใช้ ${tds[cvIndex].innerText} บ.\n\n`;
                 }
                 
                 text += `📌 ตัวอย่างมูลค่า:\n`;
@@ -2168,12 +2213,7 @@
                     const year = idx + 1;
                     if (milestones.includes(year) && !addedYears.has(year)) {
                         const tds = tr.querySelectorAll('td');
-                        let rowText = `ปีที่ ${year} (อายุ ${tds[0].innerText.trim()}): `;
-                        if (showCashFlow) {
-                            rowText += `คืน ${tds[cashFlowColIndex].innerText} บ. | `;
-                        }
-                        rowText += `เงินสดพร้อมใช้ ${tds[cvColIndex].innerText} บ.\n`;
-                        text += rowText;
+                        text += `ปีที่ ${year} (อายุ ${tds[0].innerText.trim()}): ${tds[cvIndex].innerText} บ.\n`;
                         addedYears.add(year);
                     }
                 });
@@ -2220,8 +2260,14 @@
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
             if (platform === 'line') {
-                const lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text);
-                window.open(lineUrl, '_blank');
+                const lineUrl = 'https://access.line.me/dialog/share?text=' + encodeURIComponent(text);
+                
+                // แก้ไขปัญหาแท็บค้างบนมือถือ โดยการสลับหน้าจอโดยตรง
+                if (isMobile) {
+                    window.location.href = lineUrl;
+                } else {
+                    window.open(lineUrl, '_blank');
+                }
             } else if (platform === 'messenger') {
                 const fbHtml = `<div class="w-14 h-14 bg-[#0084FF] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg"><i class='fab fa-facebook-messenger text-3xl text-white'></i></div><span class="text-base font-bold block mb-1">คัดลอกข้อความแล้ว</span><span class='text-xs font-medium opacity-90 block text-blue-200'>ระบบกำลังเปิด Messenger...<br>กรุณาวางข้อความในช่องแชท</span>`;
                 
@@ -2439,25 +2485,34 @@
             // Update Header
             const headerTitle = document.querySelector('#mainHeaderBtn h1');
             const headerDesc = document.querySelector('#mainHeaderBtn p');
+            if(headerTitle) headerTitle.innerText = planName;
             if(headerDesc) headerDesc.innerHTML = `${desc} <i class="fas fa-chevron-down text-[8px]"></i>`;
 
             // Update Main Action Button
             const mainActionBtn = document.getElementById('mainActionBtn');
-            // รวมแบบประกันทั้งหมดที่มีระบบ ตารางมูลค่า
-            const targetPlans = [
-                "Life Protector 20", 
-                "Supreme Life Protector", 
-                "Whole Life Extra", 
-                "24 TX", 
-                "868 / 818 Elite Saving", 
-                "Signature Legacy", 
-                "Century Life + TPD", 
-                "Convertable Term"
-            ];
+            const targetPlans = ["Life Protector 20", "Supreme Life Protector", "Whole Life Extra", "24 TX", "868 / 818 Elite Saving"];
             
             if (targetPlans.includes(planName)) {
                 mainActionBtn.innerHTML = `<i class="fas fa-table text-base"></i> ตารางมูลค่า`;
                 mainActionBtn.onclick = function() {
+                    // สร้างข้อมูลจำลองเพื่อให้สามารถเปิดหน้าตารางมูลค่าได้ทันทีโดยไม่ต้องรอระบบคำนวณเบี้ย
+                    const ageInput = document.getElementById('ageInput');
+                    const sumInput = document.getElementById('sumInsuredInput');
+                    const premInput = document.getElementById('premiumInput');
+                    const cashFlowInput = document.getElementById('cashFlowInput');
+                    
+                    let yearsStr = '20';
+                    const matchYears = currentPlan.match(/\d+/);
+                    if (matchYears) yearsStr = matchYears[0];
+
+                    lastCalculationData = { 
+                        premium: parseFloat(premInput ? premInput.value.replace(/,/g, '') : 0) || 0, 
+                        sum: parseFloat(sumInput ? sumInput.value.replace(/,/g, '') : 0) || 0, 
+                        cashFlow: parseFloat(cashFlowInput ? cashFlowInput.value.replace(/,/g, '') : 0) || 0,
+                        gender: currentGender === 'male' ? 'ชาย' : 'หญิง', 
+                        age: parseInt(ageInput ? ageInput.value : 0) || 30, 
+                        years: yearsStr 
+                    };
                     switchView('table');
                 };
             } else if (planName === 'CI Extra Plus') {
@@ -2478,6 +2533,7 @@
             const planSelectionLabel = document.getElementById('planSelectionLabel');
             const premiumContainer = document.getElementById('premiumContainer');
             const extraOptions = document.getElementById('threeDExtraOptions');
+            const cashFlowContainer = document.getElementById('cashFlowContainer');
             
             const btn1 = document.getElementById('btnPlan1');
             const btn2 = document.getElementById('btnPlan2');
@@ -2490,6 +2546,15 @@
             if (premiumContainer) premiumContainer.classList.remove('hidden');
             if (planSelectionLabel) planSelectionLabel.classList.add('hidden');
             if (extraOptions) extraOptions.classList.add('hidden');
+
+            // จัดการแสดงผลช่อง กระแสเงินสด สำหรับแผน WXN, 24TX, Elite
+            if (cashFlowContainer) {
+                if (["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(planName)) {
+                    cashFlowContainer.classList.remove('hidden');
+                } else {
+                    cashFlowContainer.classList.add('hidden');
+                }
+            }
 
             if (planName === 'Signature Legacy') {
                 planContainer.classList.remove('hidden');
