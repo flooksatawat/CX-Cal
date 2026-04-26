@@ -153,7 +153,7 @@
                         </div>
 
                         <!-- ทุนประกัน Card -->
-                        <div class="shrink-0 bg-white rounded-2xl p-2.5 border border-slate-100 shadow-sm">
+                        <div class="shrink-0 bg-white rounded-2xl p-2.5 border border-slate-100 shadow-sm" id="sumInsuredContainer">
                             <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ทุนประกัน (บาท)</p>
                             <div class="flex gap-1 mb-2">
                                 <button id="sumPill1" onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button>
@@ -2686,6 +2686,7 @@
             const premiumContainer = document.getElementById('premiumContainer');
             const extraOptions = document.getElementById('threeDExtraOptions');
             const cashFlowContainer = document.getElementById('cashFlowContainer');
+            const sumInsuredContainer = document.getElementById('sumInsuredContainer');
             
             const btn1 = document.getElementById('btnPlan1');
             const btn2 = document.getElementById('btnPlan2');
@@ -2698,11 +2699,13 @@
             if (premiumContainer) premiumContainer.classList.remove('hidden');
             if (planSelectionLabel) planSelectionLabel.classList.add('hidden');
             if (extraOptions) extraOptions.classList.add('hidden');
+            if (sumInsuredContainer) sumInsuredContainer.classList.remove('hidden');
 
             // จัดการแสดงผลช่อง กระแสเงินสด สำหรับแผน WXN, 24TX, Elite
             if (cashFlowContainer) {
                 if (["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(planName)) {
                     cashFlowContainer.classList.remove('hidden');
+                    if (sumInsuredContainer) sumInsuredContainer.classList.add('hidden');
                 } else {
                     cashFlowContainer.classList.add('hidden');
                 }
