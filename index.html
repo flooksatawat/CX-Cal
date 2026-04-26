@@ -24,7 +24,7 @@
         
         /* ปรับขนาด Padding และ Font ของปุ่มตัวเลือก เพื่อประหยัดพื้นที่แนวตั้ง */
         .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.85rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-        #btn10CX, #btn20CX { font-size: 10px; letter-spacing: 0.5px; }
+        #btn10CX, #btn20CX { font-size: 14px; letter-spacing: 0.5px; }
         .gender-pill.active-male { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-pill.active-female { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
@@ -82,15 +82,15 @@
         <!-- ==================== VIEW 1: หน้าฟอร์มหลัก ==================== -->
         <div id="mainView" class="flex flex-col flex-1 overflow-hidden w-full">
             <!-- ส่วนหัว (Header) ปรับให้บางลง -->
-            <div class="relative w-full z-10 pt-3 px-3 flex-shrink-0 bg-white">
-                <div class="bg-[#243c94] text-white py-3 rounded-[20px] text-center relative z-20 shadow-[0_5px_15px_rgba(36,60,148,0.25)]">
-                    <h1 class="text-2xl font-black tracking-wide leading-tight">CI Extra Plus</h1>
-                    <p class="text-[11px] font-medium mt-0.5 flex justify-center items-center gap-1.5 opacity-90">
-                        ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ <i class="fas fa-chevron-down text-[10px]"></i>
+            <div class="relative w-full z-10 pt-2 px-3 flex-shrink-0 bg-white">
+                <div class="bg-[#243c94] text-white py-1.5 rounded-[14px] text-center relative z-20 shadow-[0_3px_10px_rgba(36,60,148,0.25)]">
+                    <h1 class="text-lg font-black tracking-wide leading-tight">CI Extra Plus</h1>
+                    <p class="text-[9px] font-medium flex justify-center items-center gap-1 opacity-90">
+                        ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ <i class="fas fa-chevron-down text-[8px]"></i>
                     </p>
                 </div>
-                <div onclick="openPopup('insuranceConditionsModal')" class="bg-[#f8fafc] text-[#1e3a8a] text-[11px] font-bold pt-5 pb-1.5 -mt-3 rounded-b-2xl cursor-pointer text-center flex justify-center items-center gap-1.5 relative z-10 border-x border-b border-slate-100 mx-3 shadow-sm hover:bg-slate-100 transition-colors">
-                    <div class="bg-[#1e3a8a] text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[9px] font-bold shadow-sm"><i class="fas fa-info"></i></div> 
+                <div onclick="openPopup('insuranceConditionsModal')" class="bg-[#f8fafc] text-[#1e3a8a] text-[9px] font-bold pt-3 pb-1 -mt-2 rounded-b-xl cursor-pointer text-center flex justify-center items-center gap-1 relative z-10 border-x border-b border-slate-100 mx-3 shadow-sm hover:bg-slate-100 transition-colors">
+                    <div class="bg-[#1e3a8a] text-white rounded-full w-3 h-3 flex items-center justify-center text-[7px] font-bold shadow-sm"><i class="fas fa-info"></i></div> 
                     เงื่อนไขการรับประกัน
                 </div>
             </div>
@@ -257,8 +257,8 @@
     <div id="cashMenuModal" class="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]">
             <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
-                <h3 class="text-[14px] min-[375px]:text-base font-bold text-[#1e3a8a] whitespace-nowrap tracking-tight"><i class="fas fa-chart-simple mr-1.5 text-blue-600"></i> Chubb Agency Success Howto</h3>
-                <button onclick="closePopup('cashMenuModal')" class="w-8 h-8 shrink-0 ml-2 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+                <h3 class="text-[15px] min-[375px]:text-base font-bold text-[#1e3a8a] whitespace-nowrap tracking-tight"><i class="fas fa-chart-simple mr-1.5 text-blue-600"></i> Chubb Agency Success Howto</h3>
+                <button onclick="closePopup('cashMenuModal')" class="w-8 h-8 shrink-0 ml-2 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button>
             </div>
             <div class="flex flex-col gap-3">
                 <button onclick="closePopup('cashMenuModal'); openPopup('caseIncomeModal')" class="w-full px-5 py-4 text-[14.5px] flex justify-between items-center cursor-pointer rounded-[20px] border border-emerald-300 bg-white hover:bg-emerald-50 shadow-sm active:scale-95 transition-all">
@@ -266,35 +266,35 @@
                         <i class="fas fa-wallet text-emerald-600 text-lg w-6 text-left"></i>
                         <span class="font-bold text-emerald-800">รายได้จากเคสนี้</span>
                     </div>
-                    <i class="fas fa-external-link-alt text-emerald-400"></i>
+                    <i class="fas fa-external-link-alt text-xs text-emerald-400"></i>
                 </button>
                 <button onclick="closePopup('cashMenuModal'); openPopup('comModal')" class="w-full px-5 py-4 text-[14.5px] flex justify-between items-center cursor-pointer rounded-[20px] border border-amber-300 bg-white hover:bg-amber-50 shadow-sm active:scale-95 transition-all">
                     <div class="flex items-center gap-3">
                         <i class="fas fa-hand-holding-usd text-amber-600 text-lg w-6 text-left"></i>
                         <span class="font-bold text-amber-800">รายได้ที่ได้รับ (คอมมิชชัน)</span>
                     </div>
-                    <i class="fas fa-external-link-alt text-amber-400"></i>
+                    <i class="fas fa-external-link-alt text-xs text-amber-400"></i>
                 </button>
                 <button onclick="closePopup('cashMenuModal'); openPopup('mbModal')" class="w-full px-5 py-4 text-[14.5px] flex justify-between items-center cursor-pointer rounded-[20px] border border-blue-300 bg-white hover:bg-blue-50 shadow-sm active:scale-95 transition-all">
                     <div class="flex items-center gap-3">
                         <i class="fas fa-gift text-blue-600 text-lg w-6 text-left"></i>
                         <span class="font-bold text-blue-800">โบนัสรายเดือน (MB)</span>
                     </div>
-                    <i class="fas fa-external-link-alt text-blue-400"></i>
+                    <i class="fas fa-external-link-alt text-xs text-blue-400"></i>
                 </button>
                 <button onclick="closePopup('cashMenuModal'); openPopup('mybModal')" class="w-full px-5 py-4 text-[14.5px] flex justify-between items-center cursor-pointer rounded-[20px] border border-violet-300 bg-white hover:bg-violet-50 shadow-sm active:scale-95 transition-all">
                     <div class="flex items-center gap-3">
                         <i class="fas fa-calendar-check text-violet-600 text-lg w-6 text-left"></i>
                         <span class="font-bold text-violet-800">โบนัสครึ่งปี (MYB)</span>
                     </div>
-                    <i class="fas fa-external-link-alt text-violet-400"></i>
+                    <i class="fas fa-external-link-alt text-xs text-violet-400"></i>
                 </button>
                 <button onclick="closePopup('cashMenuModal'); openPopup('nabModal')" class="w-full px-5 py-4 text-[14.5px] flex justify-between items-center cursor-pointer rounded-[20px] border border-cyan-300 bg-white hover:bg-cyan-50 shadow-sm active:scale-95 transition-all">
                     <div class="flex items-center gap-3">
                         <i class="fas fa-star text-cyan-600 text-lg w-6 text-left"></i>
                         <span class="font-bold text-cyan-800">โบนัสตัวแทนใหม่ (NAB)</span>
                     </div>
-                    <i class="fas fa-external-link-alt text-cyan-400"></i>
+                    <i class="fas fa-external-link-alt text-xs text-cyan-400"></i>
                 </button>
             </div>
         </div>
