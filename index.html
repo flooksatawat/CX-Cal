@@ -83,9 +83,9 @@
         <div id="mainView" class="flex flex-col flex-1 overflow-hidden w-full">
             <!-- ส่วนหัว (Header) ปรับให้บางลง -->
             <div class="relative w-full z-10 pt-2 px-3 flex-shrink-0 bg-white">
-                <div class="bg-[#243c94] text-white py-1.5 rounded-[14px] text-center relative z-20 shadow-[0_3px_10px_rgba(36,60,148,0.25)]">
-                    <h1 class="text-lg font-black tracking-wide leading-tight">CI Extra Plus</h1>
-                    <p class="text-[9px] font-medium flex justify-center items-center gap-1 opacity-90">
+                <div id="mainHeaderBtn" class="bg-[#243c94] text-white py-1.5 rounded-[14px] text-center relative z-20 shadow-[0_3px_10px_rgba(36,60,148,0.25)] cursor-pointer hover:bg-[#1e327a] transition-all active:scale-[0.98] select-none">
+                    <h1 class="text-lg font-black tracking-wide leading-tight pointer-events-none">CI Extra Plus</h1>
+                    <p class="text-[9px] font-medium flex justify-center items-center gap-1 opacity-90 pointer-events-none">
                         ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ <i class="fas fa-chevron-down text-[8px]"></i>
                     </p>
                 </div>
@@ -937,6 +937,57 @@
         </div>
     </div>
 
+    <!-- Modal เลือกแบบประกัน (Pagination 3 หน้า หน้าละ 3 แบบ) -->
+    <div id="planSelectModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-lg font-bold text-[#1e3a8a]"><i class="fas fa-list-ul mr-2 text-blue-600"></i> เลือกแบบประกัน</h3>
+                <button onclick="closePopup('planSelectModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+
+            <!-- Slider Container -->
+            <div class="relative overflow-hidden w-full h-[225px]">
+                <!-- Page 1 -->
+                <div id="planPage1" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-0 space-y-3">
+                </div>
+                
+                <!-- Page 2 -->
+                <div id="planPage2" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-full space-y-3">
+                </div>
+
+                <!-- Page 3 -->
+                <div id="planPage3" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-full space-y-3">
+                </div>
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="flex justify-center items-center gap-2 mt-4 pt-2">
+                <button onclick="changePlanPage(1)" id="planDot1" class="w-4 h-2.5 rounded-full bg-blue-600 transition-all"></button>
+                <button onclick="changePlanPage(2)" id="planDot2" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all hover:bg-slate-300"></button>
+                <button onclick="changePlanPage(3)" id="planDot3" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all hover:bg-slate-300"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ค้นหาแบบประกัน (จากฟังก์ชันกดค้าง) -->
+    <div id="planSearchModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3 shrink-0">
+                <h3 class="text-lg font-bold text-[#1e3a8a]"><i class="fas fa-search mr-2 text-blue-600"></i> ค้นหาแบบประกัน</h3>
+                <button onclick="closePopup('planSearchModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="mb-4 shrink-0">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="planSearchInput" class="input-box w-full text-sm py-3 pl-10 bg-slate-50 border-slate-200 text-left focus:text-center" placeholder="พิมพ์ชื่อแบบประกัน..." oninput="handlePlanSearch()">
+                </div>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 text-left space-y-2" id="planSearchResults">
+                <!-- รายการค้นหาจะถูกแทรกที่นี่ผ่าน JS -->
+            </div>
+        </div>
+    </div>
+
     <script>
         const setText = (id, text) => { const el = document.getElementById(id); if (el) el.innerText = text; };
         const formatNum = (num) => { const rounded = Math.round(num * 100) / 100; return Number.isInteger(rounded) ? rounded.toLocaleString() : rounded.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); };
@@ -1640,6 +1691,25 @@
             if(!textRaw) return; 
             let t = textRaw.toLowerCase().replace(/,/g, ''); 
 
+            // รองรับการค้นหาแบบประกันอื่นๆ ผ่านคำสั่งเสียง
+            const otherPlans = [
+                { key: /life\s*protect|ไลฟ์\s*โพรเทค|90/, name: "Life Protect 90" },
+                { key: /health\s*care|เฮลท์\s*แคร์/, name: "Health Care Plus" },
+                { key: /max\s*saving|แมกซ์\s*เซฟวิ่ง|15\/5/, name: "Max Saving 15/5" },
+                { key: /cancer|แคนเซอร์|มะเร็ง/, name: "Cancer Care" },
+                { key: /pa\s*safe|พีเอ\s*เซฟ|อุบัติเหตุ/, name: "PA Safe" },
+                { key: /education|ทุนการศึกษา/, name: "Education Fund" },
+                { key: /retirement|เกษียณ/, name: "Retirement Pro" },
+                { key: /elite|อีลีท|อีลิท/, name: "Elite Health" }
+            ];
+            
+            for (let p of otherPlans) {
+                if (t.match(p.key)) {
+                    selectAppPlan(p.name);
+                    return; // ยกเลิกการคำนวณเพราะเป็นแผนที่ยังไม่รองรับ
+                }
+            }
+
             let explicitPlanMatch = t.match(/(?:แผน|cx)\s*(\d+)/) || t.match(/(\d+)\s*(?:cx)/) || t.match(/(?:ส่ง|ออม|ระยะเวลา)\s*(\d+)\s*ปี/);
             if (explicitPlanMatch && explicitPlanMatch[1] !== '10' && explicitPlanMatch[1] !== '20') {
                 showCustomError("กรุณาระบุข้อมูลอีกครั้ง (จำนวนปีต้องเป็น 10 หรือ 20 ปีเท่านั้น)");
@@ -1651,8 +1721,9 @@
             else if(t.match(/ชาย|ผู้ชาย|หนุ่ม/)) gender = 'male'; 
             
             let plan = currentPlan; 
-            if(t.match(/10\s*cx|10\s*ปี|แผน\s*10/)) plan = '10CX'; 
-            else if(t.match(/20\s*cx|20\s*ปี|แผน\s*20/)) plan = '20CX'; 
+            // แก้ไขให้รองรับคำว่า cx10, cx20, 10cx, 20cx ทั้งแบบติดกันและเว้นวรรค
+            if(t.match(/10\s*cx|cx\s*10|10\s*ปี|แผน\s*10/)) plan = '10CX'; 
+            else if(t.match(/20\s*cx|cx\s*20|20\s*ปี|แผน\s*20/)) plan = '20CX'; 
             
             let mode = 'premium'; 
             if(t.match(/ทุน|คุ้มครอง/)) mode = 'sum'; 
@@ -1955,6 +2026,173 @@
             if (e.target.closest('button, input, select, textarea, a, .clickable-row, .interactive-btn')) return;
         }
 
+        // Logic สำหรับการเลื่อนหน้าต่างเลือกแบบประกัน
+        let currentPlanPage = 1;
+        function changePlanPage(page) {
+            currentPlanPage = page;
+            
+            // เลื่อนหน้า (Slide)
+            for (let i = 1; i <= 3; i++) {
+                const pageEl = document.getElementById('planPage' + i);
+                if (pageEl) {
+                    if (i === page) {
+                        pageEl.classList.remove('-translate-x-full', 'translate-x-full');
+                        pageEl.classList.add('translate-x-0');
+                    } else if (i < page) {
+                        pageEl.classList.remove('translate-x-0', 'translate-x-full');
+                        pageEl.classList.add('-translate-x-full'); // ซ่อนไปทางซ้าย
+                    } else {
+                        pageEl.classList.remove('translate-x-0', '-translate-x-full');
+                        pageEl.classList.add('translate-x-full'); // ซ่อนไปทางขวา
+                    }
+                }
+            }
+
+            // อัปเดตจุด (Dots)
+            for (let i = 1; i <= 3; i++) {
+                const dotEl = document.getElementById('planDot' + i);
+                if (dotEl) {
+                    if (i === page) {
+                        dotEl.classList.replace('bg-slate-200', 'bg-blue-600');
+                        dotEl.classList.replace('w-2.5', 'w-4'); // ทำให้จุดยาวขึ้น
+                    } else {
+                        dotEl.classList.replace('bg-blue-600', 'bg-slate-200');
+                        dotEl.classList.replace('w-4', 'w-2.5');
+                    }
+                }
+            }
+        }
+
+        function selectAppPlan(planName) {
+            closePopup('planSelectModal');
+            closePopup('planSearchModal');
+            if (planName === 'CI Extra Plus') {
+                // อยู่ในแผนปัจจุบันอยู่แล้ว ไม่ต้องทำอะไร
+            } else {
+                // แสดงข้อความสำหรับแผนอื่นๆ ที่ยังไม่เสร็จ
+                showCustomError(`กำลังพัฒนาระบบสำหรับ : ${planName}`);
+            }
+            
+            // รีเซ็ตกลับไปหน้าแรกหลังจากปิด Modal (เผื่อเปิดครั้งหน้า)
+            setTimeout(() => { changePlanPage(1); document.getElementById('planSearchInput').value = ''; }, 300);
+        }
+
+        // ==================== ฟังก์ชันค้นหาแบบประกัน และ กดค้าง (Long Press) ====================
+        let currentAppPlan = "CI Extra Plus";
+
+        const allInsurancePlans = [
+            { name: "CI Extra Plus", desc: "ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ" },
+            { name: "Life Protector 20", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
+            { name: "สุพรีม ไลโพรเทคเตอร์ 20", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
+            { name: "Signature Legacy", desc: "แผนมรดก ลูกค้ามูลค่าสูง" },
+            { name: "Convertable Term", desc: "จองสิทธิ เปลี่ยนแบบประกันได้" },
+            { name: "Century Life + TPD", desc: "แผนมรดก 100 ปี + TPD" },
+            { name: "3D Health Excellence", desc: "ประกันสุขภาพ ที่เข้าใจทุกช่วงชีวิต" },
+            { name: "ตลอดชีพเอ็กตร้า", desc: "สินทรัพย์กระแสเงินสด" },
+            { name: "24 TX", desc: "สินทรัพย์กระแสเงินสด" },
+            { name: "868 / 818 Elite Saving", desc: "สินทรัพย์กระแสเงินสด" }
+        ];
+
+        function openPlanModal() {
+            // กรองแผนที่กำลังใช้งานอยู่ออก (จะเหลือ 9 แผนพอดี)
+            const plansToShow = allInsurancePlans.filter(p => p.name !== currentAppPlan);
+            
+            for (let i = 1; i <= 3; i++) {
+                const pageEl = document.getElementById('planPage' + i);
+                if (pageEl) {
+                    const pagePlans = plansToShow.slice((i - 1) * 3, i * 3);
+                    pageEl.innerHTML = pagePlans.map(p => `
+                        <button onclick="selectAppPlan('${p.name}')" class="w-full flex flex-col text-left p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:bg-slate-100 active:scale-95 transition-all shadow-sm">
+                            <span class="text-[15px] font-bold text-slate-700">${p.name}</span>
+                            <span class="text-[10px] text-slate-500 font-medium">${p.desc}</span>
+                        </button>
+                    `).join('');
+                }
+            }
+            changePlanPage(1);
+            openPopup('planSelectModal');
+        }
+
+        function renderSearchResults(plans) {
+            const container = document.getElementById('planSearchResults');
+            if (!container) return;
+            if (plans.length === 0) {
+                container.innerHTML = `<div class="text-center py-6 text-slate-400 text-sm font-medium"><i class="fas fa-exclamation-circle text-2xl mb-2 text-slate-300 block"></i>ไม่พบแบบประกันที่ค้นหา</div>`;
+                return;
+            }
+            container.innerHTML = plans.map(p => `
+                <button onclick="selectAppPlan('${p.name}')" class="w-full flex flex-col text-left p-3 ${p.name === currentAppPlan ? 'bg-blue-50 border border-blue-200' : 'bg-white border border-slate-200'} rounded-2xl hover:bg-slate-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold ${p.name === currentAppPlan ? 'text-blue-800' : 'text-slate-700'}">${p.name}</span>
+                    <span class="text-[10px] ${p.name === currentAppPlan ? 'text-blue-600' : 'text-slate-500'} font-medium">${p.desc}</span>
+                </button>
+            `).join('');
+        }
+
+        function handlePlanSearch() {
+            const query = document.getElementById('planSearchInput').value.toLowerCase();
+            const filtered = allInsurancePlans.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+            renderSearchResults(filtered);
+        }
+
+        function setupLongPress() {
+            const btn = document.getElementById('mainHeaderBtn');
+            if (!btn) return;
+            
+            let pressTimer;
+            let isLongPress = false;
+            let isMoving = false;
+
+            const startPress = (e) => {
+                if (e.type === 'mousedown' && e.button !== 0) return; // ทำงานเฉพาะคลิกซ้าย
+                isLongPress = false;
+                isMoving = false;
+                
+                pressTimer = setTimeout(() => {
+                    if (!isMoving) {
+                        isLongPress = true;
+                        openPopup('planSearchModal');
+                        renderSearchResults(allInsurancePlans); // โหลดรายการทั้งหมดตั้งต้น
+                        setTimeout(() => {
+                            const inputEl = document.getElementById('planSearchInput');
+                            if(inputEl) inputEl.focus();
+                        }, 300);
+                        // สั่นเครื่องเบาๆ ถ้าอุปกรณ์รองรับ (Haptic Feedback)
+                        if (navigator.vibrate) navigator.vibrate(50);
+                    }
+                }, 600); // กดค้าง 600 มิลลิวินาที
+            };
+
+            const cancelPress = () => {
+                clearTimeout(pressTimer);
+            };
+            
+            const handleMove = () => {
+                isMoving = true;
+                clearTimeout(pressTimer);
+            };
+
+            const endPress = (e) => {
+                e.preventDefault(); // ป้องกันการเกิด click event ซ้ำซ้อนจากการแตะ
+                clearTimeout(pressTimer);
+                if (!isLongPress && !isMoving) {
+                    // ถ้าไม่ใช่การกดค้าง ให้เปิดเมนูเลือกแผนปกติ
+                    openPlanModal();
+                }
+            };
+
+            // Touch events (Mobile)
+            btn.addEventListener('touchstart', startPress, {passive: false});
+            btn.addEventListener('touchmove', handleMove, {passive: true});
+            btn.addEventListener('touchend', endPress);
+            btn.addEventListener('touchcancel', cancelPress);
+
+            // Mouse events (Desktop)
+            btn.addEventListener('mousedown', startPress);
+            btn.addEventListener('mousemove', handleMove);
+            btn.addEventListener('mouseup', endPress);
+            btn.addEventListener('mouseleave', cancelPress);
+        }
+
         window.onload = () => { 
             document.querySelectorAll('[id$="Modal"]').forEach(modal => {
                 if (modal.classList.contains('fixed') && modal.classList.contains('opacity-0')) {
@@ -1962,6 +2200,7 @@
                 }
             });
             calculate('sum'); 
+            setupLongPress(); // เริ่มระบบตรวจจับการกดค้าง
         };
     </script>
 </body>
