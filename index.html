@@ -16,19 +16,21 @@
         .app-container { width: 100%; max-width: 440px; height: 100vh; height: 100dvh; background-color: white; display: flex; flex-direction: column; position: relative; overflow: hidden; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
         @media (min-width: 450px) { .app-container { height: 95vh; border-radius: 35px; } }
         
-        .content-area { flex: 1; overflow-y: auto; padding: 0 20px 20px 20px; display: flex; flex-direction: column; }
+        /* ปิดการใช้งาน Scroll และให้ Content กระจายตัวพอดีจอ */
+        .content-area { flex: 1; overflow: hidden; padding: 0 20px 15px 20px; display: flex; flex-direction: column; }
         
         .input-box-rounded { width: 100%; border: 1.5px solid #f1f5f9; border-radius: 9999px; text-align: center; outline: none; transition: all 0.2s; background-color: #f8fafc; color: #0f172a; }
         .input-box-rounded:focus { border-color: #3b82f6; background-color: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
         /* ปรับขนาด Padding และ Font ของปุ่มตัวเลือก เพื่อประหยัดพื้นที่แนวตั้ง */
-        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.8rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; }
+        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.85rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; }
+        #btn10CX, #btn20CX { font-size: 12px; letter-spacing: 0.5px; padding: 3px 2px; }
         .gender-pill.active-male { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-pill.active-female { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
         
-        .quick-pill { font-size: 10px; font-weight: 700; padding: 6px 0; border-radius: 9999px; background-color: white; color: #3b82f6; border: 1.5px solid #e0e7ff; transition: all 0.2s; flex: 1; text-align: center; }
-        .quick-pill:hover { background-color: #eff6ff; }
+        .quick-pill { font-size: 11px; font-weight: 700; padding: 6px 0; border-radius: 9999px; background-color: white; color: #3b82f6; border: 1.5px solid #e0e7ff; transition: all 0.2s; flex: 1; text-align: center; }
+        .quick-pill:hover { background-color: #e0f2fe; border-color: #bae6fd; color: #1e40af; } /* ไฮไลท์สีฟ้าอ่อนตอน Hover */
         .quick-pill:active { background-color: #eff6ff; transform: scale(0.95); }
 
         .modal-overlay { background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(5px); transition: opacity 0.2s ease-out; opacity: 0; pointer-events: none; visibility: hidden; z-index: 100; position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
@@ -83,92 +85,92 @@
             <!-- ส่วนหัว (Header) ปรับให้บางลง -->
             <div class="relative w-full z-10 pt-3 px-3 flex-shrink-0 bg-white">
                 <div class="bg-[#243c94] text-white py-3 rounded-[20px] text-center relative z-20 shadow-[0_5px_15px_rgba(36,60,148,0.25)]">
-                    <h1 class="text-xl font-black tracking-wide leading-tight">CI Extra Plus</h1>
-                    <p class="text-[10px] font-medium mt-0.5 flex justify-center items-center gap-1.5 opacity-90">
-                        ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ <i class="fas fa-chevron-down text-[9px]"></i>
+                    <h1 class="text-2xl font-black tracking-wide leading-tight">CI Extra Plus</h1>
+                    <p class="text-[11px] font-medium mt-0.5 flex justify-center items-center gap-1.5 opacity-90">
+                        ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ <i class="fas fa-chevron-down text-[10px]"></i>
                     </p>
                 </div>
-                <div onclick="openPopup('insuranceConditionsModal')" class="bg-[#f8fafc] text-[#1e3a8a] text-[10px] font-bold pt-5 pb-1.5 -mt-3 rounded-b-2xl cursor-pointer text-center flex justify-center items-center gap-1.5 relative z-10 border-x border-b border-slate-100 mx-3 shadow-sm hover:bg-slate-100 transition-colors">
-                    <div class="bg-[#1e3a8a] text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[8px] font-bold shadow-sm"><i class="fas fa-info"></i></div> 
+                <div onclick="openPopup('insuranceConditionsModal')" class="bg-[#f8fafc] text-[#1e3a8a] text-[11px] font-bold pt-5 pb-1.5 -mt-3 rounded-b-2xl cursor-pointer text-center flex justify-center items-center gap-1.5 relative z-10 border-x border-b border-slate-100 mx-3 shadow-sm hover:bg-slate-100 transition-colors">
+                    <div class="bg-[#1e3a8a] text-white rounded-full w-3.5 h-3.5 flex items-center justify-center text-[9px] font-bold shadow-sm"><i class="fas fa-info"></i></div> 
                     เงื่อนไขการรับประกัน
                 </div>
             </div>
 
-            <!-- ส่วนเนื้อหาฟอร์มกรอกข้อมูล ปรับลดระยะห่าง -->
-            <div class="content-area mt-2" id="manualInputs">
+            <!-- ส่วนเนื้อหาฟอร์มกรอกข้อมูล ลบช่องค้นหา และบังคับพอดีจอ 100% -->
+            <div class="content-area mt-1" id="manualInputs">
                 
-                <div class="w-full space-y-2.5">
-                    <!-- เพศ, อายุ -->
-                    <div class="grid grid-cols-2 gap-2">
+                <div class="w-full flex flex-col flex-1 justify-evenly min-h-0">
+                    <!-- เพศ & อายุ (แถวที่ 1) -->
+                    <div class="grid grid-cols-2 gap-3 shrink-0">
                         <div>
-                            <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">เพศ</p>
-                            <div class="flex gap-1">
+                            <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">เพศ</p>
+                            <div class="flex gap-1.5">
                                 <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-pill active-male">ชาย</button>
                                 <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-pill">หญิง</button>
                             </div>
                         </div>
                         <div>
-                            <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">อายุ (ปี)</p>
-                            <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded py-[5px] font-bold text-base" oninput="calculate(currentMode)">
+                            <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">อายุ (ปี)</p>
+                            <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded py-[5px] font-bold text-lg" oninput="calculate(currentMode)">
                         </div>
                     </div>
 
-                    <!-- แผนประกัน -->
-                    <div>
-                        <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">แผน</p>
-                        <div class="flex gap-1 w-full">
+                    <!-- แผนประกัน (แถวที่ 2 ต่อจากเพศ/อายุ) -->
+                    <div class="shrink-0">
+                        <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">แผน</p>
+                        <div class="flex gap-1.5 w-full">
                             <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
                             <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
                         </div>
                     </div>
 
-                    <!-- ทุนประกัน -->
-                    <div>
-                        <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">ทุนประกัน (บาท)</p>
-                        <div class="flex gap-1 mb-1.5">
+                    <!-- ทุนประกัน (เหลือ 4 ปุ่ม) -->
+                    <div class="shrink-0">
+                        <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">ทุนประกัน (บาท)</p>
+                        <div class="flex gap-1.5 mb-1.5">
                             <button onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button>
                             <button onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button>
                             <button onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
                             <button onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
                         </div>
-                        <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
+                        <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1.5 text-2xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                     </div>
 
-                    <!-- ออมเงิน -->
-                    <div>
-                        <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">ออมเงิน (บาท)</p>
-                        <div class="flex gap-1 mb-1.5">
+                    <!-- ออมเงิน (เหลือ 4 ปุ่ม) -->
+                    <div class="shrink-0">
+                        <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">ออมเงิน (บาท)</p>
+                        <div class="flex gap-1.5 mb-1.5">
                             <button onclick="setQuickPremium(12000)" class="quick-pill">12,000</button>
                             <button onclick="setQuickPremium(24000)" class="quick-pill">24,000</button>
                             <button onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
                             <button onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
                         </div>
-                        <input type="text" id="premiumInput" class="input-box-rounded py-1 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
+                        <input type="text" id="premiumInput" class="input-box-rounded py-1.5 text-2xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                     </div>
                     
                     <!-- ปุ่มการดำเนินการหลัก -->
-                    <div class="pt-2 border-t border-slate-100">
+                    <div class="pt-2 border-t border-slate-100 shrink-0">
                         <!-- สัดส่วน 3:1 (รายละเอียด 3 ส่วน, แชร์ 1 ส่วน) -->
                         <div class="grid grid-cols-4 gap-2 mb-2">
-                            <button onclick="manualTriggerPopup()" class="col-span-3 w-full bg-[#243c94] text-white py-2.5 rounded-xl font-bold flex justify-center items-center gap-2 text-[13px] shadow-md hover:bg-[#1e327a] active:scale-95 transition-all">
+                            <button onclick="manualTriggerPopup()" class="col-span-3 w-full bg-[#243c94] text-white py-2.5 rounded-xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-md hover:bg-[#1e327a] active:scale-95 transition-all">
                                 <i class="fas fa-file-alt text-base"></i> รายละเอียด
                             </button>
-                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full bg-[#10b981] text-white py-2.5 rounded-xl font-bold flex justify-center items-center gap-1.5 text-[13px] shadow-md hover:bg-[#059669] active:scale-95 transition-all">
+                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full bg-[#10b981] text-white py-2.5 rounded-xl font-bold flex justify-center items-center gap-1.5 text-[14px] shadow-md hover:bg-[#059669] active:scale-95 transition-all">
                                 <i class="fas fa-share-nodes text-base"></i> แชร์
                             </button>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-2 mb-2">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-[#1e3a8a] py-2 rounded-xl text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 active:scale-95 transition-all">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-[#1e3a8a] py-2 rounded-xl text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-slate-50 active:scale-95 transition-all">
                                 <i class="fas fa-credit-card text-[#1e3a8a] text-sm"></i> ตัวเลือกชำระ
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] text-[#065f46] py-2 rounded-xl text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-[#d1fae5] active:scale-95 transition-all">
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-[#ecfdf5] border border-[#a7f3d0] text-[#065f46] py-2 rounded-xl text-[13px] font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-[#d1fae5] active:scale-95 transition-all">
                                 <i class="fas fa-money-bill-transfer text-[#059669] text-sm"></i> บัญชีโอนเงิน
                             </button>
                         </div>
                         
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-[#fdf4ff] border border-[#fce7f3] text-[#9d174d] py-2 rounded-xl text-[12px] font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-[#fce7f3] active:scale-95 transition-all">
-                            <i class="fas fa-laptop-code text-sm"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[9px] ml-1 opacity-70"></i>
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-[#fdf4ff] border border-[#fce7f3] text-[#9d174d] py-2 rounded-xl text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-[#fce7f3] active:scale-95 transition-all">
+                            <i class="fas fa-laptop-code text-sm"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[10px] ml-1 opacity-70"></i>
                         </button>
                     </div>
                 </div>
@@ -225,20 +227,20 @@
             <div class="flex justify-around items-center px-1 pt-2 pb-1">
                 <button id="navMainBtn" class="flex flex-col items-center justify-center p-2 w-1/4 text-[#243c94] transition-colors" onclick="switchView('main')">
                     <i class="fas fa-keyboard text-[22px] mb-1.5"></i>
-                    <span class="text-[9px] font-bold">ข้อมูล</span>
+                    <span class="text-[10px] font-bold">ข้อมูล</span>
                 </button>
                 <button id="navTableBtn" class="flex flex-col items-center justify-center p-2 w-1/4 text-[#94a3b8] hover:text-[#64748b] transition-colors" onclick="switchView('table')">
                     <i class="fas fa-table text-[22px] mb-1.5"></i>
-                    <span class="text-[9px] font-bold">ตารางมูลค่า</span>
+                    <span class="text-[10px] font-bold">ตารางมูลค่า</span>
                 </button>
                 <!-- เปลี่ยนฟังก์ชันจาก manualTriggerPopup() เป็น openCashMenu() -->
                 <button class="flex flex-col items-center justify-center p-2 w-1/4 text-[#94a3b8] hover:text-[#64748b] transition-colors" onclick="openCashMenu()">
                     <i class="fas fa-chart-simple text-[22px] mb-1.5"></i>
-                    <span class="text-[9px] font-bold">CASH</span>
+                    <span class="text-[10px] font-bold">CASH</span>
                 </button>
                 <button class="flex flex-col items-center justify-center p-2 w-1/4 text-[#94a3b8] hover:text-[#64748b] transition-colors" onclick="startVoiceRecognition()">
                     <i class="fas fa-microphone text-[22px] mb-1.5" id="navVoiceIcon"></i>
-                    <span class="text-[9px] font-bold">คำสั่งเสียง</span>
+                    <span class="text-[10px] font-bold">คำสั่งเสียง</span>
                 </button>
             </div>
             <div class="text-center font-bold text-[8.5px] text-slate-300 pb-safe pb-2 tracking-[0.15em] uppercase w-full">
