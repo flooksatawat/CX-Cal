@@ -28,6 +28,7 @@
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
         
         .quick-pill { font-size: 10px; font-weight: 700; padding: 6px 0; border-radius: 9999px; background-color: white; color: #3b82f6; border: 1.5px solid #e0e7ff; transition: all 0.2s; flex: 1; text-align: center; }
+        .quick-pill:hover { background-color: #eff6ff; }
         .quick-pill:active { background-color: #eff6ff; transform: scale(0.95); }
 
         .modal-overlay { background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(5px); transition: opacity 0.2s ease-out; opacity: 0; pointer-events: none; visibility: hidden; z-index: 100; position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
@@ -97,8 +98,8 @@
             <div class="content-area mt-2" id="manualInputs">
                 
                 <div class="w-full space-y-2.5">
-                    <!-- เพศ, อายุ, แผนประกัน (รวมกัน 1 แถวประหยัดพื้นที่) -->
-                    <div class="grid grid-cols-3 gap-2">
+                    <!-- เพศ, อายุ -->
+                    <div class="grid grid-cols-2 gap-2">
                         <div>
                             <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">เพศ</p>
                             <div class="flex gap-1">
@@ -110,12 +111,14 @@
                             <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">อายุ (ปี)</p>
                             <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded py-[5px] font-bold text-base" oninput="calculate(currentMode)">
                         </div>
-                        <div>
-                            <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">แผน</p>
-                            <div class="flex gap-1 w-full">
-                                <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
-                                <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
-                            </div>
+                    </div>
+
+                    <!-- แผนประกัน -->
+                    <div>
+                        <p class="text-slate-400 text-[10px] font-bold mb-1 text-center">แผน</p>
+                        <div class="flex gap-1 w-full">
+                            <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
+                            <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
                         </div>
                     </div>
 
@@ -127,7 +130,6 @@
                             <button onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button>
                             <button onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
                             <button onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
-                            <button onclick="setQuickSum(10000000)" class="quick-pill">10 ล้าน</button>
                         </div>
                         <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                     </div>
@@ -140,7 +142,6 @@
                             <button onclick="setQuickPremium(24000)" class="quick-pill">24,000</button>
                             <button onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
                             <button onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
-                            <button onclick="setQuickPremium(60000)" class="quick-pill">60,000</button>
                         </div>
                         <input type="text" id="premiumInput" class="input-box-rounded py-1 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                     </div>
