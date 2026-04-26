@@ -32,6 +32,7 @@
         .quick-pill { font-size: 11px; font-weight: 700; padding: 6px 0; border-radius: 9999px; background-color: white; color: #3b82f6; border: 1.5px solid #e0e7ff; transition: all 0.2s; flex: 1; text-align: center; }
         .quick-pill:hover { background-color: #e0f2fe; border-color: #bae6fd; color: #1e40af; } /* ไฮไลท์สีฟ้าอ่อนตอน Hover */
         .quick-pill:active { background-color: #eff6ff; transform: scale(0.95); }
+        .quick-pill.disabled-pill { background-color: #f1f5f9 !important; border-color: #e2e8f0 !important; color: #cbd5e1 !important; pointer-events: none; }
 
         .modal-overlay { background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(5px); transition: opacity 0.2s ease-out; opacity: 0; pointer-events: none; visibility: hidden; z-index: 100; position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
         .modal-overlay.show { opacity: 1; pointer-events: auto; visibility: visible; }
@@ -115,33 +116,50 @@
                         </div>
 
                         <!-- แผนประกัน (แถวที่ 2) -->
-                        <div class="shrink-0" id="planSelectionContainer">
-                            <div class="flex gap-2 w-full h-9">
+                        <div class="shrink-0" id="planSelectionWrapper">
+                            <p id="planSelectionLabel" class="text-slate-400 text-[11px] font-bold mb-1.5 text-center hidden">เลือกค่าห้อง</p>
+                            <div class="flex gap-1 w-full h-9" id="planSelectionContainer">
                                 <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 gender-pill">10CX</button>
                                 <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 gender-pill active-blue">20CX</button>
+                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 gender-pill hidden">60</button>
+                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 gender-pill hidden">90</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 3D Extra & Advance Options (แสดงเฉพาะเมื่อเลือก 3D) -->
+                        <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-4 shrink-0">
+                            <div>
+                                <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">เลือก Extra</p>
+                                <button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill active-blue h-9 text-[#1e40af]">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i></button>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">เลือก Advance</p>
+                                <button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill active-blue h-9 text-[#1e40af]">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i></button>
                             </div>
                         </div>
 
                         <!-- ทุนประกัน -->
                         <div class="shrink-0">
                             <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ทุนประกัน (บาท)</p>
-                            <div class="flex gap-2 mb-2">
-                                <button onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button>
-                                <button onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button>
-                                <button onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
-                                <button onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
+                            <div class="flex gap-1 mb-2">
+                                <button id="sumPill1" onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button>
+                                <button id="sumPill2" onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button>
+                                <button id="sumPill3" onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
+                                <button id="sumPill4" onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
+                                <button id="sumPill5" onclick="setQuickSum(5000000)" class="quick-pill">5 ล้าน</button>
                             </div>
                             <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-2 text-base font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                         </div>
 
                         <!-- ออมเงิน -->
-                        <div class="shrink-0">
+                        <div class="shrink-0" id="premiumContainer">
                             <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ออมเงิน (บาท)</p>
-                            <div class="flex gap-2 mb-2">
-                                <button onclick="setQuickPremium(12000)" class="quick-pill">12,000</button>
-                                <button onclick="setQuickPremium(24000)" class="quick-pill">24,000</button>
-                                <button onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
-                                <button onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
+                            <div class="flex gap-1 mb-2">
+                                <button id="premPill1" onclick="setQuickPremium(12000)" class="quick-pill">12,000</button>
+                                <button id="premPill2" onclick="setQuickPremium(24000)" class="quick-pill">24,000</button>
+                                <button id="premPill3" onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
+                                <button id="premPill4" onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
+                                <button id="premPill5" onclick="setQuickPremium(60000)" class="quick-pill">60,000</button>
                             </div>
                             <input type="text" id="premiumInput" class="input-box-rounded py-2 text-base font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                         </div>
@@ -969,6 +987,96 @@
         </div>
     </div>
 
+    <!-- Modal เลือกแผน 3D Health Excellence -->
+    <div id="hxPlanModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3 shrink-0">
+                <h3 class="text-lg font-bold text-[#1e3a8a]"><i class="fas fa-shield-heart mr-2 text-blue-600"></i> เลือกแผน 3D Health</h3>
+                <button onclick="closePopup('hxPlanModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 text-center space-y-2">
+                <button onclick="setHXPlan('HX15', '1,500')" class="w-full flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">1,500</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-0.5">ความคุ้มครอง 1 ล้านบาท</span>
+                </button>
+                <button onclick="setHXPlan('HX20', '2,000')" class="w-full flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">2,000</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-0.5">ความคุ้มครอง 3 ล้านบาท</span>
+                </button>
+                <button onclick="setHXPlan('HX40', '4,000')" class="w-full flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">4,000</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-0.5">ความคุ้มครอง 5 ล้านบาท</span>
+                </button>
+                <button onclick="setHXPlan('HX60', '6,000')" class="w-full flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">6,000</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-0.5">ความคุ้มครอง 10 ล้านบาท</span>
+                </button>
+                <button onclick="setHXPlan('HX150', '15,000')" class="w-full flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">15,000</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-0.5">ความคุ้มครอง 60 ล้านบาท</span>
+                </button>
+                <button onclick="setHXPlan('HX300', '30,000')" class="w-full flex flex-col items-center justify-center p-3 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">30,000</span>
+                    <span class="text-[10px] text-slate-500 font-medium mt-0.5">ความคุ้มครอง 120 ล้านบาท</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal เลือก Extra (สำหรับ 3D Health Excellence) -->
+    <div id="extraPlanModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3 shrink-0">
+                <h3 class="text-lg font-bold text-[#1e3a8a]"><i class="fas fa-plus-circle mr-2 text-blue-600"></i> เลือก Extra</h3>
+                <button onclick="closePopup('extraPlanModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 text-left space-y-2">
+                <button onclick="setExtraPlan('-')" class="w-full flex flex-col justify-center items-center p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:bg-slate-100 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-600">ไม่เลือก</span>
+                </button>
+                <button onclick="setExtraPlan('1,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">1,000</span>
+                </button>
+                <button onclick="setExtraPlan('2,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">2,000</span>
+                </button>
+                <button onclick="setExtraPlan('3,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">3,000</span>
+                </button>
+                <button onclick="setExtraPlan('5,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">5,000</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal เลือก Advance (สำหรับ 3D Health Excellence) -->
+    <div id="advancePlanModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3 shrink-0">
+                <h3 class="text-lg font-bold text-[#1e3a8a]"><i class="fas fa-arrow-trend-up mr-2 text-blue-600"></i> เลือก Advance</h3>
+                <button onclick="closePopup('advancePlanModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 text-left space-y-2">
+                <button onclick="setAdvancePlan('-')" class="w-full flex flex-col justify-center items-center p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:bg-slate-100 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-600">ไม่เลือก</span>
+                </button>
+                <button onclick="setAdvancePlan('10,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">10,000</span>
+                </button>
+                <button onclick="setAdvancePlan('20,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">20,000</span>
+                </button>
+                <button onclick="setAdvancePlan('50,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">50,000</span>
+                </button>
+                <button onclick="setAdvancePlan('100,000')" class="w-full flex flex-col justify-center items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:bg-blue-50 active:scale-95 transition-all shadow-sm">
+                    <span class="text-[14px] font-bold text-slate-700">100,000</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal ค้นหาแบบประกัน (จากฟังก์ชันกดค้าง) -->
     <div id="planSearchModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]">
@@ -1052,10 +1160,44 @@
             currentPlan = plan; 
             const btn1 = document.getElementById('btnPlan1');
             const btn2 = document.getElementById('btnPlan2');
+            const btn3 = document.getElementById('btnPlan3');
+            const btn4 = document.getElementById('btnPlan4');
             if (btn1) btn1.className = `flex-1 gender-pill ${plan === currentPlanOptions[0] ? 'active-blue' : ''}`; 
             if (btn2) btn2.className = `flex-1 gender-pill ${plan === currentPlanOptions[1] ? 'active-blue' : ''}`; 
+            if (btn3) btn3.className = `flex-1 gender-pill ${plan === currentPlanOptions[2] ? 'active-blue' : ''}`; 
+            if (btn4) btn4.className = `flex-1 gender-pill ${plan === currentPlanOptions[3] ? 'active-blue' : ''}`; 
             calculate(currentMode); 
         }
+
+        function setHXPlan(hxPlan, displayText) {
+            currentPlan = hxPlan;
+            const btn1 = document.getElementById('btnPlan1');
+            if (btn1) {
+                btn1.innerHTML = `${displayText} <i class="fas fa-chevron-down text-[10px] ml-1"></i>`;
+            }
+            closePopup('hxPlanModal');
+            calculate(currentMode);
+        }
+
+        let currentExtra = '-';
+        let currentAdvance = '-';
+
+        function setExtraPlan(val) {
+            currentExtra = val;
+            const btn = document.getElementById('btnExtra');
+            if (btn) btn.innerHTML = `${val !== '-' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i>`;
+            closePopup('extraPlanModal');
+            // calculate(currentMode); // ปลดคอมเมนต์เมื่อต้องการให้คำนวณเบี้ยใหม่
+        }
+
+        function setAdvancePlan(val) {
+            currentAdvance = val;
+            const btn = document.getElementById('btnAdvance');
+            if (btn) btn.innerHTML = `${val !== '-' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i>`;
+            closePopup('advancePlanModal');
+            // calculate(currentMode); // ปลดคอมเมนต์เมื่อต้องการให้คำนวณเบี้ยใหม่
+        }
+
         function setGender(gender) { currentGender = gender; document.getElementById('btnMale').className = `flex-1 gender-pill ${gender==='male'?'active-male':''}`; document.getElementById('btnFemale').className = `flex-1 gender-pill ${gender==='female'?'active-female':''}`; calculate(currentMode); }
         function handlePremiumInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); calculate('premium'); } }
         function handleSumInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); calculate('sum'); } }
@@ -2123,6 +2265,79 @@
                 }
             }
         }
+        
+        function updateQuickPills(planName) {
+            const highValuePlans = ["Whole Life Extra", "868 / 818 Elite Saving", "24 TX", "Supreme Life Protector", "Life Protector 20"];
+            
+            const btnSum1 = document.getElementById('sumPill1');
+            const btnSum2 = document.getElementById('sumPill2');
+            const btnSum3 = document.getElementById('sumPill3');
+            const btnSum4 = document.getElementById('sumPill4');
+            const btnSum5 = document.getElementById('sumPill5');
+            
+            const btnPrem1 = document.getElementById('premPill1');
+            const btnPrem2 = document.getElementById('premPill2');
+            const btnPrem3 = document.getElementById('premPill3');
+            const btnPrem4 = document.getElementById('premPill4');
+            const btnPrem5 = document.getElementById('premPill5');
+
+            if (!btnSum1 || !btnPrem1) return;
+
+            // รีเซ็ตสถานะปุ่มออมเงินก่อน
+            [btnPrem1, btnPrem2, btnPrem3, btnPrem4, btnPrem5].forEach(btn => btn.classList.remove('disabled-pill'));
+
+            if (planName === 'Signature Legacy') {
+                btnSum1.innerText = '5 ล้าน'; btnSum1.setAttribute('onclick', 'setQuickSum(5000000)');
+                btnSum2.innerText = '10 ล้าน'; btnSum2.setAttribute('onclick', 'setQuickSum(10000000)');
+                btnSum3.innerText = '50 ล้าน'; btnSum3.setAttribute('onclick', 'setQuickSum(50000000)');
+                btnSum4.innerText = '100 ล้าน'; btnSum4.setAttribute('onclick', 'setQuickSum(100000000)');
+                btnSum5.innerText = '500 ล้าน'; btnSum5.setAttribute('onclick', 'setQuickSum(500000000)');
+
+                // ปิดการใช้งานปุ่มออมเงิน
+                btnPrem1.innerText = '-'; btnPrem1.onclick = null; btnPrem1.classList.add('disabled-pill');
+                btnPrem2.innerText = '-'; btnPrem2.onclick = null; btnPrem2.classList.add('disabled-pill');
+                btnPrem3.innerText = '-'; btnPrem3.onclick = null; btnPrem3.classList.add('disabled-pill');
+                btnPrem4.innerText = '-'; btnPrem4.onclick = null; btnPrem4.classList.add('disabled-pill');
+                btnPrem5.innerText = '-'; btnPrem5.onclick = null; btnPrem5.classList.add('disabled-pill');
+            } else if (planName === 'Convertable Term') {
+                btnSum1.innerText = '1 แสน'; btnSum1.setAttribute('onclick', 'setQuickSum(100000)');
+                btnSum2.innerText = '5 แสน'; btnSum2.setAttribute('onclick', 'setQuickSum(500000)');
+                btnSum3.innerText = '1 ล้าน'; btnSum3.setAttribute('onclick', 'setQuickSum(1000000)');
+                btnSum4.innerText = '3 ล้าน'; btnSum4.setAttribute('onclick', 'setQuickSum(3000000)');
+                btnSum5.innerText = '5 ล้าน'; btnSum5.setAttribute('onclick', 'setQuickSum(5000000)');
+
+                // ปิดการใช้งานปุ่มออมเงิน
+                btnPrem1.innerText = '-'; btnPrem1.onclick = null; btnPrem1.classList.add('disabled-pill');
+                btnPrem2.innerText = '-'; btnPrem2.onclick = null; btnPrem2.classList.add('disabled-pill');
+                btnPrem3.innerText = '-'; btnPrem3.onclick = null; btnPrem3.classList.add('disabled-pill');
+                btnPrem4.innerText = '-'; btnPrem4.onclick = null; btnPrem4.classList.add('disabled-pill');
+                btnPrem5.innerText = '-'; btnPrem5.onclick = null; btnPrem5.classList.add('disabled-pill');
+            } else if (highValuePlans.includes(planName)) {
+                btnSum1.innerText = '5 แสน'; btnSum1.setAttribute('onclick', 'setQuickSum(500000)');
+                btnSum2.innerText = '1 ล้าน'; btnSum2.setAttribute('onclick', 'setQuickSum(1000000)');
+                btnSum3.innerText = '3 ล้าน'; btnSum3.setAttribute('onclick', 'setQuickSum(3000000)');
+                btnSum4.innerText = '5 ล้าน'; btnSum4.setAttribute('onclick', 'setQuickSum(5000000)');
+                btnSum5.innerText = '10 ล้าน'; btnSum5.setAttribute('onclick', 'setQuickSum(10000000)');
+
+                btnPrem1.innerText = '1 แสน'; btnPrem1.setAttribute('onclick', 'setQuickPremium(100000)');
+                btnPrem2.innerText = '2 แสน'; btnPrem2.setAttribute('onclick', 'setQuickPremium(200000)');
+                btnPrem3.innerText = '4 แสน'; btnPrem3.setAttribute('onclick', 'setQuickPremium(400000)');
+                btnPrem4.innerText = '6 แสน'; btnPrem4.setAttribute('onclick', 'setQuickPremium(600000)');
+                btnPrem5.innerText = '1 ล้าน'; btnPrem5.setAttribute('onclick', 'setQuickPremium(1000000)');
+            } else {
+                btnSum1.innerText = '1 แสน'; btnSum1.setAttribute('onclick', 'setQuickSum(100000)');
+                btnSum2.innerText = '5 แสน'; btnSum2.setAttribute('onclick', 'setQuickSum(500000)');
+                btnSum3.innerText = '1 ล้าน'; btnSum3.setAttribute('onclick', 'setQuickSum(1000000)');
+                btnSum4.innerText = '3 ล้าน'; btnSum4.setAttribute('onclick', 'setQuickSum(3000000)');
+                btnSum5.innerText = '5 ล้าน'; btnSum5.setAttribute('onclick', 'setQuickSum(5000000)');
+
+                btnPrem1.innerText = '12,000'; btnPrem1.setAttribute('onclick', 'setQuickPremium(12000)');
+                btnPrem2.innerText = '24,000'; btnPrem2.setAttribute('onclick', 'setQuickPremium(24000)');
+                btnPrem3.innerText = '36,000'; btnPrem3.setAttribute('onclick', 'setQuickPremium(36000)');
+                btnPrem4.innerText = '48,000'; btnPrem4.setAttribute('onclick', 'setQuickPremium(48000)');
+                btnPrem5.innerText = '60,000'; btnPrem5.setAttribute('onclick', 'setQuickPremium(60000)');
+            }
+        }
 
         function selectAppPlan(planName) {
             closePopup('planSelectModal');
@@ -2164,36 +2379,89 @@
 
             // Update Sub-Plan Buttons based on Selected App Plan
             const planContainer = document.getElementById('planSelectionContainer');
+            const planSelectionLabel = document.getElementById('planSelectionLabel');
+            const premiumContainer = document.getElementById('premiumContainer');
+            const extraOptions = document.getElementById('threeDExtraOptions');
+            
             const btn1 = document.getElementById('btnPlan1');
             const btn2 = document.getElementById('btnPlan2');
+            const btn3 = document.getElementById('btnPlan3');
+            const btn4 = document.getElementById('btnPlan4');
             
-            const hideSubPlansFor = ['Life Protector 20', 'Supreme Life Protector', 'Convertable Term', '24 TX', '868 / 818 Elite Saving', 'Century Life + TPD', '3D Health Excellence'];
+            const hideSubPlansFor = ['Life Protector 20', 'Supreme Life Protector', 'Convertable Term', '24 TX', '868 / 818 Elite Saving'];
+
+            // รีเซ็ตการแสดงผลเบื้องต้น
+            if (premiumContainer) premiumContainer.classList.remove('hidden');
+            if (planSelectionLabel) planSelectionLabel.classList.add('hidden');
+            if (extraOptions) extraOptions.classList.add('hidden');
 
             if (planName === 'Signature Legacy') {
                 planContainer.classList.remove('hidden');
+                if(btn3) btn3.classList.add('hidden');
+                if(btn4) btn4.classList.add('hidden');
                 currentPlanOptions = ['5SLB', '10SLB'];
                 currentPlan = '10SLB';
                 if(btn1) { btn1.innerText = '5SLB'; btn1.setAttribute('onclick', "setPlan('5SLB')"); }
                 if(btn2) { btn2.innerText = '10SLB'; btn2.setAttribute('onclick', "setPlan('10SLB')"); }
             } else if (planName === 'Whole Life Extra') {
                 planContainer.classList.remove('hidden');
+                if(btn3) btn3.classList.add('hidden');
+                if(btn4) btn4.classList.add('hidden');
                 currentPlanOptions = ['WXN10', 'WXN15'];
                 currentPlan = 'WXN15';
                 if(btn1) { btn1.innerText = 'WXN10'; btn1.setAttribute('onclick', "setPlan('WXN10')"); }
                 if(btn2) { btn2.innerText = 'WXN15'; btn2.setAttribute('onclick', "setPlan('WXN15')"); }
+            } else if (planName === 'Century Life + TPD') {
+                planContainer.classList.remove('hidden');
+                if(btn3) btn3.classList.remove('hidden');
+                if(btn4) btn4.classList.remove('hidden');
+                currentPlanOptions = ['10', '20', '60', '90'];
+                currentPlan = '20';
+                if(btn1) { btn1.innerText = '10'; btn1.setAttribute('onclick', "setPlan('10')"); }
+                if(btn2) { btn2.innerText = '20'; btn2.setAttribute('onclick', "setPlan('20')"); }
+                if(btn3) { btn3.innerText = '60'; btn3.setAttribute('onclick', "setPlan('60')"); }
+                if(btn4) { btn4.innerText = '90'; btn4.setAttribute('onclick', "setPlan('90')"); }
+            } else if (planName === '3D Health Excellence') {
+                planContainer.classList.remove('hidden');
+                if(btn1) btn1.classList.remove('hidden');
+                if(btn2) btn2.classList.add('hidden');
+                if(btn3) btn3.classList.add('hidden');
+                if(btn4) btn4.classList.add('hidden');
+                
+                if (premiumContainer) premiumContainer.classList.add('hidden');
+                if (planSelectionLabel) planSelectionLabel.classList.remove('hidden');
+                if (extraOptions) extraOptions.classList.remove('hidden');
+                
+                currentPlanOptions = ['HX15', 'HX20', 'HX40', 'HX60', 'HX150', 'HX300'];
+                currentPlan = 'HX15'; // Default plan
+                
+                if(btn1) { 
+                    btn1.innerHTML = `1,500 <i class="fas fa-chevron-down text-[10px] ml-1"></i>`; 
+                    btn1.setAttribute('onclick', "openPopup('hxPlanModal')"); 
+                    btn1.className = `flex-1 gender-pill active-blue`;
+                }
             } else if (hideSubPlansFor.includes(planName)) {
                 planContainer.classList.add('hidden');
                 currentPlanOptions = [];
                 currentPlan = planName; // ให้ currentPlan มีค่าเป็น plan หลักกรณีไม่มีตัวเลือกระยะเวลา
             } else {
                 planContainer.classList.remove('hidden');
+                if(btn3) btn3.classList.add('hidden');
+                if(btn4) btn4.classList.add('hidden');
                 currentPlanOptions = ['10CX', '20CX'];
                 currentPlan = '20CX';
                 if(btn1) { btn1.innerText = '10CX'; btn1.setAttribute('onclick', "setPlan('10CX')"); }
                 if(btn2) { btn2.innerText = '20CX'; btn2.setAttribute('onclick', "setPlan('20CX')"); }
             }
             
-            setPlan(currentPlan);
+            updateQuickPills(planName);
+            
+            if (planName !== '3D Health Excellence') {
+                setPlan(currentPlan);
+            } else {
+                calculate(currentMode);
+                setTimeout(() => openPopup('hxPlanModal'), 400); // แสดงป็อปอัพให้เลือกแผนทันที
+            }
             
             // รีเซ็ตกลับไปหน้าแรกหลังจากปิด Modal (เผื่อเปิดครั้งหน้า)
             setTimeout(() => { changePlanPage(1); document.getElementById('planSearchInput').value = ''; }, 300);
@@ -2400,6 +2668,7 @@
                 }
             });
             loadThaiFont(); // โหลดฟอนต์รอไว้สำหรับ PDF ล่วงหน้า
+            updateQuickPills(currentAppPlan); // กำหนดค่าปุ่มตัวเลือกด่วนตอนเริ่มต้น
             calculate('sum'); 
             setupLongPress(); 
             setupPlanSliderSwipe(); // เริ่มต้นระบบปัดหน้าจอ
