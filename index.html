@@ -177,18 +177,18 @@
         </div>
 
         <!-- ==================== VIEW 2: หน้าตารางมูลค่า (Full Screen) ==================== -->
-        <div id="tableView" class="hidden flex-col flex-1 overflow-hidden w-full bg-slate-50">
-            <div class="flex justify-between items-center px-6 pt-6 pb-4 border-b border-slate-200 bg-white shrink-0 shadow-sm relative z-20">
-                <h3 class="text-lg font-bold text-purple-900"><i class="fas fa-table mr-2 text-purple-600"></i> ตารางมูลค่า</h3>
-                <button onclick="openPopup('pdfOptionsModal')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-4 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-2 active:scale-95 transition-colors shadow-sm">
+        <div id="tableView" class="hidden flex-col flex-1 overflow-hidden w-full bg-white">
+            <div class="flex justify-between items-center px-4 pt-5 pb-3 border-b border-slate-200 bg-white shrink-0 relative z-20">
+                <h3 id="tableHeaderTitle" class="text-[15px] font-bold text-purple-900 leading-tight flex items-center whitespace-nowrap overflow-hidden text-ellipsis"><i class="fas fa-table mr-2 text-purple-600"></i> ตารางมูลค่า</h3>
+                <button onclick="openPopup('pdfOptionsModal')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1.5 active:scale-95 transition-colors shadow-sm shrink-0 ml-2">
                     <i class="fas fa-file-pdf"></i>
-                    <span>PDF / แชร์</span>
+                    <span>PDF/แชร์</span>
                 </button>
             </div>
             
-            <div class="flex flex-col border-b border-slate-200 bg-white shrink-0 relative z-10 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)]">
-                <div class="flex items-center justify-between px-6 py-3">
-                    <span class="text-[13px] font-bold text-slate-700 flex items-center gap-2">
+            <div class="flex flex-col border-b border-slate-200 bg-slate-50 shrink-0 relative z-10">
+                <div class="flex items-center justify-between px-4 py-2.5">
+                    <span class="text-[12px] font-bold text-slate-700 flex items-center gap-2">
                         <i class="fas fa-chart-line text-emerald-500"></i> แสดงจุดคุ้มทุน
                     </span>
                     <label class="relative inline-flex items-center cursor-pointer">
@@ -196,31 +196,24 @@
                         <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
                     </label>
                 </div>
-                <div id="breakevenSummary" class="hidden px-6 pb-3 text-center transition-all"></div>
+                <div id="breakevenSummary" class="hidden px-4 pb-2.5 text-center transition-all"></div>
             </div>
 
-            <!-- ส่วนที่แก้ไขเพื่อล็อค Header ให้อยู่กับที่ -->
-            <div class="flex-1 px-4 py-4 min-h-0 flex flex-col">
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex-1 flex flex-col">
-                    <div class="overflow-y-auto flex-1 custom-scrollbar policy-table-wrapper relative" id="pdfTableTarget">
-                        <table class="w-full text-[10.5px] text-center border-collapse min-w-[280px]">
-                            <thead class="sticky top-0 z-30">
-                                <tr class="text-slate-500 shadow-sm">
-                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200">อายุ</th>
-                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200">เงินออมรายปี</th>
-                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200">เงินออมสะสม</th>
-                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200">เงินสดพร้อมใช้</th>
-                                </tr>
-                            </thead>
-                            <tbody id="policyTableBody"></tbody>
-                        </table>
-                    </div>
+            <!-- ส่วนที่แก้ไขเพื่อล็อค Header ให้อยู่กับที่ และขยายเต็มพื้นที่ -->
+            <div class="flex-1 min-h-0 flex flex-col bg-white">
+                <div class="overflow-y-auto flex-1 custom-scrollbar policy-table-wrapper relative" id="pdfTableTarget">
+                    <table class="w-full text-[12px] min-[380px]:text-[13px] text-center border-collapse">
+                        <thead class="sticky top-0 z-30">
+                            <tr class="text-slate-500 shadow-sm text-[11px] min-[380px]:text-[12px]">
+                                <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200 w-[15%]">อายุ</th>
+                                <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200 w-[28%]">ส่งรายปี</th>
+                                <th class="py-3 px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200 w-[28%]">สะสม</th>
+                                <th class="py-3 px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200 w-[29%]">เงินพร้อมใช้</th>
+                            </tr>
+                        </thead>
+                        <tbody id="policyTableBody"></tbody>
+                    </table>
                 </div>
-            </div>
-            
-            <div class="py-2.5 bg-slate-100 border-t border-slate-200 text-center shrink-0 flex justify-center items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                <p id="cvDataSourceMsg" class="text-[10px] text-slate-500 font-bold tracking-wide">สถานะข้อมูล: ใช้ระบบจำลอง</p>
             </div>
         </div>
 
@@ -1310,6 +1303,10 @@
         function generatePolicyTableData() {
             if (!lastCalculationData) return;
             const d = lastCalculationData;
+            
+            // อัปเดตชื่อตารางด้านบน
+            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600"></i> ${d.gender} อายุ ${d.age} ปี (${currentPlan})`;
+
             const maxYear = 90 - d.age;
             const payYears = parseInt(d.years);
             
@@ -1361,13 +1358,13 @@
 
                 html += `
                     <tr class="${trClass}">
-                        <td class="py-2.5 px-1 text-slate-600 font-medium relative">
+                        <td class="py-3 px-1 text-slate-600 font-medium relative">
                             <div class="be-badge absolute left-0 top-1/2 -translate-y-1/2 w-1 h-full bg-emerald-500 rounded-r-md hidden"></div>
                             ${d.age + y}
                         </td>
-                        <td class="py-2.5 px-1 text-slate-600">${y <= payYears ? Math.round(annualPremium).toLocaleString() : "-"}</td>
-                        <td class="py-2.5 px-1 text-blue-600">${Math.round(totalPremium).toLocaleString()}</td>
-                        <td class="py-2.5 px-1 text-amber-600 font-bold">${Math.round(cvTotal).toLocaleString()}</td>
+                        <td class="py-3 px-1 text-slate-600">${y <= payYears ? Math.round(annualPremium).toLocaleString() : "-"}</td>
+                        <td class="py-3 px-1 text-blue-600">${Math.round(totalPremium).toLocaleString()}</td>
+                        <td class="py-3 px-1 text-amber-600 font-bold">${Math.round(cvTotal).toLocaleString()}</td>
                     </tr>
                 `;
             }
@@ -1375,29 +1372,20 @@
             
             if (foundBreakeven) {
                 document.getElementById('breakevenSummary').innerHTML = `
-                    <div class="bg-emerald-100 border border-emerald-200 rounded-xl py-2.5 px-4 text-[12.5px] text-emerald-800 font-bold shadow-sm flex items-center justify-center gap-2">
+                    <div class="bg-emerald-100 border border-emerald-200 rounded-xl py-2 px-3 text-[12px] text-emerald-800 font-bold shadow-sm flex items-center justify-center gap-2">
                         <i class="fas fa-bullseye text-emerald-600 text-lg"></i> 
                         <span>จุดคุ้มทุนอยู่ที่: ปีที่ <span class="text-emerald-700 text-sm">${beYear}</span> (อายุ <span class="text-emerald-700 text-sm">${beAge}</span> ปี)</span>
                     </div>
                 `;
             } else {
                 document.getElementById('breakevenSummary').innerHTML = `
-                    <div class="bg-slate-100 border border-slate-200 rounded-xl py-2.5 px-4 text-[12.5px] text-slate-500 font-bold flex items-center justify-center gap-2">
+                    <div class="bg-slate-100 border border-slate-200 rounded-xl py-2 px-3 text-[12px] text-slate-500 font-bold flex items-center justify-center gap-2">
                         <i class="fas fa-info-circle text-slate-400"></i> ไม่พบจุดคุ้มทุนก่อนครบกำหนดสัญญา
                     </div>
                 `;
             }
             
             toggleBreakevenDisplay(false); 
-            
-            const sourceMsg = document.getElementById('cvDataSourceMsg');
-            if (hasCVData) {
-                sourceMsg.innerText = "ใช้ข้อมูลตาราง (CV)";
-                sourceMsg.parentElement.querySelector('div').classList.replace('bg-emerald-400', 'bg-blue-500');
-            } else {
-                sourceMsg.innerText = "ระบบคำนวณอัตโนมัติ";
-                sourceMsg.parentElement.querySelector('div').classList.replace('bg-blue-500', 'bg-emerald-400');
-            }
         }
 
         let thaiFontBase64 = null;
