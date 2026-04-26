@@ -163,6 +163,19 @@
                             </div>
                             <input type="text" id="premiumInput" class="input-box-rounded py-2 text-base font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                         </div>
+
+                        <!-- กระแสเงินสด (สำหรับแผน WXN, 24TX, Elite) -->
+                        <div class="shrink-0 mt-3 hidden" id="cashFlowContainer">
+                            <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center tracking-wide">กระแสเงินสด (บาท/ปี)</p>
+                            <div class="flex gap-1 mb-2">
+                                <button onclick="setQuickCashFlow(10000)" class="quick-pill">1 หมื่น</button>
+                                <button onclick="setQuickCashFlow(50000)" class="quick-pill">5 หมื่น</button>
+                                <button onclick="setQuickCashFlow(100000)" class="quick-pill">1 แสน</button>
+                                <button onclick="setQuickCashFlow(300000)" class="quick-pill">3 แสน</button>
+                                <button onclick="setQuickCashFlow(500000)" class="quick-pill">5 แสน</button>
+                            </div>
+                            <input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded py-2 text-base font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleCashFlowInput(this)">
+                        </div>
                     </div>
                     
                     <!-- ปุ่มการดำเนินการหลัก ยึดติดด้านล่าง เพิ่มช่องว่างให้กดง่ายขึ้น -->
@@ -1162,10 +1175,12 @@
             const btn2 = document.getElementById('btnPlan2');
             const btn3 = document.getElementById('btnPlan3');
             const btn4 = document.getElementById('btnPlan4');
-            if (btn1) btn1.className = `flex-1 gender-pill ${plan === currentPlanOptions[0] ? 'active-blue' : ''}`; 
-            if (btn2) btn2.className = `flex-1 gender-pill ${plan === currentPlanOptions[1] ? 'active-blue' : ''}`; 
-            if (btn3) btn3.className = `flex-1 gender-pill ${plan === currentPlanOptions[2] ? 'active-blue' : ''}`; 
-            if (btn4) btn4.className = `flex-1 gender-pill ${plan === currentPlanOptions[3] ? 'active-blue' : ''}`; 
+            
+            if (btn1) { if(plan === currentPlanOptions[0]) btn1.classList.add('active-blue'); else btn1.classList.remove('active-blue'); }
+            if (btn2) { if(plan === currentPlanOptions[1]) btn2.classList.add('active-blue'); else btn2.classList.remove('active-blue'); }
+            if (btn3) { if(plan === currentPlanOptions[2]) btn3.classList.add('active-blue'); else btn3.classList.remove('active-blue'); }
+            if (btn4) { if(plan === currentPlanOptions[3]) btn4.classList.add('active-blue'); else btn4.classList.remove('active-blue'); }
+            
             calculate(currentMode); 
         }
 
@@ -1204,6 +1219,9 @@
         function setQuickSum(val) { const el = document.getElementById('sumInsuredInput'); if(el) { el.value = val.toLocaleString(); calculate('sum'); } }
         function setQuickPremium(val) { const el = document.getElementById('premiumInput'); if(el) { el.value = val.toLocaleString(); calculate('premium'); } }
         
+        function handleCashFlowInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); } }
+        function setQuickCashFlow(val) { const el = document.getElementById('cashFlowInput'); if(el) { el.value = val.toLocaleString(); } }
+
         function getDiscount(sum, plan) { if (plan === '10CX') { if (sum >= 5000000) return 3.0; if (sum >= 1000000) return 2.0; } else { if (sum >= 5000000) return 1.5; if (sum >= 1000000) return 1.0; if (sum >= 800000) return 0.5; } return 0; }
         
         function calculate(source) { 
@@ -1501,6 +1519,23 @@
             }
         }
 
+        // Helper function สำหรับแปลงชื่อเต็มเป็นชื่อย่อ
+        function getPlanAbbr(planName) {
+            const abbrMap = {
+                "CI Extra Plus": "CX",
+                "Life Protector 20": "LPB",
+                "Supreme Life Protector": "SLPA",
+                "Signature Legacy": "SLB",
+                "Convertable Term": "TLA",
+                "Century Life + TPD": "CLA",
+                "3D Health Excellence": "3D",
+                "Whole Life Extra": "WXN",
+                "24 TX": "TX",
+                "868 / 818 Elite Saving": "Elite"
+            };
+            return abbrMap[planName] || planName;
+        }
+
         // ==================== ตารางมูลค่า ====================
         function generatePolicyTableData() {
             if (!lastCalculationData) return;
@@ -1516,8 +1551,8 @@
                 sumDisplay = formatNum(d.sum) + ' บาท';
             }
             
-            // อัปเดตชื่อตารางด้านบน
-            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600"></i> ${currentAppPlan} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`;
+            // อัปเดตชื่อตารางด้านบน โดยใช้ชื่อย่อ
+            document.getElementById('tableHeaderTitle').innerHTML = `<i class="fas fa-table mr-2 text-purple-600"></i> ${getPlanAbbr(currentAppPlan)} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`;
 
             const maxYear = 90 - d.age;
             const payYears = parseInt(d.years);
@@ -1726,10 +1761,10 @@
                             sumDisplay = formatNum(d.sum) + ' บาท';
                         }
                         
-                        // เพิ่มข้อมูล เพศ อายุ และแผน บริเวณด้านบนตาราง
+                        // เพิ่มข้อมูล เพศ อายุ และแผน บริเวณด้านบนตาราง (ใช้ชื่อย่อ)
                         doc.setFontSize(14);
                         doc.setTextColor(30, 58, 138); 
-                        doc.text(`${currentAppPlan} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`, 105, 28, { align: 'center' });
+                        doc.text(`${getPlanAbbr(currentAppPlan)} ${d.gender} ${d.age} วงเงิน ${sumDisplay}`, 105, 28, { align: 'center' });
                         
                         if (data.pageNumber === 1 && showBreakeven && beRowIndex !== -1) {
                             doc.setFont(fontName, 'normal');
@@ -1751,28 +1786,30 @@
                     doc.text(`หน้า ${i} / ${pageCount}`, 195, 290, { align: 'right' });
                 }
 
+                const pdfFileName = `${getPlanAbbr(currentAppPlan)}_ตารางมูลค่า_อายุ${d.age}.pdf`;
+
                 if (actionType === 'print') {
                     doc.autoPrint();
                     const pdfBlobUrl = doc.output('bloburl');
                     window.open(pdfBlobUrl, '_blank');
                 } else if (actionType === 'share' || actionType === 'line' || actionType === 'messenger') {
                     const pdfBlob = doc.output('blob');
-                    const file = new File([pdfBlob], `CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`, { type: 'application/pdf' });
+                    const file = new File([pdfBlob], pdfFileName, { type: 'application/pdf' });
                     
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        navigator.share({ files: [file], title: 'ตารางมูลค่า CI Extra Plus', text: 'ตารางมูลค่า CI Extra Plus' })
+                        navigator.share({ files: [file], title: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}`, text: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}` })
                             .catch(err => {
                                 console.log('Share failed:', err);
                                 if (err.name === 'NotAllowedError') {
-                                    doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                                    doc.save(pdfFileName);
                                 }
                             });
                     } else {
                         showCustomError("เบราว์เซอร์ไม่รองรับการแชร์ไฟล์โดยตรง ระบบจะทำการดาวน์โหลดแทน");
-                        doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                        doc.save(pdfFileName);
                     }
                 } else {
-                    doc.save(`CI_Extra_Plus_ตารางมูลค่า_อายุ${d.age}.pdf`);
+                    doc.save(pdfFileName);
                 }
 
             } catch (error) {
@@ -2355,14 +2392,30 @@
 
             // Update Main Action Button
             const mainActionBtn = document.getElementById('mainActionBtn');
-            const targetPlans = ["Life Protector 20", "Supreme Life Protector", "Whole Life Extra", "24 TX"];
+            const targetPlans = ["Life Protector 20", "Supreme Life Protector", "Whole Life Extra", "24 TX", "868 / 818 Elite Saving"];
             
             if (targetPlans.includes(planName)) {
                 mainActionBtn.innerHTML = `<i class="fas fa-table text-base"></i> ตารางมูลค่า`;
                 mainActionBtn.onclick = function() {
-                    const calcData = calculate(currentMode);
-                    if (calcData) switchView('table');
-                    else showCustomError("กรุณาตรวจสอบข้อมูลการคำนวณ");
+                    // สร้างข้อมูลจำลองเพื่อให้สามารถเปิดหน้าตารางมูลค่าได้ทันทีโดยไม่ต้องรอระบบคำนวณเบี้ย
+                    const ageInput = document.getElementById('ageInput');
+                    const sumInput = document.getElementById('sumInsuredInput');
+                    const premInput = document.getElementById('premiumInput');
+                    const cashFlowInput = document.getElementById('cashFlowInput');
+                    
+                    let yearsStr = '20';
+                    const matchYears = currentPlan.match(/\d+/);
+                    if (matchYears) yearsStr = matchYears[0];
+
+                    lastCalculationData = { 
+                        premium: parseFloat(premInput ? premInput.value.replace(/,/g, '') : 0) || 0, 
+                        sum: parseFloat(sumInput ? sumInput.value.replace(/,/g, '') : 0) || 0, 
+                        cashFlow: parseFloat(cashFlowInput ? cashFlowInput.value.replace(/,/g, '') : 0) || 0,
+                        gender: currentGender === 'male' ? 'ชาย' : 'หญิง', 
+                        age: parseInt(ageInput ? ageInput.value : 0) || 30, 
+                        years: yearsStr 
+                    };
+                    switchView('table');
                 };
             } else if (planName === 'CI Extra Plus') {
                 mainActionBtn.innerHTML = `<i class="fas fa-file-alt text-base"></i> รายละเอียด`;
@@ -2382,6 +2435,7 @@
             const planSelectionLabel = document.getElementById('planSelectionLabel');
             const premiumContainer = document.getElementById('premiumContainer');
             const extraOptions = document.getElementById('threeDExtraOptions');
+            const cashFlowContainer = document.getElementById('cashFlowContainer');
             
             const btn1 = document.getElementById('btnPlan1');
             const btn2 = document.getElementById('btnPlan2');
@@ -2395,8 +2449,19 @@
             if (planSelectionLabel) planSelectionLabel.classList.add('hidden');
             if (extraOptions) extraOptions.classList.add('hidden');
 
+            // จัดการแสดงผลช่อง กระแสเงินสด สำหรับแผน WXN, 24TX, Elite
+            if (cashFlowContainer) {
+                if (["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(planName)) {
+                    cashFlowContainer.classList.remove('hidden');
+                } else {
+                    cashFlowContainer.classList.add('hidden');
+                }
+            }
+
             if (planName === 'Signature Legacy') {
                 planContainer.classList.remove('hidden');
+                if(btn1) btn1.classList.remove('hidden');
+                if(btn2) btn2.classList.remove('hidden');
                 if(btn3) btn3.classList.add('hidden');
                 if(btn4) btn4.classList.add('hidden');
                 currentPlanOptions = ['5SLB', '10SLB'];
@@ -2405,6 +2470,8 @@
                 if(btn2) { btn2.innerText = '10SLB'; btn2.setAttribute('onclick', "setPlan('10SLB')"); }
             } else if (planName === 'Whole Life Extra') {
                 planContainer.classList.remove('hidden');
+                if(btn1) btn1.classList.remove('hidden');
+                if(btn2) btn2.classList.remove('hidden');
                 if(btn3) btn3.classList.add('hidden');
                 if(btn4) btn4.classList.add('hidden');
                 currentPlanOptions = ['WXN10', 'WXN15'];
@@ -2413,6 +2480,8 @@
                 if(btn2) { btn2.innerText = 'WXN15'; btn2.setAttribute('onclick', "setPlan('WXN15')"); }
             } else if (planName === 'Century Life + TPD') {
                 planContainer.classList.remove('hidden');
+                if(btn1) btn1.classList.remove('hidden');
+                if(btn2) btn2.classList.remove('hidden');
                 if(btn3) btn3.classList.remove('hidden');
                 if(btn4) btn4.classList.remove('hidden');
                 currentPlanOptions = ['10', '20', '60', '90'];
@@ -2446,6 +2515,8 @@
                 currentPlan = planName; // ให้ currentPlan มีค่าเป็น plan หลักกรณีไม่มีตัวเลือกระยะเวลา
             } else {
                 planContainer.classList.remove('hidden');
+                if(btn1) btn1.classList.remove('hidden');
+                if(btn2) btn2.classList.remove('hidden');
                 if(btn3) btn3.classList.add('hidden');
                 if(btn4) btn4.classList.add('hidden');
                 currentPlanOptions = ['10CX', '20CX'];
