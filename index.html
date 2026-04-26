@@ -23,8 +23,8 @@
         .input-box-rounded:focus { border-color: #3b82f6; background-color: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
         
         /* ปรับขนาด Padding และ Font ของปุ่มตัวเลือก เพื่อประหยัดพื้นที่แนวตั้ง */
-        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.85rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; }
-        #btn10CX, #btn20CX { font-size: 12px; letter-spacing: 0.5px; padding: 3px 2px; }
+        .gender-pill { border: 1.5px solid #f1f5f9; border-radius: 9999px; padding: 4px 2px; font-size: 0.85rem; font-weight: 700; color: #94a3b8; background-color: white; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        #btn10CX, #btn20CX { font-size: 10px; letter-spacing: 0.5px; }
         .gender-pill.active-male { border-color: #10b981; background-color: #ecfdf5; color: #065f46; }
         .gender-pill.active-female { border-color: #db2777; background-color: #fdf2f8; color: #be185d; }
         .gender-pill.active-blue { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
@@ -46,7 +46,6 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
 
-        .policy-table-wrapper th { position: sticky; top: 0; background: #f8fafc; z-index: 10; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
         #policyTableBody.show-breakeven .breakeven-target { background-color: #ecfdf5 !important; border-top: 1.5px solid #10b981; border-bottom: 1.5px solid #10b981; }
         #policyTableBody.show-breakeven .breakeven-target td { font-weight: 700; color: #065f46 !important; }
         #policyTableBody.show-breakeven .breakeven-target .be-badge { display: block !important; }
@@ -104,21 +103,21 @@
                     <div class="grid grid-cols-2 gap-3 shrink-0">
                         <div>
                             <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">เพศ</p>
-                            <div class="flex gap-1.5">
+                            <div class="flex gap-1.5 h-9">
                                 <button onclick="setGender('male')" id="btnMale" class="flex-1 gender-pill active-male">ชาย</button>
                                 <button onclick="setGender('female')" id="btnFemale" class="flex-1 gender-pill">หญิง</button>
                             </div>
                         </div>
                         <div>
                             <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">อายุ (ปี)</p>
-                            <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded py-[5px] font-bold text-lg" oninput="calculate(currentMode)">
+                            <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded h-9 font-bold text-base" oninput="calculate(currentMode)">
                         </div>
                     </div>
 
                     <!-- แผนประกัน (แถวที่ 2 ต่อจากเพศ/อายุ) -->
                     <div class="shrink-0">
                         <p class="text-slate-400 text-[11px] font-bold mb-1 text-center">แผน</p>
-                        <div class="flex gap-1.5 w-full">
+                        <div class="flex gap-1.5 w-full h-10">
                             <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
                             <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
                         </div>
@@ -133,7 +132,7 @@
                             <button onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
                             <button onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
                         </div>
-                        <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1.5 text-2xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
+                        <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-1.5 text-lg font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                     </div>
 
                     <!-- ออมเงิน (เหลือ 4 ปุ่ม) -->
@@ -145,7 +144,7 @@
                             <button onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
                             <button onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
                         </div>
-                        <input type="text" id="premiumInput" class="input-box-rounded py-1.5 text-2xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
+                        <input type="text" id="premiumInput" class="input-box-rounded py-1.5 text-lg font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                     </div>
                     
                     <!-- ปุ่มการดำเนินการหลัก -->
@@ -200,19 +199,22 @@
                 <div id="breakevenSummary" class="hidden px-6 pb-3 text-center transition-all"></div>
             </div>
 
-            <div class="overflow-y-auto flex-1 custom-scrollbar px-4 policy-table-wrapper" id="pdfTableTarget">
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 mt-4 mb-6 overflow-hidden">
-                    <table class="w-full text-[10.5px] text-center border-collapse min-w-[280px] relative">
-                        <thead>
-                            <tr class="text-slate-500 border-b border-slate-200 bg-slate-50">
-                                <th class="py-3 px-1 font-bold rounded-tl-2xl">อายุ</th>
-                                <th class="py-3 px-1 font-bold">เงินออมรายปี</th>
-                                <th class="py-3 px-1 font-bold text-blue-600">เงินออมสะสม</th>
-                                <th class="py-3 px-1 font-bold text-amber-600 rounded-tr-2xl">เงินสดพร้อมใช้</th>
-                            </tr>
-                        </thead>
-                        <tbody id="policyTableBody"></tbody>
-                    </table>
+            <!-- ส่วนที่แก้ไขเพื่อล็อค Header ให้อยู่กับที่ -->
+            <div class="flex-1 px-4 py-4 min-h-0 flex flex-col">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex-1 flex flex-col">
+                    <div class="overflow-y-auto flex-1 custom-scrollbar policy-table-wrapper relative" id="pdfTableTarget">
+                        <table class="w-full text-[10.5px] text-center border-collapse min-w-[280px]">
+                            <thead class="sticky top-0 z-30">
+                                <tr class="text-slate-500 shadow-sm">
+                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200">อายุ</th>
+                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200">เงินออมรายปี</th>
+                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200">เงินออมสะสม</th>
+                                    <th class="py-3 px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200">เงินสดพร้อมใช้</th>
+                                </tr>
+                            </thead>
+                            <tbody id="policyTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
