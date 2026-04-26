@@ -83,7 +83,7 @@
         <div id="mainView" class="flex flex-col flex-1 overflow-hidden w-full">
             <!-- ส่วนหัว (Header) ปรับให้บางลง -->
             <div class="relative w-full z-10 pt-2 px-3 flex-shrink-0 bg-white">
-                <div id="mainHeaderBtn" class="bg-[#243c94] text-white py-1.5 rounded-[14px] text-center relative z-20 shadow-[0_3px_10px_rgba(36,60,148,0.25)] cursor-pointer hover:bg-[#1e327a] transition-all active:scale-[0.98] select-none">
+                <div id="mainHeaderBtn" oncontextmenu="return false;" class="bg-[#243c94] text-white py-1.5 rounded-[14px] text-center relative z-20 shadow-[0_3px_10px_rgba(36,60,148,0.25)] cursor-pointer hover:bg-[#1e327a] transition-all active:scale-[0.98] select-none">
                     <h1 class="text-lg font-black tracking-wide leading-tight pointer-events-none">CI Extra Plus</h1>
                     <p class="text-[9px] font-medium flex justify-center items-center gap-1 opacity-90 pointer-events-none">
                         ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ <i class="fas fa-chevron-down text-[8px]"></i>
@@ -946,7 +946,7 @@
             </div>
 
             <!-- Slider Container -->
-            <div class="relative overflow-hidden w-full h-[225px]">
+            <div id="planSliderContainer" class="relative overflow-hidden w-full h-[225px]">
                 <!-- Page 1 -->
                 <div id="planPage1" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-0 space-y-3">
                 </div>
@@ -1691,16 +1691,16 @@
             if(!textRaw) return; 
             let t = textRaw.toLowerCase().replace(/,/g, ''); 
 
-            // รองรับการค้นหาแบบประกันอื่นๆ ผ่านคำสั่งเสียง
+            // รองรับการค้นหาแบบประกันอื่นๆ ผ่านคำสั่งเสียง พร้อมรหัสย่อ
             const otherPlans = [
-                { key: /life\s*protect|ไลฟ์\s*โพรเทค|90/, name: "Life Protect 90" },
-                { key: /health\s*care|เฮลท์\s*แคร์/, name: "Health Care Plus" },
-                { key: /max\s*saving|แมกซ์\s*เซฟวิ่ง|15\/5/, name: "Max Saving 15/5" },
-                { key: /cancer|แคนเซอร์|มะเร็ง/, name: "Cancer Care" },
-                { key: /pa\s*safe|พีเอ\s*เซฟ|อุบัติเหตุ/, name: "PA Safe" },
-                { key: /education|ทุนการศึกษา/, name: "Education Fund" },
-                { key: /retirement|เกษียณ/, name: "Retirement Pro" },
-                { key: /elite|อีลีท|อีลิท/, name: "Elite Health" }
+                { key: /lpb|life\s*protector|ไลฟ์\s*โพรเทค?เตอร์/, name: "Life Protector 20" },
+                { key: /slpa|supreme|สุพรีม\s*ไลฟ์/, name: "สุพรีม ไลโพรเทคเตอร์ 20" },
+                { key: /wxn|ตลอดชีพ\s*เอ็กตร้า/, name: "ตลอดชีพเอ็กตร้า" },
+                { key: /slb|signature|ซิกเนเจอร์/, name: "Signature Legacy" },
+                { key: /tla|convertable|คอนเวอร์เทเบิล/, name: "Convertable Term" },
+                { key: /cla|century|เซ็นจูรี่/, name: "Century Life + TPD" },
+                { key: /3d|health\s*excellence|ทรีดี/, name: "3D Health Excellence" },
+                { key: /868|818|elite\s*saving/, name: "868 / 818 Elite Saving" }
             ];
             
             for (let p of otherPlans) {
@@ -1708,6 +1708,11 @@
                     selectAppPlan(p.name);
                     return; // ยกเลิกการคำนวณเพราะเป็นแผนที่ยังไม่รองรับ
                 }
+            }
+
+            // ถ้าตรวจพบคำว่า CX หรือ CI Extra Plus ให้เลือกแผน CI Extra Plus
+            if (t.match(/cx|ci\s*extra|ซีไอ\s*เอ็กตร้า/)) {
+                selectAppPlan('CI Extra Plus');
             }
 
             let explicitPlanMatch = t.match(/(?:แผน|cx)\s*(\d+)/) || t.match(/(\d+)\s*(?:cx)/) || t.match(/(?:ส่ง|ออม|ระยะเวลา)\s*(\d+)\s*ปี/);
@@ -1759,7 +1764,7 @@
                 }
             }
             
-            let keywordMatch = t.match(/ชาย|หญิง|ผู้ชาย|ผู้หญิง|สาว|หนุ่ม|cx|แผน|ปี|อายุ|ทุน|ออม|คุ้มครอง/);
+            let keywordMatch = t.match(/ชาย|หญิง|ผู้ชาย|ผู้หญิง|สาว|หนุ่ม|cx|ci|ซีไอ|เอ็กตร้า|แผน|ปี|อายุ|ทุน|ออม|คุ้มครอง/);
             if (!keywordMatch && age === -1 && amount === -1) {
                 showCustomError("กรุณาระบุข้อมูลอีกครั้ง (ไม่พบข้อมูลที่ตรงกับเงื่อนไข)");
                 return;
@@ -2140,57 +2145,107 @@
             
             let pressTimer;
             let isLongPress = false;
-            let isMoving = false;
+            let startX, startY;
 
-            const startPress = (e) => {
-                if (e.type === 'mousedown' && e.button !== 0) return; // ทำงานเฉพาะคลิกซ้าย
+            const onStart = (e) => {
+                if (e.type === 'mousedown' && e.button !== 0) return;
                 isLongPress = false;
-                isMoving = false;
+                
+                // บันทึกตำแหน่งที่เริ่มกด เพื่อเผื่อนิ้วขยับเล็กน้อย
+                if(e.touches && e.touches.length > 0) {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                } else {
+                    startX = e.clientX;
+                    startY = e.clientY;
+                }
                 
                 pressTimer = setTimeout(() => {
-                    if (!isMoving) {
-                        isLongPress = true;
-                        openPopup('planSearchModal');
-                        renderSearchResults(allInsurancePlans); // โหลดรายการทั้งหมดตั้งต้น
-                        setTimeout(() => {
-                            const inputEl = document.getElementById('planSearchInput');
-                            if(inputEl) inputEl.focus();
-                        }, 300);
-                        // สั่นเครื่องเบาๆ ถ้าอุปกรณ์รองรับ (Haptic Feedback)
-                        if (navigator.vibrate) navigator.vibrate(50);
-                    }
-                }, 600); // กดค้าง 600 มิลลิวินาที
+                    isLongPress = true;
+                    openPopup('planSearchModal');
+                    renderSearchResults(allInsurancePlans);
+                    setTimeout(() => {
+                        const inputEl = document.getElementById('planSearchInput');
+                        if(inputEl) inputEl.focus();
+                    }, 300);
+                    if (navigator.vibrate) navigator.vibrate(50);
+                }, 500); // เวลาในการกดค้าง (0.5 วินาที)
             };
 
-            const cancelPress = () => {
-                clearTimeout(pressTimer);
-            };
-            
-            const handleMove = () => {
-                isMoving = true;
-                clearTimeout(pressTimer);
-            };
-
-            const endPress = (e) => {
-                e.preventDefault(); // ป้องกันการเกิด click event ซ้ำซ้อนจากการแตะ
-                clearTimeout(pressTimer);
-                if (!isLongPress && !isMoving) {
-                    // ถ้าไม่ใช่การกดค้าง ให้เปิดเมนูเลือกแผนปกติ
-                    openPlanModal();
+            const onMove = (e) => {
+                if (!startX || !startY) return;
+                let currentX, currentY;
+                if (e.touches && e.touches.length > 0) {
+                    currentX = e.touches[0].clientX;
+                    currentY = e.touches[0].clientY;
+                } else {
+                    currentX = e.clientX;
+                    currentY = e.clientY;
+                }
+                
+                // ถ้านิ้วหรือเมาส์ขยับเกิน 10px ให้ยกเลิกการกดค้าง (ถือว่าเป็นการปัดหรือเลื่อนจอ)
+                if (Math.abs(currentX - startX) > 10 || Math.abs(currentY - startY) > 10) {
+                    clearTimeout(pressTimer);
                 }
             };
 
-            // Touch events (Mobile)
-            btn.addEventListener('touchstart', startPress, {passive: false});
-            btn.addEventListener('touchmove', handleMove, {passive: true});
-            btn.addEventListener('touchend', endPress);
-            btn.addEventListener('touchcancel', cancelPress);
+            const onEnd = (e) => {
+                clearTimeout(pressTimer);
+                if (!isLongPress) {
+                    // หากไม่ได้กดค้าง ให้เปิดเมนูเลือกแบบปกติ
+                    openPlanModal();
+                }
+                startX = null; startY = null;
+                // ป้องกัน click event ซ้ำซ้อนจากการแตะบนมือถือ
+                if (e.cancelable && e.type === 'touchend') e.preventDefault();
+            };
 
-            // Mouse events (Desktop)
-            btn.addEventListener('mousedown', startPress);
-            btn.addEventListener('mousemove', handleMove);
-            btn.addEventListener('mouseup', endPress);
-            btn.addEventListener('mouseleave', cancelPress);
+            const onCancel = () => {
+                clearTimeout(pressTimer);
+                startX = null; startY = null;
+            };
+
+            // Touch events (Mobile)
+            btn.addEventListener('touchstart', onStart, {passive: true});
+            btn.addEventListener('touchmove', onMove, {passive: true});
+            btn.addEventListener('touchend', onEnd);
+            btn.addEventListener('touchcancel', onCancel);
+
+            // Mouse events (Desktop Web)
+            btn.addEventListener('mousedown', onStart);
+            btn.addEventListener('mousemove', onMove);
+            btn.addEventListener('mouseup', onEnd);
+            btn.addEventListener('mouseleave', onCancel);
+        }
+
+        // ฟังก์ชันสำหรับ สไลด์หน้าจอ เลือกแบบประกัน (Swipe Left/Right)
+        function setupPlanSliderSwipe() {
+            const slider = document.getElementById('planSliderContainer');
+            if (!slider) return;
+
+            let touchstartX = 0;
+            let touchendX = 0;
+
+            slider.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            slider.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+
+            function handleSwipe() {
+                const threshold = 40; // ระยะการปัดขั้นต่ำ (พิกเซล)
+                if (touchstartX - touchendX > threshold) {
+                    // ปัดซ้าย (ไปหน้าถัดไป)
+                    if (currentPlanPage < 3) changePlanPage(currentPlanPage + 1);
+                }
+                if (touchendX - touchstartX > threshold) {
+                    // ปัดขวา (ย้อนกลับ)
+                    if (currentPlanPage > 1) changePlanPage(currentPlanPage - 1);
+                }
+            }
         }
 
         window.onload = () => { 
@@ -2200,7 +2255,8 @@
                 }
             });
             calculate('sum'); 
-            setupLongPress(); // เริ่มระบบตรวจจับการกดค้าง
+            setupLongPress(); 
+            setupPlanSliderSwipe(); // เริ่มต้นระบบปัดหน้าจอ
         };
     </script>
 </body>
