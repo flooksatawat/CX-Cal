@@ -110,12 +110,12 @@
                                 </div>
                             </div>
                             <div>
-                                <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded h-10 font-bold text-lg" oninput="calculate(currentMode)" placeholder="อายุ (ปี)">
+                                <input type="number" id="ageInput" value="30" min="0" max="65" class="input-box-rounded h-10 font-bold text-base" oninput="calculate(currentMode)" placeholder="อายุ (ปี)">
                             </div>
                         </div>
 
                         <!-- แผนประกัน (แถวที่ 2) -->
-                        <div class="shrink-0 mt-1">
+                        <div class="shrink-0">
                             <div class="flex gap-2 w-full h-8">
                                 <button onclick="setPlan('10CX')" id="btn10CX" class="flex-1 gender-pill">10CX</button>
                                 <button onclick="setPlan('20CX')" id="btn20CX" class="flex-1 gender-pill active-blue">20CX</button>
@@ -123,7 +123,7 @@
                         </div>
 
                         <!-- ทุนประกัน -->
-                        <div class="shrink-0 mt-2">
+                        <div class="shrink-0">
                             <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ทุนประกัน (บาท)</p>
                             <div class="flex gap-2 mb-2">
                                 <button onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button>
@@ -131,11 +131,11 @@
                                 <button onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button>
                                 <button onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button>
                             </div>
-                            <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-2.5 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
+                            <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded py-2 text-lg font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" oninput="handleSumInput(this)">
                         </div>
 
                         <!-- ออมเงิน -->
-                        <div class="shrink-0 mt-2">
+                        <div class="shrink-0">
                             <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ออมเงิน (บาท)</p>
                             <div class="flex gap-2 mb-2">
                                 <button onclick="setQuickPremium(12000)" class="quick-pill">12,000</button>
@@ -143,12 +143,12 @@
                                 <button onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
                                 <button onclick="setQuickPremium(48000)" class="quick-pill">48,000</button>
                             </div>
-                            <input type="text" id="premiumInput" class="input-box-rounded py-2.5 text-xl font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
+                            <input type="text" id="premiumInput" class="input-box-rounded py-2 text-lg font-black text-[#1e293b] shadow-inner bg-slate-50 border-slate-200" value="0" oninput="handlePremiumInput(this)">
                         </div>
                     </div>
                     
                     <!-- ปุ่มการดำเนินการหลัก ยึดติดด้านล่าง เพิ่มช่องว่างให้กดง่ายขึ้น -->
-                    <div class="pt-3 pb-1 border-t border-slate-100 shrink-0 flex flex-col gap-2.5 mt-2">
+                    <div class="pb-1 shrink-0 flex flex-col gap-2.5 mt-1">
                         <!-- สัดส่วน 3:1 (รายละเอียด 3 ส่วน, แชร์ 1 ส่วน) -->
                         <div class="grid grid-cols-4 gap-2.5">
                             <button onclick="manualTriggerPopup()" class="col-span-3 w-full bg-[#243c94] text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-md hover:bg-[#1e327a] active:scale-95 transition-all">
