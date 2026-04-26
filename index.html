@@ -1694,8 +1694,8 @@
             // รองรับการค้นหาแบบประกันอื่นๆ ผ่านคำสั่งเสียง พร้อมรหัสย่อ
             const otherPlans = [
                 { key: /lpb|life\s*protector|ไลฟ์\s*โพรเทค?เตอร์/, name: "Life Protector 20" },
-                { key: /slpa|supreme|สุพรีม\s*ไลฟ์/, name: "สุพรีม ไลโพรเทคเตอร์ 20" },
-                { key: /wxn|ตลอดชีพ\s*เอ็กตร้า/, name: "ตลอดชีพเอ็กตร้า" },
+                { key: /slpa|supreme|สุพรีม\s*ไลฟ์/, name: "Supreme Life Protector" },
+                { key: /wxn|ตลอดชีพ\s*เอ็กตร้า|whole\s*life/, name: "Whole Life Extra" },
                 { key: /slb|signature|ซิกเนเจอร์/, name: "Signature Legacy" },
                 { key: /tla|convertable|คอนเวอร์เทเบิล/, name: "Convertable Term" },
                 { key: /cla|century|เซ็นจูรี่/, name: "Century Life + TPD" },
@@ -2031,33 +2031,55 @@
             if (e.target.closest('button, input, select, textarea, a, .clickable-row, .interactive-btn')) return;
         }
 
-        // Logic สำหรับการเลื่อนหน้าต่างเลือกแบบประกัน
+        // Logic สำหรับการเลื่อนหน้าต่างเลือกแบบประกัน (สไลด์ต่อเนื่องไม่สิ้นสุด)
         let currentPlanPage = 1;
-        function changePlanPage(page) {
-            currentPlanPage = page;
+        function changePlanPage(targetPage, direction = 'auto') {
+            if (currentPlanPage === targetPage) return;
+
+            let outPage = currentPlanPage;
+            currentPlanPage = targetPage;
             
-            // เลื่อนหน้า (Slide)
-            for (let i = 1; i <= 3; i++) {
-                const pageEl = document.getElementById('planPage' + i);
-                if (pageEl) {
-                    if (i === page) {
-                        pageEl.classList.remove('-translate-x-full', 'translate-x-full');
-                        pageEl.classList.add('translate-x-0');
-                    } else if (i < page) {
-                        pageEl.classList.remove('translate-x-0', 'translate-x-full');
-                        pageEl.classList.add('-translate-x-full'); // ซ่อนไปทางซ้าย
-                    } else {
-                        pageEl.classList.remove('translate-x-0', '-translate-x-full');
-                        pageEl.classList.add('translate-x-full'); // ซ่อนไปทางขวา
-                    }
-                }
+            const outEl = document.getElementById('planPage' + outPage);
+            const inEl = document.getElementById('planPage' + targetPage);
+            
+            if (direction === 'auto') {
+                 direction = targetPage > outPage ? 'next' : 'prev';
+            }
+
+            // เลื่อนหน้าด้วยการคำนวณตำแหน่งเริ่มต้นเพื่อให้เป็นวงลูปสมบูรณ์
+            if (direction === 'next') {
+                inEl.classList.remove('transition-transform', 'duration-300');
+                inEl.classList.remove('-translate-x-full', 'translate-x-0');
+                inEl.classList.add('translate-x-full');
+                
+                void inEl.offsetWidth; // trigger reflow
+                
+                inEl.classList.add('transition-transform', 'duration-300');
+                inEl.classList.remove('translate-x-full');
+                inEl.classList.add('translate-x-0');
+                
+                outEl.classList.remove('translate-x-0', 'translate-x-full');
+                outEl.classList.add('-translate-x-full');
+            } else {
+                inEl.classList.remove('transition-transform', 'duration-300');
+                inEl.classList.remove('translate-x-full', 'translate-x-0');
+                inEl.classList.add('-translate-x-full');
+                
+                void inEl.offsetWidth; // trigger reflow
+                
+                inEl.classList.add('transition-transform', 'duration-300');
+                inEl.classList.remove('-translate-x-full');
+                inEl.classList.add('translate-x-0');
+                
+                outEl.classList.remove('translate-x-0', '-translate-x-full');
+                outEl.classList.add('translate-x-full');
             }
 
             // อัปเดตจุด (Dots)
             for (let i = 1; i <= 3; i++) {
                 const dotEl = document.getElementById('planDot' + i);
                 if (dotEl) {
-                    if (i === page) {
+                    if (i === currentPlanPage) {
                         dotEl.classList.replace('bg-slate-200', 'bg-blue-600');
                         dotEl.classList.replace('w-2.5', 'w-4'); // ทำให้จุดยาวขึ้น
                     } else {
@@ -2088,12 +2110,12 @@
         const allInsurancePlans = [
             { name: "CI Extra Plus", desc: "ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ" },
             { name: "Life Protector 20", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
-            { name: "สุพรีม ไลโพรเทคเตอร์ 20", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
+            { name: "Supreme Life Protector", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
             { name: "Signature Legacy", desc: "แผนมรดก ลูกค้ามูลค่าสูง" },
             { name: "Convertable Term", desc: "จองสิทธิ เปลี่ยนแบบประกันได้" },
             { name: "Century Life + TPD", desc: "แผนมรดก 100 ปี + TPD" },
             { name: "3D Health Excellence", desc: "ประกันสุขภาพ ที่เข้าใจทุกช่วงชีวิต" },
-            { name: "ตลอดชีพเอ็กตร้า", desc: "สินทรัพย์กระแสเงินสด" },
+            { name: "Whole Life Extra", desc: "สินทรัพย์กระแสเงินสด" },
             { name: "24 TX", desc: "สินทรัพย์กระแสเงินสด" },
             { name: "868 / 818 Elite Saving", desc: "สินทรัพย์กระแสเงินสด" }
         ];
@@ -2114,7 +2136,34 @@
                     `).join('');
                 }
             }
-            changePlanPage(1);
+            
+            // รีเซ็ตการแสดงผลหน้าต่างๆ กลับไปที่หน้า 1 เมื่อเปิดเมนู
+            currentPlanPage = 1;
+            for (let i = 1; i <= 3; i++) {
+                const pageEl = document.getElementById('planPage' + i);
+                const dotEl = document.getElementById('planDot' + i);
+                if (pageEl) {
+                    pageEl.classList.remove('transition-transform', 'duration-300');
+                    if (i === 1) {
+                        pageEl.classList.remove('-translate-x-full', 'translate-x-full');
+                        pageEl.classList.add('translate-x-0');
+                    } else {
+                        pageEl.classList.remove('translate-x-0', '-translate-x-full');
+                        pageEl.classList.add('translate-x-full');
+                    }
+                    setTimeout(() => pageEl.classList.add('transition-transform', 'duration-300'), 50);
+                }
+                if (dotEl) {
+                    if (i === 1) {
+                        dotEl.classList.replace('bg-slate-200', 'bg-blue-600');
+                        dotEl.classList.replace('w-2.5', 'w-4');
+                    } else {
+                        dotEl.classList.replace('bg-blue-600', 'bg-slate-200');
+                        dotEl.classList.replace('w-4', 'w-2.5');
+                    }
+                }
+            }
+            
             openPopup('planSelectModal');
         }
 
@@ -2238,12 +2287,13 @@
             function handleSwipe() {
                 const threshold = 40; // ระยะการปัดขั้นต่ำ (พิกเซล)
                 if (touchstartX - touchendX > threshold) {
-                    // ปัดซ้าย (ไปหน้าถัดไป)
-                    if (currentPlanPage < 3) changePlanPage(currentPlanPage + 1);
-                }
-                if (touchendX - touchstartX > threshold) {
-                    // ปัดขวา (ย้อนกลับ)
-                    if (currentPlanPage > 1) changePlanPage(currentPlanPage - 1);
+                    // ปัดซ้าย (ไปหน้าถัดไป) แบบวนลูป
+                    let target = currentPlanPage === 3 ? 1 : currentPlanPage + 1;
+                    changePlanPage(target, 'next');
+                } else if (touchendX - touchstartX > threshold) {
+                    // ปัดขวา (ย้อนกลับ) แบบวนลูป
+                    let target = currentPlanPage === 1 ? 3 : currentPlanPage - 1;
+                    changePlanPage(target, 'prev');
                 }
             }
         }
