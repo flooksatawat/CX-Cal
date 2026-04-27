@@ -84,7 +84,7 @@
         .ai-content ul { list-style-type: none; padding-left: 0; margin-bottom: 1rem; }
         .ai-content ul li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
         .ai-content ul li::before { content: '✨'; position: absolute; left: 0; top: 0; font-size: 0.8rem; }
-        .ai-content h4 { color: #1e3a8a; font-weight: 700; font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .ai-content h4 { color: #1e3a8a; font-weight: 700; font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .ai-quote { background: #f0fdf4; border-left: 4px solid #10b981; padding: 1rem; border-radius: 0 12px 12px 0; font-style: italic; color: #065f46; margin: 1rem 0; }
         .spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: #3b82f6; animation: spin 1s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -167,8 +167,8 @@
 
                         <!-- ออมเงิน Card -->
                         <div class="shrink-0 bg-white rounded-2xl p-2.5 border border-slate-100 shadow-sm" id="premiumContainer">
-                            <p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ออมเงิน (บาท)</p>
-                            <div class="flex gap-1 mb-2">
+                            <p id="premiumLabel" class="text-slate-400 text-[11px] font-bold mb-1.5 text-center">ออมเงิน (บาท)</p>
+                            <div id="premiumPillContainer" class="flex gap-1 mb-2">
                                 <button id="premPill1" onclick="setQuickPremium(12000)" class="quick-pill">12,000</button>
                                 <button id="premPill2" onclick="setQuickPremium(24000)" class="quick-pill">24,000</button>
                                 <button id="premPill3" onclick="setQuickPremium(36000)" class="quick-pill">36,000</button>
@@ -1579,73 +1579,74 @@
             html += `
                 <div class="mb-5">
                     <p class="text-xs text-slate-500 mb-1">ข้อมูลประกอบการวิเคราะห์สไตล์ TOT:</p>
-                    <div class="flex flex-wrap gap-2 text-[11px] font-bold text-blue-800 bg-blue-50 p-3 rounded-xl border border-blue-100">
-                        <span>🏷️ แผน: ${getPlanAbbr(plan)}</span>
-                        <span>👤 ลูกค้า: ${gender} ${age} ปี</span>
-                        <span>💰 เบี้ย: ${formatNum(premium)}</span>
-                        <span>🛡️ ทุน: ${formatNum(sum)}</span>
+                    <div class="flex flex-wrap gap-3 text-[11px] font-bold text-blue-800 bg-blue-50 p-3 rounded-xl border border-blue-100 justify-center">
+                        <span>👤 ${gender} ${age} ปี</span>
+                        <span class="opacity-50">|</span>
+                        <span>💰 ออมเงิน: ${formatNum(premium)}</span>
+                        <span class="opacity-50">|</span>
+                        <span>🛡️ วงเงิน: ${formatNum(sum)}</span>
                     </div>
                 </div>
             `;
 
-            // 2. การวิเคราะห์จุดเจ็บปวด & แรงจูงใจ (Emotional Triggers)
-            html += `<h4><i class="fas fa-heartbeat text-red-500"></i> แรงจูงใจและจุดเจ็บปวด (Emotional Triggers)</h4>`;
+            // 2. การวิเคราะห์จุดเจ็บปวด & แรงจูงใจ
+            html += `<h4><i class="fas fa-heartbeat text-red-500"></i> แรงจูงใจและจุดเจ็บปวด</h4>`;
             html += `<ul>`;
             
             if (age <= 15) {
-                html += `<li><strong>ความรักและความกังวลของพ่อแม่:</strong> จุดอ่อนไหวที่สุดคืออนาคตของลูก เน้นย้ำว่าเบี้ย ${formatNum(premium)} บาท คือการการันตีความฝันของลูกให้เป็นจริง ไม่ว่าพ่อแม่จะอยู่หรือไม่</li>`;
+                html += `<li><strong>ความรักและความกังวลของพ่อแม่:</strong> จุดอ่อนไหวที่สุดคืออนาคตของลูก เน้นย้ำว่าเงินออม ${formatNum(premium)} บาท คือการการันตีความฝันของลูกให้เป็นจริง ไม่ว่าพ่อแม่จะอยู่หรือไม่</li>`;
                 if (plan === "CI Extra Plus") {
                     html += `<li><strong>ปกป้องเงินเก็บครอบครัว:</strong> เด็กเล็กมีโอกาสป่วยบ่อยและค่ารักษาโรคเฉพาะทางสูงมาก แผนนี้ช่วยบล็อกความเสี่ยงไม่ให้เงินเก็บของพ่อแม่ต้องละลายไปกับโรงพยาบาล</li>`;
                 }
             } else if (age >= 16 && age <= 30) {
-                html += `<li><strong>การสร้างรากฐานที่มั่นคง:</strong> ลูกค้ากลุ่มนี้เพิ่งเริ่มสร้างเนื้อสร้างตัว การมีทุน ${formatNum(sum)} บาท ทันทีด้วยเงินก้อนเล็ก คือทางลัดในการสร้างความมั่งคั่งและเป็นเบาะรองรับให้พ่อแม่</li>`;
+                html += `<li><strong>การสร้างรากฐานที่มั่นคง:</strong> กลุ่มนี้เพิ่งเริ่มสร้างเนื้อสร้างตัว การมีวงเงิน ${formatNum(sum)} บาท ทันทีด้วยเงินก้อนเล็ก คือทางลัดในการสร้างความมั่งคั่งและเป็นเบาะรองรับให้พ่อแม่</li>`;
             } else if (age >= 31 && age <= 45) {
-                html += `<li><strong>เดอะแบกของครอบครัว (Sandwich Generation):</strong> มีภาระทั้งลูกที่กำลังโตและพ่อแม่ที่แก่ชรา ทุน ${formatNum(sum)} บาท คือ "มูลค่าความสามารถ" (Economic Value) ที่ต้องได้รับการปกป้อง หากเครื่องจักรผลิตเงินเครื่องนี้หยุดทำงาน ครอบครัวต้องไม่อดตาย</li>`;
+                html += `<li><strong>เดอะแบกของครอบครัว:</strong> มีภาระทั้งลูกที่กำลังโตและพ่อแม่ที่แก่ชรา วงเงิน ${formatNum(sum)} บาท คือ "มูลค่าความสามารถ" ที่ต้องได้รับการปกป้อง หากเครื่องจักรผลิตเงินเครื่องนี้หยุดทำงาน ครอบครัวต้องไม่อดตาย</li>`;
             } else {
-                html += `<li><strong>การปกป้องความมั่งคั่ง (Wealth Protection):</strong> อายุวัยนี้หาเงินเก่งแล้ว สิ่งที่กลัวที่สุดคือ "ปัญหาสุขภาพ" ที่จะมาพรากเงินเก็บทั้งชีวิตไป แผนนี้คือการสร้าง Financial Parachute ป้องกันความเสี่ยง</li>`;
+                html += `<li><strong>การปกป้องความมั่งคั่ง:</strong> อายุวัยนี้หาเงินเก่งแล้ว สิ่งที่กลัวที่สุดคือ "ปัญหาสุขภาพ" ที่จะมาพรากเงินเก็บทั้งชีวิตไป แผนนี้คือการสร้างร่มชูชีพทางการเงิน ป้องกันความเสี่ยง</li>`;
             }
 
             if (plan.includes("Whole Life") || plan.includes("Elite") || plan.includes("TX")) {
-                html += `<li><strong>สภาพคล่องไม่สะดุด (Liquidity):</strong> ลูกค้ากลุ่มนี้ไม่ชอบให้เงินจม ชูจุดเด่นเรื่องกระแสเงินสดคืนระหว่างทางที่สามารถนำไปต่อยอด (Reinvest) ได้</li>`;
+                html += `<li><strong>สภาพคล่องไม่สะดุด:</strong> กลุ่มนี้ไม่ชอบให้เงินจม ชูจุดเด่นเรื่องกระแสเงินสดคืนระหว่างทางที่สามารถนำไปต่อยอดได้</li>`;
             }
             if (plan === "Signature Legacy" || sum >= 10000000) {
-                html += `<li><strong>ส่งมอบมรดกไร้รอยต่อ (Wealth Transfer):</strong> ข้ามขั้นตอนกฎหมายมรดกที่ซับซ้อน มอบเงินก้อนโตปลอดภาษีให้ทายาทโดยตรง</li>`;
+                html += `<li><strong>ส่งมอบมรดกไร้รอยต่อ:</strong> ข้ามขั้นตอนกฎหมายมรดกที่ซับซ้อน มอบเงินก้อนโตปลอดภาษีให้ทายาทโดยตรง</li>`;
             }
             html += `</ul>`;
 
-            // 3. TOT Sales Pitch
-            html += `<h4><i class="fas fa-comment-dollar text-amber-500"></i> บทสนทนาเปิดใจ (TOT Storytelling)</h4>`;
+            // 3. บทสนทนาเปิดใจ
+            html += `<h4><i class="fas fa-comment-dollar text-amber-500"></i> บทสนทนาเปิดใจ</h4>`;
             
             if (plan === "CI Extra Plus" && age > 25) {
-                html += `<div class="ai-quote">"คุณลูกค้าครับ เราทำงานหนักเพื่อเก็บเงินไว้ดูแลตัวเองและครอบครัว แต่ถ้าวันนึงแจ็คพ็อตเกิดโรคร้าย เงินที่เราหามาทั้งชีวิตอาจต้องยกให้โรงพยาบาลทั้งหมด... จะดีกว่าไหมครับ ถ้าเราย้ายเงินเพียง ${formatNum(premium)} บาท/ปี มาไว้ใน ${getPlanAbbr(plan)} เพื่อสร้าง 'กำแพงมูลค่า ${formatNum(sum)} บาท' ปกป้องเงินก้อนหลักของคุณตลอดไป?"</div>`;
+                html += `<div class="ai-quote">"เราทำงานหนักเพื่อเก็บเงินไว้ดูแลตัวเองและครอบครัว แต่ถ้าวันนึงแจ็คพ็อตเกิดโรคร้าย เงินที่เราหามาทั้งชีวิตอาจต้องยกให้โรงพยาบาลทั้งหมด... จะดีกว่าไหมครับ ถ้าเราย้ายเงินเพียง ${formatNum(premium)} บาท/ปี มาไว้ในแผนนี้ เพื่อสร้าง 'กำแพงวงเงิน ${formatNum(sum)} บาท' ปกป้องเงินก้อนหลักของคุณตลอดไป?"</div>`;
             } else if (age <= 15) {
-                html += `<div class="ai-quote">"คุณพ่อคุณแม่ครับ ความรักที่เรามีให้ลูกประเมินค่าไม่ได้ แต่เราสามารถตีมูลค่าคำมั่นสัญญาเป็นตัวเลขได้ กรมธรรม์ฉบับนี้ไม่ใช่แค่กระดาษ แต่คือ 'การ์ดทองคำ' ที่รับประกันว่าทุนการศึกษา ${formatNum(sum)} บาท จะถูกส่งมอบให้น้องแน่นอน ไม่ว่าอนาคตเราจะอยู่เคียงข้างเขาหรือไม่ก็ตามครับ"</div>`;
+                html += `<div class="ai-quote">"ความรักที่เรามีให้ลูกประเมินค่าไม่ได้ แต่เราสามารถตีมูลค่าคำมั่นสัญญาเป็นตัวเลขได้ แผนนี้ไม่ใช่แค่กระดาษ แต่คือ 'การ์ดทองคำ' ที่รับประกันว่าวงเงินการศึกษา ${formatNum(sum)} บาท จะถูกส่งมอบให้น้องแน่นอน ไม่ว่าอนาคตเราจะอยู่เคียงข้างเขาหรือไม่ก็ตามครับ"</div>`;
             } else if (sum >= 5000000) {
-                html += `<div class="ai-quote">"คนเก่งระดับคุณลูกค้า รู้วิธีต่อยอดเงินได้ดีกว่าใครอยู่แล้วครับ สิ่งที่ผมนำเสนอวันนี้ไม่ใช่การลงทุนเพื่อผลตอบแทนสูงสุด แต่เป็นการใช้ 'เงินหลักหมื่น ไปค้ำประกันเงินหลักล้าน' เพื่อปลดล็อกความกังวล ให้คุณลูกค้าเอาสมองไปโฟกัสกับการทำธุรกิจได้อย่างเต็มที่ครับ"</div>`;
+                html += `<div class="ai-quote">"คนเก่งระดับคุณ รู้วิธีต่อยอดเงินได้ดีกว่าใครอยู่แล้วครับ สิ่งที่ผมนำเสนอวันนี้ไม่ใช่การลงทุนเพื่อผลตอบแทนสูงสุด แต่เป็นการใช้ 'เงินหลักหมื่น ไปค้ำประกันเงินหลักล้าน' เพื่อปลดล็อกความกังวล ให้คุณเอาสมองไปโฟกัสกับการทำธุรกิจได้อย่างเต็มที่ครับ"</div>`;
             } else {
-                html += `<div class="ai-quote">"ความเสี่ยงที่น่ากลัวที่สุด ไม่ใช่การลงทุนแล้วขาดทุนนะครับ แต่คือการที่เรามีเวลาดูแลคนที่เรารักไม่นานพอตามที่ตั้งใจไว้... แผนนี้จะเข้ามา 'ซื้อเวลา' และปิดความเสี่ยงนั้นให้ครอบครัวคุณลูกค้าครับ"</div>`;
+                html += `<div class="ai-quote">"ความเสี่ยงที่น่ากลัวที่สุด ไม่ใช่การลงทุนแล้วขาดทุนนะครับ แต่คือการที่เรามีเวลาดูแลคนที่เรารักไม่นานพอตามที่ตั้งใจไว้... แผนนี้จะเข้ามา 'ซื้อเวลา' และปิดความเสี่ยงนั้นให้ครอบครัวคุณครับ"</div>`;
             }
 
-            // 4. Objection Handling
-            html += `<h4><i class="fas fa-shield-alt text-indigo-500"></i> การตอบข้อโต้แย้ง (Objection Handling)</h4>`;
+            // 4. การตอบข้อโต้แย้ง
+            html += `<h4><i class="fas fa-shield-alt text-indigo-500"></i> การตอบข้อโต้แย้ง</h4>`;
             html += `<ul>`;
-            html += `<li><strong>"เบี้ยแพง / ช่วงนี้เศรษฐกิจไม่ดี รัดเข็มขัดอยู่"</strong><br><span class="text-slate-600">➡️ <em>"เข้าใจเลยครับว่าช่วงนี้ต้องระวังเรื่องรายจ่าย แต่เงิน ${formatNum(premium)} บาทนี้ ไม่ใช่รายจ่ายทิ้งนะครับ มันคือการ 'ย้ายที่เก็บเงิน' จากกระเป๋าซ้ายที่งอกเงยช้า มากระเป๋าขวาที่การันตีมูลค่า ${formatNum(sum)} บาททันที ในยุคเศรษฐกิจแบบนี้ การล็อกความเสี่ยงยิ่งสำคัญที่สุดครับ"</em></span></li>`;
+            html += `<li><strong>"ออมเงินสูงไป / ช่วงนี้เศรษฐกิจไม่ดี รัดเข็มขัดอยู่"</strong><br><span class="text-slate-600">➡️ <em>"เข้าใจเลยครับว่าช่วงนี้ต้องระวังเรื่องรายจ่าย แต่เงิน ${formatNum(premium)} บาทนี้ ไม่ใช่รายจ่ายทิ้งนะครับ มันคือการ 'ย้ายที่เก็บเงิน' จากกระเป๋าซ้ายที่งอกเงยช้า มากระเป๋าขวาที่การันตีวงเงิน ${formatNum(sum)} บาททันที ในยุคเศรษฐกิจแบบนี้ การล็อกความเสี่ยงยิ่งสำคัญที่สุดครับ"</em></span></li>`;
             
             if (plan.includes("Health") || plan.includes("CI")) {
-                html += `<li><strong>"มีสวัสดิการ / ประกันของบริษัทอยู่แล้ว"</strong><br><span class="text-slate-600">➡️ <em>"ดีมากเลยครับที่บริษัทมีสวัสดิการให้ แต่สวัสดิการนั้นดูแลเราแค่ตอนที่เรายังมีแรงทำงานให้เขาครับ ถ้ายกตัวอย่างเคสโรคร้ายแรงที่ต้องพักรักษาตัวยาวจนต้องออกจากงาน สวัสดิการก็จะหายไปทันที แผนนี้คือสวัสดิการส่วนตัวที่จะ 'ติดตัวคุณลูกค้าไปตลอดชีพ' ไม่ว่าจะทำงานที่ไหนครับ"</em></span></li>`;
+                html += `<li><strong>"มีสวัสดิการของบริษัทอยู่แล้ว"</strong><br><span class="text-slate-600">➡️ <em>"ดีมากเลยครับที่บริษัทมีสวัสดิการให้ แต่สวัสดิการนั้นดูแลเราแค่ตอนที่เรายังมีแรงทำงานให้เขาครับ ถ้ายกตัวอย่างเคสโรคร้ายแรงที่ต้องพักรักษาตัวยาวจนต้องออกจากงาน สวัสดิการก็จะหายไปทันที แผนนี้คือสวัสดิการส่วนตัวที่จะ 'ติดตัวคุณไปตลอดชีพ' ไม่ว่าจะทำงานที่ไหนครับ"</em></span></li>`;
             } else {
-                html += `<li><strong>"มีประกันเยอะแล้ว / ส่งไม่ไหวแล้ว"</strong><br><span class="text-slate-600">➡️ <em>"ยอดเยี่ยมเลยครับ แสดงว่าคุณลูกค้าเห็นความสำคัญของการวางแผนการเงิน คำถามคือ ประกันที่มีอยู่ ครอบคลุม 'มูลค่าความสามารถ' ปัจจุบันของคุณลูกค้าหรือยังครับ? วันนี้รายได้และภาระเราโตขึ้น ทุนประกันก็ควรเติบโตตามเพื่อเป็นเบาะที่นุ่มพอรองรับครอบครัวครับ"</em></span></li>`;
+                html += `<li><strong>"มีเยอะแล้ว / ส่งไม่ไหวแล้ว"</strong><br><span class="text-slate-600">➡️ <em>"ยอดเยี่ยมเลยครับ แสดงว่าคุณเห็นความสำคัญของการวางแผนการเงิน คำถามคือ สิ่งที่มีอยู่ ครอบคลุม 'มูลค่าความสามารถ' ปัจจุบันของคุณหรือยังครับ? วันนี้รายได้และภาระเราโตขึ้น วงเงินคุ้มครองก็ควรเติบโตตามเพื่อเป็นเบาะที่นุ่มพอรองรับครอบครัวครับ"</em></span></li>`;
             }
-            html += `<li><strong>"ขอปรึกษาแฟน / ครอบครัวก่อนนะ"</strong><br><span class="text-slate-600">➡️ <em>"เห็นด้วยอย่างยิ่งครับ เพราะคนที่จะได้รับผลประโยชน์สูงสุดคือครอบครัว... แต่คุณลูกค้าครับ ถ้าทำแผนนี้ คนที่สบายใจคือแฟนคุณ แต่ถ้าไม่ทำ แล้ววันพรุ่งนี้โชคร้ายเกิดขึ้น คนที่ต้องรับภาระหนักที่สุดก็คือแฟนคุณเช่นกัน ให้ผมเป็นตัวแทนไปอธิบายข้อดีนี้ให้ฟังด้วยกันเลยดีไหมครับ?"</em></span></li>`;
+            html += `<li><strong>"ขอปรึกษาแฟน / ครอบครัวก่อนนะ"</strong><br><span class="text-slate-600">➡️ <em>"เห็นด้วยอย่างยิ่งครับ เพราะคนที่จะได้รับผลประโยชน์สูงสุดคือครอบครัว... แต่คุณครับ ถ้าทำแผนนี้ คนที่สบายใจคือแฟนคุณ แต่ถ้าไม่ทำ แล้ววันพรุ่งนี้โชคร้ายเกิดขึ้น คนที่ต้องรับภาระหนักที่สุดก็คือแฟนคุณเช่นกัน ให้ผมอธิบายให้ฟังด้วยกันเลยดีไหมครับ?"</em></span></li>`;
             html += `</ul>`;
 
-            // 5. Closing Strategy
-            html += `<h4><i class="fas fa-handshake text-emerald-500"></i> เทคนิคปิดการขาย (Closing Strategy)</h4>`;
+            // 5. เทคนิคปิดการขาย
+            html += `<h4><i class="fas fa-handshake text-emerald-500"></i> เทคนิคปิดการขาย</h4>`;
             html += `<ul>`;
-            html += `<li><strong>Assumptive Close (ปิดการขายแบบทึกทัก):</strong> ข้ามการถามว่า "ทำไหม?" ไปสู่ขั้นตอนการทำเลย เช่น <em>"เพื่อให้ความคุ้มครอง ${formatNum(sum)} บาท เริ่มต้นทำงานทันทีตั้งแต่วันนี้ สะดวกชำระเบี้ย ${formatNum(premium)} บาท ผ่านบัตรเครดิต หรือโอนผ่านแอปธนาคารดีครับ?"</em></li>`;
-            html += `<li><strong>Alternative Close (ให้ทางเลือกที่สองคือการตกลง):</strong> <em>"ระหว่างส่งเบี้ยแบบรายปี ${formatNum(premium)} บาท เพื่อความประหยัดสุด หรือแบ่งชำระเป็นรายเดือนผ่านบัตรเครดิตเพื่อความคล่องตัว แบบไหนตอบโจทย์คุณลูกค้ามากกว่ากันครับ?"</em></li>`;
+            html += `<li><strong>ปิดการขายแบบทึกทัก:</strong> ข้ามการถามว่า "ทำไหม?" ไปสู่ขั้นตอนการทำเลย เช่น <em>"เพื่อให้วงเงิน ${formatNum(sum)} บาท เริ่มต้นทำงานทันทีตั้งแต่วันนี้ สะดวกออมเงิน ${formatNum(premium)} บาท ผ่านบัตรเครดิต หรือโอนผ่านแอปธนาคารดีครับ?"</em></li>`;
+            html += `<li><strong>ให้ทางเลือกที่สองคือการตกลง:</strong> <em>"ระหว่างส่งเงินออมแบบรายปี ${formatNum(premium)} บาท เพื่อความประหยัดสุด หรือแบ่งชำระเป็นรายเดือนผ่านบัตรเครดิตเพื่อความคล่องตัว แบบไหนตอบโจทย์มากกว่ากันครับ?"</em></li>`;
             if (plan.includes("CI Extra Plus") || plan.includes("Health")) {
-                html += `<li><strong>Fear of Missing Out (ความกลัวเสียโอกาสเรื่องสุขภาพ):</strong> <em>"แผนนี้อนุมัติผ่านสุขภาพปัจจุบันนะครับ วันนี้คุณลูกค้าสุขภาพแข็งแรงสมบูรณ์ 100% ถือเป็นช่วงเวลาที่ดีที่สุดในการรับสิทธิ์นี้ หากปล่อยผ่านไปพรุ่งนี้เราไม่สามารถการันตีสุขภาพได้แล้วครับ ใช้บัตรประชาชนใบเดียว เดี๋ยวผมดำเนินการเช็คสิทธิ์ให้เลยนะครับ"</em></li>`;
+                html += `<li><strong>ความกลัวเสียโอกาสเรื่องสุขภาพ:</strong> <em>"แผนนี้อนุมัติผ่านสุขภาพปัจจุบันนะครับ วันนี้คุณสุขภาพแข็งแรงสมบูรณ์ 100% ถือเป็นช่วงเวลาที่ดีที่สุดในการรับสิทธิ์นี้ หากปล่อยผ่านไปพรุ่งนี้เราไม่สามารถการันตีสุขภาพได้แล้วครับ ใช้บัตรประชาชนใบเดียว เดี๋ยวผมดำเนินการเช็คสิทธิ์ให้เลยนะครับ"</em></li>`;
             }
             html += `</ul>`;
 
@@ -2688,6 +2689,8 @@
             const extraOptions = document.getElementById('threeDExtraOptions');
             const cashFlowContainer = document.getElementById('cashFlowContainer');
             const sumInsuredContainer = document.getElementById('sumInsuredContainer');
+            const premiumLabel = document.getElementById('premiumLabel');
+            const premiumPillContainer = document.getElementById('premiumPillContainer');
             
             const btn1 = document.getElementById('btnPlan1');
             const btn2 = document.getElementById('btnPlan2');
@@ -2701,6 +2704,14 @@
             if (planSelectionLabel) planSelectionLabel.classList.add('hidden');
             if (extraOptions) extraOptions.classList.add('hidden');
             if (sumInsuredContainer) sumInsuredContainer.classList.remove('hidden');
+            if (premiumLabel) premiumLabel.innerText = "ออมเงิน (บาท)";
+            if (premiumPillContainer) premiumPillContainer.classList.remove('hidden');
+
+            // จัดการเงื่อนไขพิเศษสำหรับ TLA และ SLB
+            if (planName === "Convertable Term" || planName === "Signature Legacy") {
+                if (premiumLabel) premiumLabel.innerText = "เบี้ยประกัน (บาท)";
+                if (premiumPillContainer) premiumPillContainer.classList.add('hidden');
+            }
 
             // จัดการแสดงผลช่อง กระแสเงินสด สำหรับแผน WXN, 24TX, Elite
             if (cashFlowContainer) {
