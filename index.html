@@ -1573,18 +1573,27 @@
             const premium = d.premium;
             const sum = d.sum;
             
+            let sumDisplay = '';
+            if (sum >= 1000000 && sum % 1000000 === 0) {
+                sumDisplay = (sum / 1000000) + ' ล้าน';
+            } else if (sum >= 100000 && sum % 100000 === 0 && sum < 1000000) {
+                sumDisplay = (sum / 100000) + ' แสน';
+            } else {
+                sumDisplay = formatNum(sum);
+            }
+            
             let html = '';
             
             // 1. Executive Summary
             html += `
-                <div class="mb-5">
+                <div class="mb-5 w-full">
                     <p class="text-xs text-slate-500 mb-1">ข้อมูลประกอบการวิเคราะห์สไตล์ TOT:</p>
-                    <div class="flex flex-wrap gap-3 text-[11px] font-bold text-blue-800 bg-blue-50 p-3 rounded-xl border border-blue-100 justify-center">
+                    <div class="flex flex-nowrap items-center justify-center gap-1.5 min-[375px]:gap-2.5 text-[9px] min-[375px]:text-[10px] sm:text-[11px] font-bold text-blue-800 bg-blue-50 py-3 px-1.5 min-[375px]:px-3 rounded-xl border border-blue-100 w-full whitespace-nowrap overflow-x-auto no-scrollbar">
                         <span>👤 ${gender} ${age} ปี</span>
-                        <span class="opacity-50">|</span>
+                        <span class="opacity-40 shrink-0">|</span>
                         <span>💰 ออมเงิน: ${formatNum(premium)}</span>
-                        <span class="opacity-50">|</span>
-                        <span>🛡️ วงเงิน: ${formatNum(sum)}</span>
+                        <span class="opacity-40 shrink-0">|</span>
+                        <span>🛡️ วงเงิน: ${sumDisplay}</span>
                     </div>
                 </div>
             `;
