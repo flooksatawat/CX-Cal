@@ -1543,9 +1543,9 @@
 
         // ==================== AI Advisor Module ====================
         
-        function generateAIAnalysis() {
+        async function generateAIAnalysis() {
             if (!lastCalculationData || lastCalculationData.premium === 0) {
-                // กรณีถูกเรียกโดยไม่มีข้อมูล ป้องกันข้อผิดพลาด (แต่จริงๆ ถูกดักไว้ที่ switchView แล้ว)
+                showCustomError("กรุณาระบุข้อมูลและคำนวณเงินออมก่อนครับ");
                 return;
             }
 
@@ -1554,112 +1554,104 @@
             document.getElementById('aiResultState').classList.add('hidden');
             document.getElementById('aiResultState').innerHTML = '';
 
-            // Simulate AI generating time for better UX
-            setTimeout(() => {
-                const reportHTML = buildTOTReport(lastCalculationData);
-                document.getElementById('aiLoadingState').classList.add('hidden');
-                document.getElementById('aiLoadingState').classList.remove('flex');
-                const resultState = document.getElementById('aiResultState');
-                resultState.innerHTML = reportHTML;
-                resultState.classList.remove('hidden');
-            }, 800);
-        }
-
-        // Local Heuristic Engine for MDRT TOT Analysis
-        function buildTOTReport(d) {
-            const plan = currentAppPlan;
-            const age = d.age;
-            const gender = d.gender;
-            const premium = d.premium;
-            const sum = d.sum;
+            const d = lastCalculationData;
             
-            let sumDisplay = '';
-            if (sum >= 1000000 && sum % 1000000 === 0) {
-                sumDisplay = (sum / 1000000) + ' ล้าน';
-            } else if (sum >= 100000 && sum % 100000 === 0 && sum < 1000000) {
-                sumDisplay = (sum / 100000) + ' แสน';
+            let sumDisplayStr = '';
+            if (d.sum >= 1000000 && d.sum % 1000000 === 0) {
+                sumDisplayStr = (d.sum / 1000000) + ' ล้าน';
+            } else if (d.sum >= 100000 && d.sum % 100000 === 0 && d.sum < 1000000) {
+                sumDisplayStr = (d.sum / 100000) + ' แสน';
             } else {
-                sumDisplay = formatNum(sum);
+                sumDisplayStr = formatNum(d.sum);
             }
-            
-            let html = '';
-            
-            // 1. Executive Summary
-            html += `
+
+            // 1. Executive Summary (Header)
+            const headerHtml = `
                 <div class="mb-5 w-full">
                     <p class="text-xs text-slate-500 mb-1">ข้อมูลประกอบการวิเคราะห์สไตล์ TOT:</p>
-                    <div class="flex flex-nowrap items-center justify-center gap-1.5 min-[375px]:gap-2.5 text-[9px] min-[375px]:text-[10px] sm:text-[11px] font-bold text-blue-800 bg-blue-50 py-3 px-1.5 min-[375px]:px-3 rounded-xl border border-blue-100 w-full whitespace-nowrap overflow-x-auto no-scrollbar">
-                        <span>👤 ${gender} ${age} ปี</span>
+                    <div class="flex flex-nowrap items-center justify-center gap-2 min-[375px]:gap-3 text-[12px] min-[375px]:text-[13px] sm:text-[14px] font-bold text-blue-800 bg-blue-50 py-3.5 px-3 min-[375px]:px-4 rounded-xl border border-blue-100 w-full whitespace-nowrap overflow-x-auto no-scrollbar">
+                        <span>👤 ${d.gender} ${d.age} ปี</span>
                         <span class="opacity-40 shrink-0">|</span>
-                        <span>💰 ออมเงิน: ${formatNum(premium)}</span>
+                        <span>💰 ออมเงิน: ${formatNum(d.premium)}</span>
                         <span class="opacity-40 shrink-0">|</span>
-                        <span>🛡️ วงเงิน: ${sumDisplay}</span>
+                        <span>🛡️ วงเงิน: ${sumDisplayStr}</span>
                     </div>
                 </div>
             `;
 
-            // 2. การวิเคราะห์จุดเจ็บปวด & แรงจูงใจ
-            html += `<h4><i class="fas fa-heartbeat text-red-500"></i> แรงจูงใจและจุดเจ็บปวด</h4>`;
-            html += `<ul>`;
+            // ดึงผลวิเคราะห์จากระบบ AI ออนไลน์
+            const aiContent = await callGeminiAPI(d);
+
+            document.getElementById('aiLoadingState').classList.add('hidden');
+            document.getElementById('aiLoadingState').classList.remove('flex');
+            const resultState = document.getElementById('aiResultState');
+            resultState.innerHTML = headerHtml + aiContent;
+            resultState.classList.remove('hidden');
+        }
+
+        async function callGeminiAPI(userData) {
+            const apiKey = "";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
-            if (age <= 15) {
-                html += `<li><strong>ความรักและความกังวลของพ่อแม่:</strong> จุดอ่อนไหวที่สุดคืออนาคตของลูก เน้นย้ำว่าเงินออม ${formatNum(premium)} บาท คือการการันตีความฝันของลูกให้เป็นจริง ไม่ว่าพ่อแม่จะอยู่หรือไม่</li>`;
-                if (plan === "CI Extra Plus") {
-                    html += `<li><strong>ปกป้องเงินเก็บครอบครัว:</strong> เด็กเล็กมีโอกาสป่วยบ่อยและค่ารักษาโรคเฉพาะทางสูงมาก แผนนี้ช่วยบล็อกความเสี่ยงไม่ให้เงินเก็บของพ่อแม่ต้องละลายไปกับโรงพยาบาล</li>`;
+            const systemPrompt = `คุณคือสุดยอดวิทยากรและนักขายประกันชีวิตระดับโลก (TOT) ให้คำปรึกษาแก่ตัวแทนเพื่อไปเสนอขาย วิเคราะห์ข้อมูลอย่างเฉียบขาด ลึกซึ้ง และไม่ซ้ำเดิมในแต่ละครั้ง
+            
+กรุณาสร้างบทวิเคราะห์โดยให้ผลลัพธ์เป็น HTML เท่านั้น (ไม่ต้องมีแท็ก html หรือ markdown) โดยใช้โครงสร้าง HTML ด้านล่างนี้อย่างเคร่งครัด:
+
+<h4 class="whitespace-nowrap truncate"><i class="fas fa-heartbeat text-red-500"></i> แรงจูงใจและจุดเจ็บปวด</h4>
+<ul>
+    <li><strong>[หัวข้อ]:</strong> [รายละเอียดที่วิเคราะห์เจาะลึกตามอายุ เพศ และแบบประกัน]</li>
+    <li><strong>[หัวข้อ]:</strong> [รายละเอียด...]</li>
+</ul>
+<h4 class="whitespace-nowrap truncate"><i class="fas fa-comment-dollar text-amber-500"></i> บทสนทนาเปิดใจ</h4>
+<div class="ai-quote">"[ตัวอย่างประโยคคำพูดเปิดใจที่ทรงพลัง สไตล์ TOT]"</div>
+<h4 class="whitespace-nowrap truncate"><i class="fas fa-shield-alt text-indigo-500"></i> การตอบข้อโต้แย้ง</h4>
+<ul>
+    <li><strong>"[ข้อโต้แย้งที่พบบ่อย]":</strong><br><span class="text-slate-600">➡️ <em>"[วิธีตอบกลับแบบผู้เชี่ยวชาญ]"</em></span></li>
+</ul>
+<h4 class="whitespace-nowrap truncate"><i class="fas fa-handshake text-emerald-500"></i> เทคนิคปิดการขาย</h4>
+<ul>
+    <li><strong>[เทคนิค]:</strong> [คำอธิบายและตัวอย่างประโยค]</li>
+</ul>
+
+ข้อห้ามสำคัญ:
+- ห้ามใช้ภาษาอังกฤษโดยเด็ดขาด 
+- ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "ออมเงิน") 
+- ห้ามใช้คำว่า "ทุน" (ให้ใช้ "วงเงินคุ้มครอง") 
+- ห้ามระบุชื่อแผนประกันในผลลัพธ์โดยตรง`;
+
+            const userPrompt = `วิเคราะห์การนำเสนอสำหรับ:\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nออมเงิน: ${formatNum(userData.premium)} บาทต่อปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let retries = 5;
+            let delay = 1000;
+            
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) throw new Error('API Request Failed');
+                    
+                    const data = await response.json();
+                    let htmlContent = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                    
+                    // ลบ Markdown พื้นฐานที่ AI อาจตอบกลับมา
+                    htmlContent = htmlContent.replace(/```html/g, '').replace(/```/g, '').trim();
+                    return htmlContent;
+                    
+                } catch (error) {
+                    if (i === retries - 1) return `<div class="text-center text-red-500 py-8"><i class="fas fa-exclamation-triangle text-3xl mb-3"></i><br>ไม่สามารถเชื่อมต่อระบบ AI ได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง</div>`;
+                    await new Promise(res => setTimeout(res, delay));
+                    delay *= 2;
                 }
-            } else if (age >= 16 && age <= 30) {
-                html += `<li><strong>การสร้างรากฐานที่มั่นคง:</strong> กลุ่มนี้เพิ่งเริ่มสร้างเนื้อสร้างตัว การมีวงเงิน ${formatNum(sum)} บาท ทันทีด้วยเงินก้อนเล็ก คือทางลัดในการสร้างความมั่งคั่งและเป็นเบาะรองรับให้พ่อแม่</li>`;
-            } else if (age >= 31 && age <= 45) {
-                html += `<li><strong>เดอะแบกของครอบครัว:</strong> มีภาระทั้งลูกที่กำลังโตและพ่อแม่ที่แก่ชรา วงเงิน ${formatNum(sum)} บาท คือ "มูลค่าความสามารถ" ที่ต้องได้รับการปกป้อง หากเครื่องจักรผลิตเงินเครื่องนี้หยุดทำงาน ครอบครัวต้องไม่อดตาย</li>`;
-            } else {
-                html += `<li><strong>การปกป้องความมั่งคั่ง:</strong> อายุวัยนี้หาเงินเก่งแล้ว สิ่งที่กลัวที่สุดคือ "ปัญหาสุขภาพ" ที่จะมาพรากเงินเก็บทั้งชีวิตไป แผนนี้คือการสร้างร่มชูชีพทางการเงิน ป้องกันความเสี่ยง</li>`;
             }
-
-            if (plan.includes("Whole Life") || plan.includes("Elite") || plan.includes("TX")) {
-                html += `<li><strong>สภาพคล่องไม่สะดุด:</strong> กลุ่มนี้ไม่ชอบให้เงินจม ชูจุดเด่นเรื่องกระแสเงินสดคืนระหว่างทางที่สามารถนำไปต่อยอดได้</li>`;
-            }
-            if (plan === "Signature Legacy" || sum >= 10000000) {
-                html += `<li><strong>ส่งมอบมรดกไร้รอยต่อ:</strong> ข้ามขั้นตอนกฎหมายมรดกที่ซับซ้อน มอบเงินก้อนโตปลอดภาษีให้ทายาทโดยตรง</li>`;
-            }
-            html += `</ul>`;
-
-            // 3. บทสนทนาเปิดใจ
-            html += `<h4><i class="fas fa-comment-dollar text-amber-500"></i> บทสนทนาเปิดใจ</h4>`;
-            
-            if (plan === "CI Extra Plus" && age > 25) {
-                html += `<div class="ai-quote">"เราทำงานหนักเพื่อเก็บเงินไว้ดูแลตัวเองและครอบครัว แต่ถ้าวันนึงแจ็คพ็อตเกิดโรคร้าย เงินที่เราหามาทั้งชีวิตอาจต้องยกให้โรงพยาบาลทั้งหมด... จะดีกว่าไหมครับ ถ้าเราย้ายเงินเพียง ${formatNum(premium)} บาท/ปี มาไว้ในแผนนี้ เพื่อสร้าง 'กำแพงวงเงิน ${formatNum(sum)} บาท' ปกป้องเงินก้อนหลักของคุณตลอดไป?"</div>`;
-            } else if (age <= 15) {
-                html += `<div class="ai-quote">"ความรักที่เรามีให้ลูกประเมินค่าไม่ได้ แต่เราสามารถตีมูลค่าคำมั่นสัญญาเป็นตัวเลขได้ แผนนี้ไม่ใช่แค่กระดาษ แต่คือ 'การ์ดทองคำ' ที่รับประกันว่าวงเงินการศึกษา ${formatNum(sum)} บาท จะถูกส่งมอบให้น้องแน่นอน ไม่ว่าอนาคตเราจะอยู่เคียงข้างเขาหรือไม่ก็ตามครับ"</div>`;
-            } else if (sum >= 5000000) {
-                html += `<div class="ai-quote">"คนเก่งระดับคุณ รู้วิธีต่อยอดเงินได้ดีกว่าใครอยู่แล้วครับ สิ่งที่ผมนำเสนอวันนี้ไม่ใช่การลงทุนเพื่อผลตอบแทนสูงสุด แต่เป็นการใช้ 'เงินหลักหมื่น ไปค้ำประกันเงินหลักล้าน' เพื่อปลดล็อกความกังวล ให้คุณเอาสมองไปโฟกัสกับการทำธุรกิจได้อย่างเต็มที่ครับ"</div>`;
-            } else {
-                html += `<div class="ai-quote">"ความเสี่ยงที่น่ากลัวที่สุด ไม่ใช่การลงทุนแล้วขาดทุนนะครับ แต่คือการที่เรามีเวลาดูแลคนที่เรารักไม่นานพอตามที่ตั้งใจไว้... แผนนี้จะเข้ามา 'ซื้อเวลา' และปิดความเสี่ยงนั้นให้ครอบครัวคุณครับ"</div>`;
-            }
-
-            // 4. การตอบข้อโต้แย้ง
-            html += `<h4><i class="fas fa-shield-alt text-indigo-500"></i> การตอบข้อโต้แย้ง</h4>`;
-            html += `<ul>`;
-            html += `<li><strong>"ออมเงินสูงไป / ช่วงนี้เศรษฐกิจไม่ดี รัดเข็มขัดอยู่"</strong><br><span class="text-slate-600">➡️ <em>"เข้าใจเลยครับว่าช่วงนี้ต้องระวังเรื่องรายจ่าย แต่เงิน ${formatNum(premium)} บาทนี้ ไม่ใช่รายจ่ายทิ้งนะครับ มันคือการ 'ย้ายที่เก็บเงิน' จากกระเป๋าซ้ายที่งอกเงยช้า มากระเป๋าขวาที่การันตีวงเงิน ${formatNum(sum)} บาททันที ในยุคเศรษฐกิจแบบนี้ การล็อกความเสี่ยงยิ่งสำคัญที่สุดครับ"</em></span></li>`;
-            
-            if (plan.includes("Health") || plan.includes("CI")) {
-                html += `<li><strong>"มีสวัสดิการของบริษัทอยู่แล้ว"</strong><br><span class="text-slate-600">➡️ <em>"ดีมากเลยครับที่บริษัทมีสวัสดิการให้ แต่สวัสดิการนั้นดูแลเราแค่ตอนที่เรายังมีแรงทำงานให้เขาครับ ถ้ายกตัวอย่างเคสโรคร้ายแรงที่ต้องพักรักษาตัวยาวจนต้องออกจากงาน สวัสดิการก็จะหายไปทันที แผนนี้คือสวัสดิการส่วนตัวที่จะ 'ติดตัวคุณไปตลอดชีพ' ไม่ว่าจะทำงานที่ไหนครับ"</em></span></li>`;
-            } else {
-                html += `<li><strong>"มีเยอะแล้ว / ส่งไม่ไหวแล้ว"</strong><br><span class="text-slate-600">➡️ <em>"ยอดเยี่ยมเลยครับ แสดงว่าคุณเห็นความสำคัญของการวางแผนการเงิน คำถามคือ สิ่งที่มีอยู่ ครอบคลุม 'มูลค่าความสามารถ' ปัจจุบันของคุณหรือยังครับ? วันนี้รายได้และภาระเราโตขึ้น วงเงินคุ้มครองก็ควรเติบโตตามเพื่อเป็นเบาะที่นุ่มพอรองรับครอบครัวครับ"</em></span></li>`;
-            }
-            html += `<li><strong>"ขอปรึกษาแฟน / ครอบครัวก่อนนะ"</strong><br><span class="text-slate-600">➡️ <em>"เห็นด้วยอย่างยิ่งครับ เพราะคนที่จะได้รับผลประโยชน์สูงสุดคือครอบครัว... แต่คุณครับ ถ้าทำแผนนี้ คนที่สบายใจคือแฟนคุณ แต่ถ้าไม่ทำ แล้ววันพรุ่งนี้โชคร้ายเกิดขึ้น คนที่ต้องรับภาระหนักที่สุดก็คือแฟนคุณเช่นกัน ให้ผมอธิบายให้ฟังด้วยกันเลยดีไหมครับ?"</em></span></li>`;
-            html += `</ul>`;
-
-            // 5. เทคนิคปิดการขาย
-            html += `<h4><i class="fas fa-handshake text-emerald-500"></i> เทคนิคปิดการขาย</h4>`;
-            html += `<ul>`;
-            html += `<li><strong>ปิดการขายแบบทึกทัก:</strong> ข้ามการถามว่า "ทำไหม?" ไปสู่ขั้นตอนการทำเลย เช่น <em>"เพื่อให้วงเงิน ${formatNum(sum)} บาท เริ่มต้นทำงานทันทีตั้งแต่วันนี้ สะดวกออมเงิน ${formatNum(premium)} บาท ผ่านบัตรเครดิต หรือโอนผ่านแอปธนาคารดีครับ?"</em></li>`;
-            html += `<li><strong>ให้ทางเลือกที่สองคือการตกลง:</strong> <em>"ระหว่างส่งเงินออมแบบรายปี ${formatNum(premium)} บาท เพื่อความประหยัดสุด หรือแบ่งชำระเป็นรายเดือนผ่านบัตรเครดิตเพื่อความคล่องตัว แบบไหนตอบโจทย์มากกว่ากันครับ?"</em></li>`;
-            if (plan.includes("CI Extra Plus") || plan.includes("Health")) {
-                html += `<li><strong>ความกลัวเสียโอกาสเรื่องสุขภาพ:</strong> <em>"แผนนี้อนุมัติผ่านสุขภาพปัจจุบันนะครับ วันนี้คุณสุขภาพแข็งแรงสมบูรณ์ 100% ถือเป็นช่วงเวลาที่ดีที่สุดในการรับสิทธิ์นี้ หากปล่อยผ่านไปพรุ่งนี้เราไม่สามารถการันตีสุขภาพได้แล้วครับ ใช้บัตรประชาชนใบเดียว เดี๋ยวผมดำเนินการเช็คสิทธิ์ให้เลยนะครับ"</em></li>`;
-            }
-            html += `</ul>`;
-
-            return html;
         }
 
         // ==================== ระบบสลับหน้าต่าง (Navigation) ====================
