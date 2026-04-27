@@ -1000,35 +1000,36 @@
         </div>
     </div>
 
-    <!-- Modal เลือกแบบประกัน (Pagination 3 หน้า หน้าละ 3 แบบ) -->
+    <!-- Modal เลือกแบบประกัน (ดีไซน์ใหม่: ใหญ่ขึ้น สวยงาม ค้นหาง่าย) -->
     <div id="planSelectModal" class="fixed inset-0 z-[800] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-white rounded-[30px] p-6 text-center shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 flex flex-col">
-            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
-                <h3 class="text-lg font-bold text-[#1e3a8a]"><i class="fas fa-list-ul mr-2 text-blue-600"></i> เลือกแบบประกัน</h3>
-                <button onclick="closePopup('planSelectModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl font-medium shadow-sm leading-none">&times;</button>
-            </div>
-
-            <!-- Slider Container -->
-            <div id="planSliderContainer" class="relative overflow-hidden w-full h-[225px]">
-                <!-- Page 1 -->
-                <div id="planPage1" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-0 space-y-3">
+        <div class="bg-white rounded-[32px] w-full max-w-[26rem] transform scale-95 transition-transform duration-300 flex flex-col h-[85vh] max-h-[750px] shadow-2xl overflow-hidden relative">
+            
+            <!-- Header & Search Bar -->
+            <div class="px-5 pt-6 pb-4 bg-white/95 backdrop-blur-md shrink-0 z-20 border-b border-slate-100 shadow-sm">
+                <div class="flex justify-between items-center mb-4 px-1">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shadow-sm border border-blue-100">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-[#1e3a8a] tracking-wide">เลือกแบบประกัน</h3>
+                    </div>
+                    <button onclick="closePopup('planSelectModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-xl shadow-sm leading-none">&times;</button>
                 </div>
                 
-                <!-- Page 2 -->
-                <div id="planPage2" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-full space-y-3">
-                </div>
-
-                <!-- Page 3 -->
-                <div id="planPage3" class="absolute w-full top-0 left-0 transition-transform duration-300 transform translate-x-full space-y-3">
+                <!-- Search Input -->
+                <div class="relative px-1">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="unifiedPlanSearchInput" class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-[14px] font-medium rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:bg-white transition-all placeholder:text-slate-400 placeholder:font-normal" placeholder="ค้นหาชื่อแบบประกัน..." oninput="handleUnifiedPlanSearch()">
                 </div>
             </div>
 
-            <!-- Pagination Dots -->
-            <div class="flex justify-center items-center gap-2 mt-4 pt-2">
-                <button onclick="changePlanPage(1)" id="planDot1" class="w-4 h-2.5 rounded-full bg-blue-600 transition-all"></button>
-                <button onclick="changePlanPage(2)" id="planDot2" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all hover:bg-slate-300"></button>
-                <button onclick="changePlanPage(3)" id="planDot3" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all hover:bg-slate-300"></button>
+            <!-- Plan List (Scrollable) -->
+            <div id="unifiedPlanList" class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-3 bg-slate-50/50 pb-8">
+                <!-- Rendered by JS -->
             </div>
+            
+            <!-- Bottom fade effect -->
+            <div class="h-6 bg-gradient-to-t from-slate-50/80 to-transparent absolute bottom-0 left-0 right-0 pointer-events-none z-10"></div>
         </div>
     </div>
 
@@ -1570,9 +1571,9 @@
                 <div class="mb-5 w-full">
                     <p class="text-xs text-slate-500 mb-1">ข้อมูลประกอบการวิเคราะห์สไตล์ TOT:</p>
                     <div class="flex flex-nowrap items-center justify-center gap-2 min-[375px]:gap-3 text-[12px] min-[375px]:text-[13px] sm:text-[14px] font-bold text-blue-800 bg-blue-50 py-3.5 px-3 min-[375px]:px-4 rounded-xl border border-blue-100 w-full whitespace-nowrap overflow-x-auto no-scrollbar">
-                        <span>👤 ${d.gender} ${d.age} ปี</span>
+                        <span>👤 ${d.gender} ${d.age}</span>
                         <span class="opacity-40 shrink-0">|</span>
-                        <span>💰 ออมเงิน: ${formatNum(d.premium)}</span>
+                        <span>💰 ออม: ${formatNum(d.premium)}</span>
                         <span class="opacity-40 shrink-0">|</span>
                         <span>🛡️ วงเงิน: ${sumDisplayStr}</span>
                     </div>
@@ -1615,11 +1616,11 @@
 
 ข้อห้ามสำคัญ:
 - ห้ามใช้ภาษาอังกฤษโดยเด็ดขาด 
-- ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "ออมเงิน") 
+- ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "ออม") 
 - ห้ามใช้คำว่า "ทุน" (ให้ใช้ "วงเงินคุ้มครอง") 
 - ห้ามระบุชื่อแผนประกันในผลลัพธ์โดยตรง`;
 
-            const userPrompt = `วิเคราะห์การนำเสนอสำหรับ:\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nออมเงิน: ${formatNum(userData.premium)} บาทต่อปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
+            const userPrompt = `วิเคราะห์การนำเสนอสำหรับ:\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nออม: ${formatNum(userData.premium)} บาทต่อปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
 
             const payload = {
                 contents: [{ parts: [{ text: userPrompt }] }],
@@ -2497,7 +2498,7 @@
             if (e.target.closest('button, input, select, textarea, a, .clickable-row, .interactive-btn')) return;
         }
 
-        // Logic สำหรับการเลื่อนหน้าต่างเลือกแบบประกัน (สไลด์ต่อเนื่องไม่สิ้นสุด)
+        // ==================== ฟังก์ชันควบคุมปุ่มเลือกแบบด่วน (Quick Pills) ====================
         let currentPlanPage = 1;
         function changePlanPage(targetPage, direction = 'auto') {
             if (currentPlanPage === targetPage) return;
@@ -2799,93 +2800,70 @@
                 calculate(currentMode);
                 setTimeout(() => openPopup('hxPlanModal'), 400); // แสดงป็อปอัพให้เลือกแผนทันที
             }
-            
-            // รีเซ็ตกลับไปหน้าแรกหลังจากปิด Modal (เผื่อเปิดครั้งหน้า)
-            setTimeout(() => { changePlanPage(1); document.getElementById('planSearchInput').value = ''; }, 300);
         }
 
-        // ==================== ฟังก์ชันค้นหาแบบประกัน และ กดค้าง (Long Press) ====================
+        // ==================== ฟังก์ชันค้นหาแบบประกัน และ เมนูดีไซน์ใหม่ ====================
         let currentAppPlan = "CI Extra Plus";
 
+        // เพิ่มข้อมูลไอคอนและสีให้แต่ละแบบประกันเพื่อความสวยงามในเมนู
         const allInsurancePlans = [
-            { name: "CI Extra Plus", desc: "ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ" },
-            { name: "Life Protector 20", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
-            { name: "Supreme Life Protector", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ" },
-            { name: "Signature Legacy", desc: "แผนมรดก ลูกค้ามูลค่าสูง" },
-            { name: "Convertable Term", desc: "จองสิทธิ เปลี่ยนแบบประกันได้" },
-            { name: "Century Life + TPD", desc: "แผนมรดก 100 ปี + TPD" },
-            { name: "3D Health Excellence", desc: "ประกันสุขภาพ ที่เข้าใจทุกช่วงชีวิต" },
-            { name: "Whole Life Extra", desc: "สินทรัพย์กระแสเงินสด" },
-            { name: "24 TX", desc: "สินทรัพย์กระแสเงินสด" },
-            { name: "868 / 818 Elite Saving", desc: "สินทรัพย์กระแสเงินสด" }
+            { name: "CI Extra Plus", desc: "ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ", icon: "fas fa-shield-heart", color: "text-rose-500", bg: "bg-rose-100" },
+            { name: "Life Protector 20", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ", icon: "fas fa-piggy-bank", color: "text-emerald-500", bg: "bg-emerald-100" },
+            { name: "Supreme Life Protector", desc: "เปลี่ยนทุนประกัน เป็นบำนาญ", icon: "fas fa-piggy-bank", color: "text-emerald-500", bg: "bg-emerald-100" },
+            { name: "Signature Legacy", desc: "แผนมรดก ลูกค้ามูลค่าสูง", icon: "fas fa-crown", color: "text-amber-500", bg: "bg-amber-100" },
+            { name: "Convertable Term", desc: "จองสิทธิ เปลี่ยนแบบประกันได้", icon: "fas fa-umbrella", color: "text-blue-500", bg: "bg-blue-100" },
+            { name: "Century Life + TPD", desc: "แผนมรดก 100 ปี + TPD", icon: "fas fa-gem", color: "text-amber-500", bg: "bg-amber-100" },
+            { name: "3D Health Excellence", desc: "ประกันสุขภาพ ที่เข้าใจทุกช่วงชีวิต", icon: "fas fa-hand-holding-medical", color: "text-teal-500", bg: "bg-teal-100" },
+            { name: "Whole Life Extra", desc: "สินทรัพย์กระแสเงินสด", icon: "fas fa-money-bill-trend-up", color: "text-indigo-500", bg: "bg-indigo-100" },
+            { name: "24 TX", desc: "สินทรัพย์กระแสเงินสด", icon: "fas fa-money-bill-trend-up", color: "text-indigo-500", bg: "bg-indigo-100" },
+            { name: "868 / 818 Elite Saving", desc: "สินทรัพย์กระแสเงินสด", icon: "fas fa-money-bill-trend-up", color: "text-indigo-500", bg: "bg-indigo-100" }
         ];
 
         function openPlanModal() {
-            // กรองแผนที่กำลังใช้งานอยู่ออก (จะเหลือ 9 แผนพอดี)
-            const plansToShow = allInsurancePlans.filter(p => p.name !== currentAppPlan);
+            const searchInput = document.getElementById('unifiedPlanSearchInput');
+            if (searchInput) searchInput.value = '';
             
-            for (let i = 1; i <= 3; i++) {
-                const pageEl = document.getElementById('planPage' + i);
-                if (pageEl) {
-                    const pagePlans = plansToShow.slice((i - 1) * 3, i * 3);
-                    pageEl.innerHTML = pagePlans.map(p => `
-                        <button onclick="selectAppPlan('${p.name}')" class="w-full flex flex-col text-left p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:bg-slate-100 active:scale-95 transition-all shadow-sm">
-                            <span class="text-[15px] font-bold text-slate-700">${p.name}</span>
-                            <span class="text-[10px] text-slate-500 font-medium">${p.desc}</span>
-                        </button>
-                    `).join('');
-                }
-            }
-            
-            // รีเซ็ตการแสดงผลหน้าต่างๆ กลับไปที่หน้า 1 เมื่อเปิดเมนู
-            currentPlanPage = 1;
-            for (let i = 1; i <= 3; i++) {
-                const pageEl = document.getElementById('planPage' + i);
-                const dotEl = document.getElementById('planDot' + i);
-                if (pageEl) {
-                    pageEl.classList.remove('transition-transform', 'duration-300');
-                    if (i === 1) {
-                        pageEl.classList.remove('-translate-x-full', 'translate-x-full');
-                        pageEl.classList.add('translate-x-0');
-                    } else {
-                        pageEl.classList.remove('translate-x-0', '-translate-x-full');
-                        pageEl.classList.add('translate-x-full');
-                    }
-                    setTimeout(() => pageEl.classList.add('transition-transform', 'duration-300'), 50);
-                }
-                if (dotEl) {
-                    if (i === 1) {
-                        dotEl.classList.replace('bg-slate-200', 'bg-blue-600');
-                        dotEl.classList.replace('w-2.5', 'w-4');
-                    } else {
-                        dotEl.classList.replace('bg-blue-600', 'bg-slate-200');
-                        dotEl.classList.replace('w-4', 'w-2.5');
-                    }
-                }
-            }
-            
+            renderUnifiedPlanList(allInsurancePlans);
             openPopup('planSelectModal');
         }
 
-        function renderSearchResults(plans) {
-            const container = document.getElementById('planSearchResults');
+        function renderUnifiedPlanList(plans) {
+            const container = document.getElementById('unifiedPlanList');
             if (!container) return;
+            
             if (plans.length === 0) {
-                container.innerHTML = `<div class="text-center py-6 text-slate-400 text-sm font-medium"><i class="fas fa-exclamation-circle text-2xl mb-2 text-slate-300 block"></i>ไม่พบแบบประกันที่ค้นหา</div>`;
+                container.innerHTML = `<div class="text-center py-12 text-slate-400 flex flex-col items-center justify-center h-full"><div class="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm border border-slate-100"><i class="fas fa-search text-xl text-slate-300"></i></div><span class="font-medium text-[14px]">ไม่พบแบบประกันที่ค้นหา</span></div>`;
                 return;
             }
-            container.innerHTML = plans.map(p => `
-                <button onclick="selectAppPlan('${p.name}')" class="w-full flex flex-col text-left p-3 ${p.name === currentAppPlan ? 'bg-blue-50 border border-blue-200' : 'bg-white border border-slate-200'} rounded-2xl hover:bg-slate-50 active:scale-95 transition-all shadow-sm">
-                    <span class="text-[14px] font-bold ${p.name === currentAppPlan ? 'text-blue-800' : 'text-slate-700'}">${p.name}</span>
-                    <span class="text-[10px] ${p.name === currentAppPlan ? 'text-blue-600' : 'text-slate-500'} font-medium">${p.desc}</span>
+
+            container.innerHTML = plans.map(p => {
+                const isActive = p.name === currentAppPlan;
+                const cardClass = isActive 
+                    ? 'border-blue-400 bg-blue-50/50 ring-2 ring-blue-500/10' 
+                    : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50/30';
+                const textClass = isActive ? 'text-blue-900' : 'text-slate-700';
+                const descClass = isActive ? 'text-blue-600 font-medium' : 'text-slate-500';
+                const checkIcon = isActive ? `<div class="absolute right-4 top-1/2 -translate-y-1/2 text-blue-500 text-lg"><i class="fas fa-check-circle bg-white rounded-full"></i></div>` : '';
+
+                return `
+                <button onclick="selectAppPlan('${p.name}')" class="w-full relative flex items-center text-left p-3.5 rounded-2xl border ${cardClass} transition-all duration-200 active:scale-[0.98] shadow-sm group">
+                    <div class="w-12 h-12 rounded-xl ${p.bg} ${p.color} flex items-center justify-center text-[20px] shrink-0 mr-4 border border-white shadow-sm group-hover:scale-105 transition-transform duration-300">
+                        <i class="${p.icon}"></i>
+                    </div>
+                    <div class="flex-1 pr-8">
+                        <h4 class="text-[15px] font-bold ${textClass} leading-tight mb-0.5">${p.name}</h4>
+                        <p class="text-[11px] ${descClass} leading-tight">${p.desc}</p>
+                    </div>
+                    ${checkIcon}
                 </button>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function handlePlanSearch() {
-            const query = document.getElementById('planSearchInput').value.toLowerCase();
+        function handleUnifiedPlanSearch() {
+            const query = document.getElementById('unifiedPlanSearchInput').value.toLowerCase();
             const filtered = allInsurancePlans.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
-            renderSearchResults(filtered);
+            renderUnifiedPlanList(filtered);
         }
 
         function setupLongPress() {
@@ -2911,10 +2889,10 @@
                 
                 pressTimer = setTimeout(() => {
                     isLongPress = true;
-                    openPopup('planSearchModal');
-                    renderSearchResults(allInsurancePlans);
+                    // เปิด Modal แบบใหม่
+                    openPlanModal();
                     setTimeout(() => {
-                        const inputEl = document.getElementById('planSearchInput');
+                        const inputEl = document.getElementById('unifiedPlanSearchInput');
                         if(inputEl) inputEl.focus();
                     }, 300);
                     if (navigator.vibrate) navigator.vibrate(50);
@@ -2967,37 +2945,6 @@
             btn.addEventListener('mouseleave', onCancel);
         }
 
-        // ฟังก์ชันสำหรับ สไลด์หน้าจอ เลือกแบบประกัน (Swipe Left/Right)
-        function setupPlanSliderSwipe() {
-            const slider = document.getElementById('planSliderContainer');
-            if (!slider) return;
-
-            let touchstartX = 0;
-            let touchendX = 0;
-
-            slider.addEventListener('touchstart', e => {
-                touchstartX = e.changedTouches[0].screenX;
-            }, {passive: true});
-
-            slider.addEventListener('touchend', e => {
-                touchendX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, {passive: true});
-
-            function handleSwipe() {
-                const threshold = 40; // ระยะการปัดขั้นต่ำ (พิกเซล)
-                if (touchstartX - touchendX > threshold) {
-                    // ปัดซ้าย (ไปหน้าถัดไป) แบบวนลูป
-                    let target = currentPlanPage === 3 ? 1 : currentPlanPage + 1;
-                    changePlanPage(target, 'next');
-                } else if (touchendX - touchstartX > threshold) {
-                    // ปัดขวา (ย้อนกลับ) แบบวนลูป
-                    let target = currentPlanPage === 1 ? 3 : currentPlanPage - 1;
-                    changePlanPage(target, 'prev');
-                }
-            }
-        }
-
         window.onload = () => { 
             document.querySelectorAll('[id$="Modal"]').forEach(modal => {
                 if (modal.classList.contains('fixed') && modal.classList.contains('opacity-0')) {
@@ -3008,7 +2955,6 @@
             updateQuickPills(currentAppPlan); // กำหนดค่าปุ่มตัวเลือกด่วนตอนเริ่มต้น
             calculate('sum'); 
             setupLongPress(); 
-            setupPlanSliderSwipe(); // เริ่มต้นระบบปัดหน้าจอ
         };
     </script>
 </body>
