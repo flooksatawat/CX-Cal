@@ -65,15 +65,18 @@
         }
         
         /* ==================== PILLS & BUTTONS ==================== */
-        .active-male { background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: white; box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
-        .active-female { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; box-shadow: 0 6px 15px rgba(225, 29, 72, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
-        .active-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
+        .active-male { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); border: none; font-weight: 800; }
+        .active-female { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3); border: none; font-weight: 800; }
+        .active-blue { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); border: none; font-weight: 800; }
         
         .quick-pill-container { background: rgba(241, 245, 249, 0.7); padding: 5px; border-radius: 14px; display: flex; gap: 4px; height: 42px; border: 1px solid rgba(255,255,255,0.5); }
-        .quick-pill { font-size: 11px; font-weight: 700; border-radius: 10px; background-color: transparent; color: #64748b; border: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;}
+        .quick-pill { font-size: 11px; font-weight: 700; border-radius: 10px; background-color: transparent; color: #64748b; border: 1px solid transparent; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;}
         .quick-pill:hover { background-color: rgba(255,255,255,0.8); color: #334155; }
         .quick-pill:active { background-color: #ffffff; color: #2563eb; transform: scale(0.92); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .quick-pill.disabled-pill { color: #cbd5e1 !important; pointer-events: none; }
+
+        .quick-pill-active { background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important; color: #ffffff !important; font-weight: 800 !important; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3) !important; border-color: transparent !important; transform: scale(1.02); }
+        .quick-pill-emerald-active { background: linear-gradient(135deg, #10b981, #047857) !important; color: #ffffff !important; font-weight: 800 !important; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3) !important; border-color: transparent !important; transform: scale(1.02); }
 
         @keyframes bgFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .btn-primary { 
@@ -181,7 +184,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div class="premium-card !p-1.5 flex h-[50px]">
                                 <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[14px] text-[15px] font-bold active-male text-white transition-all">ชาย</button>
-                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[14px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
+                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[14px] text-[15px] font-normal text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
                             </div>
                             <div class="premium-card !p-1.5 flex items-center justify-between h-[50px]">
                                 <button onclick="adjustAge(-1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[14px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-[14px]"></i></button>
@@ -231,8 +234,8 @@
 
                     <!-- 3D Health Excellence: Extra Options -->
                     <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-3 shrink-0">
-                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra (HXO)</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
-                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance (HXD)</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra (HXO)</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full h-[36px] bg-blue-50 text-blue-700 border border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance (HXD)</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full h-[36px] bg-blue-50 text-blue-700 border border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
                     </div>
 
                     <!-- Premium Card -->
@@ -252,7 +255,13 @@
 
                     <div class="premium-card shrink-0 hidden border-emerald-200 bg-emerald-50/30" id="cashFlowContainer">
                         <div class="flex justify-between items-center mb-2.5"><p class="text-emerald-700 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-money-bill-trend-up"></i> กระแสเงินสด (บาท/ปี)</p></div>
-                        <div class="quick-pill-container bg-emerald-100/50 mb-3"><button onclick="setQuickCashFlow(10000)" class="quick-pill hover:bg-emerald-200">1 หมื่น</button><button onclick="setQuickCashFlow(50000)" class="quick-pill hover:bg-emerald-200">5 หมื่น</button><button onclick="setQuickCashFlow(100000)" class="quick-pill hover:bg-emerald-200">1 แสน</button><button onclick="setQuickCashFlow(300000)" class="quick-pill hover:bg-emerald-200">3 แสน</button><button onclick="setQuickCashFlow(500000)" class="quick-pill hover:bg-emerald-200">5 แสน</button></div>
+                        <div class="quick-pill-container bg-emerald-100/50 mb-3">
+                            <button id="cashPill1" onclick="setQuickCashFlow(10000)" class="quick-pill hover:bg-emerald-200">1 หมื่น</button>
+                            <button id="cashPill2" onclick="setQuickCashFlow(50000)" class="quick-pill hover:bg-emerald-200">5 หมื่น</button>
+                            <button id="cashPill3" onclick="setQuickCashFlow(100000)" class="quick-pill hover:bg-emerald-200">1 แสน</button>
+                            <button id="cashPill4" onclick="setQuickCashFlow(300000)" class="quick-pill hover:bg-emerald-200">3 แสน</button>
+                            <button id="cashPill5" onclick="setQuickCashFlow(500000)" class="quick-pill hover:bg-emerald-200">5 แสน</button>
+                        </div>
                         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">฿</span><input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded pl-8 text-emerald-700 bg-white focus:ring-emerald-500" oninput="handleCashFlowInput(this)"></div>
                     </div>
                     
@@ -436,7 +445,7 @@
                 <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('cash')">
                     <i class="fas fa-money-bill-trend-up text-[20px] mb-0.5"></i><span class="text-[9px] font-bold tracking-wide">CASH</span>
                 </button>
-                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('ai')">
+                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="openPopup('aiMenuModal')">
                     <i class="fas fa-circle-nodes text-[20px] mb-0.5"></i><span class="text-[9px] font-bold tracking-wide">AI</span>
                 </button>
             </div>
@@ -539,6 +548,35 @@
     
     <div id="eSubQniModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#9d174d]"><i class="fas fa-laptop-code mr-2 text-pink-500"></i> เลือกระบบงาน</h3><button onclick="closePopup('eSubQniModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="space-y-2.5"><button onclick="window.open('https://esales.cl-agency.in.th/prospects', '_blank')" class="w-full flex justify-between items-center p-3.5 bg-orange-50 border border-orange-200 rounded-xl active:bg-orange-100 transition-colors group shadow-sm hover:bg-orange-100/50"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-orange-600 shadow-sm"><i class="fas fa-file-signature text-base"></i></div><div class="text-left"><span class="text-[14px] font-bold text-orange-800 block">E-Submission</span></div></div><i class="fas fa-external-link-alt text-xs text-orange-400"></i></button><button onclick="window.open('https://esmart.chubblife-agency.in.th/chubb-life-qni/en/home?return=%2Fen%2Fhome', '_blank')" class="w-full flex justify-between items-center p-3.5 bg-sky-50 border border-sky-200 rounded-xl active:bg-sky-100 transition-colors group shadow-sm hover:bg-sky-100/50"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm"><i class="fas fa-file-signature text-base"></i></div><div class="text-left"><span class="text-[14px] font-bold text-sky-800 block">QNI</span></div></div><i class="fas fa-external-link-alt text-xs text-sky-400"></i></button></div></div></div>
     
+    <div id="aiMenuModal" class="modal-overlay">
+        <div class="modal-content-card p-5 text-center">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5">
+                <h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-robot mr-2 text-blue-600"></i> เลือกผู้ช่วย AI</h3>
+                <button onclick="closePopup('aiMenuModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="space-y-2.5">
+                <button onclick="closePopup('aiMenuModal'); switchView('ai')" class="w-full flex justify-between items-center p-3.5 bg-blue-50 border border-blue-200 rounded-xl active:bg-blue-100 transition-colors group shadow-sm hover:bg-blue-100/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm"><i class="fas fa-lightbulb text-base"></i></div>
+                        <div class="text-left">
+                            <span class="text-[14px] font-bold text-blue-800 block">ไอเดียการขาย TOT</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-xs text-blue-400"></i>
+                </button>
+                <button onclick="window.open('https://notebooklm.google.com/', '_blank'); closePopup('aiMenuModal')" class="w-full flex justify-between items-center p-3.5 bg-purple-50 border border-purple-200 rounded-xl active:bg-purple-100 transition-colors group shadow-sm hover:bg-purple-100/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-sm"><i class="fas fa-book-open text-base"></i></div>
+                        <div class="text-left">
+                            <span class="text-[14px] font-bold text-purple-800 block">Notebook LM</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-external-link-alt text-xs text-purple-400"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="insuranceConditionsModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-info-circle mr-2 text-blue-600"></i> เงื่อนไขการรับประกัน</h3><button onclick="closePopup('insuranceConditionsModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="text-left space-y-2.5 text-xs text-slate-700 font-medium"><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุที่รับประกัน: 0 - 65 ปี</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>ทุนประกันขั้นต่ำ: 100,000 บาท</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 0 ถึง 15 ปี ทุนสูงสุด 3 ล้าน</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 16 ถึง 65 ปี ทุนสูงสุด 10 ล้าน</div></div><button onclick="closePopup('insuranceConditionsModal')" class="mt-5 w-full py-3 bg-[#243c94] hover:bg-[#1e327a] text-white font-bold rounded-xl transition-colors text-sm">ตกลง</button></div></div>
     
     <div id="pdfOptionsModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-file-pdf text-2xl"></i></div><h3 class="text-lg font-bold text-slate-800 mb-4">ดำเนินการกับข้อมูล</h3><div class="grid grid-cols-3 gap-2.5 mb-3"><button onclick="exportTableToPDF('line'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-1.5 p-2.5 bg-[#00B900]/10 rounded-xl border border-[#00B900]/20 active:scale-95 transition-all shadow-sm hover:bg-[#00B900]/20"><i class="fab fa-line text-[#00B900] text-xl"></i><span class="text-[9px] font-bold text-[#00B900] uppercase tracking-wider mt-1">ส่ง LINE</span></button><button onclick="exportTableToPDF('messenger'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-1.5 p-2.5 bg-[#0084FF]/10 rounded-xl border border-[#0084FF]/20 active:scale-95 transition-all shadow-sm hover:bg-[#0084FF]/20"><i class="fab fa-facebook-messenger text-[#0084FF] text-xl"></i><span class="text-[9px] font-bold text-[#0084FF] uppercase tracking-wider mt-1">ส่ง Messenger</span></button><button onclick="exportTableToPDF('print'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-1.5 p-2.5 bg-slate-100 rounded-xl border border-slate-200 active:scale-95 transition-all shadow-sm hover:bg-slate-200"><i class="fas fa-print text-slate-600 text-xl"></i><span class="text-[9px] font-bold text-slate-600 uppercase tracking-wider mt-1">พิมพ์ PDF</span></button></div><button onclick="exportTableToPDF('save'); closePopup('pdfOptionsModal')" class="w-full bg-red-600 text-white p-3.5 rounded-xl font-bold shadow-md flex justify-between items-center active:scale-95 transition-all text-[13px] hover:bg-red-700"><div class="flex items-center gap-2"><i class="fas fa-download text-base"></i><span>บันทึก PDF ลงในเครื่อง</span></div><i class="fas fa-chevron-right text-xs opacity-50"></i></button><button onclick="closePopup('pdfOptionsModal')" class="mt-4 text-slate-400 hover:text-slate-600 text-xs font-medium w-full py-2">ยกเลิก</button></div></div>
@@ -590,7 +628,7 @@
                         <div class="flex items-center gap-3.5">
                             <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg shadow-inner"><i class="fas fa-calendar-alt"></i></div>
                             <div>
-                                <p class="text-[13px] font-bold text-slate-700">โบนัสรายเดือน MB</p>
+                                <p class="text-[13px] font-bold text-slate-700">โบนัสรายเดือน</p>
                                 <p id="caseIncomeBonusCalc" class="text-[10px] font-medium text-slate-400 mt-0.5 tracking-wide"></p>
                             </div>
                         </div>
@@ -604,7 +642,7 @@
                         <div class="flex items-center gap-3.5">
                             <div class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-lg shadow-inner"><i class="fas fa-award"></i></div>
                             <div>
-                                <p class="text-[13px] font-bold text-slate-700">โบนัสครึ่งปี MYB</p>
+                                <p class="text-[13px] font-bold text-slate-700">โบนัสครึ่งปี</p>
                                 <p id="caseIncomeMYBonusCalc" class="text-[10px] font-medium text-slate-400 mt-0.5 tracking-wide"></p>
                             </div>
                         </div>
@@ -639,7 +677,7 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-base shadow-sm shrink-0 border border-blue-100/50"><i class="fas fa-gift"></i></div>
-                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสรายเดือน MB</h3>
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสรายเดือน</h3>
                 </div>
                 <button onclick="closePopup('mbModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
@@ -680,7 +718,7 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-full bg-purple-50 text-purple-500 flex items-center justify-center text-base shadow-sm shrink-0 border border-purple-100/50"><i class="fas fa-calendar-check"></i></div>
-                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสครึ่งปี MYB</h3>
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสครึ่งปี</h3>
                 </div>
                 <button onclick="closePopup('mybModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
@@ -721,17 +759,26 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-full bg-cyan-50 text-cyan-500 flex items-center justify-center text-base shadow-sm shrink-0 border border-cyan-100/50"><i class="fas fa-star"></i></div>
-                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสตัวแทนใหม่ NAB</h3>
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสตัวแทนใหม่</h3>
                 </div>
                 <button onclick="closePopup('nabModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-1 text-left">
-                <select id="nabPhaseSelect" class="w-full border-none rounded-[14px] outline-none transition-all bg-white text-[#164e63] font-bold text-[14px] h-[44px] shadow-sm mb-3 px-3 focus:ring-2 focus:ring-cyan-400" onchange="refreshAllDisplays()">
+                <select id="nabPhaseSelect" class="w-full border-none rounded-[14px] outline-none transition-all bg-white text-[#164e63] font-bold text-[14px] h-[44px] shadow-sm mb-4 px-3 focus:ring-2 focus:ring-cyan-400" onchange="refreshAllDisplays()">
                     <option value="p1">เดือนที่ 1 - เดือนที่ 3</option>
                     <option value="p2">เดือนที่ 4 - เดือนที่ 6</option>
                 </select>
-                <p class="text-[12px] font-bold text-[#164e63] mb-1.5 text-center tracking-wide">จำนวนรายสะสมเดิม</p>
-                <input type="text" inputmode="numeric" id="existingNABCases" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-cyan-400" oninput="this.value = this.value.replace(/[^0-9]/g, ''); refreshAllDisplays()">
+                
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div>
+                        <p class="text-[11px] font-bold text-[#164e63] mb-1.5 text-center tracking-wide">FYC สะสมเดิม</p>
+                        <input type="text" inputmode="numeric" id="existingNABFYCInput" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[16px] h-[44px] shadow-sm focus:ring-2 focus:ring-cyan-400" oninput="handleNABFYCInput(this)">
+                    </div>
+                    <div>
+                        <p class="text-[11px] font-bold text-[#164e63] mb-1.5 text-center tracking-wide">จำนวนรายสะสมเดิม</p>
+                        <input type="text" inputmode="numeric" id="existingNABCases" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[16px] h-[44px] shadow-sm focus:ring-2 focus:ring-cyan-400" oninput="this.value = this.value.replace(/[^0-9]/g, ''); refreshAllDisplays()">
+                    </div>
+                </div>
                 
                 <div id="nabTierList" class="flex flex-col mb-4"></div>
                 
@@ -740,10 +787,13 @@
                         <span>FYC เคสปัจจุบัน</span><span id="nabCaseFYCDisplay" class="font-black text-[#1e293b]">0</span>
                     </div>
                     <div class="flex justify-between items-center py-1 border-b border-cyan-100 text-[#475569]">
-                        <span>FYC สะสมรวม (รวมเคสนี้)</span><span id="nabTotalFYCDisplay" class="font-black text-[#1e293b]">0</span>
+                        <span>FYC สะสมเดิม</span><span id="nabExistingFYCDisplay" class="font-black text-[#1e293b]">0</span>
                     </div>
-                    <div class="pt-2 flex flex-col items-center mt-1 border-t border-cyan-200">
-                        <span class="font-bold text-[#164e63] text-[12px] mb-0.5 uppercase tracking-wide">โบนัสพิเศษ NAB</span>
+                    <div class="flex justify-between items-center py-1.5 border-b border-cyan-200 text-[#164e63]">
+                        <span class="font-bold">FYC รวม (รวมเคสนี้)</span><span id="nabTotalFYCDisplay" class="font-black text-[13px]">0</span>
+                    </div>
+                    <div class="pt-2 flex flex-col items-center mt-1">
+                        <span class="font-bold text-[#164e63] text-[12px] mb-0.5 uppercase tracking-wide">โบนัสพิเศษ</span>
                         <span id="nabCalculatedBonus" class="text-[22px] font-black text-[#0891b2] leading-none mb-1 drop-shadow-sm">0 บาท</span>
                     </div>
                 </div>
@@ -856,6 +906,29 @@
             openPlanModal();
         }
 
+        function highlightActivePills(fSum, fPrem, fCashFlow) {
+            for(let i=1; i<=5; i++) {
+                let sumEl = document.getElementById('sumPill'+i);
+                if(sumEl) {
+                    sumEl.classList.remove('quick-pill-active', 'text-white');
+                    let match = sumEl.getAttribute('onclick').match(/\d+/);
+                    if(match && parseInt(match[0]) === fSum) sumEl.classList.add('quick-pill-active', 'text-white');
+                }
+                let premEl = document.getElementById('premPill'+i);
+                if(premEl) {
+                    premEl.classList.remove('quick-pill-active', 'text-white');
+                    let match = premEl.getAttribute('onclick').match(/\d+/);
+                    if(match && parseInt(match[0]) === fPrem) premEl.classList.add('quick-pill-active', 'text-white');
+                }
+                let cashEl = document.getElementById('cashPill'+i);
+                if(cashEl) {
+                    cashEl.classList.remove('quick-pill-emerald-active', 'text-white');
+                    let match = cashEl.getAttribute('onclick').match(/\d+/);
+                    if(match && parseInt(match[0]) === fCashFlow) cashEl.classList.add('quick-pill-emerald-active', 'text-white');
+                }
+            }
+        }
+
         function adjustAge(delta) { const input = document.getElementById('ageInput'); let val = parseInt(input.value) + delta; if (val >= 0 && val <= 65) { input.value = val; calculate(currentMode); } }
         
         function setGender(gender) { 
@@ -864,9 +937,9 @@
             const btnF = document.getElementById('btnFemale');
             if(gender === 'male') {
                 btnM.className = 'flex-1 rounded-[14px] text-[15px] font-bold active-male text-white transition-all';
-                btnF.className = 'flex-1 rounded-[14px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
+                btnF.className = 'flex-1 rounded-[14px] text-[15px] font-normal text-slate-500 hover:bg-slate-50 transition-all';
             } else {
-                btnM.className = 'flex-1 rounded-[14px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
+                btnM.className = 'flex-1 rounded-[14px] text-[15px] font-normal text-slate-500 hover:bg-slate-50 transition-all';
                 btnF.className = 'flex-1 rounded-[14px] text-[15px] font-bold active-female text-white transition-all';
             }
             calculate(currentMode); 
@@ -904,7 +977,7 @@
                     btn.classList.remove('hidden');
                     btn.onclick = () => setPlan(currentPlanOptions[idx]);
                     const isTarget = plan === currentPlanOptions[idx];
-                    if (isTarget) { btn.className = 'flex-1 rounded-[14px] text-[14px] font-normal active-blue text-white transition-all'; } 
+                    if (isTarget) { btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all'; } 
                     else { btn.className = 'flex-1 rounded-[14px] text-[14px] font-normal text-slate-500 hover:bg-slate-50 transition-all'; }
                 } else { btn.classList.add('hidden'); }
             });
@@ -912,8 +985,32 @@
         }
 
         function setHXPlan(hxPlan, displayText) { currentPlan = hxPlan; const btn1 = document.getElementById('btnPlan1'); if (btn1) { btn1.innerHTML = `${displayText} <i class="fas fa-chevron-down text-[10px] ml-1"></i>`; } closePopup('hxPlanModal'); calculate(currentMode); }
-        function setExtraPlan(val) { currentExtra = val; const btn = document.getElementById('btnExtra'); if (btn) btn.innerHTML = `${val !== '-' && val !== 'ไม่เลือก' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[9px] ml-1 opacity-70"></i>`; closePopup('extraPlanModal'); calculate(currentMode); }
-        function setAdvancePlan(val) { currentAdvance = val; const btn = document.getElementById('btnAdvance'); if (btn) btn.innerHTML = `${val !== '-' && val !== 'ไม่เลือก' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[9px] ml-1 opacity-70"></i>`; closePopup('advancePlanModal'); calculate(currentMode); }
+        function setExtraPlan(val) { 
+            currentExtra = val; 
+            const btn = document.getElementById('btnExtra'); 
+            if (btn) {
+                btn.innerHTML = `${val !== '-' && val !== 'ไม่เลือก' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[9px] ml-1 opacity-70"></i>`; 
+                if (val !== '-' && val !== 'ไม่เลือก') {
+                    btn.className = "w-full h-[36px] bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md rounded-[10px] font-bold text-sm transition-colors border border-transparent";
+                } else {
+                    btn.className = "w-full h-[36px] bg-blue-50 text-blue-700 border border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors";
+                }
+            }
+            closePopup('extraPlanModal'); calculate(currentMode); 
+        }
+        function setAdvancePlan(val) { 
+            currentAdvance = val; 
+            const btn = document.getElementById('btnAdvance'); 
+            if (btn) {
+                btn.innerHTML = `${val !== '-' && val !== 'ไม่เลือก' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[9px] ml-1 opacity-70"></i>`; 
+                if (val !== '-' && val !== 'ไม่เลือก') {
+                    btn.className = "w-full h-[36px] bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md rounded-[10px] font-bold text-sm transition-colors border border-transparent";
+                } else {
+                    btn.className = "w-full h-[36px] bg-blue-50 text-blue-700 border border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors";
+                }
+            }
+            closePopup('advancePlanModal'); calculate(currentMode); 
+        }
 
         function getDiscount(sum, plan) { 
             if (plan === '10CX') { if (sum >= 5000000) return 3.0; if (sum >= 1000000) return 2.0; } 
@@ -972,7 +1069,11 @@
                 }
             }
             let yearsStr = '20'; const matchYears = currentPlan.match(/\d+/); if (matchYears) yearsStr = matchYears[0];
-            lastCalculationData = { premium: fPrem, sum: fSum, gender: currentGender==='male'?'ชาย':'หญิง', age: age, years: yearsStr, cashFlow: (parseFloat(document.getElementById('cashFlowInput')?.value.replace(/,/g, '')) || 0) }; 
+            const cashFlowVal = parseFloat(document.getElementById('cashFlowInput')?.value.replace(/,/g, '')) || 0;
+            
+            highlightActivePills(fSum, fPrem, cashFlowVal);
+            
+            lastCalculationData = { premium: fPrem, sum: fSum, gender: currentGender==='male'?'ชาย':'หญิง', age: age, years: yearsStr, cashFlow: cashFlowVal }; 
             refreshAllDisplays(); 
             return lastCalculationData; 
         }
@@ -1206,13 +1307,11 @@
         function updateNABDisplay() { 
             const effectivePlan = COM_RATES[currentPlan] ? currentPlan : currentAppPlan; if (!lastCalculationData || !COM_RATES[effectivePlan]) return; 
             const fycFromCase = Math.round(lastCalculationData.premium * (COM_RATES[effectivePlan][0] || 0)); 
-            const existingMBFYC = parseFloat(document.getElementById('existingFYCInput')?.value.replace(/,/g, '')) || 0; 
-            const existingMYBFYC = parseFloat(document.getElementById('existingHalfYearFYCInput')?.value.replace(/,/g, '')) || 0; 
+            const existingNABFYC = parseFloat(document.getElementById('existingNABFYCInput')?.value.replace(/,/g, '')) || 0; 
             const existingCases = parseInt(document.getElementById('existingNABCases')?.value) || 0; 
             const phase = document.getElementById('nabPhaseSelect')?.value || 'p1'; 
             
-            const totalMBMYBFYC = existingMBFYC + existingMYBFYC; 
-            const totalFYC = fycFromCase + totalMBMYBFYC; 
+            const totalFYC = fycFromCase + existingNABFYC; 
             const totalCases = 1 + existingCases; 
             
             let tiers = phase === 'p1' ? [{ minFYC: 20000, minCases: 3, bonus: 6000, label: "≥ 20,000 และ 3 ราย" },{ minFYC: 50000, minCases: 5, bonus: 15000, label: "≥ 50,000 และ 5 ราย" }] : [{ minFYC: 40000, minCases: 5, bonus: 10000, label: "≥ 40,000 และ 5 ราย" },{ minFYC: 100000, minCases: 10, bonus: 25000, label: "≥ 100,000 และ 10 ราย" }]; 
@@ -1245,7 +1344,7 @@
 
             window.currentNABBonus = nabBonus; 
             setText('nabCaseFYCDisplay', fycFromCase.toLocaleString()); 
-            setText('nabMBMYBFYCDisplay', totalMBMYBFYC.toLocaleString()); 
+            setText('nabExistingFYCDisplay', existingNABFYC.toLocaleString()); 
             setText('nabTotalFYCDisplay', totalFYC.toLocaleString()); 
             setText('nabCalculatedBonus', nabBonus.toLocaleString() + " บาท"); 
             
@@ -1274,6 +1373,7 @@
 
         function handleMBInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') el.value = Number(v).toLocaleString(); refreshAllDisplays(); }
         function handleMYBInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') el.value = Number(v).toLocaleString(); refreshAllDisplays(); }
+        function handleNABFYCInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') el.value = Number(v).toLocaleString(); refreshAllDisplays(); }
 
         function refreshAllDisplays() { 
             if (!lastCalculationData) return; 
