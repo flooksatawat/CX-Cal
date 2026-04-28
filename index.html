@@ -179,8 +179,15 @@
                             <div class="premium-card !p-1.5 flex h-[50px]" id="planSelectionContainer">
                                 <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all">10CX</button>
                                 <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">20CX</button>
+                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[14px] text-[14px] font-bold hidden text-slate-500 transition-all">60</button>
+                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[14px] text-[14px] font-bold hidden text-slate-500 transition-all">90</button>
                             </div>
                         </div>
+                    </div>
+
+                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-3 shrink-0">
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-bold text-sm">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-bold text-sm">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
                     </div>
 
                     <!-- Sum Insured Card -->
@@ -383,27 +390,27 @@
         </div>
 
         <!-- ==================== BOTTOM NAVIGATION & FOOTER ==================== -->
-        <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent transition-all duration-300 ease-in-out">
-            <div class="glass-nav rounded-[24px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-3 pointer-events-auto w-[calc(100%-1.5rem)] max-w-[400px] mb-3 border border-white/60">
+        <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-8 pb-safe bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent transition-all duration-300 ease-in-out">
+            <div class="glass-nav rounded-[20px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-1.5 pointer-events-auto w-[calc(100%-2rem)] max-w-[400px] mb-1 border border-white/60">
                 <button id="navMainBtn" class="nav-item active flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('main')">
-                    <i class="fas fa-calculator text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">คำนวณ</span>
+                    <i class="fas fa-calculator text-[20px] mb-0.5"></i><span class="text-[9px] font-bold tracking-wide">คำนวณ</span>
                 </button>
                 <button id="navTableBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('table')">
-                    <i class="fas fa-table-list text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">ตาราง</span>
+                    <i class="fas fa-table-list text-[20px] mb-0.5"></i><span class="text-[9px] font-bold tracking-wide">ตาราง</span>
                 </button>
-                <button class="nav-item flex flex-col items-center justify-center w-1/5 text-slate-400 -mt-6 pointer-events-auto hover:scale-105 transition-transform" onclick="startVoiceRecognition()">
-                    <div class="w-[56px] h-[56px] rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white shadow-[0_8px_20px_rgba(225,29,72,0.4)] border-[4px] border-white/90 active:scale-95 transition-transform">
-                        <i class="fas fa-microphone text-[22px]" id="navVoiceIcon"></i>
+                <button class="nav-item flex flex-col items-center justify-center w-1/5 text-slate-400 -mt-5 pointer-events-auto hover:scale-105 transition-transform" onclick="startVoiceRecognition()">
+                    <div class="w-[48px] h-[48px] rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white shadow-[0_8px_20px_rgba(225,29,72,0.4)] border-[3px] border-white/90 active:scale-95 transition-transform">
+                        <i class="fas fa-microphone text-[18px]" id="navVoiceIcon"></i>
                     </div>
                 </button>
                 <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('cash')">
-                    <i class="fas fa-money-bill-trend-up text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">CASH</span>
+                    <i class="fas fa-money-bill-trend-up text-[20px] mb-0.5"></i><span class="text-[9px] font-bold tracking-wide">CASH</span>
                 </button>
                 <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('ai')">
-                    <i class="fas fa-circle-nodes text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">AI</span>
+                    <i class="fas fa-circle-nodes text-[20px] mb-0.5"></i><span class="text-[9px] font-bold tracking-wide">AI</span>
                 </button>
             </div>
-            <div class="text-center font-bold text-[10px] text-slate-400/80 tracking-[0.15em] uppercase w-full pb-1.5 pt-0.5 pointer-events-auto">&copy; SATAWAT BUTTRAKAS</div>
+            <div class="text-center font-bold text-[9px] text-slate-400/80 tracking-[0.15em] uppercase w-full pb-1 pt-0.5 pointer-events-auto">&copy; SATAWAT BUTTRAKAS</div>
         </div>
     </div>
     
@@ -648,20 +655,52 @@
         function handleCashFlowInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') { el.value = Number(v).toLocaleString(); calculate(currentMode); } }
         function setQuickCashFlow(val) { const el = document.getElementById('cashFlowInput'); if(el) { el.value = val.toLocaleString(); calculate(currentMode); } }
 
+        function updatePlanOptionsForApp(appPlanName) {
+            if (appPlanName === 'CI Extra Plus') {
+                currentPlanOptions = ['10CX', '20CX'];
+            } else if (appPlanName === 'Century Life + TPD') {
+                currentPlanOptions = ['60', '90'];
+            } else if (appPlanName === 'Whole Life Extra') {
+                currentPlanOptions = ['WXN10', 'WXN15'];
+            } else if (appPlanName === 'Signature Legacy') {
+                currentPlanOptions = ['5SLB', '10SLB'];
+            } else {
+                currentPlanOptions = [getPlanAbbr(appPlanName)];
+            }
+            
+            if (!currentPlanOptions.includes(currentPlan)) {
+                currentPlan = currentPlanOptions[0] || '';
+            }
+        }
+
         function setPlan(plan) { 
             currentPlan = plan; 
             const btns = [document.getElementById('btnPlan1'), document.getElementById('btnPlan2'), document.getElementById('btnPlan3'), document.getElementById('btnPlan4')];
+            
             btns.forEach((btn, idx) => {
                 if (!btn) return;
-                const isTarget = plan === currentPlanOptions[idx];
-                if (isTarget) {
-                    btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all' + (btn.classList.contains('hidden') ? ' hidden' : '');
+                
+                if (idx < currentPlanOptions.length) {
+                    btn.innerText = currentPlanOptions[idx];
+                    btn.classList.remove('hidden');
+                    btn.onclick = () => setPlan(currentPlanOptions[idx]);
+                    
+                    const isTarget = plan === currentPlanOptions[idx];
+                    if (isTarget) {
+                        btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all';
+                    } else {
+                        btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
+                    }
                 } else {
-                    btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all' + (btn.classList.contains('hidden') ? ' hidden' : '');
+                    btn.classList.add('hidden');
                 }
             });
             calculate(currentMode); 
         }
+
+        function setHXPlan(hxPlan, displayText) { currentPlan = hxPlan; const btn1 = document.getElementById('btnPlan1'); if (btn1) { btn1.innerHTML = `${displayText} <i class="fas fa-chevron-down text-[10px] ml-1"></i>`; } closePopup('hxPlanModal'); calculate(currentMode); }
+        function setExtraPlan(val) { currentExtra = val; const btn = document.getElementById('btnExtra'); if (btn) btn.innerHTML = `${val !== '-' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i>`; closePopup('extraPlanModal'); }
+        function setAdvancePlan(val) { currentAdvance = val; const btn = document.getElementById('btnAdvance'); if (btn) btn.innerHTML = `${val !== '-' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i>`; closePopup('advancePlanModal'); }
 
         function getDiscount(sum, plan) { 
             if (plan === '10CX') { if (sum >= 5000000) return 3.0; if (sum >= 1000000) return 2.0; } 
@@ -837,14 +876,17 @@
 
             if(pLabel) pLabel.innerText = "ออมเงิน (บาท/ปี)"; if(pPills) pPills.classList.remove('hidden');
             if(cashFlowContainer) cashFlowContainer.classList.add('hidden'); if(sumInsuredContainer) sumInsuredContainer.classList.remove('hidden');
-            if(extraOptions) extraOptions.classList.add('hidden');
+            
+            // ซ่อนกล่อง Extra Options อย่างหมดจด
+            if(extraOptions) { extraOptions.classList.remove('grid'); extraOptions.classList.add('hidden'); }
+            
             if(premiumContainer) premiumContainer.classList.remove('hidden'); if(planSelectionWrapper) planSelectionWrapper.classList.remove('hidden');
 
             const targetPlans = ["Life Protector 20", "Supreme Life Protector", "Whole Life Extra", "24 TX", "868 / 818 Elite Saving"];
             if (targetPlans.includes(planName)) {
                 mainActionBtn.innerHTML = `<i class="fas fa-table text-xl"></i> ดูรายละเอียด`; mainActionBtn.onclick = function() { switchView('table'); };
                 if (["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(planName)) { if(cashFlowContainer) cashFlowContainer.classList.remove('hidden'); if(sumInsuredContainer) sumInsuredContainer.classList.add('hidden'); }
-            } else if (planName === 'CI Extra Plus') {
+            } else if (planName === 'CI Extra Plus' || planName === 'Century Life + TPD') {
                 mainActionBtn.innerHTML = `<i class="fas fa-file-alt text-xl"></i> ดูรายละเอียด`; mainActionBtn.onclick = function() { manualTriggerPopup(); };
             } else {
                 mainActionBtn.innerHTML = `<i class="fas fa-file-alt text-xl"></i> ดูรายละเอียด`; mainActionBtn.onclick = function() { showCustomError(`กำลังพัฒนาระบบสำหรับ : ${planName}`); };
@@ -853,12 +895,23 @@
             if (planName === 'Signature Legacy' || planName === 'Convertable Term') {
                 if(pLabel) pLabel.innerText = "เบี้ยประกัน (บาท)"; if(pPills) pPills.classList.add('hidden'); if(planSelectionWrapper) planSelectionWrapper.classList.add('hidden');
             }
+            
+            // แสดงกล่องตัวเลือกเฉพาะเมื่อเป็น 3D Health Excellence
             if (planName === '3D Health Excellence') {
-                if(extraOptions) extraOptions.classList.remove('hidden');
-                if(sumInsuredContainer) sumInsuredContainer.classList.add('hidden'); if(premiumContainer) premiumContainer.classList.add('hidden');
+                if(extraOptions) { extraOptions.classList.remove('hidden'); extraOptions.classList.add('grid'); }
+                if(sumInsuredContainer) sumInsuredContainer.classList.add('hidden'); 
+                if(premiumContainer) premiumContainer.classList.add('hidden');
+                if(planSelectionWrapper) planSelectionWrapper.classList.add('hidden');
             }
+            
             updateQuickPills(planName);
-            if (planName !== '3D Health Excellence') { setPlan(currentPlan); } else { calculate(currentMode); }
+            
+            if (planName !== '3D Health Excellence') { 
+                updatePlanOptionsForApp(planName);
+                setPlan(currentPlan); 
+            } else { 
+                calculate(currentMode); 
+            }
         }
 
         // ==================== CASH MODULE ====================
