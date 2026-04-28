@@ -440,6 +440,7 @@
                      <button onclick="setAIMode('reader')" id="aiTab_reader" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-camera mr-1.5"></i>อ่านกรมธรรม์</button>
                      <button onclick="setAIMode('health')" id="aiTab_health" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-heartbeat mr-1.5"></i>เช็คสุขภาพ</button>
                      <button onclick="setAIMode('audio')" id="aiTab_audio" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-volume-up mr-1.5"></i>บรรยายเสียง</button>
+                     <button onclick="setAIMode('image')" id="aiTab_image" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-paint-brush mr-1.5"></i>สร้างภาพ</button>
                 </div>
             </div>
             
@@ -555,6 +556,29 @@
                     <div class="w-full text-left bg-blue-50/70 rounded-[16px] p-4 border border-blue-100 mt-3 shadow-inner">
                        <p class="text-[11px] font-bold text-blue-800 mb-1.5 flex items-center"><i class="fas fa-quote-left mr-1.5 opacity-50"></i> สคริปต์ที่จะบรรยาย</p>
                        <p id="audioScriptText" class="text-[12.5px] text-slate-600 leading-relaxed font-medium">กรุณาคำนวณเบี้ยประกันหน้าแรกก่อนครับ</p>
+                    </div>
+                </div>
+
+                <!-- Mode: Image Generation -->
+                <div id="aiContent_image" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-fuchsia-100 text-fuchsia-600 flex items-center justify-center mr-2"><i class="fas fa-paint-brush"></i></div> AI สร้างภาพประกอบ</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">พิมพ์ข้อความเพื่อสั่งให้ AI วาดภาพสำหรับใช้ประกอบการนำเสนอหรือส่งหาลูกค้า</p>
+                    
+                    <div class="mt-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">คำอธิบายภาพ (Prompt)</label>
+                        <textarea id="aiImagePrompt" placeholder="เช่น ครอบครัว 3 คน พ่อแม่ลูก กำลังยิ้มอย่างมีความสุขในสวน..." rows="3" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-fuchsia-400 shadow-sm transition-all resize-none text-slate-700"></textarea>
+                    </div>
+                    
+                    <button onclick="generateAIImage()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(217,70,239,0.3)] active:scale-95 transition-all"><i class="fas fa-wand-magic-sparkles mr-2"></i>สร้างรูปภาพ</button>
+                    
+                    <div id="imageLoading" class="hidden flex-col items-center py-8">
+                        <div class="spinner mb-4 border-l-fuchsia-500 border-[rgba(217,70,239,0.1)]"></div>
+                        <p class="text-[12px] font-bold text-slate-500">AI กำลังประมวลผลวาดภาพ...</p>
+                    </div>
+                    
+                    <div id="imageResultContainer" class="hidden mt-4 flex-col items-center gap-4 border-t border-slate-200 pt-5">
+                        <img id="generatedImagePreview" class="w-full h-auto rounded-[16px] shadow-md border border-slate-200 object-cover" src="" alt="ภาพที่สร้างโดย AI">
+                        <button onclick="downloadGeneratedImage()" class="w-full py-3 bg-slate-100 text-slate-700 text-[13px] font-bold rounded-[14px] hover:bg-slate-200 transition-colors border border-slate-200 active:scale-95"><i class="fas fa-download mr-1.5"></i> บันทึกภาพลงเครื่อง</button>
                     </div>
                 </div>
 
@@ -1898,6 +1922,7 @@
                     else if (currentAIMode === 'roleplay') runAIRoleplay();
                     else if (currentAIMode === 'reader') runAIPolicy();
                     else if (currentAIMode === 'health') runAIHealth();
+                    else if (currentAIMode === 'image') generateAIImage();
                 }, 300);
             } else {
                 showCustomError("กรุณากรอก API Key");
@@ -2168,6 +2193,68 @@
             
             btnIcon.className = 'fas fa-stop text-white text-3xl';
             r1.classList.remove('hidden'); r2.classList.remove('hidden');
+        }
+
+        // --- 6. Image Generation Mode ---
+        async function generateAIImage() {
+            const prompt = document.getElementById('aiImagePrompt').value.trim();
+            if(!prompt) return showCustomError("กรุณาระบุคำอธิบายภาพที่ต้องการก่อนครับ");
+
+            const apiKey = getStoredApiKey();
+            if(!apiKey) {
+                openPopup('apiKeyModal');
+                return;
+            }
+
+            document.getElementById('imageLoading').classList.remove('hidden');
+            document.getElementById('imageLoading').classList.add('flex');
+            document.getElementById('imageResultContainer').classList.add('hidden');
+            document.getElementById('imageResultContainer').classList.remove('flex');
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+            const payload = {
+                instances: { prompt: prompt },
+                parameters: { sampleCount: 1 }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    if(response.status === 400 || response.status === 403) throw new Error("INVALID_API_KEY");
+                    throw new Error('API Error');
+                }
+                
+                const data = await response.json();
+                if(data.predictions && data.predictions[0]) {
+                    const imageUrl = `data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`;
+                    document.getElementById('generatedImagePreview').src = imageUrl;
+                    document.getElementById('imageResultContainer').classList.remove('hidden');
+                    document.getElementById('imageResultContainer').classList.add('flex');
+                } else {
+                    throw new Error("No image generated");
+                }
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('imageLoading').classList.add('hidden');
+                document.getElementById('imageLoading').classList.remove('flex');
+            }
+        }
+
+        function downloadGeneratedImage() {
+            const img = document.getElementById('generatedImagePreview');
+            if(!img.src) return;
+            const a = document.createElement('a');
+            a.href = img.src;
+            a.download = `AI_Generated_Image_${new Date().getTime()}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
 
         let pendingInstallmentData = {};
