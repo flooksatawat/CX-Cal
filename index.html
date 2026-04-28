@@ -441,6 +441,12 @@
                      <button onclick="setAIMode('health')" id="aiTab_health" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-heartbeat mr-1.5"></i>เช็คสุขภาพ</button>
                      <button onclick="setAIMode('audio')" id="aiTab_audio" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-volume-up mr-1.5"></i>บรรยายเสียง</button>
                      <button onclick="setAIMode('image')" id="aiTab_image" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-paint-brush mr-1.5"></i>สร้างภาพ</button>
+                     <button onclick="setAIMode('social')" id="aiTab_social" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-share-alt mr-1.5"></i>แคปชั่นโพสต์</button>
+                     <button onclick="setAIMode('competitor')" id="aiTab_competitor" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-chess-knight mr-1.5"></i>วิเคราะห์คู่แข่ง</button>
+                     <button onclick="setAIMode('personality')" id="aiTab_personality" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-user-check mr-1.5"></i>อ่านใจลูกค้า</button>
+                     <button onclick="setAIMode('underwriting')" id="aiTab_underwriting" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-file-medical-alt mr-1.5"></i>ประเมินพิจารณา</button>
+                     <button onclick="setAIMode('claim')" id="aiTab_claim" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-hospital-user mr-1.5"></i>จำลองการเคลม</button>
+                     <button onclick="setAIMode('metaphor')" id="aiTab_metaphor" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-book-reader mr-1.5"></i>นักเล่าเรื่อง</button>
                 </div>
             </div>
             
@@ -582,6 +588,121 @@
                     </div>
                 </div>
 
+                <!-- Mode: Social Media Content -->
+                <div id="aiContent_social" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center mr-2"><i class="fas fa-share-alt"></i></div> แคปชั่นโซเชียลมีเดีย</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">แปลงข้อมูลแผนประกันที่กำลังคำนวณ เป็นแคปชั่นดึงดูดใจสำหรับโพสต์ Facebook, TikTok หรือส่ง LINE</p>
+                    
+                    <div class="mt-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">โทนอารมณ์ที่ต้องการ</label>
+                        <select id="socialMood" class="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-3 text-[13px] font-medium outline-none focus:ring-2 focus:ring-orange-400 shadow-sm text-slate-700">
+                            <option value="มืออาชีพ น่าเชื่อถือ เป็นที่ปรึกษา">มืออาชีพ น่าเชื่อถือ (Professional)</option>
+                            <option value="ขี้เล่น เป็นกันเอง สนุกสนาน">ขี้เล่น เป็นกันเอง (Friendly)</option>
+                            <option value="ดึงดราม่า ซึ้งๆ เน้นความรักความเป็นห่วงครอบครัว">ซึ้งๆ เน้นความรักครอบครัว (Emotional)</option>
+                            <option value="สั้นกระชับ เน้นจุดเด่น ขายตรงจุด">สั้นกระชับ ขายตรงจุด (Hard Sell)</option>
+                        </select>
+                    </div>
+                    
+                    <button onclick="runAISocial()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-orange-400 to-red-500 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(249,115,22,0.3)] active:scale-95 transition-all"><i class="fas fa-pen-nib mr-2"></i>สร้างแคปชั่น</button>
+                    <div id="socialLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-orange-500 border-[rgba(249,115,22,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">กำลังคิดแคปชั่นและแฮชแท็ก...</p></div>
+                    <div id="socialResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Competitor Analysis -->
+                <div id="aiContent_competitor" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center mr-2"><i class="fas fa-chess-knight"></i></div> วิเคราะห์ข้อเสนอคู่แข่ง</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">อัปโหลดภาพตารางใบเสนอราคาของบริษัทอื่น เพื่อเปรียบเทียบจุดอ่อนและสร้างสคริปต์สู้กลับ</p>
+                    
+                    <label class="w-full border-2 border-dashed border-slate-300 bg-white rounded-[16px] p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-100 hover:border-slate-800 transition-all mt-1 group">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-image text-2xl text-slate-800"></i>
+                        </div>
+                        <span class="text-[13px] font-bold text-slate-700">แตะเพื่ออัปโหลดใบเสนอราคา</span>
+                        <span class="text-[10px] text-slate-400 mt-1">รองรับ JPG, PNG</span>
+                        <input type="file" class="hidden" accept="image/*" onchange="handleCompImageChange(event)">
+                    </label>
+                    <img id="compImagePreview" class="hidden w-full h-auto rounded-[14px] shadow-sm border border-slate-200 mt-2 object-contain max-h-[300px]">
+                    <input type="hidden" id="compImageBase64">
+                    
+                    <button onclick="runAICompetitor()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-slate-700 to-slate-900 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(15,23,42,0.3)] active:scale-95 transition-all"><i class="fas fa-shield-alt mr-2"></i>วิเคราะห์เปรียบเทียบและสู้กลับ</button>
+                    <div id="competitorLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-slate-800 border-[rgba(15,23,42,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">กำลังสแกนและเปรียบเทียบข้อมูล...</p></div>
+                    <div id="competitorResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Personality Profiler -->
+                <div id="aiContent_personality" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-violet-100 text-violet-600 flex items-center justify-center mr-2"><i class="fas fa-user-check"></i></div> จิตวิทยาลูกค้า (DISC)</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">อธิบายลักษณะนิสัยและอาชีพลูกค้า เพื่อรับคำแนะนำวิธีเข้าหาและวิธีปิดการขายให้ตรงจริต</p>
+                    
+                    <div class="mt-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">ลักษณะนิสัย / พฤติกรรมที่สังเกตได้</label>
+                        <textarea id="personTraits" placeholder="เช่น เป็นหมอวัย 40 ถามเยอะ รายละเอียดเป๊ะ ขอดูแต่ตัวเลข ไม่ชอบการตื๊อ..." rows="3" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-violet-400 shadow-sm transition-all resize-none text-slate-700"></textarea>
+                    </div>
+                    
+                    <button onclick="runAIPersonality()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(139,92,246,0.3)] active:scale-95 transition-all"><i class="fas fa-brain mr-2"></i>วิเคราะห์วิธีพิชิตใจ</button>
+                    
+                    <div id="personalityLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-violet-500 border-[rgba(139,92,246,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">กำลังวิเคราะห์ตามหลักจิตวิทยา...</p></div>
+                    <div id="personalityResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Underwriting Guide -->
+                <div id="aiContent_underwriting" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-lime-100 text-lime-600 flex items-center justify-center mr-2"><i class="fas fa-file-medical-alt"></i></div> ประเมินโอกาสรับประกันเบื้องต้น</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">กรอกข้อมูลสุขภาพเพื่อจำลองผลพิจารณารับประกัน (Underwriting) ช่วยบริหารความคาดหวัง</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">ส่วนสูง (ซม.)</label>
+                            <input type="number" id="uwHeight" placeholder="170" class="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-3 text-[13px] text-center outline-none focus:ring-2 focus:ring-lime-400 shadow-sm transition-all text-slate-700">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">น้ำหนัก (กก.)</label>
+                            <input type="number" id="uwWeight" placeholder="70" class="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-3 text-[13px] text-center outline-none focus:ring-2 focus:ring-lime-400 shadow-sm transition-all text-slate-700">
+                        </div>
+                        <div class="col-span-2 mt-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">โรคประจำตัว / ประวัติสุขภาพ</label>
+                            <textarea id="uwConditions" placeholder="เช่น เป็นความดันสูง ทานยาคุมอาการมา 3 ปี, เคยผ่าตัดไส้ติ่งเมื่อปีที่แล้ว..." rows="2" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-lime-400 shadow-sm transition-all resize-none text-slate-700"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button onclick="runAIUnderwriting()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-lime-500 to-green-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(132,204,22,0.3)] active:scale-95 transition-all"><i class="fas fa-stethoscope mr-2"></i>วิเคราะห์เกณฑ์พิจารณารับประกัน</button>
+                    
+                    <div id="underwritingLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-lime-500 border-[rgba(132,204,22,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">กำลังประเมินเกณฑ์พิจารณา...</p></div>
+                    <div id="underwritingResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Claim Simulator -->
+                <div id="aiContent_claim" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center mr-2"><i class="fas fa-hospital-user"></i></div> จำลองสถานการณ์เคลม</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">พิมพ์อาการป่วย โรค หรืออุบัติเหตุ เพื่อให้ AI สรุปว่าแผนที่กำลังนำเสนอสามารถเบิกอะไรได้บ้าง</p>
+                    
+                    <div class="mt-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">อาการป่วย / เหตุการณ์</label>
+                        <textarea id="claimSymptom" placeholder="เช่น เป็นไข้เลือดออก แอดมิท 3 วัน, ตรวจพบมะเร็งเต้านมระยะเริ่มต้น..." rows="2" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-teal-400 shadow-sm transition-all resize-none text-slate-700"></textarea>
+                    </div>
+                    
+                    <button onclick="runAIClaim()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-teal-500 to-emerald-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(20,184,166,0.3)] active:scale-95 transition-all"><i class="fas fa-notes-medical mr-2"></i>ประเมินการเบิกเคลม</button>
+                    
+                    <div id="claimLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-teal-500 border-[rgba(20,184,166,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">กำลังประมวลผลความคุ้มครอง...</p></div>
+                    <div id="claimResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Metaphor Storyteller -->
+                <div id="aiContent_metaphor" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mr-2"><i class="fas fa-book-reader"></i></div> นักเล่าเรื่อง (เปรียบเปรย)</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">เปลี่ยนเรื่องประกันที่เข้าใจยาก ให้ง่ายขึ้นโดยเปรียบเทียบกับ "สิ่งที่ลูกค้าสนใจ"</p>
+                    
+                    <div class="mt-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">สิ่งที่ลูกค้าชื่นชอบ / สนใจ / อาชีพ</label>
+                        <textarea id="metaphorInterest" placeholder="เช่น ฟุตบอล, รถยนต์, ปลูกต้นไม้, ทำอาหาร, การลงทุน..." rows="2" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-amber-400 shadow-sm transition-all resize-none text-slate-700"></textarea>
+                    </div>
+                    
+                    <button onclick="runAIMetaphor()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(245,158,11,0.3)] active:scale-95 transition-all"><i class="fas fa-magic mr-2"></i>อธิบายผ่านสิ่งที่ลูกค้าชอบ</button>
+                    
+                    <div id="metaphorLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-amber-500 border-[rgba(245,158,11,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">กำลังร้อยเรียงเรื่องราว...</p></div>
+                    <div id="metaphorResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
             </div>
         </div>
 
@@ -717,7 +838,7 @@
                         <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm"><i class="fas fa-bolt text-base"></i></div>
                         <div class="text-left">
                             <span class="text-[14px] font-bold text-blue-800 block">ผู้ช่วย AI อัจฉริยะ</span>
-                            <span class="text-[10px] text-blue-600 font-medium mt-0.5 block">ไอเดียขาย, จำลองบท, อ่านภาพ, ฯลฯ</span>
+                            <span class="text-[10px] text-blue-600 font-medium mt-0.5 block">ไอเดียขาย, จำลองเคลม, อ่านภาพ, ฯลฯ</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-right text-xs text-blue-400"></i>
@@ -1923,6 +2044,12 @@
                     else if (currentAIMode === 'reader') runAIPolicy();
                     else if (currentAIMode === 'health') runAIHealth();
                     else if (currentAIMode === 'image') generateAIImage();
+                    else if (currentAIMode === 'social') runAISocial();
+                    else if (currentAIMode === 'competitor') runAICompetitor();
+                    else if (currentAIMode === 'personality') runAIPersonality();
+                    else if (currentAIMode === 'underwriting') runAIUnderwriting();
+                    else if (currentAIMode === 'claim') runAIClaim();
+                    else if (currentAIMode === 'metaphor') runAIMetaphor();
                 }, 300);
             } else {
                 showCustomError("กรุณากรอก API Key");
@@ -2255,6 +2382,196 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        }
+
+        // --- 7. Social Media Content Mode ---
+        async function runAISocial() {
+            if (!lastCalculationData || lastCalculationData.premium === 0) return showCustomError("กรุณาคำนวณเบี้ยประกันหน้าแรกก่อนครับ");
+            const mood = document.getElementById('socialMood').value;
+            
+            document.getElementById('socialLoading').classList.remove('hidden');
+            document.getElementById('socialLoading').classList.add('flex');
+            document.getElementById('socialResult').classList.add('hidden');
+            
+            const sysPrompt = `คุณคือ Copywriter มาร์เก็ตติ้งมืออาชีพสายประกันชีวิต จงเขียนแคปชั่นโซเชียลมีเดีย (Facebook/LINE/TikTok) สำหรับนำเสนอแผนประกันตามข้อมูลที่ให้ โดยใช้โทนอารมณ์ที่ระบุ 
+            รูปแบบคำตอบเป็น HTML โครงสร้างดังนี้: 
+            <h4><i class="fab fa-facebook text-blue-600"></i> แคปชั่นโซเชียลมีเดีย</h4> <div class='ai-quote'>[ข้อความแคปชั่น พร้อม Emoji และ Hashtag]</div>
+            <h4><i class="fas fa-lightbulb text-amber-500"></i> คำแนะนำภาพประกอบ</h4> <ul><li>[ไอเดียรูปภาพที่จะใช้คู่กับโพสต์นี้]</li></ul>`;
+            
+            const d = lastCalculationData;
+            const parts = [{text: `แบบประกัน: ${currentAppPlan}\nเพศ: ${d.gender}\nอายุ: ${d.age} ปี\nงบประมาณ: ${formatNum(d.premium)} บาท/ปี\nวงเงินคุ้มครอง: ${formatNum(d.sum)} บาท\nโทนอารมณ์: ${mood}`}];
+            
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('socialResult').innerHTML = res;
+                document.getElementById('socialResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('socialLoading').classList.add('hidden');
+                document.getElementById('socialLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 8. Competitor Analysis Mode ---
+        function handleCompImageChange(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('compImagePreview').src = e.target.result;
+                document.getElementById('compImagePreview').classList.remove('hidden');
+                document.getElementById('compImageBase64').value = e.target.result.split(',')[1];
+                document.getElementById('compImageBase64').setAttribute('data-mime', file.type);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function runAICompetitor() {
+            const b64 = document.getElementById('compImageBase64').value;
+            const mime = document.getElementById('compImageBase64').getAttribute('data-mime') || 'image/jpeg';
+            if(!b64) return showCustomError("กรุณาอัปโหลดรูปข้อเสนอคู่แข่งก่อน");
+
+            document.getElementById('competitorLoading').classList.remove('hidden');
+            document.getElementById('competitorLoading').classList.add('flex');
+            document.getElementById('competitorResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือสุดยอดนักวิเคราะห์ผลิตภัณฑ์ประกันชีวิต อ่านใบเสนอราคาคู่แข่งจากภาพ เพื่อหาจุดอ่อนหรือข้อจำกัด และเขียนสคริปต์สู้กลับเพื่อชูความคุ้มค่าของแผนเราที่เหนือกว่า 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-search-minus text-slate-600"></i> สิ่งที่คู่แข่งไม่ได้บอก</h4> <ul><li>[จุดอ่อน/ข้อจำกัดที่พบ]</li></ul> 
+            <h4><i class="fas fa-comment-dots text-blue-500"></i> สคริปต์สู้กลับแบบมืออาชีพ</h4> <div class='ai-quote'>[คำพูดที่ใช้ชี้แจงลูกค้าอย่างนุ่มนวล แต่กินใจ]</div>`;
+            const d = lastCalculationData || {premium:0, sum:0};
+            const parts = [
+                { text: `วิเคราะห์ภาพข้อเสนอคู่แข่งนี้ เปรียบเทียบกับแผน ${currentAppPlan} ของเรา (เบี้ย ${formatNum(d.premium)} ทุน ${formatNum(d.sum)}) หาจุดอ่อนเขาเพื่อสร้างสคริปต์โน้มน้าวให้เลือกแผนเรา` },
+                { inlineData: { mimeType: mime, data: b64 } }
+            ];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('competitorResult').innerHTML = res;
+                document.getElementById('competitorResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('competitorLoading').classList.add('hidden');
+                document.getElementById('competitorLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 9. Personality Profiler Mode ---
+        async function runAIPersonality() {
+            const traits = document.getElementById('personTraits').value.trim() || 'ไม่ได้ระบุ';
+            if(!traits || traits === 'ไม่ได้ระบุ') return showCustomError("กรุณาอธิบายลักษณะนิสัยลูกค้าสั้นๆ ครับ");
+
+            document.getElementById('personalityLoading').classList.remove('hidden');
+            document.getElementById('personalityLoading').classList.add('flex');
+            document.getElementById('personalityResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือผู้เชี่ยวชาญด้านจิตวิทยาการขายที่ใช้ทฤษฎี DISC บุคลิกภาพ วิเคราะห์ลักษณะลูกค้าที่ตัวแทนพิมพ์มา เพื่อแนะนำวิธีรับมือ 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-id-badge text-violet-500"></i> วิเคราะห์สไตล์ลูกค้า</h4> <p class="mb-3">...</p> 
+            <h4><i class="fas fa-key text-amber-500"></i> เคล็ดลับการเปิดใจ & ปิดการขาย</h4> <ul><li>[วิธีเข้าหาและจุดที่ควรหลีกเลี่ยง]</li></ul>`;
+            const parts = [{text: `ลักษณะพฤติกรรม อาชีพ หรือคำพูดของลูกค้า: ${traits}\nช่วยวิเคราะห์สไตล์ของคนนี้และแนะนำวิธีการขายประกันให้ตรงใจเขาที่สุด`}];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('personalityResult').innerHTML = res;
+                document.getElementById('personalityResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('personalityLoading').classList.add('hidden');
+                document.getElementById('personalityLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 10. Underwriting Guide Mode ---
+        async function runAIUnderwriting() {
+            const height = parseFloat(document.getElementById('uwHeight').value) || 0;
+            const weight = parseFloat(document.getElementById('uwWeight').value) || 0;
+            const conditions = document.getElementById('uwConditions').value.trim() || 'แข็งแรงดี ไม่มีโรคประจำตัว';
+            
+            if (height === 0 || weight === 0) return showCustomError("กรุณาระบุส่วนสูงและน้ำหนักให้ครบถ้วน");
+
+            const bmi = weight / ((height/100) * (height/100));
+
+            document.getElementById('underwritingLoading').classList.remove('hidden');
+            document.getElementById('underwritingLoading').classList.add('flex');
+            document.getElementById('underwritingResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือ Underwriter เบื้องต้น วิเคราะห์ความเสี่ยงด้านสุขภาพจาก BMI และโรคประจำตัว เพื่อบอกเกณฑ์การพิจารณารับประกันเบื้องต้น (เช่น ปกติ, เพิ่มเบี้ย, ยกเว้นความคุ้มครอง, เลื่อน, ปฏิเสธ) ให้คำแนะนำอย่างเป็นกลาง 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-chart-bar text-lime-600"></i> ผลวิเคราะห์ค่า BMI</h4> <p class="mb-3">...</p> 
+            <h4><i class="fas fa-file-signature text-blue-500"></i> โอกาสพิจารณารับประกัน</h4> <ul><li>[การคาดการณ์ เช่น รับปกติ, เพิ่มเบี้ย 25-50%, ขอประวัติแพทย์]</li></ul>
+            <p class="text-[10px] text-slate-400 italic mt-3">* เป็นเพียงการประเมินเบื้องต้นเท่านั้น ผลจริงขึ้นอยู่กับฝ่ายพิจารณารับประกัน</p>`;
+            const parts = [{text: `ส่วนสูง: ${height} ซม.\nน้ำหนัก: ${weight} กก.\nค่า BMI: ${bmi.toFixed(2)}\nโรคประจำตัว/ประวัติ: ${conditions}\nแผนประกัน: ${currentAppPlan}\nช่วยประเมินความเสี่ยงและแนวทางพิจารณารับประกัน`}];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('underwritingResult').innerHTML = res;
+                document.getElementById('underwritingResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('underwritingLoading').classList.add('hidden');
+                document.getElementById('underwritingLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 11. Claim Simulator Mode ---
+        async function runAIClaim() {
+            const symptom = document.getElementById('claimSymptom').value.trim() || 'ไม่ได้ระบุ';
+            if(!symptom || symptom === 'ไม่ได้ระบุ') return showCustomError("กรุณาระบุอาการป่วย หรืออุบัติเหตุครับ");
+
+            document.getElementById('claimLoading').classList.remove('hidden');
+            document.getElementById('claimLoading').classList.add('flex');
+            document.getElementById('claimResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือผู้เชี่ยวชาญด้านสินไหมทดแทน (Claims) อธิบายให้ลูกค้าฟังด้วยภาษาง่ายๆ สบายใจ ว่าอาการที่ระบุมา แผนประกันที่นำเสนออยู่นี้จะเข้าไปช่วยจ่ายหรือครอบคลุมตรงไหนบ้าง 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-check-circle text-teal-500"></i> ความคุ้มครองที่จะได้รับ</h4> <ul><li>[อธิบายสิ่งที่เบิกได้ เช่น ค่าห้อง, เงินก้อนโรคร้าย]</li></ul> 
+            <h4><i class="fas fa-heart text-rose-500"></i> ความอุ่นใจ</h4> <div class='ai-quote'>[ข้อความสรุปปลอบใจลูกค้า ว่าไม่ต้องกังวลเรื่องค่าใช้จ่าย]</div>`;
+            const d = lastCalculationData || {premium:0, sum:0};
+            const parts = [{text: `ลูกค้าถามว่า: ถ้าเป็น "${symptom}" จะเบิกอะไรได้บ้าง?\nข้อมูลแผนปัจจุบัน: แบบประกัน ${currentAppPlan}, วงเงินคุ้มครอง ${formatNum(d.sum)} บาท\nช่วยอธิบายสิทธิประโยชน์การเคลมให้ฟังหน่อย`}];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('claimResult').innerHTML = res;
+                document.getElementById('claimResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('claimLoading').classList.add('hidden');
+                document.getElementById('claimLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 12. Metaphor Storyteller Mode ---
+        async function runAIMetaphor() {
+            const interest = document.getElementById('metaphorInterest').value.trim() || 'ไม่ได้ระบุ';
+            if(!interest || interest === 'ไม่ได้ระบุ') return showCustomError("กรุณาระบุสิ่งที่ลูกค้าสนใจครับ");
+
+            document.getElementById('metaphorLoading').classList.remove('hidden');
+            document.getElementById('metaphorLoading').classList.add('flex');
+            document.getElementById('metaphorResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือนักขายประกันที่เก่งด้านการเปรียบเปรย (Analogy) หน้าที่ของคุณคืออธิบายความสำคัญของประกันชีวิต/สุขภาพ โดยเชื่อมโยงและเปรียบเทียบกับ "สิ่งที่ลูกค้าสนใจ" อย่างแยบยลและสร้างสรรค์ 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-theater-masks text-amber-500"></i> เปรียบเทียบให้เห็นภาพ</h4> <p class="mb-3">...</p> 
+            <h4><i class="fas fa-lightbulb text-orange-500"></i> บทสนทนาโดนใจ</h4> <div class='ai-quote'>[สคริปต์คำพูดที่ตัวแทนสามารถใช้คุยกับลูกค้าได้เลย]</div>`;
+            const d = lastCalculationData || {premium:0, sum:0};
+            const parts = [{text: `สิ่งที่ลูกค้าชื่นชอบ/สนใจ/อาชีพ: "${interest}"\nข้อมูลแผนประกัน: ${currentAppPlan}, เบี้ย ${formatNum(d.premium)}, ทุน ${formatNum(d.sum)}\nช่วยอธิบายแผนนี้โดยเปรียบเทียบกับสิ่งที่เขาสนใจให้ฟังหน่อย`}];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('metaphorResult').innerHTML = res;
+                document.getElementById('metaphorResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('metaphorLoading').classList.add('hidden');
+                document.getElementById('metaphorLoading').classList.remove('flex');
+            }
         }
 
         let pendingInstallmentData = {};
