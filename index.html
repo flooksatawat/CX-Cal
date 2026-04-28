@@ -416,32 +416,145 @@
 
         <!-- ==================== VIEW 4: AI ADVISOR ==================== -->
         <div id="aiView" class="hidden flex flex-col flex-1 overflow-hidden w-full relative z-10">
-            <div class="glass-header flex justify-between items-center px-6 pt-safe pb-4 shrink-0 relative z-20 border-b border-slate-200 mt-1.5">
-                <div class="flex items-center gap-4">
-                    <div class="w-[46px] h-[46px] bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 rounded-[16px] shadow-[0_8px_20px_rgba(79,70,229,0.3)] flex items-center justify-center shrink-0 border border-white/50 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
-                        <i class="fas fa-circle-nodes text-white text-[24px] relative z-10 drop-shadow-md"></i>
+            <div class="glass-header flex flex-col px-4 pt-safe shrink-0 relative z-20 border-b border-slate-200 mt-1.5 pb-2">
+                <div class="flex items-center justify-between mb-3 px-2">
+                    <div class="flex items-center gap-4">
+                        <div class="w-[40px] h-[40px] bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 rounded-[12px] shadow-[0_8px_15px_rgba(79,70,229,0.3)] flex items-center justify-center shrink-0 border border-white/50 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
+                            <i class="fas fa-robot text-white text-[20px] relative z-10 drop-shadow-md"></i>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <h3 class="text-[17px] font-black text-[#0f172a] leading-tight mb-0.5">ที่ปรึกษา AI</h3>
+                            <p class="text-[10px] text-indigo-600 font-bold uppercase tracking-wide">Smart AI Assistant</p>
+                        </div>
                     </div>
-                    <div class="flex flex-col justify-center">
-                        <h3 class="text-[19px] font-black text-[#0f172a] leading-tight mb-0.5">ที่ปรึกษา AI</h3>
-                        <p class="text-[11px] text-indigo-600 font-bold uppercase tracking-wide">Smart AI Advisor</p>
-                    </div>
+                    <button onclick="openPopup('apiKeyModal')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition-colors shadow-sm border border-slate-200 active:scale-95">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+                
+                <!-- NEW TABS -->
+                <div class="w-full flex flex-wrap gap-2 shrink-0 px-1 pb-1" id="aiTabsContainer">
+                     <button onclick="setAIMode('idea')" id="aiTab_idea" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-bold transition-all bg-indigo-100 text-indigo-700 shadow-sm border border-indigo-200"><i class="fas fa-lightbulb mr-1.5"></i>ไอเดียขาย</button>
+                     <button onclick="setAIMode('roleplay')" id="aiTab_roleplay" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-comments mr-1.5"></i>จำลองขาย</button>
+                     <button onclick="setAIMode('reader')" id="aiTab_reader" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-camera mr-1.5"></i>อ่านกรมธรรม์</button>
+                     <button onclick="setAIMode('health')" id="aiTab_health" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-heartbeat mr-1.5"></i>เช็คสุขภาพ</button>
+                     <button onclick="setAIMode('audio')" id="aiTab_audio" class="ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent"><i class="fas fa-volume-up mr-1.5"></i>บรรยายเสียง</button>
                 </div>
             </div>
             
-            <div class="flex-1 overflow-y-auto custom-scrollbar pb-[180px] px-4 pt-4 w-full flex flex-col relative scrollable-view">
+            <div class="flex-1 overflow-y-auto custom-scrollbar pb-[180px] px-4 pt-4 w-full flex flex-col relative scrollable-view bg-white/40">
                 
-                <div class="bg-[#f8fafc] rounded-[32px] shadow-inner border border-slate-200 w-full min-h-[400px] p-4 flex flex-col">
-
-                    <!-- Status / Result Container -->
-                    <div id="aiLoadingState" class="flex-1 flex flex-col items-center justify-center py-10">
+                <!-- Mode: Idea -->
+                <div id="aiContent_idea" class="ai-mode-panel bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full min-h-[400px] p-4 flex flex-col">
+                    <div id="aiLoadingState" class="flex-1 flex flex-col items-center justify-center py-10 hidden">
                         <div class="spinner mb-5"></div>
-                        <p class="text-[15px] font-bold text-slate-700 mt-5">กำลังประมวลผลกลยุทธ์...</p>
-                        <p class="text-[12px] text-slate-400 mt-1">วิเคราะห์จากข้อมูลเชิงลึกแบบเรียลไทม์</p>
+                        <p class="text-[14px] font-bold text-slate-700 mt-5">กำลังประมวลผลกลยุทธ์...</p>
+                        <p class="text-[11px] text-slate-400 mt-1">วิเคราะห์จากข้อมูลเชิงลึกแบบเรียลไทม์</p>
                     </div>
+                    <div id="aiResultState" class="hidden flex-1 flex-col px-1 py-2 ai-content text-[13px] sm:text-[14px] text-slate-700 w-full"></div>
+                    <div id="aiIdeaInit" class="flex-1 flex flex-col items-center justify-center py-10 text-center">
+                         <div class="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-400 text-2xl mb-4 border border-indigo-100 shadow-inner"><i class="fas fa-brain"></i></div>
+                         <h4 class="text-sm font-bold text-slate-700 mb-1">AI วิเคราะห์ไอเดียการขาย</h4>
+                         <p class="text-xs text-slate-400 mb-5 px-4 leading-relaxed">สร้างบทพูดเปิดใจ ตอบข้อโต้แย้ง และสรุปจุดขายจากงบประมาณที่คุณเพิ่งคำนวณ</p>
+                         <button onclick="generateAIAnalysis()" class="bg-gradient-to-r from-indigo-500 to-blue-600 text-white px-6 py-3 rounded-xl text-[13px] font-bold shadow-[0_4px_15px_rgba(79,70,229,0.3)] active:scale-95 transition-all"><i class="fas fa-magic mr-2"></i>เริ่มวิเคราะห์</button>
+                    </div>
+                </div>
+                
+                <!-- Mode: Roleplay -->
+                <div id="aiContent_roleplay" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mr-2"><i class="fas fa-comments"></i></div> ซ้อมตอบข้อโต้แย้ง</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">ให้ AI สวมบทบาทประเมินคำตอบของคุณ พร้อมแนะนำสคริปต์ที่ปิดการขายได้ดีขึ้น</p>
+                    <div class="space-y-3 mt-1">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">ลูกค้าพูดว่า</label>
+                            <input type="text" id="roleplayObjection" placeholder="เช่น เบี้ยแพงไป มีถูกกว่านี้ไหม?" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all text-slate-700">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">คุณ (ตัวแทน) จะตอบว่า</label>
+                            <textarea id="roleplayAgent" placeholder="เช่น คุณลูกค้าคะ แผนนี้คุ้มมากเลยนะคะ..." rows="3" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all resize-none text-slate-700"></textarea>
+                        </div>
+                    </div>
+                    <button onclick="runAIRoleplay()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(59,130,246,0.3)] active:scale-95 transition-all"><i class="fas fa-paper-plane mr-2"></i>ให้ AI ประเมินและแนะนำ</button>
+                    <div id="roleplayLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4"></div><p class="text-[12px] font-bold text-slate-500">AI กำลังประเมินคำตอบของคุณ...</p></div>
+                    <div id="roleplayResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
 
-                    <div id="aiResultState" class="hidden flex-1 flex-col px-1 py-2 ai-content text-[13px] sm:text-[14px] text-slate-700 w-full">
-                        <!-- Content injected by JS -->
+                <!-- Mode: Policy Reader -->
+                <div id="aiContent_reader" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center mr-2"><i class="fas fa-camera"></i></div> วิเคราะห์กรมธรรม์ด้วยภาพ</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">อัปโหลดภาพตารางกรมธรรม์เดิม เพื่อหาจุดอ่อนและสร้างโอกาสนำเสนอแผนใหม่</p>
+                    
+                    <label class="w-full border-2 border-dashed border-slate-300 bg-white rounded-[16px] p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 hover:border-emerald-300 transition-all mt-1 group">
+                        <div class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-cloud-upload-alt text-2xl text-emerald-500"></i>
+                        </div>
+                        <span class="text-[13px] font-bold text-slate-700">แตะเพื่ออัปโหลดภาพถ่าย</span>
+                        <span class="text-[10px] text-slate-400 mt-1">รองรับ JPG, PNG</span>
+                        <input type="file" class="hidden" accept="image/*" onchange="handlePolicyImageChange(event)">
+                    </label>
+                    <img id="policyImagePreview" class="hidden w-full h-auto rounded-[14px] shadow-sm border border-slate-200 mt-2 object-contain max-h-[300px]">
+                    <input type="hidden" id="policyImageBase64">
+                    
+                    <button onclick="runAIPolicy()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(16,185,129,0.3)] active:scale-95 transition-all"><i class="fas fa-search-plus mr-2"></i>ให้ AI อ่านรูปภาพนี้</button>
+                    <div id="policyLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-emerald-500 border-[rgba(16,185,129,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">Gemini Vision กำลังสแกนข้อความ...</p></div>
+                    <div id="policyResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Health Risk -->
+                <div id="aiContent_health" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-5 flex flex-col gap-3.5">
+                    <h4 class="text-[15px] font-bold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center mr-2"><i class="fas fa-heartbeat"></i></div> วิเคราะห์ความเสี่ยงสุขภาพ</h4>
+                    <p class="text-[11px] text-slate-500 mb-1 leading-relaxed">กรอกข้อมูลพื้นฐาน เพื่อให้ AI สร้าง Story ดึงสติ ชี้ให้ลูกค้าเห็นความเสี่ยงโรคร้าย</p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <div class="col-span-2">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">อาชีพ / ลักษณะงาน</label>
+                            <input type="text" id="healthOcc" placeholder="เช่น พนักงานออฟฟิศ, เจ้าของธุรกิจ" class="w-full bg-white border border-slate-200 rounded-[14px] px-4 py-3 text-[13px] outline-none focus:ring-2 focus:ring-rose-400 shadow-sm transition-all text-slate-700">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">ประวัติครอบครัว</label>
+                            <select id="healthFam" class="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-3 text-[12px] font-medium outline-none focus:ring-2 focus:ring-rose-400 shadow-sm text-slate-700">
+                                <option value="ไม่มี">ไม่มีประวัติ</option>
+                                <option value="มีมะเร็ง">มีประวัติ มะเร็ง</option>
+                                <option value="มีโรคหัวใจหรือความดัน">โรคหัวใจ / ความดัน</option>
+                                <option value="มีเบาหวาน">เบาหวาน</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wide ml-1 mb-1 block">การสูบบุหรี่ / ดื่ม</label>
+                            <select id="healthSmoke" class="w-full bg-white border border-slate-200 rounded-[14px] px-3 py-3 text-[12px] font-medium outline-none focus:ring-2 focus:ring-rose-400 shadow-sm text-slate-700">
+                                <option value="ไม่สูบและไม่ดื่ม">ไม่สูบ / ไม่ดื่ม</option>
+                                <option value="สูบบุหรี่">สูบบุหรี่</option>
+                                <option value="ดื่มจัด">ดื่มแอลกอฮอล์บ่อย</option>
+                                <option value="สูบและดื่ม">ทั้งสูบและดื่ม</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button onclick="runAIHealth()" class="w-full py-3.5 mt-2 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-[14px] text-[13px] font-bold shadow-[0_4px_15px_rgba(225,29,72,0.3)] active:scale-95 transition-all"><i class="fas fa-user-md mr-2"></i>ประเมินความเสี่ยงและสร้าง Story</button>
+                    <div id="healthLoading" class="hidden flex-col items-center py-8"><div class="spinner mb-4 border-l-rose-500 border-[rgba(225,29,72,0.1)]"></div><p class="text-[12px] font-bold text-slate-500">AI กำลังวิเคราะห์ปัจจัยเสี่ยง...</p></div>
+                    <div id="healthResult" class="hidden ai-content text-[13px] mt-4 border-t border-slate-200 pt-5"></div>
+                </div>
+
+                <!-- Mode: Audio Pitch -->
+                <div id="aiContent_audio" class="ai-mode-panel hidden bg-[#f8fafc] rounded-[24px] shadow-sm border border-slate-200 w-full p-6 flex flex-col items-center gap-4 text-center">
+                    <h4 class="text-[16px] font-bold text-slate-800 mb-1">เสียงบรรยายแผนอัตโนมัติ</h4>
+                    
+                    <div class="relative w-28 h-28 flex items-center justify-center my-4">
+                        <div id="audioRipple1" class="absolute inset-0 bg-blue-400/20 rounded-full animate-ping hidden" style="animation-duration: 2s;"></div>
+                        <div id="audioRipple2" class="absolute inset-2 bg-blue-500/20 rounded-full animate-pulse hidden"></div>
+                        <button onclick="toggleAudioPitch()" id="audioPlayBtn" class="relative z-10 w-20 h-20 bg-gradient-to-br from-[#1e3a8a] to-[#3b82f6] rounded-full shadow-[0_10px_25px_rgba(37,99,235,0.4)] flex items-center justify-center active:scale-95 transition-all hover:scale-105 border-[3px] border-white">
+                            <i id="audioPlayIcon" class="fas fa-play text-white text-3xl ml-1.5"></i>
+                        </button>
+                    </div>
+                    
+                    <p class="text-[12px] text-slate-500 px-2 leading-relaxed">
+                        ระบบจะใช้เทคโนโลยี Text-to-Speech เปลี่ยนข้อมูลแผนประกันที่คุณคำนวณล่าสุด เป็นเสียงบรรยายให้ลูกค้าฟัง
+                    </p>
+                    
+                    <div class="w-full text-left bg-blue-50/70 rounded-[16px] p-4 border border-blue-100 mt-3 shadow-inner">
+                       <p class="text-[11px] font-bold text-blue-800 mb-1.5 flex items-center"><i class="fas fa-quote-left mr-1.5 opacity-50"></i> สคริปต์ที่จะบรรยาย</p>
+                       <p id="audioScriptText" class="text-[12.5px] text-slate-600 leading-relaxed font-medium">กรุณาคำนวณเบี้ยประกันหน้าแรกก่อนครับ</p>
                     </div>
                 </div>
 
@@ -575,11 +688,12 @@
                 <button onclick="closePopup('aiMenuModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button>
             </div>
             <div class="space-y-2.5">
-                <button onclick="closePopup('aiMenuModal'); switchView('ai');" class="w-full flex justify-between items-center p-3.5 bg-blue-50 border border-blue-200 rounded-xl active:bg-blue-100 transition-colors group shadow-sm hover:bg-blue-100/50">
+                <button onclick="closePopup('aiMenuModal'); switchView('ai'); setAIMode('idea');" class="w-full flex justify-between items-center p-3.5 bg-blue-50 border border-blue-200 rounded-xl active:bg-blue-100 transition-colors group shadow-sm hover:bg-blue-100/50">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm"><i class="fas fa-lightbulb text-base"></i></div>
+                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm"><i class="fas fa-bolt text-base"></i></div>
                         <div class="text-left">
-                            <span class="text-[14px] font-bold text-blue-800 block">ไอเดียการขาย TOT</span>
+                            <span class="text-[14px] font-bold text-blue-800 block">ผู้ช่วย AI อัจฉริยะ</span>
+                            <span class="text-[10px] text-blue-600 font-medium mt-0.5 block">ไอเดียขาย, จำลองบท, อ่านภาพ, ฯลฯ</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-right text-xs text-blue-400"></i>
@@ -1764,56 +1878,111 @@
 
         // ==================== AI MODULE (BYOK) ====================
         
+        let sessionApiKey = '';
+
         function saveApiKey() {
             const keyInput = document.getElementById('apiKeyInputText').value.trim();
             if(keyInput) {
-                localStorage.setItem('my_gemini_api_key', keyInput);
+                sessionApiKey = keyInput;
+                try {
+                    localStorage.setItem('my_gemini_api_key', keyInput);
+                } catch(e) {
+                    console.warn("Storage restricted, using memory instead.");
+                }
                 closePopup('apiKeyModal');
                 showCongratsToast("บันทึกคีย์ AI เรียบร้อยแล้ว!");
-                generateAIAnalysis();
+                
+                // Re-run the active mode
+                setTimeout(() => {
+                    if (currentAIMode === 'idea') generateAIAnalysis();
+                    else if (currentAIMode === 'roleplay') runAIRoleplay();
+                    else if (currentAIMode === 'reader') runAIPolicy();
+                    else if (currentAIMode === 'health') runAIHealth();
+                }, 300);
             } else {
                 showCustomError("กรุณากรอก API Key");
             }
         }
 
         function getStoredApiKey() {
-            return localStorage.getItem('my_gemini_api_key');
+            if (sessionApiKey) return sessionApiKey;
+            try {
+                return localStorage.getItem('my_gemini_api_key');
+            } catch(e) {
+                return null;
+            }
         }
 
-        async function generateAIAnalysis() {
-            if (!lastCalculationData || lastCalculationData.premium === 0) return;
+        let currentAIMode = 'idea';
+        
+        function setAIMode(mode) {
+            currentAIMode = mode;
+            
+            // Tab styling
+            document.querySelectorAll('.ai-tab-btn').forEach(b => {
+                b.className = 'ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-medium text-slate-500 hover:bg-slate-100 transition-all border border-transparent';
+            });
+            const activeTab = document.getElementById(`aiTab_${mode}`);
+            if(activeTab) activeTab.className = 'ai-tab-btn flex-auto flex items-center justify-center px-3 py-2 rounded-[14px] text-[11px] font-bold transition-all bg-indigo-100 text-indigo-700 shadow-sm border border-indigo-200';
+            
+            // Panel visibility
+            document.querySelectorAll('.ai-mode-panel').forEach(p => p.classList.add('hidden'));
+            const activeContent = document.getElementById(`aiContent_${mode}`);
+            if(activeContent) activeContent.classList.remove('hidden');
 
+            if (mode === 'audio') updateAudioScriptText();
+            if (speechSynthesis.speaking && mode !== 'audio') toggleAudioPitch(); // Stop audio if switched away
+        }
+
+        async function callGeminiAPI(payloadParts, systemPromptText) {
             const apiKey = getStoredApiKey();
-            if (!apiKey) {
-                document.getElementById('aiResultState').classList.add('hidden');
-                document.getElementById('aiLoadingState').classList.add('hidden');
-                openPopup('apiKeyModal');
-                return;
+            if(!apiKey) throw new Error("NO_API_KEY");
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ role: "user", parts: payloadParts }],
+                systemInstruction: { parts: [{ text: systemPromptText }] }
+            };
+
+            const delays = [1000, 2000, 4000, 8000];
+            for (let attempt = 0; attempt < 4; attempt++) {
+                try {
+                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) {
+                        if(response.status === 400 || response.status === 403) throw new Error("INVALID_API_KEY");
+                        throw new Error('API Error');
+                    }
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/```html/g, '').replace(/```/g, '').trim() || '';
+                } catch (error) {
+                    if(error.message === "INVALID_API_KEY" || error.message === "NO_API_KEY") throw error;
+                    if (attempt === 3) throw new Error("TIMEOUT");
+                    await new Promise(resolve => setTimeout(resolve, delays[attempt]));
+                }
             }
+        }
 
-            const d = lastCalculationData;
+        function handleAIError(e) {
+            if(e.message === "NO_API_KEY" || e.message === "INVALID_API_KEY") {
+                if(e.message === "INVALID_API_KEY") {
+                    sessionApiKey = '';
+                    try { localStorage.removeItem('my_gemini_api_key'); } catch(err) {}
+                }
+                openPopup('apiKeyModal');
+            } else {
+                showCustomError("AI ขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง");
+            }
+        }
 
+        // --- 1. Idea Mode ---
+        async function generateAIAnalysis() {
+            if (!lastCalculationData || lastCalculationData.premium === 0) return showCustomError("กรุณาคำนวณเบี้ยประกันหน้าแรกก่อน");
+            
+            document.getElementById('aiIdeaInit').classList.add('hidden');
             document.getElementById('aiLoadingState').classList.remove('hidden');
             document.getElementById('aiLoadingState').classList.add('flex');
             document.getElementById('aiResultState').classList.add('hidden');
-            document.getElementById('aiResultState').innerHTML = '';
-
-            const aiContent = await callGeminiAPI(d, apiKey);
             
-            document.getElementById('aiLoadingState').classList.add('hidden');
-            document.getElementById('aiLoadingState').classList.remove('flex');
-            
-            const resultState = document.getElementById('aiResultState');
-            
-            resultState.innerHTML = aiContent;
-            resultState.classList.remove('hidden');
-            resultState.classList.add('flex', 'flex-col');
-        }
-
-        async function callGeminiAPI(userData, apiKey) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            
-            const systemPrompt = `คุณคือผู้เชี่ยวชาญด้านการวางแผนการเงินและที่ปรึกษาประกันชีวิตระดับมืออาชีพ 
+            const sysPrompt = `คุณคือผู้เชี่ยวชาญด้านการวางแผนการเงินและที่ปรึกษาประกันชีวิตระดับมืออาชีพ 
             วิเคราะห์ข้อมูลที่ได้รับแบบเรียลไทม์ เพื่อให้คำแนะนำในการนำเสนอขายที่เหมาะสมกับบริบทของลูกค้าแต่ละรายอย่างเป็นธรรมชาติ
             กรุณาสร้างบทวิเคราะห์เป็น HTML เท่านั้น โดยใช้โครงสร้างนี้เป๊ะๆ (ห้ามเปลี่ยน Tag หรือ Class):
             <h4><i class="fas fa-search"></i> วิเคราะห์ความต้องการ</h4>
@@ -1825,41 +1994,180 @@
             <h4><i class="fas fa-handshake"></i> บทสรุปและจุดขาย</h4>
             <ul><li><strong>[จุดเด่น]:</strong> [เน้นย้ำความคุ้มค่าของวงเงินและงบประมาณที่ส่ง]</li></ul>
             ข้อห้าม: ห้ามใช้ภาษาอังกฤษยกเว้นคำศัพท์เฉพาะทาง, ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "เงินออม" หรือ "งบประมาณ"), ห้ามใช้คำว่า "ทุน" (ให้ใช้ "วงเงินคุ้มครอง" หรือ "เงินสำรอง")`;
-
-            const userPrompt = `ประมวลผลข้อมูลลูกค้าแบบเรียลไทม์:\nแบบประกัน: ${currentAppPlan}\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nงบประมาณ: ${formatNum(userData.premium)} บาท/ปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userPrompt }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            };
-
-            const delays = [1000, 2000, 4000, 8000];
             
-            for (let attempt = 0; attempt < 4; attempt++) {
-                try {
-                    const response = await fetch(url, { 
-                        method: 'POST', 
-                        headers: { 'Content-Type': 'application/json' }, 
-                        body: JSON.stringify(payload) 
-                    });
-                    
-                    if (!response.ok) {
-                        if(response.status === 400 || response.status === 403) {
-                            localStorage.removeItem('my_gemini_api_key');
-                            return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-key text-[45px] text-red-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">API Key ไม่ถูกต้อง</p><p class="text-[13px] text-slate-400 mt-1 mb-4">กรุณาตรวจสอบและตั้งค่าใหม่อีกครั้ง</p><button onclick="openPopup('apiKeyModal')" class="px-4 py-2 bg-slate-100 rounded-xl text-xs font-bold text-slate-600 border border-slate-200">ตั้งค่า API Key ใหม่</button></div>`;
-                        }
-                        throw new Error('API Error');
-                    }
-                    
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/```html/g, '').replace(/```/g, '').trim() || '';
-                } catch (error) {
-                    if (attempt === 3) {
-                        return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-robot text-[45px] text-slate-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">AI ขัดข้องชั่วคราว</p><p class="text-[13px] text-slate-400 mt-1">กรุณาลองกดปุ่ม AI ใหม่อีกครั้ง</p></div>`;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, delays[attempt]));
-                }
+            const d = lastCalculationData;
+            const parts = [{text: `แบบประกัน: ${currentAppPlan}\nเพศ: ${d.gender}\nอายุ: ${d.age} ปี\nงบประมาณ: ${formatNum(d.premium)} บาท/ปี\nวงเงินคุ้มครอง: ${formatNum(d.sum)} บาท`}];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('aiResultState').innerHTML = res;
+                document.getElementById('aiResultState').classList.remove('hidden');
+                document.getElementById('aiResultState').classList.add('flex');
+            } catch(e) {
+                document.getElementById('aiIdeaInit').classList.remove('hidden');
+                handleAIError(e);
+            } finally {
+                document.getElementById('aiLoadingState').classList.add('hidden');
+                document.getElementById('aiLoadingState').classList.remove('flex');
             }
+        }
+
+        // --- 2. Roleplay Mode ---
+        async function runAIRoleplay() {
+            const obj = document.getElementById('roleplayObjection').value.trim() || 'เบี้ยแพงเกินไป';
+            const agent = document.getElementById('roleplayAgent').value.trim() || 'เงียบ...';
+            
+            document.getElementById('roleplayLoading').classList.remove('hidden');
+            document.getElementById('roleplayLoading').classList.add('flex');
+            document.getElementById('roleplayResult').classList.add('hidden');
+            
+            const sysPrompt = `คุณคือเทรนเนอร์สอนการขายประกันชีวิต ประเมินคำตอบของตัวแทน และแนะนำวิธีการตอบข้อโต้แย้งที่ดีกว่าโดยใช้หลักการขายที่เห็นอกเห็นใจลูกค้า 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ (ห้ามเปลี่ยน Tag หรือ Class): 
+            <h4><i class="fas fa-clipboard-check text-indigo-500"></i> ประเมินคำตอบของคุณ</h4> <p class="mb-3">...</p> 
+            <h4><i class="fas fa-lightbulb text-amber-500"></i> คำแนะนำที่ดีกว่า (สคริปต์)</h4> <div class='ai-quote'>...</div>`;
+            const d = lastCalculationData || {premium:0, sum:0, gender:'ชาย', age:30};
+            const parts = [{text: `ลูกค้าพูดว่า: ${obj}\nตัวแทนตอบว่า: ${agent}\nแบบประกันที่เสนอ: ${currentAppPlan} เบี้ย ${d.premium} ทุน ${d.sum} อายุ ${d.age}`}];
+            
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('roleplayResult').innerHTML = res;
+                document.getElementById('roleplayResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('roleplayLoading').classList.add('hidden');
+                document.getElementById('roleplayLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 3. Policy Reader Mode ---
+        function handlePolicyImageChange(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('policyImagePreview').src = e.target.result;
+                document.getElementById('policyImagePreview').classList.remove('hidden');
+                document.getElementById('policyImageBase64').value = e.target.result.split(',')[1];
+                document.getElementById('policyImageBase64').setAttribute('data-mime', file.type);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function runAIPolicy() {
+            const b64 = document.getElementById('policyImageBase64').value;
+            const mime = document.getElementById('policyImageBase64').getAttribute('data-mime') || 'image/jpeg';
+            if(!b64) return showCustomError("กรุณาอัปโหลดรูปกรมธรรม์ก่อน");
+
+            document.getElementById('policyLoading').classList.remove('hidden');
+            document.getElementById('policyLoading').classList.add('flex');
+            document.getElementById('policyResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือผู้เชี่ยวชาญการวิเคราะห์กรมธรรม์ประกันชีวิต อ่านข้อมูลจากรูปภาพตารางกรมธรรม์เดิมของลูกค้า สรุปผลประโยชน์ที่มีอยู่ (เช่น ค่าห้อง วงเงิน) และแนะนำจุดที่ยังขาดหายไป พร้อมเสนอไอเดียว่าทำไมเขาถึงควรทำแผนใหม่ที่ตัวแทนกำลังเสนอ 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-file-contract text-emerald-500"></i> สรุปกรมธรรม์เดิม</h4> <ul><li>...</li></ul> 
+            <h4><i class="fas fa-plus-circle text-blue-500"></i> จุดที่ควรเติมเต็ม</h4> <div class='ai-quote'>...</div>`;
+            const d = lastCalculationData || {premium:0, sum:0};
+            const parts = [
+                { text: `วิเคราะห์ภาพกรมธรรม์นี้ และเชื่อมโยงว่าแผน ${currentAppPlan} เบี้ย ${formatNum(d.premium)} ทุน ${formatNum(d.sum)} จะเข้าไปตอบโจทย์ส่วนที่ขาดได้อย่างไร` },
+                { inlineData: { mimeType: mime, data: b64 } }
+            ];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('policyResult').innerHTML = res;
+                document.getElementById('policyResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('policyLoading').classList.add('hidden');
+                document.getElementById('policyLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 4. Health Risk Profiler Mode ---
+        async function runAIHealth() {
+            const occ = document.getElementById('healthOcc').value.trim() || 'ไม่ได้ระบุ';
+            const fam = document.getElementById('healthFam').value;
+            const smoke = document.getElementById('healthSmoke').value;
+
+            document.getElementById('healthLoading').classList.remove('hidden');
+            document.getElementById('healthLoading').classList.add('flex');
+            document.getElementById('healthResult').classList.add('hidden');
+
+            const sysPrompt = `คุณคือแพทย์และที่ปรึกษาการเงิน วิเคราะห์ความเสี่ยงสุขภาพตามโปรไฟล์ และเล่าเป็น Story สั้นๆ ดึงสติลูกค้าให้เห็นความสำคัญของการทำประกันโรคร้ายแรง/สุขภาพ 
+            ตอบเป็น HTML โครงสร้างเป๊ะๆ: 
+            <h4><i class="fas fa-exclamation-triangle text-rose-500"></i> ความเสี่ยงของคุณ</h4> <ul><li>...</li></ul> 
+            <h4><i class="fas fa-book-open text-indigo-500"></i> Story ดึงสติ</h4> <div class='ai-quote'>...</div>`;
+            const d = lastCalculationData || {premium:0, sum:0, gender:'ชาย', age:30};
+            const parts = [{text: `เพศ: ${d.gender}, อายุ: ${d.age}, อาชีพ: ${occ}, ประวัติครอบครัว: ${fam}, พฤติกรรม: ${smoke}. ช่วยชี้ Pain point ทำไมต้องทำ ${currentAppPlan} วงเงิน ${formatNum(d.sum)}`}];
+
+            try {
+                const res = await callGeminiAPI(parts, sysPrompt);
+                document.getElementById('healthResult').innerHTML = res;
+                document.getElementById('healthResult').classList.remove('hidden');
+            } catch(e) {
+                handleAIError(e);
+            } finally {
+                document.getElementById('healthLoading').classList.add('hidden');
+                document.getElementById('healthLoading').classList.remove('flex');
+            }
+        }
+
+        // --- 5. Audio Pitch Mode ---
+        function updateAudioScriptText() {
+            if (!lastCalculationData) {
+                document.getElementById('audioScriptText').innerText = "กรุณาคำนวณเบี้ยประกันหน้าแรกก่อนครับ";
+                return;
+            }
+            const d = lastCalculationData;
+            let text = `สวัสดีค่ะ ขออนุญาตสรุปจุดเด่นของแผน ${currentAppPlan} นะคะ สำหรับเพศ${d.gender} อายุ ${d.age} ปี เพียงจัดสรรเงินออม ${formatNum(d.premium)} บาทต่อปี จะได้รับวงเงินความคุ้มครองทันที ${formatNum(d.sum)} บาท ค่ะ`;
+            
+            // Add a little extra for CI Extra Plus
+            if(currentAppPlan === 'CI Extra Plus') {
+                text += ` พิเศษหากพบ 1 ใน 45 โรคร้ายแรง จะได้รับเงินก้อน และหยุดชำระเงินออมทันทีค่ะ มั่นใจได้ว่ามีเงินสำรองดูแลสุขภาพแน่นอนค่ะ`;
+            }
+            
+            document.getElementById('audioScriptText').innerText = text;
+        }
+
+        let currentUtterance = null;
+        function toggleAudioPitch() {
+            const SpeechSynthesis = window.speechSynthesis;
+            if (!SpeechSynthesis) return showCustomError('อุปกรณ์ไม่รองรับระบบเสียง');
+            
+            const btnIcon = document.getElementById('audioPlayIcon');
+            const r1 = document.getElementById('audioRipple1');
+            const r2 = document.getElementById('audioRipple2');
+
+            if (SpeechSynthesis.speaking) {
+                SpeechSynthesis.cancel();
+                btnIcon.className = 'fas fa-play text-white text-3xl ml-1.5';
+                r1.classList.add('hidden'); r2.classList.add('hidden');
+                return;
+            }
+
+            if (!lastCalculationData) return showCustomError('กรุณาคำนวณเบี้ยประกันก่อน');
+            
+            const textToSpeak = document.getElementById('audioScriptText').innerText;
+            currentUtterance = new SpeechSynthesisUtterance(textToSpeak);
+            currentUtterance.lang = 'th-TH';
+            currentUtterance.rate = 1.0;
+            
+            currentUtterance.onend = () => {
+                btnIcon.className = 'fas fa-play text-white text-3xl ml-1.5';
+                r1.classList.add('hidden'); r2.classList.add('hidden');
+            };
+            
+            currentUtterance.onerror = () => {
+                btnIcon.className = 'fas fa-play text-white text-3xl ml-1.5';
+                r1.classList.add('hidden'); r2.classList.add('hidden');
+            };
+            
+            SpeechSynthesis.speak(currentUtterance);
+            
+            btnIcon.className = 'fas fa-stop text-white text-3xl';
+            r1.classList.remove('hidden'); r2.classList.remove('hidden');
         }
 
         let pendingInstallmentData = {};
