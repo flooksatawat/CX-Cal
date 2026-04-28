@@ -1233,49 +1233,36 @@
             if (!bottomNav) return;
             
             document.querySelectorAll('.scrollable-view').forEach(el => {
-                let lastScrollTop = 0;
-                let isHidden = false; // ติดตามสถานะของเมนู
+                let lastScrollTop = el.scrollTop;
                 
                 el.addEventListener('scroll', function() {
                     let st = this.scrollTop;
                     
-                    // 1. ถ้าอยู่บนสุด (ระยะไม่เกิน 15px) ให้แสดงเมนูเสมอ
-                    if (st <= 15) {
-                        if (isHidden) {
-                            bottomNav.style.transform = 'translateY(0)';
-                            bottomNav.style.opacity = '1';
-                            isHidden = false;
-                        }
+                    // 1. ถ้าหน้าจออยู่บนสุด ให้แสดงเมนูเสมอ
+                    if (st <= 10) {
+                        bottomNav.style.transform = 'translateY(0)';
+                        bottomNav.style.opacity = '1';
                         lastScrollTop = st;
                         return;
                     }
                     
-                    // ป้องกันค่ารวนเวลาเกิด Rubber band บน iOS/Android
+                    // ป้องกันปัญหายางยืด (Rubber band) ในหน้าจอมือถือ
                     if (st < 0 || st + this.clientHeight >= this.scrollHeight) {
                         return;
                     }
                     
-                    // ป้องกันความไวของนิ้ว (Threshold)
-                    if (Math.abs(lastScrollTop - st) <= 5) return; 
-                    
                     // 2. ถ้าเลื่อนหน้าจอลง (Scroll Down) ให้ซ่อนเมนู
-                    if (st > lastScrollTop) {
-                        if (!isHidden) {
-                            bottomNav.style.transform = 'translateY(150%)';
-                            bottomNav.style.opacity = '0';
-                            isHidden = true;
-                        }
+                    if (st > lastScrollTop + 8) { 
+                        bottomNav.style.transform = 'translateY(150%)';
+                        bottomNav.style.opacity = '0';
+                        lastScrollTop = st;
                     } 
                     // 3. ถ้าเลื่อนหน้าจอขึ้น (Scroll Up) ให้แสดงเมนู
-                    else if (st < lastScrollTop) {
-                        if (isHidden) {
-                            bottomNav.style.transform = 'translateY(0)';
-                            bottomNav.style.opacity = '1';
-                            isHidden = false;
-                        }
+                    else if (st < lastScrollTop - 8) {
+                        bottomNav.style.transform = 'translateY(0)';
+                        bottomNav.style.opacity = '1';
+                        lastScrollTop = st;
                     }
-                    
-                    lastScrollTop = st;
                 }, { passive: true });
             });
         }
