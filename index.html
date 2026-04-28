@@ -1233,7 +1233,7 @@
             if (!bottomNav) return;
             
             document.querySelectorAll('.scrollable-view').forEach(el => {
-                let lastScrollTop = el.scrollTop;
+                let lastScrollTop = 0;
                 
                 el.addEventListener('scroll', function() {
                     let st = this.scrollTop;
@@ -1246,23 +1246,24 @@
                         return;
                     }
                     
-                    // ป้องกันปัญหายางยืด (Rubber band) ในหน้าจอมือถือ
-                    if (st < 0 || st + this.clientHeight >= this.scrollHeight) {
+                    // 2. ป้องกันปัญหาหน้าจอยางยืด (Rubber band effect) บนมือถือ
+                    if (st < 0 || st >= (this.scrollHeight - this.clientHeight)) {
                         return;
                     }
                     
-                    // 2. ถ้าเลื่อนหน้าจอลง (Scroll Down) ให้ซ่อนเมนู
-                    if (st > lastScrollTop + 8) { 
+                    // 3. ตรวจจับการเลื่อนขึ้น/ลง (หน่วงความไวเล็กน้อยเพื่อความสมูท)
+                    if (Math.abs(lastScrollTop - st) <= 5) return; 
+                    
+                    if (st > lastScrollTop) { 
+                        // เลื่อนลง (Scroll Down) -> ซ่อนเมนู
                         bottomNav.style.transform = 'translateY(150%)';
                         bottomNav.style.opacity = '0';
-                        lastScrollTop = st;
-                    } 
-                    // 3. ถ้าเลื่อนหน้าจอขึ้น (Scroll Up) ให้แสดงเมนู
-                    else if (st < lastScrollTop - 8) {
+                    } else {
+                        // เลื่อนขึ้น (Scroll Up) -> แสดงเมนู
                         bottomNav.style.transform = 'translateY(0)';
                         bottomNav.style.opacity = '1';
-                        lastScrollTop = st;
                     }
+                    lastScrollTop = st;
                 }, { passive: true });
             });
         }
