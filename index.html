@@ -36,13 +36,13 @@
         .ambient-glow-1 { position: absolute; top: -10%; right: -15%; width: 350px; height: 350px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%); border-radius: 50%; filter: blur(40px); }
         .ambient-glow-2 { position: absolute; bottom: 10%; left: -15%; width: 350px; height: 350px; background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, rgba(16,185,129,0) 70%); border-radius: 50%; filter: blur(40px); }
 
-        /* ==================== GLASSMORPHISM & UTILS (ADAPTIVE SAFE AREA) ==================== */
+        /* ==================== GLASSMORPHISM & UTILS ==================== */
         .glass-header { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.6); }
         .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 -10px 40px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.8); }
         
-        /* บังคับระยะขอบปลอดภัยให้มือถือจอพับ/จอยาว แสดงผลตรงกลางสวยงาม */
+        /* ปรับลดระยะขอบด้านบนให้พอดีกับหน้าจอ */
         .pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 24px); }
-        .pt-safe { padding-top: max(env(safe-area-inset-top), 44px); }
+        .pt-safe { padding-top: max(env(safe-area-inset-top), 16px); } /* ลดจาก 44px เหลือ 16px */
 
         /* ==================== INPUTS & CARDS (ULTRA PREMIUM) ==================== */
         .premium-card { 
@@ -141,8 +141,8 @@
         <!-- ==================== VIEW 1: MAIN FORM ==================== -->
         <div id="mainView" class="flex flex-col flex-1 overflow-hidden w-full relative">
             
-            <!-- App Header (Adaptive Top Spacing) -->
-            <div class="w-full z-20 pt-safe px-4 pb-1 shrink-0 relative">
+            <!-- App Header (Reduced Top Spacing) -->
+            <div class="w-full z-20 pt-safe px-4 pb-1 shrink-0 relative mt-2">
                 <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[24px] py-4 px-4 flex flex-col items-center justify-center shadow-[0_12px_30px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
                     <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[24px]"></div>
                     
@@ -166,21 +166,21 @@
                     <div class="flex flex-col gap-3 shrink-0">
                         <div class="grid grid-cols-2 gap-3">
                             <div class="premium-card !p-1.5 flex h-[52px]">
-                                <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[14px] text-[15px] font-bold active-male text-white transition-all">ชาย</button>
-                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[14px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
+                                <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[16px] text-[15px] font-bold active-male text-white transition-all">ชาย</button>
+                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[16px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
                             </div>
                             <div class="premium-card !p-1.5 flex items-center justify-between h-[52px]">
-                                <button onclick="adjustAge(-1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[14px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-sm"></i></button>
+                                <button onclick="adjustAge(-1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[16px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-sm"></i></button>
                                 <input type="number" id="ageInput" value="30" min="0" max="65" class="w-12 bg-transparent border-none text-center font-black text-[22px] text-slate-800 outline-none p-0" oninput="calculate(currentMode)">
-                                <button onclick="adjustAge(1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[14px] hover:bg-slate-50 transition-colors"><i class="fas fa-plus text-sm"></i></button>
+                                <button onclick="adjustAge(1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[16px] hover:bg-slate-50 transition-colors"><i class="fas fa-plus text-sm"></i></button>
                             </div>
                         </div>
                         <div id="planSelectionWrapper" class="shrink-0">
                             <div class="premium-card !p-1.5 flex h-[52px]" id="planSelectionContainer">
-                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">10CX</button>
-                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all">20CX</button>
-                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[14px] text-[14px] font-bold hidden text-slate-500 transition-all">60</button>
-                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[14px] text-[14px] font-bold hidden text-slate-500 transition-all">90</button>
+                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[16px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">10CX</button>
+                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[16px] text-[14px] font-bold active-blue text-white transition-all">20CX</button>
+                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[16px] text-[14px] font-bold hidden text-slate-500 transition-all">60</button>
+                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[16px] text-[14px] font-bold hidden text-slate-500 transition-all">90</button>
                             </div>
                         </div>
                     </div>
@@ -274,7 +274,7 @@
 
         <!-- ==================== VIEW 3: CASH ==================== -->
         <div id="cashView" class="hidden flex flex-col flex-1 overflow-hidden w-full relative z-10">
-            <div class="w-full z-20 pt-safe px-4 pb-1 shrink-0 relative mt-4">
+            <div class="w-full z-20 pt-safe px-4 pb-1 shrink-0 relative mt-2">
                 <div class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[24px] py-5 px-4 flex flex-col items-center justify-center shadow-[0_12px_30px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[24px]"></div>
                     <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-400/15 rounded-full blur-[20px] pointer-events-none"></div>
@@ -296,7 +296,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#ecfdf5] text-[#10b981] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-wallet"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">รายได้จากเคสนี้</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">รายได้จากเคสนี้</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-emerald-50 group-hover:text-emerald-500 transition-colors">
@@ -308,7 +308,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#fffbeb] text-[#f59e0b] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-hand-holding-usd"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">คอมมิชชัน</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">คอมมิชชัน</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-amber-50 group-hover:text-amber-500 transition-colors">
@@ -320,7 +320,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#eff6ff] text-[#3b82f6] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-gift"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">โบนัสรายเดือน (MB)</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">โบนัสรายเดือน (MB)</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
@@ -332,7 +332,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#f5f3ff] text-[#8b5cf6] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-calendar-check"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">โบนัสครึ่งปี (MYB)</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">โบนัสครึ่งปี (MYB)</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-purple-50 group-hover:text-purple-500 transition-colors">
@@ -344,7 +344,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#ecfeff] text-[#06b6d4] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-star"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">โบนัสตัวแทนใหม่ (NAB)</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">โบนัสตัวแทนใหม่ (NAB)</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-cyan-50 group-hover:text-cyan-500 transition-colors">
@@ -357,12 +357,16 @@
 
         <!-- ==================== VIEW 4: AI ADVISOR ==================== -->
         <div id="aiView" class="hidden flex flex-col flex-1 overflow-hidden w-full relative z-10">
-            <div class="glass-header flex justify-between items-center px-6 pt-safe pb-4 shrink-0 relative z-20 border-b border-slate-200 mt-3">
+            <div class="glass-header flex justify-between items-center px-6 pt-safe pb-4 shrink-0 relative z-20 border-b border-slate-200 mt-1">
                 <div class="flex items-center gap-4">
-                    <div class="w-[42px] h-[42px] bg-gradient-to-br from-indigo-500 to-purple-500 rounded-[14px] shadow-sm"></div>
+                    <div class="w-[46px] h-[46px] bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 rounded-[16px] shadow-[0_8px_20px_rgba(79,70,229,0.3)] flex items-center justify-center shrink-0 border border-white/50 relative overflow-hidden">
+                        <!-- เอฟเฟกต์แสงสะท้อนกระจก -->
+                        <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
+                        <i class="fas fa-circle-nodes text-white text-[24px] relative z-10 drop-shadow-md"></i>
+                    </div>
                     <div class="flex flex-col justify-center">
-                        <h3 class="text-[18px] font-black text-[#0f172a] leading-tight">วิเคราะห์การนำเสนอ</h3>
-                        <p class="text-[11px] text-indigo-600 font-bold uppercase tracking-wide">MDRT/TOT Strategy AI</p>
+                        <h3 class="text-[19px] font-black text-[#0f172a] leading-tight mb-0.5">ที่ปรึกษา AI</h3>
+                        <p class="text-[11px] text-indigo-600 font-bold uppercase tracking-wide">Smart AI Advisor</p>
                     </div>
                 </div>
             </div>
@@ -397,7 +401,7 @@
                     </div>
                 </button>
                 <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('cash')"><i class="fas fa-money-bill-trend-up text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">CASH</span></button>
-                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('ai')"><i class="fas fa-sparkles text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">AI</span></button>
+                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('ai')"><i class="fas fa-circle-nodes text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">AI</span></button>
             </div>
             <div class="text-center font-bold text-[10px] text-slate-400/80 tracking-[0.15em] uppercase w-full pb-1.5 pt-1 pointer-events-auto">&copy; SATAWAT BUTTRAKAS</div>
         </div>
@@ -1053,34 +1057,6 @@
             if (!lastCalculationData || lastCalculationData.premium === 0) return;
 
             const d = lastCalculationData;
-            
-            let sumVal = '';
-            let sumUnit = '';
-            if (d.sum >= 1000000 && d.sum % 1000000 === 0) {
-                sumVal = (d.sum/1000000).toString();
-                sumUnit = 'ล้าน';
-            } else if (d.sum >= 100000 && d.sum % 100000 === 0) {
-                sumVal = (d.sum/100000).toString();
-                sumUnit = 'แสน';
-            } else {
-                sumVal = formatNum(d.sum);
-                sumUnit = 'บาท';
-            }
-
-            const aiInfoGender = document.getElementById('aiInfoGender');
-            if(aiInfoGender) aiInfoGender.innerText = d.gender;
-            
-            const aiInfoAge = document.getElementById('aiInfoAge');
-            if(aiInfoAge) aiInfoAge.innerText = d.age;
-            
-            const aiInfoPremium = document.getElementById('aiInfoPremium');
-            if(aiInfoPremium) aiInfoPremium.innerText = formatNum(d.premium);
-            
-            const aiInfoSumVal = document.getElementById('aiInfoSumVal');
-            if(aiInfoSumVal) aiInfoSumVal.innerText = sumVal;
-            
-            const aiInfoSumUnit = document.getElementById('aiInfoSumUnit');
-            if(aiInfoSumUnit) aiInfoSumUnit.innerText = sumUnit;
 
             document.getElementById('aiLoadingState').classList.remove('hidden');
             document.getElementById('aiLoadingState').classList.add('flex');
@@ -1093,6 +1069,8 @@
             document.getElementById('aiLoadingState').classList.remove('flex');
             
             const resultState = document.getElementById('aiResultState');
+            
+            // Display Result
             resultState.innerHTML = aiContent;
             resultState.classList.remove('hidden');
             resultState.classList.add('flex');
