@@ -160,7 +160,8 @@
 
             <!-- Content Area (Optimized Gaps to bring Premium card up) -->
             <div class="content-area pt-3 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
-                <div class="w-full flex flex-col flex-1 min-h-0 gap-2 pb-[110px]">
+                <!-- ลบ flex-1 และ pb-[200px] ออก เพื่อใช้ Spacer แทน -->
+                <div class="w-full flex flex-col gap-2">
                     
                     <!-- Top Toggles -->
                     <div class="flex flex-col gap-2 shrink-0">
@@ -227,30 +228,34 @@
                     </div>
                     
                     <!-- Action Buttons -->
-                    <div class="pb-2 shrink-0 flex flex-col gap-3 mt-1">
-                        <div class="grid grid-cols-4 gap-3">
-                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[54px] font-bold flex justify-center items-center gap-2 text-[16px]">
+                    <div class="pb-2 shrink-0 flex flex-col gap-2 mt-0.5">
+                        <div class="grid grid-cols-4 gap-2">
+                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[48px] font-bold flex justify-center items-center gap-2 text-[15px]">
                                 <i class="fas fa-file-alt text-lg"></i> ดูรายละเอียด
                             </button>
-                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[54px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[12px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
+                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[48px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[11px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
                                 <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[16px]"></div>
-                                <i class="fas fa-share-nodes text-[20px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
+                                <i class="fas fa-share-nodes text-[18px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
                                 <span class="relative z-10 drop-shadow-sm tracking-wide">แชร์</span>
                             </button>
                         </div>
                         
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-credit-card text-blue-500"></i> ตัวเลือกชำระ
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-building-columns text-emerald-500"></i> บัญชีโอนเงิน
                             </button>
                         </div>
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
                             <i class="fas fa-laptop-code"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                         </button>
                     </div>
+
+                    <!-- บังคับสร้างพื้นที่ว่างด้านล่างเพื่อให้เลื่อนจอได้ 100% -->
+                    <div class="h-[140px] shrink-0 w-full pointer-events-none"></div>
+
                 </div>
             </div>
         </div>
