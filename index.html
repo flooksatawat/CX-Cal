@@ -177,7 +177,7 @@
 
             <!-- Content Area -->
             <div class="content-area pt-4 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
-                <div class="w-full flex flex-col flex-1 min-h-0 gap-3 pb-[110px]">
+                <div class="w-full flex flex-col flex-1 min-h-0 gap-3 pb-[140px]">
                     
                     <!-- Top Toggles -->
                     <div class="flex flex-col gap-3 shrink-0">
@@ -348,7 +348,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 px-4 py-3 min-h-0 flex flex-col overflow-y-auto custom-scrollbar pb-[110px] scrollable-view">
+            <div class="flex-1 px-4 py-3 min-h-0 flex flex-col overflow-y-auto custom-scrollbar pb-[140px] scrollable-view">
                 <div class="flex flex-col gap-3.5 w-full max-w-sm mx-auto mt-2 px-1">
                     
                     <button onclick="openPopup('caseIncomeModal')" class="w-full p-4 bg-white rounded-[24px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-100 flex items-center justify-between active:scale-[0.98] transition-all hover:shadow-[0_6px_25px_rgba(0,0,0,0.06)] group">
@@ -1688,7 +1688,6 @@
             if (planName === 'Signature Legacy' || planName === 'Convertable Term') {
                 if(pLabel) pLabel.innerText = "เบี้ยประกัน (บาท)"; 
                 if(pPills) pPills.classList.add('hidden'); 
-                if (planName === 'Convertable Term' && planSelectionWrapper) planSelectionWrapper.classList.add('hidden');
             }
             
             if (['Life Protector 20', 'Supreme Life Protector', '24 TX', '868 / 818 Elite Saving'].includes(planName)) {
@@ -2089,7 +2088,9 @@
         async function callGeminiAPI(payloadParts, systemPromptText) {
             const apiKey = getStoredApiKey();
             if(!apiKey) throw new Error("NO_API_KEY");
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            // เปลี่ยนมาใช้โมเดล 1.5 Flash เพื่อให้รองรับ API Key ของผู้ใช้ทุกคนแบบ 100%
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
             const payload = {
                 contents: [{ role: "user", parts: payloadParts }],
                 systemInstruction: { parts: [{ text: systemPromptText }] }
@@ -2100,7 +2101,7 @@
                 try {
                     const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
                     if (!response.ok) {
-                        if(response.status === 400 || response.status === 403) throw new Error("INVALID_API_KEY");
+                        if(response.status === 400 || response.status === 403 || response.status === 404) throw new Error("INVALID_API_KEY");
                         throw new Error('API Error');
                     }
                     const data = await response.json();
@@ -2118,6 +2119,8 @@
                 if(e.message === "INVALID_API_KEY") {
                     sessionApiKey = '';
                     try { localStorage.removeItem('my_gemini_api_key'); } catch(err) {}
+                    // แสดงแจ้งเตือนให้ผู้ใช้ทราบว่าคีย์ผิด
+                    showCustomError("API Key ไม่ถูกต้อง หรือไม่สามารถใช้งานได้");
                 }
                 openPopup('apiKeyModal');
             } else {
@@ -2352,7 +2355,9 @@
                 });
                 
                 if (!response.ok) {
-                    if(response.status === 400 || response.status === 403) throw new Error("INVALID_API_KEY");
+                    if(response.status === 400) throw new Error("INVALID_API_KEY");
+                    // แยก Error ออกมา ไม่ให้ลบคีย์ทิ้งหากผู้ใช้ไม่มีสิทธิ์เข้าถึงฟีเจอร์สร้างภาพ
+                    if(response.status === 403 || response.status === 404) throw new Error("MODEL_NOT_SUPPORTED");
                     throw new Error('API Error');
                 }
                 
@@ -2366,7 +2371,11 @@
                     throw new Error("No image generated");
                 }
             } catch(e) {
-                handleAIError(e);
+                if(e.message === "MODEL_NOT_SUPPORTED") {
+                    showCustomError("API Key ของคุณไม่รองรับระบบสร้างภาพ (Imagen)");
+                } else {
+                    handleAIError(e);
+                }
             } finally {
                 document.getElementById('imageLoading').classList.add('hidden');
                 document.getElementById('imageLoading').classList.remove('flex');
