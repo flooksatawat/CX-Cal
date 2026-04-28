@@ -1233,33 +1233,49 @@
             if (!bottomNav) return;
             
             document.querySelectorAll('.scrollable-view').forEach(el => {
-                let lastScrollTop = 0; // แก้ไข: แยกการจำระยะ Scroll ของแต่ละหน้าออกจากกัน
+                let lastScrollTop = 0;
+                let isHidden = false; // ติดตามสถานะของเมนู
+                
                 el.addEventListener('scroll', function() {
                     let st = this.scrollTop;
                     
-                    // 1. ถ้าอยู่บนสุด ให้แสดงเมนูเสมอ
-                    if (st <= 10) {
-                        bottomNav.style.transform = 'translateY(0)';
-                        bottomNav.style.opacity = '1';
+                    // 1. ถ้าอยู่บนสุด (ระยะไม่เกิน 15px) ให้แสดงเมนูเสมอ
+                    if (st <= 15) {
+                        if (isHidden) {
+                            bottomNav.style.transform = 'translateY(0)';
+                            bottomNav.style.opacity = '1';
+                            isHidden = false;
+                        }
                         lastScrollTop = st;
                         return;
                     }
                     
-                    // ป้องกันหน้าจอสั่นเวลาใช้นิ้วแตะค้าง
-                    if (Math.abs(lastScrollTop - st) <= 5) return; 
-                    
-                    // 2. ถ้าเลื่อนลง (Scroll Down) ให้ซ่อนเมนู
-                    if (st > lastScrollTop && st > 20) {
-                        bottomNav.style.transform = 'translateY(120%)';
-                        bottomNav.style.opacity = '0';
-                    } 
-                    // 3. ถ้าเลื่อนขึ้น (Scroll Up) ให้แสดงเมนู
-                    else if (st < lastScrollTop) {
-                        bottomNav.style.transform = 'translateY(0)';
-                        bottomNav.style.opacity = '1';
+                    // ป้องกันค่ารวนเวลาเกิด Rubber band บน iOS/Android
+                    if (st < 0 || st + this.clientHeight >= this.scrollHeight) {
+                        return;
                     }
                     
-                    lastScrollTop = st <= 0 ? 0 : st;
+                    // ป้องกันความไวของนิ้ว (Threshold)
+                    if (Math.abs(lastScrollTop - st) <= 5) return; 
+                    
+                    // 2. ถ้าเลื่อนหน้าจอลง (Scroll Down) ให้ซ่อนเมนู
+                    if (st > lastScrollTop) {
+                        if (!isHidden) {
+                            bottomNav.style.transform = 'translateY(150%)';
+                            bottomNav.style.opacity = '0';
+                            isHidden = true;
+                        }
+                    } 
+                    // 3. ถ้าเลื่อนหน้าจอขึ้น (Scroll Up) ให้แสดงเมนู
+                    else if (st < lastScrollTop) {
+                        if (isHidden) {
+                            bottomNav.style.transform = 'translateY(0)';
+                            bottomNav.style.opacity = '1';
+                            isHidden = false;
+                        }
+                    }
+                    
+                    lastScrollTop = st;
                 }, { passive: true });
             });
         }
