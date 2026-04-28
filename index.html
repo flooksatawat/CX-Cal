@@ -235,27 +235,6 @@
                         <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance (HXD)</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-normal text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
                     </div>
 
-                    <!-- 3D Health Excellence: Room Rate Container -->
-                    <div class="premium-card shrink-0 hidden" id="hxRoomRateContainer">
-                        <div class="flex justify-between items-center mb-2.5">
-                            <p class="text-teal-700 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-bed text-teal-500"></i> แผนความคุ้มครองสุขภาพ (ค่าห้อง)</p>
-                        </div>
-                        <select id="hxPlanSelect" class="w-full border-none rounded-[14px] outline-none transition-all bg-teal-50 text-teal-800 font-bold text-[14px] h-[44px] shadow-inner px-3 focus:ring-2 focus:ring-teal-400" onchange="calculate(currentMode)">
-                            <option value="HX15">HX15 (ค่าห้อง 1,500 / เหมาจ่าย 1 ล้าน)</option>
-                            <option value="HX20">HX20 (ค่าห้อง 2,000 / เหมาจ่าย 3 ล้าน)</option>
-                            <option value="HX40">HX40 (ค่าห้อง 4,000 / เหมาจ่าย 5 ล้าน)</option>
-                            <option value="HX60">HX60 (ค่าห้อง 6,000 / เหมาจ่าย 10 ล้าน)</option>
-                            <option value="HX150">HX150 (ค่าห้อง 15,000 / เหมาจ่าย 60 ล้าน)</option>
-                            <option value="HX300">HX300 (ค่าห้อง 30,000 / เหมาจ่าย 120 ล้าน)</option>
-                        </select>
-                    </div>
-
-                    <!-- 3D Health Excellence: Extra Options -->
-                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-3 shrink-0">
-                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra (HXO)</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-bold text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
-                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance (HXD)</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full h-[36px] bg-blue-50 text-blue-700 border-blue-100 rounded-[10px] font-bold text-sm hover:bg-blue-100 transition-colors">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-1 opacity-60"></i></button></div>
-                    </div>
-
                     <!-- Premium Card -->
                     <div class="premium-card shrink-0" id="premiumContainer">
                         <div class="flex justify-between items-center mb-3">
@@ -371,7 +350,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-blue-50/80 text-blue-500 flex items-center justify-center text-[20px] group-hover:scale-105 transition-transform border border-blue-100/30"><i class="fas fa-gift"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-medium text-slate-700 tracking-wide">โบนัสรายเดือน (MB)</h4>
+                                <h4 class="text-[16px] font-medium text-slate-700 tracking-wide">โบนัสรายเดือน MB</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
@@ -383,7 +362,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-purple-50/80 text-purple-500 flex items-center justify-center text-[20px] group-hover:scale-105 transition-transform border border-purple-100/30"><i class="fas fa-calendar-check"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-medium text-slate-700 tracking-wide">โบนัสครึ่งปี (MYB)</h4>
+                                <h4 class="text-[16px] font-medium text-slate-700 tracking-wide">โบนัสครึ่งปี MYB</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors">
@@ -395,7 +374,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-cyan-50/80 text-cyan-500 flex items-center justify-center text-[20px] group-hover:scale-105 transition-transform border border-cyan-100/30"><i class="fas fa-star"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-medium text-slate-700 tracking-wide">โบนัสตัวแทนใหม่ (NAB)</h4>
+                                <h4 class="text-[16px] font-medium text-slate-700 tracking-wide">โบนัสตัวแทนใหม่ NAB</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-cyan-50 group-hover:text-cyan-600 transition-colors">
@@ -546,8 +525,86 @@
         </div>
     </div>
     
-    <div id="planSelectModal" class="modal-overlay">
-                                <p class="text-[13px] font-bold text-slate-700">โบนัสครึ่งปี (MYB)</p>
+    <div id="planSelectModal" class="modal-overlay"><div class="bg-white w-full max-w-[22rem] rounded-[28px] transform transition-transform duration-300 flex flex-col h-[80vh] max-h-[700px] shadow-2xl overflow-hidden relative"><div class="px-5 pt-5 pb-3 bg-white/90 backdrop-blur-xl shrink-0 z-20 border-b border-slate-100"><div class="flex justify-between items-center mb-4"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-[14px] bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-600 flex items-center justify-center text-lg shadow-inner border border-white"><i class="fas fa-layer-group"></i></div><div><h3 class="text-[18px] font-normal text-slate-800 tracking-tight leading-none">แบบประกัน</h3><p class="text-[10px] text-slate-400 font-medium mt-1">เลือกแผนที่ต้องการคำนวณ</p></div></div><button onclick="closePopup('planSelectModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors text-lg leading-none">&times;</button></div><div class="relative"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input type="text" id="unifiedPlanSearchInput" class="w-full bg-slate-100 border-none text-slate-800 text-[14px] font-medium rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:bg-white transition-all placeholder:text-slate-400" placeholder="พิมพ์ค้นหาชื่อแผน..." oninput="handleUnifiedPlanSearch()"></div></div><div id="unifiedPlanList" class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2 bg-slate-50/50 pb-6"></div><div class="h-6 bg-gradient-to-t from-slate-50 to-transparent absolute bottom-0 left-0 right-0 pointer-events-none z-10"></div></div></div>
+
+    <!-- Extra Plan Modal (HXO) -->
+    <div id="extraPlanModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-plus-circle mr-2 text-blue-600"></i> เลือก Extra (HXO)</h3><button onclick="closePopup('extraPlanModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="space-y-2.5"><button onclick="setExtraPlan('ไม่เลือก')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">ไม่เลือกเพิ่มเติม</span></button><button onclick="setExtraPlan('HX010')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HX010 (OPD 1,000)</span></button><button onclick="setExtraPlan('HX020')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HX020 (OPD 2,000)</span></button><button onclick="setExtraPlan('HX030')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HX030 (OPD 3,000)</span></button><button onclick="setExtraPlan('HX050')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HX050 (OPD 5,000)</span></button></div></div></div>
+
+    <!-- Advance Plan Modal (HXD) -->
+    <div id="advancePlanModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-star text-blue-600 mr-2"></i> เลือก Advance (HXD)</h3><button onclick="closePopup('advancePlanModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="space-y-2.5"><button onclick="setAdvancePlan('ไม่เลือก')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">ไม่เลือกเพิ่มเติม</span></button><button onclick="setAdvancePlan('HXD100')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HXD100 (วงเงิน 10,000)</span></button><button onclick="setAdvancePlan('HXD200')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HXD200 (วงเงิน 20,000)</span></button><button onclick="setAdvancePlan('HXD500')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HXD500 (วงเงิน 50,000)</span></button><button onclick="setAdvancePlan('HXD1000')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">HXD1000 (วงเงิน 100,000)</span></button></div></div></div>
+
+    <div id="installmentModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-credit-card mr-2 text-blue-600"></i> ตัวเลือกการชำระเงิน</h3><button onclick="closePopup('installmentModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="space-y-2.5"><button onclick="triggerInstallmentShare('monthly')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">รายเดือน</span><span id="sumMonthlyPopup" class="text-base font-black text-[#1e3a8a]">0</span></button><button onclick="triggerInstallmentShare('3month')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">ราย 3 เดือน</span><span id="sum3MonthPopup" class="text-base font-black text-[#1e3a8a]">0</span></button><button onclick="triggerInstallmentShare('6month')" class="w-full flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl active:bg-blue-50 transition-colors group"><span class="text-xs font-bold text-slate-600 group-hover:text-blue-800">ราย 6 เดือน</span><span id="sum6MonthPopup" class="text-base font-black text-[#1e3a8a]">0</span></button></div><p class="text-[9px] text-slate-400 mt-3"><i class="fas fa-hand-pointer mr-1"></i> แตะที่ยอดเพื่อเลือกแชร์</p></div></div>
+    
+    <div id="paymentModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-emerald-800"><i class="fas fa-money-bill-transfer mr-2 text-emerald-600"></i> บัญชีโอนเงิน</h3><button onclick="closePopup('paymentModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="overflow-y-auto flex-1 custom-scrollbar pr-1 space-y-2.5 pb-2"><div onclick="openGenericShareModal('scb'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-purple-500 p-3 rounded-xl cursor-pointer hover:bg-purple-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-black text-[10px] shadow-sm">SCB</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.ไทยพาณิชย์ <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาถนนวิทยุ</span></p><p class="text-[15px] font-black text-purple-800 tracking-wider mt-0.5">049-416-6866</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div><div onclick="openGenericShareModal('bbl'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-blue-500 p-3 rounded-xl cursor-pointer hover:bg-blue-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black text-[10px] shadow-sm">BBL</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.กรุงเทพ <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาสุรวงศ์</span></p><p class="text-[15px] font-black text-blue-800 tracking-wider mt-0.5">147-312-5357</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div><div onclick="openGenericShareModal('bay'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-amber-500 p-3 rounded-xl cursor-pointer hover:bg-amber-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-black text-[10px] shadow-sm">BAY</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.กรุงศรี <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาเพลินจิต</span></p><p class="text-[15px] font-black text-amber-800 tracking-wider mt-0.5">001-016-4329</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div><div onclick="openGenericShareModal('kbank'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-green-500 p-3 rounded-xl cursor-pointer hover:bg-green-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-black text-[10px] shadow-sm">KBANK</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.กสิกร <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาพหลโยธิน</span></p><p class="text-[15px] font-black text-green-800 tracking-wider mt-0.5">099-132-6065</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div></div><p class="text-[9px] text-slate-400 mt-2"><i class="fas fa-hand-pointer mr-1"></i> แตะที่บัญชีเพื่อแชร์</p></div></div>
+    
+    <div id="eSubQniModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#9d174d]"><i class="fas fa-laptop-code mr-2 text-pink-500"></i> เลือกระบบงาน</h3><button onclick="closePopup('eSubQniModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="space-y-2.5"><button onclick="window.open('https://esales.cl-agency.in.th/prospects', '_blank')" class="w-full flex justify-between items-center p-3.5 bg-orange-50 border border-orange-200 rounded-xl active:bg-orange-100 transition-colors group shadow-sm hover:bg-orange-100/50"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-orange-600 shadow-sm"><i class="fas fa-file-signature text-base"></i></div><div class="text-left"><span class="text-[14px] font-bold text-orange-800 block">E-Submission</span></div></div><i class="fas fa-external-link-alt text-xs text-orange-400"></i></button><button onclick="window.open('https://esmart.chubblife-agency.in.th/chubb-life-qni/en/home?return=%2Fen%2Fhome', '_blank')" class="w-full flex justify-between items-center p-3.5 bg-sky-50 border border-sky-200 rounded-xl active:bg-sky-100 transition-colors group shadow-sm hover:bg-sky-100/50"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm"><i class="fas fa-file-signature text-base"></i></div><div class="text-left"><span class="text-[14px] font-bold text-sky-800 block">QNI</span></div></div><i class="fas fa-external-link-alt text-xs text-sky-400"></i></button></div></div></div>
+    
+    <div id="insuranceConditionsModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-info-circle mr-2 text-blue-600"></i> เงื่อนไขการรับประกัน</h3><button onclick="closePopup('insuranceConditionsModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="text-left space-y-2.5 text-xs text-slate-700 font-medium"><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุที่รับประกัน: 0 - 65 ปี</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>ทุนประกันขั้นต่ำ: 100,000 บาท</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 0 ถึง 15 ปี ทุนสูงสุด 3 ล้าน</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 16 ถึง 65 ปี ทุนสูงสุด 10 ล้าน</div></div><button onclick="closePopup('insuranceConditionsModal')" class="mt-5 w-full py-3 bg-[#243c94] hover:bg-[#1e327a] text-white font-bold rounded-xl transition-colors text-sm">ตกลง</button></div></div>
+    
+    <div id="pdfOptionsModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-file-pdf text-2xl"></i></div><h3 class="text-lg font-bold text-slate-800 mb-4">ดำเนินการกับข้อมูล</h3><div class="grid grid-cols-3 gap-2.5 mb-3"><button onclick="exportTableToPDF('line'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-1.5 p-2.5 bg-[#00B900]/10 rounded-xl border border-[#00B900]/20 active:scale-95 transition-all shadow-sm hover:bg-[#00B900]/20"><i class="fab fa-line text-[#00B900] text-xl"></i><span class="text-[9px] font-bold text-[#00B900] uppercase tracking-wider mt-1">ส่ง LINE</span></button><button onclick="exportTableToPDF('messenger'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-1.5 p-2.5 bg-[#0084FF]/10 rounded-xl border border-[#0084FF]/20 active:scale-95 transition-all shadow-sm hover:bg-[#0084FF]/20"><i class="fab fa-facebook-messenger text-[#0084FF] text-xl"></i><span class="text-[9px] font-bold text-[#0084FF] uppercase tracking-wider mt-1">ส่ง Messenger</span></button><button onclick="exportTableToPDF('print'); closePopup('pdfOptionsModal')" class="w-full flex flex-col justify-center items-center gap-1.5 p-2.5 bg-slate-100 rounded-xl border border-slate-200 active:scale-95 transition-all shadow-sm hover:bg-slate-200"><i class="fas fa-print text-slate-600 text-xl"></i><span class="text-[9px] font-bold text-slate-600 uppercase tracking-wider mt-1">พิมพ์ PDF</span></button></div><button onclick="exportTableToPDF('save'); closePopup('pdfOptionsModal')" class="w-full bg-red-600 text-white p-3.5 rounded-xl font-bold shadow-md flex justify-between items-center active:scale-95 transition-all text-[13px] hover:bg-red-700"><div class="flex items-center gap-2"><i class="fas fa-download text-base"></i><span>บันทึก PDF ลงในเครื่อง</span></div><i class="fas fa-chevron-right text-xs opacity-50"></i></button><button onclick="closePopup('pdfOptionsModal')" class="mt-4 text-slate-400 hover:text-slate-600 text-xs font-medium w-full py-2">ยกเลิก</button></div></div>
+    
+    <div id="genericShareModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" id="genericShareIconBg"><i id="genericShareIcon" class="fas fa-share-nodes text-2xl"></i></div><h3 id="genericShareTitle" class="text-lg font-bold text-slate-800 mb-4">เลือกช่องทางการแชร์</h3><div class="grid grid-cols-3 gap-2.5"><button onclick="handleGenericShare('line')" class="w-full flex flex-col justify-center items-center gap-1.5 p-3 bg-[#00B900]/10 rounded-xl border border-[#00B900]/20 active:scale-95 transition-all shadow-sm hover:bg-[#00B900]/20"><i class="fab fa-line text-[#00B900] text-2xl"></i><span class="text-[10px] font-bold text-[#00B900] uppercase tracking-wider mt-1">LINE</span></button><button onclick="handleGenericShare('messenger')" class="w-full flex flex-col justify-center items-center gap-1.5 p-3 bg-[#0084FF]/10 rounded-xl border border-[#0084FF]/20 active:scale-95 transition-all shadow-sm hover:bg-[#0084FF]/20"><i class="fab fa-facebook-messenger text-[#0084FF] text-xl"></i><span class="text-[10px] font-bold text-[#0084FF] uppercase tracking-wider mt-1">Messenger</span></button><button onclick="handleGenericShare('copy')" class="w-full flex flex-col justify-center items-center gap-1.5 p-3 bg-slate-100 rounded-xl border border-slate-200 active:scale-95 transition-all shadow-sm hover:bg-slate-200"><i class="fas fa-copy text-slate-600 text-2xl"></i><span class="text-[10px] font-bold text-slate-600 uppercase tracking-wider mt-1">คัดลอก</span></button></div><button onclick="closePopup('genericShareModal')" class="mt-5 text-slate-400 hover:text-slate-600 text-xs font-medium w-full py-2">ยกเลิก</button></div></div>
+    
+    <div id="installmentShareModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-share-nodes text-2xl"></i></div><h3 id="installmentShareTitle" class="text-lg font-bold text-[#1e3a8a] mb-4">เลือกรูปแบบการแชร์</h3><div class="space-y-2.5"><div class="w-full text-left"><button onclick="closePopup('installmentShareModal'); openGenericShareModal('installmentPrem')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 p-3.5 rounded-xl font-bold shadow-sm flex justify-between items-center active:scale-95 transition-all text-[14px] hover:bg-slate-100"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center"><i class="fas fa-coins text-slate-600 text-base"></i></div><span>แชร์เฉพาะออมเงิน</span></div><i class="fas fa-chevron-right text-xs text-slate-400"></i></button></div><div class="w-full text-left"><button onclick="closePopup('installmentShareModal'); openGenericShareModal('installmentAll')" class="w-full bg-blue-50 text-blue-800 border border-blue-200 p-3.5 rounded-xl font-bold shadow-sm flex justify-between items-center active:scale-95 transition-all text-[14px] hover:bg-blue-100"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center"><i class="fas fa-file-invoice text-blue-600 text-base"></i></div><span>แชร์สรุปทั้งหมด</span></div><i class="fas fa-chevron-right text-xs text-blue-400"></i></button></div></div><button onclick="closePopup('installmentShareModal')" class="mt-5 text-slate-400 hover:text-slate-600 text-xs font-medium">ยกเลิก</button></div></div>
+    
+    <!-- 1. รายได้จากเคสนี้ (Case Income Modal) - REDESIGNED -->
+    <div id="caseIncomeModal" class="modal-overlay">
+        <div class="modal-content-card p-5 bg-[#f8fafc]">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-2.5">
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide"><i class="fas fa-wallet text-emerald-500 mr-2 opacity-80"></i>รายได้จากเคสนี้</h3>
+                </div>
+                <button onclick="closePopup('caseIncomeModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
+            </div>
+            
+            <div class="flex flex-col w-full text-left mt-1 overflow-y-auto custom-scrollbar pr-1 pb-2">
+                <!-- Total Hero Box -->
+                <div class="bg-gradient-to-br from-[#059669] to-[#10b981] p-5 rounded-[24px] shadow-[0_10px_25px_rgba(16,185,129,0.3)] text-white text-center relative overflow-hidden mb-5">
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNykiLz48L3N2Zz4=')] opacity-50"></div>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                    <p class="text-[12px] font-bold opacity-90 tracking-wide mb-1 uppercase relative z-10">รายได้สุทธิโดยประมาณ</p>
+                    <h2 class="text-[32px] font-black leading-tight drop-shadow-md relative z-10"><span id="caseIncomeTotal">0</span> <span class="text-xl font-bold">฿</span></h2>
+                    <div class="inline-flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm mt-3 border border-white/30 relative z-10 shadow-inner">
+                        <i class="fas fa-chart-pie text-[11px]"></i>
+                        <span class="text-[11px] font-bold tracking-wide">สัดส่วนรายได้ <span id="caseIncomePercent" class="ml-1">0%</span></span>
+                    </div>
+                </div>
+
+                <!-- Breakdown List -->
+                <div class="space-y-3">
+                    <!-- Comm -->
+                    <div class="flex justify-between items-center p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shadow-inner"><i class="fas fa-coins"></i></div>
+                            <div>
+                                <p class="text-[13px] font-bold text-slate-700">คอมมิชชันปีที่ 1</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p id="caseIncomeComm" class="text-[15px] font-black text-slate-800">0</p>
+                        </div>
+                    </div>
+                    
+                    <!-- MB -->
+                    <div class="flex justify-between items-center p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg shadow-inner"><i class="fas fa-calendar-alt"></i></div>
+                            <div>
+                                <p class="text-[13px] font-bold text-slate-700">โบนัสรายเดือน MB</p>
+                                <p id="caseIncomeBonusCalc" class="text-[10px] font-medium text-slate-400 mt-0.5 tracking-wide"></p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p id="caseIncomeBonus" class="text-[15px] font-black text-slate-800">0</p>
+                        </div>
+                    </div>
+                    
+                    <!-- MYB -->
+                    <div class="flex justify-between items-center p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-lg shadow-inner"><i class="fas fa-award"></i></div>
+                            <div>
+                                <p class="text-[13px] font-bold text-slate-700">โบนัสครึ่งปี MYB</p>
                                 <p id="caseIncomeMYBonusCalc" class="text-[10px] font-medium text-slate-400 mt-0.5 tracking-wide"></p>
                             </div>
                         </div>
@@ -582,13 +639,13 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-base shadow-sm shrink-0 border border-blue-100/50"><i class="fas fa-gift"></i></div>
-                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสรายเดือน (MB)</h3>
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสรายเดือน MB</h3>
                 </div>
                 <button onclick="closePopup('mbModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-1 text-left">
                 <p class="text-[12px] font-bold text-[#1e3a8a] mb-2 text-center tracking-wide">ระบุยอดสะสมเดิมในเดือนนี้ (บาท)</p>
-                <input type="number" id="existingFYCInput" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-blue-400" oninput="handleMBInput(this)">
+                <input type="text" inputmode="numeric" id="existingFYCInput" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-blue-400" oninput="handleMBInput(this)">
                 
                 <div id="mbTierList" class="flex flex-col mb-4"></div>
                 
@@ -623,13 +680,13 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-full bg-purple-50 text-purple-500 flex items-center justify-center text-base shadow-sm shrink-0 border border-purple-100/50"><i class="fas fa-calendar-check"></i></div>
-                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสครึ่งปี (MYB)</h3>
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสครึ่งปี MYB</h3>
                 </div>
                 <button onclick="closePopup('mybModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-1 text-left">
                 <p class="text-[12px] font-bold text-[#4c1d95] mb-2 text-center tracking-wide">ระบุยอดสะสมเดือนก่อนหน้า (บาท)</p>
-                <input type="number" id="existingHalfYearFYCInput" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-purple-400" oninput="handleMYBInput(this)">
+                <input type="text" inputmode="numeric" id="existingHalfYearFYCInput" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-purple-400" oninput="handleMYBInput(this)">
                 
                 <div id="mybTierList" class="flex flex-col mb-4"></div>
                 
@@ -664,7 +721,7 @@
             <div class="flex justify-between items-start mb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-full bg-cyan-50 text-cyan-500 flex items-center justify-center text-base shadow-sm shrink-0 border border-cyan-100/50"><i class="fas fa-star"></i></div>
-                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสตัวแทนใหม่ (NAB)</h3>
+                    <h3 class="text-[17px] font-semibold text-slate-800 tracking-wide">โบนัสตัวแทนใหม่ NAB</h3>
                 </div>
                 <button onclick="closePopup('nabModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
@@ -674,7 +731,7 @@
                     <option value="p2">เดือนที่ 4 - เดือนที่ 6</option>
                 </select>
                 <p class="text-[12px] font-bold text-[#164e63] mb-1.5 text-center tracking-wide">จำนวนรายสะสมเดิม</p>
-                <input type="number" id="existingNABCases" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-cyan-400" oninput="refreshAllDisplays()">
+                <input type="text" inputmode="numeric" id="existingNABCases" value="0" class="w-full border-none rounded-[14px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[18px] h-[44px] shadow-sm mb-4 focus:ring-2 focus:ring-cyan-400" oninput="this.value = this.value.replace(/[^0-9]/g, ''); refreshAllDisplays()">
                 
                 <div id="nabTierList" class="flex flex-col mb-4"></div>
                 
@@ -686,7 +743,7 @@
                         <span>FYC สะสมรวม (รวมเคสนี้)</span><span id="nabTotalFYCDisplay" class="font-black text-[#1e293b]">0</span>
                     </div>
                     <div class="pt-2 flex flex-col items-center mt-1 border-t border-cyan-200">
-                        <span class="font-bold text-[#164e63] text-[12px] mb-0.5 uppercase tracking-wide">โบนัสพิเศษ (NAB)</span>
+                        <span class="font-bold text-[#164e63] text-[12px] mb-0.5 uppercase tracking-wide">โบนัสพิเศษ NAB</span>
                         <span id="nabCalculatedBonus" class="text-[22px] font-black text-[#0891b2] leading-none mb-1 drop-shadow-sm">0 บาท</span>
                     </div>
                 </div>
@@ -769,7 +826,6 @@
         let hasShownCongratsNAB = false;
 
         function showCongratsToast(msg) {
-            // Check if we are currently viewing the CASH page
             const cashView = document.getElementById('cashView');
             if (cashView && cashView.classList.contains('hidden')) return;
 
@@ -1223,13 +1279,34 @@
             if (!lastCalculationData) return; 
             const p = lastCalculationData.premium; 
             const effectivePlan = COM_RATES[currentPlan] ? currentPlan : currentAppPlan; 
-            const fyc = Math.round(p * (COM_RATES[effectivePlan][0] || 0)); 
+            const rateArr = COM_RATES[effectivePlan] || [];
+            const fyc = Math.round(p * (rateArr[0] || 0)); 
             
             // Set values for the new Case Income design
             setText('caseIncomeComm', fyc.toLocaleString() + " ฿"); 
             
-            let comH = `<h4 class="text-sm font-black text-center mb-4">คอมมิชชันรายปี</h4>`; 
-            (COM_RATES[effectivePlan] || []).forEach((r, i) => { comH += `<div class="com-item-row"><span class="font-bold text-[#b45309] w-12">${formatPct(r*100)}</span><span class="com-year-pill">ปีที่ ${i+1}</span><span class="font-black text-right flex-1">${Math.round(p * r).toLocaleString()}</span></div>`; });
+            let comH = `<h4 class="text-sm font-black text-slate-800 text-center mb-4">ประมาณการคอมมิชชันรายปี</h4>`; 
+            let totalComAmt = 0;
+            let totalComPct = 0;
+            
+            rateArr.forEach((r, i) => { 
+                const annualAmt = Math.round(p * r);
+                totalComAmt += annualAmt;
+                totalComPct += r;
+                comH += `<div class="com-item-row"><span class="font-bold text-amber-600 w-12">${formatPct(r*100)}</span><span class="com-year-pill">ปีที่ ${i+1}</span><span class="font-black text-slate-800 text-right flex-1">${annualAmt.toLocaleString()}</span></div>`; 
+            });
+            
+            comH += `<div class="mt-4 pt-3.5 border-t-2 border-slate-100 flex justify-between items-end">
+                <div class="text-left">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Percent รวม</div>
+                    <div class="text-lg font-black text-amber-500">${formatPct(totalComPct * 100)}</div>
+                </div>
+                <div class="text-right">
+                    <div class="text-[10px] font-bold text-slate-400 mb-0.5">คอมมิชชันรวมตลอดสัญญา</div>
+                    <div class="text-[20px] font-black text-amber-600 leading-none">${totalComAmt.toLocaleString()} <span class="text-sm">฿</span></div>
+                </div>
+            </div>`;
+            
             setText('comList', ''); document.getElementById('comList').innerHTML = comH;
             
             updateMBDisplay(); updateMYBDisplay(); updateNABDisplay();
@@ -1245,13 +1322,235 @@
             setText('caseIncomePercent', formatPct(pctVal)); 
         }
 
-        function generatePolicyTableData() { /* Preparation for external CV data */ }
-        function exportTableToPDF() { /* PDF logic */ }
-        async function generateAIAnalysis() { /* AI Analysis logic */ }
-        async function callGeminiAPI(data) { return ""; }
-        function handleGenericShare(p) { /* Share logic */ }
-        function startVoiceRecognition() { /* Voice logic */ }
+        function generatePolicyTableData() {
+            if (!lastCalculationData) return;
+            const d = lastCalculationData;
+            const showCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(currentAppPlan);
+            let sumDisplay = '';
+            if (d.sum >= 1000000 && d.sum % 1000000 === 0) sumDisplay = (d.sum / 1000000) + ' ล้านบาท';
+            else if (d.sum >= 100000 && d.sum % 100000 === 0 && d.sum < 1000000) sumDisplay = (d.sum / 100000) + ' แสนบาท';
+            else sumDisplay = formatNum(d.sum) + ' บาท';
+            
+            document.getElementById('tableHeaderTitle').innerHTML = `<span class="truncate">${getPlanAbbr(currentAppPlan)} ${d.gender} ${d.age} ทุน ${sumDisplay}</span>`;
+            document.getElementById('policyTableHead').innerHTML = `<tr class="text-slate-500 shadow-sm text-[10px] min-[380px]:text-[11px] sm:text-[12px]"><th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200 ${showCashFlow ? 'w-[10%]' : 'w-[15%]'}">อายุ</th><th class="py-3 px-1 font-bold bg-[#f8fafc] border-b border-slate-200 ${showCashFlow ? 'w-[20%]' : 'w-[28%]'}">ออมเงิน</th><th class="py-3 px-1 font-bold bg-[#f8fafc] text-blue-600 border-b border-slate-200 ${showCashFlow ? 'w-[22%]' : 'w-[28%]'}">ออมสะสม</th>${showCashFlow ? `<th class="py-3 px-1 font-bold bg-[#f8fafc] text-emerald-600 border-b border-slate-200 w-[24%]">กระแสเงินสด</th>` : ''}<th class="py-3 px-1 font-bold bg-[#f8fafc] text-amber-600 border-b border-slate-200 ${showCashFlow ? 'w-[24%]' : 'w-[29%]'}">เงินสดพร้อมใช้</th></tr>`;
+
+            const maxYear = 90 - d.age; const payYears = parseInt(d.years) || 20;
+            let html = ''; let totalPremium = 0; let foundBreakeven = false; let beYear = 0; let beAge = 0;
+            const hasCVData = cvDataLookup && Object.keys(cvDataLookup).length > 0;
+
+            for (let y = 1; y <= maxYear; y++) {
+                let annualPremium = 0; if (y <= payYears) { annualPremium = d.premium; totalPremium += d.premium; }
+                let cvTotal = 0;
+                if (hasCVData && cvDataLookup[currentPlan] && cvDataLookup[currentPlan][currentGender] && cvDataLookup[currentPlan][currentGender][d.age]) { 
+                    try { let ratePer1000 = cvDataLookup[currentPlan][currentGender][d.age][y]; cvTotal = (d.sum / 1000) * ratePer1000; } catch(e) { cvTotal = 0; } 
+                } else { 
+                    let cvPer1000 = 0; if (y > 1) { let progress = (y - 1) / (maxYear - 1); cvPer1000 = Math.round(Math.pow(progress, 1.4) * 1000); } if (y === maxYear) cvPer1000 = 1000; cvTotal = (d.sum / 1000) * cvPer1000; 
+                }
+
+                let cashFlowAmt = showCashFlow ? d.cashFlow : 0;
+                let isBeRow = false; if (!foundBreakeven && totalPremium > 0 && cvTotal >= totalPremium) { foundBreakeven = true; beYear = y; beAge = d.age + y; isBeRow = true; }
+                let trClass = "border-b border-slate-100 transition-colors " + (isBeRow ? "breakeven-target" : "hover:bg-slate-50");
+
+                html += `<tr class="${trClass}"><td class="py-3 px-1 text-slate-600 font-medium relative"><div class="be-badge absolute left-0 top-1/2 -translate-y-1/2 w-1 h-full bg-emerald-500 rounded-r-md hidden"></div>${d.age + y}</td><td class="py-3 px-1 text-slate-600">${y <= payYears ? Math.round(annualPremium).toLocaleString() : "-"}</td><td class="py-3 px-1 text-blue-600">${Math.round(totalPremium).toLocaleString()}</td>${showCashFlow ? `<td class="py-3 px-1 text-emerald-600 font-bold">${Math.round(cashFlowAmt).toLocaleString()}</td>` : ''}<td class="py-3 px-1 text-amber-600 font-bold">${Math.round(cvTotal).toLocaleString()}</td></tr>`;
+            }
+            document.getElementById('policyTableBody').innerHTML = html;
+            
+            if (foundBreakeven) { document.getElementById('breakevenSummary').innerHTML = `<div class="bg-emerald-100 border border-emerald-200 rounded-xl py-2 px-3 text-[12px] text-emerald-800 font-bold shadow-sm flex items-center justify-center gap-2"><i class="fas fa-bullseye text-emerald-600 text-lg"></i><span>จุดคุ้มทุนอยู่ที่: ปีที่ <span class="text-emerald-700 text-sm">${beYear}</span> (อายุ <span class="text-emerald-700 text-sm">${beAge}</span> ปี)</span></div>`; } else { document.getElementById('breakevenSummary').innerHTML = `<div class="bg-slate-100 border border-slate-200 rounded-xl py-2 px-3 text-[12px] text-slate-500 font-bold flex items-center justify-center gap-2"><i class="fas fa-info-circle text-slate-400"></i> ไม่พบจุดคุ้มทุนก่อนครบกำหนดสัญญา</div>`; }
+            toggleBreakevenDisplay(false); 
+        }
+
+        function toggleBreakevenDisplay(smoothScroll = true) {
+            const tableBody = document.getElementById('policyTableBody'); 
+            const summary = document.getElementById('breakevenSummary'); 
+            const isChecked = document.getElementById('toggleBreakeven')?.checked;
+            
+            if (!tableBody) return; // safe guard
+            
+            if (isChecked) {
+                tableBody.classList.add('show-breakeven'); 
+                if (summary) summary.classList.remove('hidden');
+                if (smoothScroll) { 
+                    setTimeout(() => { 
+                        const beRow = tableBody.querySelector('.breakeven-target'); 
+                        const pdfTableTarget = document.getElementById('pdfTableTarget'); 
+                        if (beRow && pdfTableTarget) { 
+                            const targetPos = beRow.offsetTop - (pdfTableTarget.clientHeight / 2) + 30; 
+                            pdfTableTarget.scrollTo({ top: targetPos, behavior: 'smooth' }); 
+                        } 
+                    }, 100); 
+                }
+            } else { 
+                tableBody.classList.remove('show-breakeven'); 
+                if (summary) summary.classList.add('hidden'); 
+            }
+        }
+
+        let thaiFontBase64 = null;
+        async function loadThaiFont() { if (thaiFontBase64) return thaiFontBase64; try { const response = await fetch('https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/sarabun/Sarabun-Regular.ttf'); const blob = await response.blob(); return new Promise((resolve) => { const reader = new FileReader(); reader.onloadend = () => { thaiFontBase64 = reader.result.split(',')[1]; resolve(thaiFontBase64); }; reader.readAsDataURL(blob); }); } catch (e) { return null; } }
+
+        async function exportTableToPDF(actionType = 'save') {
+            if (!lastCalculationData) return showCustomError("กรุณาคำนวณเบี้ยประกันก่อน");
+            const toast = document.createElement('div'); toast.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-900 text-white px-8 py-5 rounded-2xl text-sm font-bold z-[1000] shadow-2xl text-center backdrop-blur-sm transition-all"; toast.innerHTML = `<i class='fas fa-spinner fa-spin mb-3 block text-3xl'></i><span>กำลังประมวลผล PDF...</span>`; document.body.appendChild(toast); 
+
+            try {
+                const fontBase64 = await loadThaiFont(); const { jsPDF } = window.jspdf; const doc = new jsPDF('p', 'mm', 'a4'); let fontName = 'helvetica'; 
+                if (fontBase64) { try { doc.addFileToVFS('Sarabun-Regular.ttf', fontBase64); doc.addFont('Sarabun-Regular.ttf', 'Sarabun', 'normal'); fontName = 'Sarabun'; } catch (e) {} }
+                
+                const d = lastCalculationData; const tableRows = []; const trs = document.querySelectorAll('#policyTableBody tr'); const showBreakeven = document.getElementById('toggleBreakeven')?.checked; let beRowIndex = -1; let beAgeStr = '', beYearStr = '', beCVStr = ''; const showCashFlow = ["Whole Life Extra", "24 TX", "868 / 818 Elite Saving"].includes(currentAppPlan); let headRow = ['อายุ', 'ออมเงิน', 'ออมสะสม']; if (showCashFlow) headRow.push('กระแสเงินสด'); headRow.push('เงินสดพร้อมใช้'); headRow.push('ทุนประกัน');
+
+                trs.forEach((tr, index) => { const tds = tr.querySelectorAll('td'); const rowData = []; tds.forEach(td => rowData.push(td.innerText.trim())); rowData.push(formatNum(d.sum)); tableRows.push(rowData); if (tr.classList.contains('breakeven-target')) { beRowIndex = index; beAgeStr = rowData[0]; beYearStr = beAgeStr - d.age; beCVStr = rowData[showCashFlow ? 4 : 3]; } });
+
+                doc.autoTable({ startY: (showBreakeven && beRowIndex !== -1) ? 40 : 34, head: [headRow], body: tableRows, theme: 'plain', margin: { top: 34, bottom: 15, left: 15, right: 15 }, styles: { font: fontName, fontSize: 12, halign: 'center', valign: 'middle', cellPadding: 1.5, minCellHeight: 4.8 }, headStyles: { fillColor: [248, 250, 252], textColor: [100, 116, 139], fontStyle: 'bold', lineWidth: { top: 0, bottom: 0.1, left: 0, right: 0 }, lineColor: [226, 232, 240] }, bodyStyles: { textColor: [71, 85, 105], lineWidth: { top: 0, bottom: 0.1, left: 0, right: 0 }, lineColor: [241, 245, 249] }, didDrawPage: function (data) { doc.setFillColor(36, 60, 148); doc.rect(0, 0, 210, 20, 'F'); doc.setFont(fontName, 'normal'); doc.setFontSize(18); doc.setTextColor(255, 255, 255); doc.text('CI Extra Plus', 105, 13, { align: 'center' }); let sumDisplay = (d.sum >= 1000000 && d.sum % 1000000 === 0) ? (d.sum/1000000)+' ล้านบาท' : (d.sum >= 100000 && d.sum % 100000 === 0) ? (d.sum/100000)+' แสนบาท' : formatNum(d.sum)+' บาท'; doc.setFontSize(14); doc.setTextColor(30, 58, 138); doc.text(`${getPlanAbbr(currentAppPlan)} ${d.gender} ${d.age} ทุน ${sumDisplay}`, 105, 28, { align: 'center' }); if (data.pageNumber === 1 && showBreakeven && beRowIndex !== -1) { doc.setFont(fontName, 'normal'); doc.setFontSize(13); doc.setTextColor(6, 95, 70); doc.text(`🎯 จุดคุ้มทุน: ปีที่ ${beYearStr} (อายุ ${beAgeStr} ปี) | เงินสดพร้อมใช้: ${beCVStr} บาท`, 105, 35, { align: 'center' }); } } });
+
+                const pageCount = doc.internal.getNumberOfPages(); doc.setFont(fontName, 'normal'); doc.setFontSize(11);
+                for (let i = 1; i <= pageCount; i++) { doc.setPage(i); doc.setDrawColor(226, 232, 240); doc.line(15, 285, 195, 285); doc.setTextColor(148, 163, 184); doc.text(`หน้า ${i} / ${pageCount}`, 195, 290, { align: 'right' }); }
+
+                const pdfFileName = `${getPlanAbbr(currentAppPlan)}_ตารางมูลค่า_อายุ${d.age}.pdf`;
+                if (actionType === 'print') { doc.autoPrint(); window.open(doc.output('bloburl'), '_blank'); } 
+                else if (actionType === 'line' || actionType === 'messenger') { const pdfBlob = doc.output('blob'); const file = new File([pdfBlob], pdfFileName, { type: 'application/pdf' }); if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}`, text: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}` }).catch(err => { if (err.name === 'NotAllowedError') doc.save(pdfFileName); }); } else { showCustomError("เบราว์เซอร์ไม่รองรับการแชร์ไฟล์"); doc.save(pdfFileName); } } else { doc.save(pdfFileName); }
+            } catch (error) { showCustomError("เกิดข้อผิดพลาดในการสร้าง PDF"); } finally { toast.remove(); }
+        }
+
+        async function generateAIAnalysis() {
+            if (!lastCalculationData || lastCalculationData.premium === 0) return;
+
+            const d = lastCalculationData;
+
+            document.getElementById('aiLoadingState').classList.remove('hidden');
+            document.getElementById('aiLoadingState').classList.add('flex');
+            document.getElementById('aiResultState').classList.add('hidden');
+            document.getElementById('aiResultState').innerHTML = '';
+
+            const aiContent = await callGeminiAPI(d);
+            
+            document.getElementById('aiLoadingState').classList.add('hidden');
+            document.getElementById('aiLoadingState').classList.remove('flex');
+            
+            const resultState = document.getElementById('aiResultState');
+            
+            resultState.innerHTML = aiContent;
+            resultState.classList.remove('hidden');
+            resultState.classList.add('flex', 'flex-col');
+        }
+
+        async function callGeminiAPI(userData) {
+            const apiKey = "";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const systemPrompt = `คุณคือผู้เชี่ยวชาญด้านการวางแผนการเงินและที่ปรึกษาประกันชีวิตระดับมืออาชีพ 
+            วิเคราะห์ข้อมูลที่ได้รับแบบเรียลไทม์ เพื่อให้คำแนะนำในการนำเสนอขายที่เหมาะสมกับบริบทของลูกค้าแต่ละรายอย่างเป็นธรรมชาติ
+            กรุณาสร้างบทวิเคราะห์เป็น HTML เท่านั้น โดยใช้โครงสร้างนี้เป๊ะๆ (ห้ามเปลี่ยน Tag หรือ Class):
+            <h4><i class="fas fa-search"></i> วิเคราะห์ความต้องการ</h4>
+            <ul><li><strong>[ประเด็น]:</strong> [อธิบายความกังวลหรือเป้าหมายหลักตามช่วงวัยและข้อมูลที่ได้]</li></ul>
+            <h4><i class="fas fa-comment-dots"></i> บทสนทนาเปิดใจ</h4>
+            <div class="ai-quote">"[ประโยคเปิดการขายที่ดึงดูดความสนใจและเข้าถึงปัญหา]"</div>
+            <h4><i class="fas fa-shield-alt"></i> การตอบข้อโต้แย้ง</h4>
+            <ul><li><strong>"[ข้อโต้แย้งที่อาจพบ]":</strong><div class="ai-reply"><em>"[วิธีตอบกลับอย่างมืออาชีพ แนะนำให้สั้นกระชับและจริงใจ]"</em></div></li></ul>
+            <h4><i class="fas fa-handshake"></i> บทสรุปและจุดขาย</h4>
+            <ul><li><strong>[จุดเด่น]:</strong> [เน้นย้ำความคุ้มค่าของวงเงินและเบี้ยที่ส่ง]</li></ul>
+            ข้อห้าม: ห้ามใช้ภาษาอังกฤษยกเว้นคำศัพท์เฉพาะทาง, ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "เงินออม" หรือ "งบประมาณ"), ห้ามใช้คำว่า "ทุน" (ให้ใช้ "วงเงินคุ้มครอง" หรือ "เงินสำรอง")`;
+
+            const userPrompt = `ประมวลผลข้อมูลลูกค้าแบบเรียลไทม์:\nแบบประกัน: ${currentAppPlan}\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nงบประมาณ: ${formatNum(userData.premium)} บาท/ปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            
+            for (let attempt = 0; attempt <= 5; attempt++) {
+                try {
+                    const response = await fetch(url, { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify(payload) 
+                    });
+                    
+                    if (!response.ok) throw new Error('API Error');
+                    
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/```html/g, '').replace(/```/g, '').trim() || '';
+                } catch (error) {
+                    if (attempt === 5) {
+                        return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-robot text-[45px] text-slate-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">AI ขัดข้องชั่วคราว</p><p class="text-[13px] text-slate-400 mt-1">กรุณาลองกดปุ่ม AI ใหม่อีกครั้ง</p></div>`;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delays[attempt]));
+                }
+            }
+        }
+
+        let pendingInstallmentData = {};
+
+        function triggerInstallmentShare(type) {
+            if (!lastCalculationData) return; 
+            const d = lastCalculationData; const p = d.premium; let amt = 0, label = ''; 
+            if(type === 'monthly') { amt = Math.round(p * 0.09); label = 'รายเดือน'; } if(type === '3month') { amt = Math.round(p * 0.27); label = 'ราย 3 เดือน'; } if(type === '6month') { amt = Math.round(p * 0.52); label = 'ราย 6 เดือน'; } 
+            const sumStr = formatNum(d.sum); const extraCI = formatNum(d.sum * 0.25); const majorCI = formatNum(d.sum * 0.75); const medExtra = formatNum(d.sum * 0.10); const maturityStr = formatNum(d.sum * 1.05); const maturityExtraStr = formatNum(d.sum * 0.05);
+            const premOnlyText = `${amt.toLocaleString()}`;
+            let allText = `👤 เพศ ${d.gender}\n🎂 อายุ ${d.age} ปี\n💰 ออมเงิน : ${amt.toLocaleString()} บาท (${label})\n⏳ ระยะเวลาออม ${d.years} ปี\n🛡️ วงเงิน ${sumStr} บาท\n\n--------------------------\n** ระยะเวลารอคอย 90 วัน\n--------------------------\n\n`; 
+            if (d.age <= 15) allText += `🧸 ตรวจพบ 1 ใน 15 โรคเด็ก\nจ่าย ${sumStr} บาท\n**ดูแลถึงอายุ 15 ปี\n\n`; 
+            allText += `🦠 ตรวจพบ 1 ใน 5 โรคร้าย\nจ่าย (สูงสุด 4 ครั้ง) ${extraCI} บาท\n\n🧬 ตรวจพบ 1 ใน 45 โรคร้าย (ภายหลัง)\nจ่าย ${majorCI} บาท\n** ยกเว้นการออมในครั้งถัดไป\nพร้อมดูแลค่ารักษาเพิ่มเติม ${medExtra} บาท\n\n🧬 ตรวจพบ 1 ใน 45 โรคร้าย (ก่อน)\nจ่าย ${sumStr} บาท\n** ยกเว้นการออมในครั้งถัดไป\nพร้อมดูแลค่ารักษาเพิ่มเติม ${medExtra} บาท\n\n🕊️ จากไปหรือครบสัญญา\nจ่าย ${maturityStr} บาท\n**ดูแลถึงอายุ 90 ปี\n(หากพบโรคร้ายก่อน จ่ายเพิ่ม ${maturityExtraStr} บาท)`; 
+            pendingInstallmentData = { premOnly: premOnlyText, allText: allText, label: label };
+            document.getElementById('installmentShareTitle').innerText = 'แชร์ยอดชำระ' + label;
+            closePopup('installmentModal'); openPopup('installmentShareModal');
+        }
+
+        let currentShareType = '';
+        function openGenericShareModal(type) {
+            if (type === 'all' && !lastCalculationData) return showCustomError("กรุณาคำนวณเบี้ยประกันก่อนแชร์");
+            currentShareType = type; openPopup('genericShareModal');
+        }
+
+        function handleGenericShare(platform) {
+            if (currentShareType === 'diseaseList') { const text = 'https://short-url.org/1nMQi'; if (platform === 'copy') copyToClipboard(text, 'คัดลอกลิงก์เรียบร้อยแล้ว'); else executeShare(text, platform); } 
+            else if (currentShareType === 'premium' || currentShareType === 'all') { if (platform === 'copy') { handleCopyAndClose(currentShareType); } else { closePopup('resultModal'); shareResult(currentShareType, platform); } } 
+            else if (currentShareType === 'installmentPrem' || currentShareType === 'installmentAll') { const textToShare = currentShareType === 'installmentPrem' ? pendingInstallmentData.premOnly : pendingInstallmentData.allText; if (platform === 'copy') copyToClipboard(textToShare, `คัดลอกเรียบร้อยแล้ว`); else executeShare(textToShare, platform); } 
+            else if (['scb', 'bbl', 'bay', 'kbank'].includes(currentShareType)) { const bText = {"scb": "ธ.ไทยพาณิชย์ : 049-416-6866 สาขาถนนวิทยุ", "bbl": "ธ.กรุงเทพ : 147-312-5357 สาขาสุรวงศ์", "bay": "ธ.กรุงศรี : 001-016-4329 สาขาเพลินจิต", "kbank": "ธ.กสิกร : 099-132-6065 สาขาพหลโยธิน"}; if (platform === 'copy') copyToClipboard(bText[currentShareType], 'คัดลอกบัญชีเรียบร้อยแล้ว'); else shareText(bText[currentShareType], platform); }
+            closePopup('genericShareModal');
+        }
+
+        function generateResultText(type) {
+            if (!lastCalculationData) return ''; const d = lastCalculationData;
+            if (type === 'premium') return `${Math.round(d.premium).toLocaleString()}`;
+            const sumStr = formatNum(d.sum); const extraCI = formatNum(d.sum * 0.25); const majorCI = formatNum(d.sum * 0.75); const medExtra = formatNum(d.sum * 0.10); const maturityStr = formatNum(d.sum * 1.05); const maturityExtraStr = formatNum(d.sum * 0.05);
+            let text = `👤 เพศ ${d.gender}\n🎂 อายุ ${d.age} ปี\n💰 ออม : ${Math.round(d.premium).toLocaleString()} บาท\n⏳ ระยะเวลาออม ${d.years} ปี\n🛡️ วงเงิน ${sumStr} บาท\n\n--------------------------\n** ระยะเวลารอคอย 90 วัน\n--------------------------\n\n`; 
+            if (d.age <= 15) text += `🧸 ตรวจพบ 1 ใน 15 โรคเด็ก\nจ่าย ${sumStr} บาท\n**ดูแลถึงอายุ 15 ปี\n\n`; 
+            text += `🦠 ตรวจพบ 1 ใน 5 โรคร้าย\nจ่าย (สูงสุด 4 ครั้ง) ${extraCI} บาท\n\n🧬 ตรวจพบ 1 ใน 45 โรคร้าย (ภายหลัง)\nจ่าย ${majorCI} บาท\n** ยกเว้นการออมในครั้งถัดไป\nพร้อมดูแลค่ารักษาเพิ่มเติม ${medExtra} บาท\n\n🕊️ จากไปหรือครบสัญญา\nจ่าย ${maturityStr} บาท\n**ดูแลถึงอายุ 90 ปี\n(หากพบโรคร้ายก่อน จ่ายเพิ่ม ${maturityExtraStr} บาท)`; 
+            return text;
+        }
+
+        function copyToClipboard(text, msg) { const el = document.createElement('textarea'); el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); const toast = document.createElement('div'); toast.className = "fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full text-xs font-bold z-[1000] shadow-xl transition-opacity duration-300"; toast.innerText = msg; document.body.appendChild(toast); setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 300); }, 2000); }
+        function copyToClipboardWithFeedback(text, callback, customHTML) { const el = document.createElement('textarea'); el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); const toast = document.createElement('div'); toast.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800/95 text-white px-8 py-6 rounded-3xl text-sm font-bold z-[1000] shadow-2xl text-center backdrop-blur-sm transition-all"; toast.innerHTML = customHTML; document.body.appendChild(toast); setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => { toast.remove(); if (callback) callback(); }, 300); }, 1800); }
+
+        function executeShare(text, platform) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (platform === 'line') { const lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(text); if (isMobile) window.location.href = lineUrl; else window.open(lineUrl, '_blank'); } 
+            else if (platform === 'messenger') { const fbHtml = `<div class="w-14 h-14 bg-[#0084FF] rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg"><i class='fab fa-facebook-messenger text-3xl text-white'></i></div><span class="text-base font-bold block mb-1">คัดลอกข้อความแล้ว</span><span class='text-xs font-medium opacity-90 block text-blue-200'>ระบบกำลังเปิด Messenger...<br>กรุณาวางข้อความในช่องแชท</span>`; copyToClipboardWithFeedback(text, () => { if (isMobile) { window.location.href = 'fb-messenger://'; setTimeout(() => { window.open('https://www.messenger.com/', '_blank'); }, 800); } else { window.open('https://www.messenger.com/', '_blank'); } }, fbHtml); } 
+            else if (platform === 'copy') { copyToClipboard(text, "คัดลอกเรียบร้อยแล้ว"); }
+        }
+
+        function shareResult(type, platform) { const text = generateResultText(type); if (text) executeShare(text, platform); }
+        function shareText(text, platform) { if (text) executeShare(text, platform); }
+        function handleCopyAndClose(type = 'all') { const text = generateResultText(type); if (text) copyToClipboard(text, "คัดลอกเรียบร้อยแล้ว"); closePopup('resultModal'); }
+
+        let voiceRecog = null; let isVoiceListening = false;
+        function startVoiceRecognition() { 
+            const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition; 
+            if (!SpeechRecognition) { showCustomError("อุปกรณ์ไม่รองรับคำสั่งเสียง"); return; }
+            if (isVoiceListening) { if (voiceRecog) voiceRecog.stop(); return; }
+            if (!voiceRecog) {
+                voiceRecog = new SpeechRecognition(); voiceRecog.lang = 'th-TH'; 
+                voiceRecog.onstart = () => { isVoiceListening = true; document.getElementById('navVoiceIcon').parentElement.classList.add('listening-active'); }; 
+                voiceRecog.onend = () => { isVoiceListening = false; document.getElementById('navVoiceIcon').parentElement.classList.remove('listening-active'); };
+                voiceRecog.onerror = () => { isVoiceListening = false; document.getElementById('navVoiceIcon').parentElement.classList.remove('listening-active'); };
+            }
+            try { voiceRecog.start(); } catch(e) {}
+        }
         
+        function showDefinition(title, desc) { document.getElementById('defTitle').innerText = title; document.getElementById('defDescription').innerText = desc; openPopup('definitionModal'); }
+        function showMedExtraDef() { showDefinition('รายการค่ารักษาพยาบาลเพิ่มเติม', `1. ค่ารักษาพยาบาลโรคร้ายแรง\n2. ค่าเวชศาสตร์ฟื้นฟู\n3. ค่ารักษาความงามและศัลยกรรมตกแต่ง\n4. ค่ารักษาแพทย์ทางเลือก`); }
+
         function setupLongPress() {
             const btn = document.getElementById('mainHeaderBtn');
             if (!btn) return;
