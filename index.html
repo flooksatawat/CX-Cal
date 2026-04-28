@@ -555,7 +555,7 @@
                 <button onclick="closePopup('aiMenuModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button>
             </div>
             <div class="space-y-2.5">
-                <button onclick="closePopup('aiMenuModal'); switchView('ai')" class="w-full flex justify-between items-center p-3.5 bg-blue-50 border border-blue-200 rounded-xl active:bg-blue-100 transition-colors group shadow-sm hover:bg-blue-100/50">
+                <button onclick="closePopup('aiMenuModal'); switchView('ai');" class="w-full flex justify-between items-center p-3.5 bg-blue-50 border border-blue-200 rounded-xl active:bg-blue-100 transition-colors group shadow-sm hover:bg-blue-100/50">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm"><i class="fas fa-lightbulb text-base"></i></div>
                         <div class="text-left">
@@ -585,6 +585,35 @@
     
     <div id="installmentShareModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-share-nodes text-2xl"></i></div><h3 id="installmentShareTitle" class="text-lg font-bold text-[#1e3a8a] mb-4">เลือกรูปแบบการแชร์</h3><div class="space-y-2.5"><div class="w-full text-left"><button onclick="closePopup('installmentShareModal'); openGenericShareModal('installmentPrem')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 p-3.5 rounded-xl font-bold shadow-sm flex justify-between items-center active:scale-95 transition-all text-[14px] hover:bg-slate-100"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center"><i class="fas fa-coins text-slate-600 text-base"></i></div><span>แชร์เฉพาะออมเงิน</span></div><i class="fas fa-chevron-right text-xs text-slate-400"></i></button></div><div class="w-full text-left"><button onclick="closePopup('installmentShareModal'); openGenericShareModal('installmentAll')" class="w-full bg-blue-50 text-blue-800 border border-blue-200 p-3.5 rounded-xl font-bold shadow-sm flex justify-between items-center active:scale-95 transition-all text-[14px] hover:bg-blue-100"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center"><i class="fas fa-file-invoice text-blue-600 text-base"></i></div><span>แชร์สรุปทั้งหมด</span></div><i class="fas fa-chevron-right text-xs text-blue-400"></i></button></div></div><button onclick="closePopup('installmentShareModal')" class="mt-5 text-slate-400 hover:text-slate-600 text-xs font-medium">ยกเลิก</button></div></div>
     
+    <!-- API Key BYOK Modal -->
+    <div id="apiKeyModal" class="modal-overlay z-[1001]">
+        <div class="modal-content-card p-5 bg-white text-center shadow-2xl">
+            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner border border-blue-100">
+                <i class="fas fa-key text-2xl"></i>
+            </div>
+            <h3 class="text-[18px] font-black text-slate-800 mb-1.5">ตั้งค่าผู้ช่วย AI (Gemini)</h3>
+            <p class="text-[12px] text-slate-500 mb-5 leading-relaxed px-2">
+                ระบบรักษาความปลอดภัย 100%<br>ระบบจะบันทึก Key ไว้ในเครื่องของคุณเท่านั้น
+            </p>
+            
+            <input type="password" id="apiKeyInputText" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-[14px] font-medium rounded-[14px] py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all placeholder:text-slate-400 shadow-inner mb-4 text-center" placeholder="วาง API Key ของคุณที่นี่">
+            
+            <div class="flex gap-2.5 mb-4">
+                <button onclick="window.open('https://aistudio.google.com/app/apikey', '_blank')" class="flex-1 bg-white text-slate-600 py-3 rounded-[14px] text-[12px] font-bold border border-slate-200 hover:bg-slate-50 shadow-sm transition-colors flex flex-col justify-center items-center gap-1">
+                    <i class="fas fa-external-link-alt text-slate-400 text-sm"></i>
+                    <span>รับ Key ฟรี</span>
+                </button>
+                <button onclick="saveApiKey()" class="flex-[2] bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] text-white py-3 rounded-[14px] text-[14px] font-bold shadow-md hover:shadow-lg active:scale-95 transition-all">
+                    บันทึกและใช้งาน
+                </button>
+            </div>
+            
+            <button onclick="closePopup('apiKeyModal')" class="text-[11px] text-slate-400 font-medium hover:text-slate-600 underline">
+                ไว้ตั้งค่าภายหลัง
+            </button>
+        </div>
+    </div>
+
     <!-- 1. รายได้จากเคสนี้ (Case Income Modal) - REDESIGNED -->
     <div id="caseIncomeModal" class="modal-overlay">
         <div class="modal-content-card p-5 bg-[#f8fafc]">
@@ -1511,8 +1540,34 @@
             } catch (error) { showCustomError("เกิดข้อผิดพลาดในการสร้าง PDF"); } finally { toast.remove(); }
         }
 
+        // ==================== AI MODULE (BYOK) ====================
+        
+        function saveApiKey() {
+            const keyInput = document.getElementById('apiKeyInputText').value.trim();
+            if(keyInput) {
+                localStorage.setItem('my_gemini_api_key', keyInput);
+                closePopup('apiKeyModal');
+                showCongratsToast("บันทึกคีย์ AI เรียบร้อยแล้ว!");
+                generateAIAnalysis();
+            } else {
+                showCustomError("กรุณากรอก API Key");
+            }
+        }
+
+        function getStoredApiKey() {
+            return localStorage.getItem('my_gemini_api_key');
+        }
+
         async function generateAIAnalysis() {
             if (!lastCalculationData || lastCalculationData.premium === 0) return;
+
+            const apiKey = getStoredApiKey();
+            if (!apiKey) {
+                document.getElementById('aiResultState').classList.add('hidden');
+                document.getElementById('aiLoadingState').classList.add('hidden');
+                openPopup('apiKeyModal');
+                return;
+            }
 
             const d = lastCalculationData;
 
@@ -1521,7 +1576,7 @@
             document.getElementById('aiResultState').classList.add('hidden');
             document.getElementById('aiResultState').innerHTML = '';
 
-            const aiContent = await callGeminiAPI(d);
+            const aiContent = await callGeminiAPI(d, apiKey);
             
             document.getElementById('aiLoadingState').classList.add('hidden');
             document.getElementById('aiLoadingState').classList.remove('flex');
@@ -1533,8 +1588,7 @@
             resultState.classList.add('flex', 'flex-col');
         }
 
-        async function callGeminiAPI(userData) {
-            const apiKey = "";
+        async function callGeminiAPI(userData, apiKey) {
             const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             const systemPrompt = `คุณคือผู้เชี่ยวชาญด้านการวางแผนการเงินและที่ปรึกษาประกันชีวิตระดับมืออาชีพ 
@@ -1547,7 +1601,7 @@
             <h4><i class="fas fa-shield-alt"></i> การตอบข้อโต้แย้ง</h4>
             <ul><li><strong>"[ข้อโต้แย้งที่อาจพบ]":</strong><div class="ai-reply"><em>"[วิธีตอบกลับอย่างมืออาชีพ แนะนำให้สั้นกระชับและจริงใจ]"</em></div></li></ul>
             <h4><i class="fas fa-handshake"></i> บทสรุปและจุดขาย</h4>
-            <ul><li><strong>[จุดเด่น]:</strong> [เน้นย้ำความคุ้มค่าของวงเงินและเบี้ยที่ส่ง]</li></ul>
+            <ul><li><strong>[จุดเด่น]:</strong> [เน้นย้ำความคุ้มค่าของวงเงินและงบประมาณที่ส่ง]</li></ul>
             ข้อห้าม: ห้ามใช้ภาษาอังกฤษยกเว้นคำศัพท์เฉพาะทาง, ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "เงินออม" หรือ "งบประมาณ"), ห้ามใช้คำว่า "ทุน" (ให้ใช้ "วงเงินคุ้มครอง" หรือ "เงินสำรอง")`;
 
             const userPrompt = `ประมวลผลข้อมูลลูกค้าแบบเรียลไทม์:\nแบบประกัน: ${currentAppPlan}\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nงบประมาณ: ${formatNum(userData.premium)} บาท/ปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
@@ -1557,9 +1611,9 @@
                 systemInstruction: { parts: [{ text: systemPrompt }] }
             };
 
-            const delays = [1000, 2000, 4000, 8000, 16000];
+            const delays = [1000, 2000, 4000, 8000];
             
-            for (let attempt = 0; attempt <= 5; attempt++) {
+            for (let attempt = 0; attempt < 4; attempt++) {
                 try {
                     const response = await fetch(url, { 
                         method: 'POST', 
@@ -1567,12 +1621,18 @@
                         body: JSON.stringify(payload) 
                     });
                     
-                    if (!response.ok) throw new Error('API Error');
+                    if (!response.ok) {
+                        if(response.status === 400 || response.status === 403) {
+                            localStorage.removeItem('my_gemini_api_key');
+                            return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-key text-[45px] text-red-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">API Key ไม่ถูกต้อง</p><p class="text-[13px] text-slate-400 mt-1 mb-4">กรุณาตรวจสอบและตั้งค่าใหม่อีกครั้ง</p><button onclick="openPopup('apiKeyModal')" class="px-4 py-2 bg-slate-100 rounded-xl text-xs font-bold text-slate-600 border border-slate-200">ตั้งค่า API Key ใหม่</button></div>`;
+                        }
+                        throw new Error('API Error');
+                    }
                     
                     const data = await response.json();
                     return data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/```html/g, '').replace(/```/g, '').trim() || '';
                 } catch (error) {
-                    if (attempt === 5) {
+                    if (attempt === 3) {
                         return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-robot text-[45px] text-slate-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">AI ขัดข้องชั่วคราว</p><p class="text-[13px] text-slate-400 mt-1">กรุณาลองกดปุ่ม AI ใหม่อีกครั้ง</p></div>`;
                     }
                     await new Promise(resolve => setTimeout(resolve, delays[attempt]));
