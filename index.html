@@ -1229,40 +1229,37 @@
         }
         
         function setupScrollHideNav() {
-            let lastScrollTop = 0;
             const bottomNav = document.getElementById('bottomNavContainer');
             if (!bottomNav) return;
             
             document.querySelectorAll('.scrollable-view').forEach(el => {
+                let lastScrollTop = 0; // แก้ไข: แยกการจำระยะ Scroll ของแต่ละหน้าออกจากกัน
                 el.addEventListener('scroll', function() {
                     let st = this.scrollTop;
-                    // ป้องกันการซ่อนเมนูเมื่อเด้งกลับสุดขอบบน/ล่าง (Rubber banding ในมือถือ)
-                    if (st <= 0) {
-                        bottomNav.style.transform = 'translateY(0)';
-                        bottomNav.style.opacity = '1';
-                        lastScrollTop = st;
-                        return;
-                    }
-                    if (st + this.clientHeight >= this.scrollHeight - 10) {
+                    
+                    // 1. ถ้าอยู่บนสุด ให้แสดงเมนูเสมอ
+                    if (st <= 10) {
                         bottomNav.style.transform = 'translateY(0)';
                         bottomNav.style.opacity = '1';
                         lastScrollTop = st;
                         return;
                     }
                     
-                    // ป้องกันการขยับเล็กน้อยแล้วซ่อน
+                    // ป้องกันหน้าจอสั่นเวลาใช้นิ้วแตะค้าง
                     if (Math.abs(lastScrollTop - st) <= 5) return; 
                     
-                    if (st > lastScrollTop && st > 40) {
-                        // เลื่อนลง -> ซ่อน
+                    // 2. ถ้าเลื่อนลง (Scroll Down) ให้ซ่อนเมนู
+                    if (st > lastScrollTop && st > 20) {
                         bottomNav.style.transform = 'translateY(120%)';
                         bottomNav.style.opacity = '0';
-                    } else if (st < lastScrollTop) {
-                        // เลื่อนขึ้น -> แสดง
+                    } 
+                    // 3. ถ้าเลื่อนขึ้น (Scroll Up) ให้แสดงเมนู
+                    else if (st < lastScrollTop) {
                         bottomNav.style.transform = 'translateY(0)';
                         bottomNav.style.opacity = '1';
                     }
-                    lastScrollTop = st;
+                    
+                    lastScrollTop = st <= 0 ? 0 : st;
                 }, { passive: true });
             });
         }
