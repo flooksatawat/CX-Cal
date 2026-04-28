@@ -182,9 +182,10 @@
                     <!-- Top Toggles -->
                     <div class="flex flex-col gap-3 shrink-0">
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="premium-card !p-1.5 flex h-[50px]">
-                                <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[14px] text-[15px] font-bold active-male text-white transition-all">ชาย</button>
-                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[14px] text-[15px] font-normal text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
+                            <div class="flex p-1 bg-slate-100/80 rounded-[14px] relative shadow-inner border border-slate-200/60 h-[50px]">
+                                <div id="genderBg" class="absolute top-1 bottom-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.15)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-blue-100/80 pointer-events-none" style="left: 4px; width: calc(50% - 4px);"></div>
+                                <button onclick="setGender('male')" id="btnMale" class="flex-1 relative z-10 rounded-[10px] text-[15px] font-bold text-blue-700 transition-all duration-300">ชาย</button>
+                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 relative z-10 rounded-[10px] text-[15px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">หญิง</button>
                             </div>
                             <div class="premium-card !p-1.5 flex items-center justify-between h-[50px]">
                                 <button onclick="adjustAge(-1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[14px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-[14px]"></i></button>
@@ -193,11 +194,12 @@
                             </div>
                         </div>
                         <div id="planSelectionWrapper" class="shrink-0">
-                            <div class="premium-card !p-1.5 flex h-[50px]" id="planSelectionContainer">
-                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[14px] text-[14px] font-normal active-blue text-white transition-all">10CX</button>
-                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[14px] text-[14px] font-normal text-slate-500 hover:bg-slate-50 transition-all">20CX</button>
-                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[14px] text-[14px] font-normal hidden text-slate-500 transition-all">60</button>
-                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[14px] text-[14px] font-normal hidden text-slate-500 transition-all">90</button>
+                            <div class="flex p-1 bg-slate-100/80 rounded-[14px] relative shadow-inner border border-slate-200/60 h-[50px]" id="planSelectionContainer">
+                                <div id="planBg" class="absolute top-1 bottom-1 left-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.15)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-blue-100/80 pointer-events-none"></div>
+                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 relative z-10 rounded-[10px] text-[14px] font-bold text-blue-700 transition-all duration-300">10CX</button>
+                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 relative z-10 rounded-[10px] text-[14px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">20CX</button>
+                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 relative z-10 rounded-[10px] text-[14px] font-medium hidden text-slate-500 hover:text-slate-700 transition-all duration-300">60</button>
+                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 relative z-10 rounded-[10px] text-[14px] font-medium hidden text-slate-500 hover:text-slate-700 transition-all duration-300">90</button>
                             </div>
                         </div>
                     </div>
@@ -208,8 +210,13 @@
                             <p id="sumInsuredLabel" class="text-slate-600 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-shield-halved text-emerald-500"></i> วงเงินคุ้มครอง (บาท)</p>
                             <span class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากทุน</span>
                         </div>
-                        <div class="quick-pill-container mb-3" id="sumPillWrapper">
-                            <button id="sumPill1" onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button><button id="sumPill2" onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button><button id="sumPill3" onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button><button id="sumPill4" onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button><button id="sumPill5" onclick="setQuickSum(5000000)" class="quick-pill">5 ล้าน</button>
+                        <div class="flex p-1 bg-slate-100/80 rounded-[14px] relative shadow-inner border border-slate-200/60 mb-3 h-[42px]" id="sumPillWrapper">
+                            <div id="sumPillBg" class="absolute top-1 bottom-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.15)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-blue-100/80 pointer-events-none opacity-0"></div>
+                            <button id="sumPill1" onclick="setQuickSum(100000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">1 แสน</button>
+                            <button id="sumPill2" onclick="setQuickSum(500000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">5 แสน</button>
+                            <button id="sumPill3" onclick="setQuickSum(1000000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">1 ล้าน</button>
+                            <button id="sumPill4" onclick="setQuickSum(3000000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">3 ล้าน</button>
+                            <button id="sumPill5" onclick="setQuickSum(5000000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">5 ล้าน</button>
                         </div>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg">฿</span>
@@ -220,16 +227,23 @@
                     <!-- 3D Health Excellence: Room Rate Container -->
                     <div class="premium-card shrink-0 hidden" id="hxRoomRateContainer">
                         <div class="flex justify-between items-center mb-2.5">
-                            <p class="text-teal-700 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-bed text-teal-500"></i> แผนความคุ้มครองสุขภาพ (ค่าห้อง)</p>
+                            <p class="text-teal-700 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-procedures text-teal-500"></i> แผนความคุ้มครองสุขภาพ (ค่าห้อง)</p>
                         </div>
-                        <select id="hxPlanSelect" class="w-full border-none rounded-[14px] outline-none transition-all bg-teal-50 text-teal-800 font-normal text-[14px] h-[44px] shadow-inner px-3 focus:ring-2 focus:ring-teal-400" onchange="calculate(currentMode)">
-                            <option value="HX15">HX15 (ค่าห้อง 1,500 / เหมาจ่าย 1 ล้าน)</option>
-                            <option value="HX20">HX20 (ค่าห้อง 2,000 / เหมาจ่าย 3 ล้าน)</option>
-                            <option value="HX40">HX40 (ค่าห้อง 4,000 / เหมาจ่าย 5 ล้าน)</option>
-                            <option value="HX60">HX60 (ค่าห้อง 6,000 / เหมาจ่าย 10 ล้าน)</option>
-                            <option value="HX150">HX150 (ค่าห้อง 15,000 / เหมาจ่าย 60 ล้าน)</option>
-                            <option value="HX300">HX300 (ค่าห้อง 30,000 / เหมาจ่าย 120 ล้าน)</option>
-                        </select>
+                        <button onclick="openPopup('hxPlanModal')" class="w-full bg-gradient-to-r from-teal-50/50 to-white border border-teal-200 rounded-[16px] p-2.5 shadow-[0_2px_8px_rgba(20,184,166,0.06)] hover:shadow-md hover:border-teal-300 transition-all flex items-center justify-between group active:scale-[0.98]">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-10 h-10 rounded-[12px] bg-white flex items-center justify-center shadow-sm border border-teal-100 group-hover:scale-105 transition-transform text-teal-500">
+                                    <i class="fas fa-bed text-[16px]"></i>
+                                </div>
+                                <div class="text-left flex flex-col justify-center">
+                                    <span id="hxPlanDisplayTitle" class="text-[14px] font-bold text-teal-900 leading-tight">HX15</span>
+                                    <span id="hxPlanDisplayDesc" class="text-[11px] text-teal-600 font-medium leading-tight mt-0.5">ค่าห้อง 1,500 / เหมาจ่าย 1 ล้าน</span>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-teal-400 group-hover:text-teal-600 group-hover:bg-teal-50 transition-colors mr-1">
+                                <i class="fas fa-chevron-down text-[12px]"></i>
+                            </div>
+                        </button>
+                        <input type="hidden" id="hxPlanSelect" value="HX15">
                     </div>
 
                     <!-- 3D Health Excellence: Extra Options -->
@@ -244,8 +258,13 @@
                             <p id="premiumLabel" class="text-slate-600 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-wallet text-blue-500"></i> ออมเงิน (บาท/ปี)</p>
                             <span id="premiumSubLabel" class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากเบี้ย</span>
                         </div>
-                        <div id="premiumPillContainer" class="quick-pill-container mb-3">
-                            <button id="premPill1" onclick="setQuickPremium(12000)" class="quick-pill">12,000</button><button id="premPill2" onclick="setQuickPremium(24000)" class="quick-pill">24,000</button><button id="premPill3" onclick="setQuickPremium(36000)" class="quick-pill">36,000</button><button id="premPill4" onclick="setQuickPremium(48000)" class="quick-pill">48,000</button><button id="premPill5" onclick="setQuickPremium(60000)" class="quick-pill">60,000</button>
+                        <div class="flex p-1 bg-slate-100/80 rounded-[14px] relative shadow-inner border border-slate-200/60 mb-3 h-[42px]" id="premiumPillContainer">
+                            <div id="premPillBg" class="absolute top-1 bottom-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.15)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-blue-100/80 pointer-events-none opacity-0"></div>
+                            <button id="premPill1" onclick="setQuickPremium(12000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">12,000</button>
+                            <button id="premPill2" onclick="setQuickPremium(24000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">24,000</button>
+                            <button id="premPill3" onclick="setQuickPremium(36000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">36,000</button>
+                            <button id="premPill4" onclick="setQuickPremium(48000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">48,000</button>
+                            <button id="premPill5" onclick="setQuickPremium(60000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">60,000</button>
                         </div>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg">฿</span>
@@ -255,12 +274,13 @@
 
                     <div class="premium-card shrink-0 hidden border-emerald-200 bg-emerald-50/30" id="cashFlowContainer">
                         <div class="flex justify-between items-center mb-2.5"><p class="text-emerald-700 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-money-bill-trend-up"></i> กระแสเงินสด (บาท/ปี)</p></div>
-                        <div class="quick-pill-container bg-emerald-100/50 mb-3">
-                            <button id="cashPill1" onclick="setQuickCashFlow(10000)" class="quick-pill hover:bg-emerald-200">1 หมื่น</button>
-                            <button id="cashPill2" onclick="setQuickCashFlow(50000)" class="quick-pill hover:bg-emerald-200">5 หมื่น</button>
-                            <button id="cashPill3" onclick="setQuickCashFlow(100000)" class="quick-pill hover:bg-emerald-200">1 แสน</button>
-                            <button id="cashPill4" onclick="setQuickCashFlow(300000)" class="quick-pill hover:bg-emerald-200">3 แสน</button>
-                            <button id="cashPill5" onclick="setQuickCashFlow(500000)" class="quick-pill hover:bg-emerald-200">5 แสน</button>
+                        <div class="flex p-1 bg-emerald-100/60 rounded-[14px] relative shadow-inner border border-emerald-200/50 mb-3 h-[42px]">
+                            <div id="cashPillBg" class="absolute top-1 bottom-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(16,185,129,0.2)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-emerald-100 pointer-events-none opacity-0"></div>
+                            <button id="cashPill1" onclick="setQuickCashFlow(10000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-emerald-600/80 hover:text-emerald-700 transition-all duration-300">1 หมื่น</button>
+                            <button id="cashPill2" onclick="setQuickCashFlow(50000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-emerald-600/80 hover:text-emerald-700 transition-all duration-300">5 หมื่น</button>
+                            <button id="cashPill3" onclick="setQuickCashFlow(100000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-emerald-600/80 hover:text-emerald-700 transition-all duration-300">1 แสน</button>
+                            <button id="cashPill4" onclick="setQuickCashFlow(300000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-emerald-600/80 hover:text-emerald-700 transition-all duration-300">3 แสน</button>
+                            <button id="cashPill5" onclick="setQuickCashFlow(500000)" class="flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-emerald-600/80 hover:text-emerald-700 transition-all duration-300">5 แสน</button>
                         </div>
                         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">฿</span><input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded pl-8 text-emerald-700 bg-white focus:ring-emerald-500" oninput="handleCashFlowInput(this)"></div>
                     </div>
@@ -793,10 +813,13 @@
                 <button onclick="closePopup('nabModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-1 text-left">
-                <select id="nabPhaseSelect" class="w-full border-none rounded-[14px] outline-none transition-all bg-white text-[#164e63] font-bold text-[14px] h-[44px] shadow-sm mb-4 px-3 focus:ring-2 focus:ring-cyan-400" onchange="refreshAllDisplays()">
-                    <option value="p1">เดือนที่ 1 - เดือนที่ 3</option>
-                    <option value="p2">เดือนที่ 4 - เดือนที่ 6</option>
-                </select>
+                
+                <div class="flex p-1 bg-slate-100/80 rounded-[14px] mb-4 relative shadow-inner border border-slate-200/60">
+                    <input type="hidden" id="nabPhaseSelect" value="p1">
+                    <div id="nabPhaseBg" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-white rounded-[10px] shadow-[0_2px_8px_rgba(8,145,178,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-cyan-100/80"></div>
+                    <button onclick="setNABPhase('p1')" id="btnNabP1" class="flex-1 relative z-10 py-2.5 text-[13px] font-bold text-cyan-700 transition-all duration-300">เดือนที่ 1 - 3</button>
+                    <button onclick="setNABPhase('p2')" id="btnNabP2" class="flex-1 relative z-10 py-2.5 text-[13px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300">เดือนที่ 4 - 6</button>
+                </div>
                 
                 <div class="grid grid-cols-2 gap-3 mb-4">
                     <div>
@@ -844,6 +867,78 @@
     <div id="disease45Modal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-amber-900"><i class="fas fa-ribbon mr-2 text-amber-600"></i> รายชื่อ 45 โรคร้ายแรง</h3><button onclick="closePopup('disease45Modal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="overflow-y-auto flex-1 text-left custom-scrollbar pr-2 pb-1"><div class="divide-y divide-slate-100 px-1 mb-3"><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">1) โรคสมองเสื่อมชนิดอัลไซเมอร์</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">2) โรคโลหิตจางจากไขกระดูกไม่สร้างเม็ดโลหิต</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">3) โรคเยื่อหุ้มสมองและไขสันหลังอักเสบจากเชื้อแบคทีเรีย</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">4) เนื้องอกในสมองชนิดที่ไม่ใช่มะเร็ง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">5) ตาบอด</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">6) โรคมะเร็งระยะลุกลาม</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">7) โรคกล้ามเนื้อหัวใจ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">8) ตับวาย</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">9) โรหลอดลมปอดอุดกั้นเรื้อรังขั้นรุนแรง / โรคปอดระยะสุดท้าย</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">10) ภาวะโคม่า</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">11) การผ่าตัดเส้นเลือดเลี้ยงกล้ามเนื้อหัวใจ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">12) กล้ามเนื้อหัวใจตายเฉียบพลันจากการขาดเลือด</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">13) การผ่าตัดลิ้นหัวใจโดยวิธีการเปิดหัวใจ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">14) ไตวายเรื้อรัง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">15) การสูญเสียการได้ยิน</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">16) การสูญเสียการดำรงชีพอย่างอิสระ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">17) การทุพพลภาพถาวรสิ้นเชิง (ก่อนอายุครบ 70 ปี)</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">18) การสูญเสียความสามารถในการพูด</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">19) แผลไหม้ฉกรรจ์</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">20) การบาดเจ็บที่ศีรษะอย่างรุนแรง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">21) การผ่าตัดเปลี่ยนอวัยวะหรือปลูกถ่ายไขกระดูก</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">22) โรคของเซลล์ประสาทควบคุมการเคลื่อนไหว</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">23) โรคระบบประสาทมัลติเพิล สะเคลอโรสิส</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">24) โรคกล้ามเนื้อเสื่อ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">25) โรคไวรัสตับอักเสบขั้นรุนแรง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">26) โรคเส้นเลือดหัวใจตีบ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">27) อัมพาตของกล้ามเนื้อแขนหรือขา</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">28) โรคพาร์กินสัน</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">29) โรคแรงดันในหลอดเลือดแดงปอดสูงแบบปฐมภูมิ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">30) ภาวะข้ออักเสบรูมาตอยด์ชนิดรุนแรง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">31) โรหลอดเลือดสมองแตกหรืออุดตัน</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">32) การผ่าตัดเส้นเลือดแดงใหญ่ เอออร์ต้า</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">33) ไตอักเสบลูปูส จากโรคซิสเต็มมิค ลูปูส อิริเธมาโตซูส</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">34) สมองอักเสบจากเชื้อไวรัส</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">35) ภาวะอะแพลลิก</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">36) โรคหลอดเลือดสมองโป่งพองที่ต้องรักษาโดยการผ่าตัด</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">37) การฉีกขาดของรากประสาทต้นแขน</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">38) โรคโปลิโอ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">39) การผ่าตัดกระดูกสันหลังคดที่ไม่ทราบสาเหตุ</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">40) ภาวะตับอ่อนอักเสบที่กลับเป็นซ้ำและเรื้อรัง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">41) โรคเท้าช้าง</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">42) โรถุงน้ำในไต</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">43) โรคเนื้อเยื่อพังผืดอักเสบติดเชื้อและเป็นเนื้อตาย</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">44) โรคหนังแข็งชนิดลุกลาม</div></div><div class="py-2.5"><div class="text-[11px] font-bold text-slate-800">45) โรคลำไส้อักเสบเป็นแผลรุนแรง</div></div></div></div><button onclick="closePopup('disease45Modal')" class="mt-3 w-full py-3 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-xl border border-amber-200 transition-colors text-sm">ปิดหน้าต่าง</button></div></div>
 
     <div id="definitionModal" class="modal-overlay"><div class="modal-content-card p-5 bg-white/95 backdrop-blur-md rounded-[28px]"><div class="pb-0 flex justify-between items-start"><div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl shrink-0"><i class="fas fa-book-medical"></i></div><button onclick="closePopup('definitionModal')" class="text-slate-400 hover:text-slate-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 leading-none">&times;</button></div><div class="pt-3 overflow-y-auto flex-1 custom-scrollbar"><h3 id="defTitle" class="text-base font-bold text-[#1e3a8a] mb-1.5 leading-tight"></h3><div class="w-12 h-1 bg-blue-500 rounded-full mb-3"></div><div id="defDescription" class="text-[12px] text-slate-700 leading-relaxed font-medium whitespace-pre-wrap pb-3"></div></div><button onclick="closePopup('definitionModal')" class="w-full py-3 bg-[#243c94] hover:bg-[#1e327a] text-white font-bold rounded-xl active:scale-95 transition-transform shadow-lg mt-3 text-sm">ปิดหน้าต่างนี้</button></div></div>
+
+    <!-- 3D Health Excellence - Room Rate Plan Modal -->
+    <div id="hxPlanModal" class="modal-overlay">
+        <div class="modal-content-card p-5 bg-[#f8fafc]">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-[14px] bg-teal-50 text-teal-600 flex items-center justify-center text-lg shadow-inner border border-white"><i class="fas fa-bed"></i></div>
+                    <div class="text-left">
+                        <h3 class="text-[17px] font-semibold text-slate-800 tracking-tight leading-none">ค่าห้อง & เหมาจ่าย</h3>
+                        <p class="text-[10px] text-slate-500 font-medium mt-1">เลือกแผนความคุ้มครองสุขภาพ 3D</p>
+                    </div>
+                </div>
+                <button onclick="closePopup('hxPlanModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-lg font-medium leading-none">&times;</button>
+            </div>
+            <div class="overflow-y-auto flex-1 custom-scrollbar pr-1 pb-2 space-y-2">
+                <button onclick="handleHXPlanSelect('HX15', 'HX15', 'ค่าห้อง 1,500 / เหมาจ่าย 1 ล้าน')" class="w-full flex items-center justify-between p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] hover:border-teal-300 hover:bg-teal-50/50 transition-all group">
+                    <div class="flex flex-col text-left">
+                        <span class="text-[15px] font-bold text-slate-800 group-hover:text-teal-700">HX15</span>
+                        <span class="text-[12px] font-medium text-slate-500 mt-0.5 group-hover:text-teal-600">ค่าห้อง 1,500 / เหมาจ่าย 1 ล้าน</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
+                        <i class="fas fa-check text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </button>
+                <button onclick="handleHXPlanSelect('HX20', 'HX20', 'ค่าห้อง 2,000 / เหมาจ่าย 3 ล้าน')" class="w-full flex items-center justify-between p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] hover:border-teal-300 hover:bg-teal-50/50 transition-all group">
+                    <div class="flex flex-col text-left">
+                        <span class="text-[15px] font-bold text-slate-800 group-hover:text-teal-700">HX20</span>
+                        <span class="text-[12px] font-medium text-slate-500 mt-0.5 group-hover:text-teal-600">ค่าห้อง 2,000 / เหมาจ่าย 3 ล้าน</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
+                        <i class="fas fa-check text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </button>
+                <button onclick="handleHXPlanSelect('HX40', 'HX40', 'ค่าห้อง 4,000 / เหมาจ่าย 5 ล้าน')" class="w-full flex items-center justify-between p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] hover:border-teal-300 hover:bg-teal-50/50 transition-all group">
+                    <div class="flex flex-col text-left">
+                        <span class="text-[15px] font-bold text-slate-800 group-hover:text-teal-700">HX40</span>
+                        <span class="text-[12px] font-medium text-slate-500 mt-0.5 group-hover:text-teal-600">ค่าห้อง 4,000 / เหมาจ่าย 5 ล้าน</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
+                        <i class="fas fa-check text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </button>
+                <button onclick="handleHXPlanSelect('HX60', 'HX60', 'ค่าห้อง 6,000 / เหมาจ่าย 10 ล้าน')" class="w-full flex items-center justify-between p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] hover:border-teal-300 hover:bg-teal-50/50 transition-all group">
+                    <div class="flex flex-col text-left">
+                        <span class="text-[15px] font-bold text-slate-800 group-hover:text-teal-700">HX60</span>
+                        <span class="text-[12px] font-medium text-slate-500 mt-0.5 group-hover:text-teal-600">ค่าห้อง 6,000 / เหมาจ่าย 10 ล้าน</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
+                        <i class="fas fa-check text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </button>
+                <button onclick="handleHXPlanSelect('HX150', 'HX150', 'ค่าห้อง 15,000 / เหมาจ่าย 60 ล้าน')" class="w-full flex items-center justify-between p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] hover:border-teal-300 hover:bg-teal-50/50 transition-all group">
+                    <div class="flex flex-col text-left">
+                        <span class="text-[15px] font-bold text-slate-800 group-hover:text-teal-700">HX150</span>
+                        <span class="text-[12px] font-medium text-slate-500 mt-0.5 group-hover:text-teal-600">ค่าห้อง 15,000 / เหมาจ่าย 60 ล้าน</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
+                        <i class="fas fa-check text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </button>
+                <button onclick="handleHXPlanSelect('HX300', 'HX300', 'ค่าห้อง 30,000 / เหมาจ่าย 120 ล้าน')" class="w-full flex items-center justify-between p-3.5 bg-white rounded-[20px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] hover:border-teal-300 hover:bg-teal-50/50 transition-all group">
+                    <div class="flex flex-col text-left">
+                        <span class="text-[15px] font-bold text-slate-800 group-hover:text-teal-700">HX300</span>
+                        <span class="text-[12px] font-medium text-slate-500 mt-0.5 group-hover:text-teal-600">ค่าห้อง 30,000 / เหมาจ่าย 120 ล้าน</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-400 group-hover:bg-teal-100 group-hover:text-teal-600 transition-colors">
+                        <i class="fas fa-check text-[12px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ==================== JS LOGIC ====================
@@ -936,26 +1031,61 @@
         }
 
         function highlightActivePills(fSum, fPrem, fCashFlow) {
-            for(let i=1; i<=5; i++) {
-                let sumEl = document.getElementById('sumPill'+i);
-                if(sumEl) {
-                    sumEl.classList.remove('quick-pill-active', 'text-white');
-                    let match = sumEl.getAttribute('onclick').match(/\d+/);
-                    if(match && parseInt(match[0]) === fSum) sumEl.classList.add('quick-pill-active', 'text-white');
+            setTimeout(() => {
+                // Sum
+                let sumMatched = false;
+                const sumBg = document.getElementById('sumPillBg');
+                for(let i=1; i<=5; i++) {
+                    let el = document.getElementById('sumPill'+i);
+                    if(el) {
+                        let match = el.getAttribute('onclick').match(/\d+/);
+                        if(match && parseInt(match[0]) === fSum) {
+                            el.className = 'flex-1 relative z-10 rounded-[10px] text-[11px] font-bold text-blue-700 transition-all duration-300';
+                            if(sumBg) { sumBg.style.opacity = '1'; sumBg.style.width = el.offsetWidth + 'px'; sumBg.style.left = el.offsetLeft + 'px'; }
+                            sumMatched = true;
+                        } else {
+                            el.className = 'flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300';
+                        }
+                    }
                 }
-                let premEl = document.getElementById('premPill'+i);
-                if(premEl) {
-                    premEl.classList.remove('quick-pill-active', 'text-white');
-                    let match = premEl.getAttribute('onclick').match(/\d+/);
-                    if(match && parseInt(match[0]) === fPrem) premEl.classList.add('quick-pill-active', 'text-white');
+                if(!sumMatched && sumBg) sumBg.style.opacity = '0';
+
+                // Prem
+                let premMatched = false;
+                const premBg = document.getElementById('premPillBg');
+                for(let i=1; i<=5; i++) {
+                    let el = document.getElementById('premPill'+i);
+                    if(el) {
+                        let match = el.getAttribute('onclick').match(/\d+/);
+                        if(match && parseInt(match[0]) === fPrem) {
+                            el.className = 'flex-1 relative z-10 rounded-[10px] text-[11px] font-bold text-blue-700 transition-all duration-300';
+                            if(premBg) { premBg.style.opacity = '1'; premBg.style.width = el.offsetWidth + 'px'; premBg.style.left = el.offsetLeft + 'px'; }
+                            premMatched = true;
+                        } else {
+                            el.className = 'flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300';
+                        }
+                    }
                 }
-                let cashEl = document.getElementById('cashPill'+i);
-                if(cashEl) {
-                    cashEl.classList.remove('quick-pill-emerald-active', 'text-white');
-                    let match = cashEl.getAttribute('onclick').match(/\d+/);
-                    if(match && parseInt(match[0]) === fCashFlow) cashEl.classList.add('quick-pill-emerald-active', 'text-white');
+                if(!premMatched && premBg) premBg.style.opacity = '0';
+
+                // Cash
+                let cashMatched = false;
+                const cashBg = document.getElementById('cashPillBg');
+                for(let i=1; i<=5; i++) {
+                    let el = document.getElementById('cashPill'+i);
+                    if(el) {
+                        let match = el.getAttribute('onclick').match(/\d+/);
+                        if(match && parseInt(match[0]) === fCashFlow) {
+                            el.className = 'flex-1 relative z-10 rounded-[10px] text-[11px] font-bold text-emerald-700 transition-all duration-300';
+                            if(cashBg) { cashBg.style.opacity = '1'; cashBg.style.width = el.offsetWidth + 'px'; cashBg.style.left = el.offsetLeft + 'px'; }
+                            cashMatched = true;
+                        } else {
+                            el.className = 'flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-emerald-600/80 hover:text-emerald-700 transition-all duration-300';
+                        }
+                    }
                 }
-            }
+                if(!cashMatched && cashBg) cashBg.style.opacity = '0';
+            }, 10);
         }
 
         function adjustAge(delta) { const input = document.getElementById('ageInput'); let val = parseInt(input.value) + delta; if (val >= 0 && val <= 65) { input.value = val; calculate(currentMode); } }
@@ -964,12 +1094,22 @@
             currentGender = gender; 
             const btnM = document.getElementById('btnMale');
             const btnF = document.getElementById('btnFemale');
+            const genderBg = document.getElementById('genderBg');
+            
             if(gender === 'male') {
-                btnM.className = 'flex-1 rounded-[14px] text-[15px] font-bold active-male text-white transition-all';
-                btnF.className = 'flex-1 rounded-[14px] text-[15px] font-normal text-slate-500 hover:bg-slate-50 transition-all';
+                if(btnM) btnM.className = 'flex-1 relative z-10 rounded-[10px] text-[15px] font-bold text-blue-700 transition-all duration-300';
+                if(btnF) btnF.className = 'flex-1 relative z-10 rounded-[10px] text-[15px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300';
+                if(genderBg && btnM) {
+                    genderBg.style.width = btnM.offsetWidth + 'px';
+                    genderBg.style.left = btnM.offsetLeft + 'px';
+                }
             } else {
-                btnM.className = 'flex-1 rounded-[14px] text-[15px] font-normal text-slate-500 hover:bg-slate-50 transition-all';
-                btnF.className = 'flex-1 rounded-[14px] text-[15px] font-bold active-female text-white transition-all';
+                if(btnM) btnM.className = 'flex-1 relative z-10 rounded-[10px] text-[15px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300';
+                if(btnF) btnF.className = 'flex-1 relative z-10 rounded-[10px] text-[15px] font-bold text-[#e11d48] transition-all duration-300';
+                if(genderBg && btnF) {
+                    genderBg.style.width = btnF.offsetWidth + 'px';
+                    genderBg.style.left = btnF.offsetLeft + 'px';
+                }
             }
             calculate(currentMode); 
         }
@@ -999,6 +1139,8 @@
         function setPlan(plan) { 
             currentPlan = plan; 
             const btns = [document.getElementById('btnPlan1'), document.getElementById('btnPlan2'), document.getElementById('btnPlan3'), document.getElementById('btnPlan4')];
+            let activeBtn = null;
+
             btns.forEach((btn, idx) => {
                 if (!btn) return;
                 if (idx < currentPlanOptions.length) {
@@ -1006,11 +1148,36 @@
                     btn.classList.remove('hidden');
                     btn.onclick = () => setPlan(currentPlanOptions[idx]);
                     const isTarget = plan === currentPlanOptions[idx];
-                    if (isTarget) { btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all'; } 
-                    else { btn.className = 'flex-1 rounded-[14px] text-[14px] font-normal text-slate-500 hover:bg-slate-50 transition-all'; }
-                } else { btn.classList.add('hidden'); }
+                    if (isTarget) { 
+                        btn.className = 'flex-1 relative z-10 rounded-[10px] text-[14px] font-bold text-blue-700 transition-all duration-300'; 
+                        activeBtn = btn;
+                    } 
+                    else { 
+                        btn.className = 'flex-1 relative z-10 rounded-[10px] text-[14px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300'; 
+                    }
+                } else { 
+                    btn.classList.add('hidden'); 
+                }
             });
+            
+            const planBg = document.getElementById('planBg');
+            if (planBg && activeBtn) {
+                // ให้เวลา Flexbox จัด layout สักนิดเพื่อให้คำนวณความกว้างได้อย่างแม่นยำ
+                setTimeout(() => {
+                    planBg.style.width = activeBtn.offsetWidth + 'px';
+                    planBg.style.left = activeBtn.offsetLeft + 'px';
+                }, 10);
+            }
+
             calculate(currentMode); 
+        }
+
+        function handleHXPlanSelect(val, title, desc) {
+            document.getElementById('hxPlanSelect').value = val;
+            document.getElementById('hxPlanDisplayTitle').innerText = title;
+            document.getElementById('hxPlanDisplayDesc').innerText = desc;
+            closePopup('hxPlanModal');
+            calculate(currentMode);
         }
 
         function setHXPlan(hxPlan, displayText) { currentPlan = hxPlan; const btn1 = document.getElementById('btnPlan1'); if (btn1) { btn1.innerHTML = `${displayText} <i class="fas fa-chevron-down text-[10px] ml-1"></i>`; } closePopup('hxPlanModal'); calculate(currentMode); }
@@ -1176,18 +1343,50 @@
         }
 
         function updateQuickPills(planName) {
-            const btnSum1 = document.getElementById('sumPill1');
-            const btnPrem1 = document.getElementById('premPill1');
-            if (!btnSum1 || !btnPrem1) return;
-            // Simplified for view consistency
-            btnSum1.innerText = '1 แสน'; btnSum1.setAttribute('onclick', 'setQuickSum(100000)');
-            btnPrem1.innerText = '12,000'; btnPrem1.setAttribute('onclick', 'setQuickPremium(12000)');
+            const sumPillWrapper = document.getElementById('sumPillWrapper');
+            const premPillContainer = document.getElementById('premiumPillContainer');
+            
+            if (!sumPillWrapper || !premPillContainer) return;
+
+            const sumBgHtml = `<div id="sumPillBg" class="absolute top-1 bottom-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.15)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-blue-100/80 pointer-events-none opacity-0"></div>`;
+            const premBgHtml = `<div id="premPillBg" class="absolute top-1 bottom-1 bg-white rounded-[10px] shadow-[0_2px_8px_rgba(37,99,235,0.15)] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] border border-blue-100/80 pointer-events-none opacity-0"></div>`;
+            const inactiveClass = `flex-1 relative z-10 rounded-[10px] text-[11px] font-medium text-slate-500 hover:text-slate-700 transition-all duration-300`;
+
+            if (planName === 'Signature Legacy') {
+                sumPillWrapper.innerHTML = sumBgHtml + `<button id="sumPill1" onclick="setQuickSum(5000000)" class="${inactiveClass}">5 ล้าน</button><button id="sumPill2" onclick="setQuickSum(10000000)" class="${inactiveClass}">10 ล้าน</button><button id="sumPill3" onclick="setQuickSum(20000000)" class="${inactiveClass}">20 ล้าน</button><button id="sumPill4" onclick="setQuickSum(50000000)" class="${inactiveClass}">50 ล้าน</button><button id="sumPill5" onclick="setQuickSum(100000000)" class="${inactiveClass}">100 ล้าน</button>`;
+                premPillContainer.innerHTML = premBgHtml + `<button id="premPill1" onclick="setQuickPremium(100000)" class="${inactiveClass}">1 แสน</button><button id="premPill2" onclick="setQuickPremium(300000)" class="${inactiveClass}">3 แสน</button><button id="premPill3" onclick="setQuickPremium(500000)" class="${inactiveClass}">5 แสน</button><button id="premPill4" onclick="setQuickPremium(1000000)" class="${inactiveClass}">1 ล้าน</button><button id="premPill5" onclick="setQuickPremium(2000000)" class="${inactiveClass}">2 ล้าน</button>`;
+            } else {
+                sumPillWrapper.innerHTML = sumBgHtml + `<button id="sumPill1" onclick="setQuickSum(100000)" class="${inactiveClass}">1 แสน</button><button id="sumPill2" onclick="setQuickSum(500000)" class="${inactiveClass}">5 แสน</button><button id="sumPill3" onclick="setQuickSum(1000000)" class="${inactiveClass}">1 ล้าน</button><button id="sumPill4" onclick="setQuickSum(3000000)" class="${inactiveClass}">3 ล้าน</button><button id="sumPill5" onclick="setQuickSum(5000000)" class="${inactiveClass}">5 ล้าน</button>`;
+                premPillContainer.innerHTML = premBgHtml + `<button id="premPill1" onclick="setQuickPremium(12000)" class="${inactiveClass}">12,000</button><button id="premPill2" onclick="setQuickPremium(24000)" class="${inactiveClass}">24,000</button><button id="premPill3" onclick="setQuickPremium(36000)" class="${inactiveClass}">36,000</button><button id="premPill4" onclick="setQuickPremium(48000)" class="${inactiveClass}">48,000</button><button id="premPill5" onclick="setQuickPremium(60000)" class="${inactiveClass}">60,000</button>`;
+            }
+
+            if (lastCalculationData) {
+                highlightActivePills(lastCalculationData.sum, lastCalculationData.premium, lastCalculationData.cashFlow || 0);
+            }
         }
 
         function selectAppPlan(planName) {
-            closePopup('planSelectModal'); currentAppPlan = planName; document.getElementById('headerTitleText').innerText = planName;
+            closePopup('planSelectModal'); 
+            const previousPlan = currentAppPlan;
+            currentAppPlan = planName; 
+            document.getElementById('headerTitleText').innerText = planName;
             const planInfo = allInsurancePlans.find(p => p.name === planName);
             if (planInfo) setText('headerDescText', planInfo.desc);
+            
+            if (planName === 'Signature Legacy' && previousPlan !== 'Signature Legacy') {
+                document.getElementById('sumInsuredInput').value = "5,000,000";
+            } else if (previousPlan === 'Signature Legacy' && planName !== 'Signature Legacy') {
+                document.getElementById('sumInsuredInput').value = "1,000,000";
+            }
+            
+            const condModal = document.querySelector('#insuranceConditionsModal .text-left');
+            if (condModal) {
+                if (planName === 'Signature Legacy') {
+                    condModal.innerHTML = `<div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุที่รับประกัน: 1 เดือน - 70 ปี</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>ทุนประกันขั้นต่ำ: 5,000,000 บาท</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>ทุนประกันสูงสุด: 500,000,000 บาท</div>`;
+                } else {
+                    condModal.innerHTML = `<div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุที่รับประกัน: 0 - 65 ปี</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>ทุนประกันขั้นต่ำ: 100,000 บาท</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 0 ถึง 15 ปี ทุนสูงสุด 3 ล้าน</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 16 ถึง 65 ปี ทุนสูงสุด 10 ล้าน</div>`;
+                }
+            }
             
             const pLabel = document.getElementById('premiumLabel'); const pPills = document.getElementById('premiumPillContainer');
             const mainActionBtn = document.getElementById('mainActionBtn'); const cashFlowContainer = document.getElementById('cashFlowContainer');
@@ -1248,6 +1447,7 @@
             }
 
             updatePlanOptionsForApp(planName);
+            updateQuickPills(planName);
             setPlan(currentPlan); 
         }
 
@@ -1403,6 +1603,28 @@
         function handleMBInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') el.value = Number(v).toLocaleString(); refreshAllDisplays(); }
         function handleMYBInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') el.value = Number(v).toLocaleString(); refreshAllDisplays(); }
         function handleNABFYCInput(el) { let v = el.value.replace(/,/g, '').split('.')[0]; if (!isNaN(v) && v !== '') el.value = Number(v).toLocaleString(); refreshAllDisplays(); }
+
+        function setNABPhase(phase) {
+            document.getElementById('nabPhaseSelect').value = phase;
+            const bg = document.getElementById('nabPhaseBg');
+            const btnP1 = document.getElementById('btnNabP1');
+            const btnP2 = document.getElementById('btnNabP2');
+            
+            if (phase === 'p1') {
+                bg.style.transform = 'translateX(0)';
+                btnP1.classList.remove('font-medium', 'text-slate-500', 'hover:text-slate-700');
+                btnP1.classList.add('font-bold', 'text-cyan-700');
+                btnP2.classList.remove('font-bold', 'text-cyan-700');
+                btnP2.classList.add('font-medium', 'text-slate-500', 'hover:text-slate-700');
+            } else {
+                bg.style.transform = 'translateX(100%)';
+                btnP2.classList.remove('font-medium', 'text-slate-500', 'hover:text-slate-700');
+                btnP2.classList.add('font-bold', 'text-cyan-700');
+                btnP1.classList.remove('font-bold', 'text-cyan-700');
+                btnP1.classList.add('font-medium', 'text-slate-500', 'hover:text-slate-700');
+            }
+            refreshAllDisplays();
+        }
 
         function refreshAllDisplays() { 
             if (!lastCalculationData) return; 
@@ -1784,6 +2006,13 @@
 
         window.onload = () => { 
             document.querySelectorAll('.modal-overlay').forEach(m => m.classList.add('hidden'));
+            
+            // ขยับพื้นหลัง slider ให้ตรงตำแหน่งเมื่อโหลดหน้าจอเสร็จสมบูรณ์
+            setTimeout(() => {
+                setGender(currentGender);
+                setPlan(currentPlan);
+            }, 50);
+
             calculate('sum'); setupLongPress(); setupScrollHideNav(); 
         };
     </script>
