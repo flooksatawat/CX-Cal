@@ -36,11 +36,10 @@
         .ambient-glow-1 { position: absolute; top: -10%; right: -15%; width: 350px; height: 350px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%); border-radius: 50%; filter: blur(40px); }
         .ambient-glow-2 { position: absolute; bottom: 10%; left: -15%; width: 350px; height: 350px; background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, rgba(16,185,129,0) 70%); border-radius: 50%; filter: blur(40px); }
 
-        /* ==================== GLASSMORPHISM & UTILS ==================== */
+        /* ==================== GLASSMORPHISM & UTILS (ADAPTIVE SAFE AREA) ==================== */
         .glass-header { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.6); }
         .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 -10px 40px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.8); }
         
-        /* ปรับลดระยะขอบด้านบน เพื่อให้เหมาะกับหน้าจอยาว (Honor Magic V3) */
         .pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 24px); }
         .pt-safe { padding-top: max(env(safe-area-inset-top), 8px); }
 
@@ -51,12 +50,12 @@
             border-radius: 20px; 
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 1); 
             border: 1px solid rgba(226, 232, 240, 0.6); 
-            padding: 12px; 
+            padding: 10px 12px; 
             transition: transform 0.2s ease, box-shadow 0.2s ease; 
         }
         .input-box-rounded { 
             width: 100%; border: 1px solid transparent; border-radius: 14px; text-align: center; outline: none; transition: all 0.3s; 
-            background: rgba(241, 245, 249, 0.8); color: #1e293b; font-weight: 800; font-size: 20px; height: 44px; 
+            background: rgba(241, 245, 249, 0.8); color: #1e293b; font-weight: 800; font-size: 20px; height: 42px; 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); 
         }
         .input-box-rounded:focus { 
@@ -70,7 +69,7 @@
         .active-female { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; box-shadow: 0 6px 15px rgba(225, 29, 72, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
         .active-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
         
-        .quick-pill-container { background: rgba(241, 245, 249, 0.7); padding: 4px; border-radius: 12px; display: flex; gap: 4px; height: 38px; border: 1px solid rgba(255,255,255,0.5); }
+        .quick-pill-container { background: rgba(241, 245, 249, 0.7); padding: 4px; border-radius: 12px; display: flex; gap: 4px; height: 36px; border: 1px solid rgba(255,255,255,0.5); }
         .quick-pill { font-size: 11px; font-weight: 700; border-radius: 8px; background-color: transparent; color: #64748b; border: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;}
         .quick-pill:hover { background-color: rgba(255,255,255,0.8); color: #334155; }
         .quick-pill:active { background-color: #ffffff; color: #2563eb; transform: scale(0.92); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -116,7 +115,7 @@
         .listening-active { color: #ef4444 !important; animation: pulse-glow 1.5s infinite; border-radius: 50%; }
         .nav-item { position: relative; transition: all 0.3s; cursor: pointer; }
         .nav-item.active { color: #2563eb; transform: translateY(-2px); }
-        .nav-item.active::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background-color: #2563eb; border-radius: 50%; }
+        .nav-item.active::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; background-color: #2563eb; border-radius: 50%; }
         
         @keyframes gold-shine { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
         .text-shine-gold { background: linear-gradient(120deg, #fef08a 20%, #ffffff 40%, #ffffff 60%, #fef08a 80%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: gold-shine 3s linear infinite; }
@@ -144,10 +143,10 @@
             
             <!-- App Header (Reduced Top Spacing for Tall Screens) -->
             <div class="w-full z-20 pt-safe px-4 pb-0 shrink-0 relative mt-1.5">
-                <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[24px] py-3.5 px-4 flex flex-col items-center justify-center shadow-[0_12px_30px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
-                    <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[22px]"></div>
+                <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[20px] py-3 px-4 flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
+                    <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[20px]"></div>
                     
-                    <h1 class="text-[20px] font-black text-white leading-none tracking-wide mb-1.5 relative z-10 drop-shadow-md"><span id="headerTitleText">CI Extra Plus</span></h1>
+                    <h1 class="text-[19px] font-black text-white leading-none tracking-wide mb-1 relative z-10 drop-shadow-md"><span id="headerTitleText">CI Extra Plus</span></h1>
                     
                     <div class="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 w-full relative z-10 px-1">
                         <span id="headerDescText" class="text-[10px] font-medium text-blue-100/95 whitespace-nowrap drop-shadow-sm">ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ</span>
@@ -159,25 +158,25 @@
                 </button>
             </div>
 
-            <!-- Content Area (Optimized Gaps) -->
+            <!-- Content Area (Optimized Gaps to bring Premium card up) -->
             <div class="content-area pt-3 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
-                <div class="w-full flex flex-col flex-1 min-h-0 gap-2.5 pb-[160px]">
+                <div class="w-full flex flex-col flex-1 min-h-0 gap-2 pb-[140px]">
                     
                     <!-- Top Toggles -->
-                    <div class="flex flex-col gap-2.5 shrink-0">
-                        <div class="grid grid-cols-2 gap-2.5">
-                            <div class="premium-card !p-1.5 flex h-[46px]">
+                    <div class="flex flex-col gap-2 shrink-0">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="premium-card !p-1.5 flex h-[42px]">
                                 <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[12px] text-[14px] font-bold active-male text-white transition-all">ชาย</button>
                                 <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[12px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
                             </div>
-                            <div class="premium-card !p-1.5 flex items-center justify-between h-[46px]">
+                            <div class="premium-card !p-1.5 flex items-center justify-between h-[42px]">
                                 <button onclick="adjustAge(-1)" class="w-10 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[12px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-[11px]"></i></button>
-                                <input type="number" id="ageInput" value="30" min="0" max="65" class="w-12 bg-transparent border-none text-center font-black text-[20px] text-slate-800 outline-none p-0" oninput="calculate(currentMode)">
+                                <input type="number" id="ageInput" value="30" min="0" max="65" class="w-12 bg-transparent border-none text-center font-black text-[18px] text-slate-800 outline-none p-0" oninput="calculate(currentMode)">
                                 <button onclick="adjustAge(1)" class="w-10 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[12px] hover:bg-slate-50 transition-colors"><i class="fas fa-plus text-[11px]"></i></button>
                             </div>
                         </div>
                         <div id="planSelectionWrapper" class="shrink-0">
-                            <div class="premium-card !p-1.5 flex h-[46px]" id="planSelectionContainer">
+                            <div class="premium-card !p-1.5 flex h-[42px]" id="planSelectionContainer">
                                 <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[12px] text-[13px] font-bold text-slate-500 hover:bg-slate-50 transition-all">10CX</button>
                                 <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[12px] text-[13px] font-bold active-blue text-white transition-all">20CX</button>
                                 <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[12px] text-[13px] font-bold hidden text-slate-500 transition-all">60</button>
@@ -186,14 +185,14 @@
                         </div>
                     </div>
                     
-                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-2.5 shrink-0">
-                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill h-[38px] bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
-                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill h-[38px] bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
+                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-2 shrink-0">
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill h-[36px] bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill h-[36px] bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
                     </div>
 
                     <!-- Sum Insured Card -->
-                    <div class="premium-card shrink-0 !py-3" id="sumInsuredContainer">
-                        <div class="flex justify-between items-center mb-2">
+                    <div class="premium-card shrink-0 !py-2.5 !px-3" id="sumInsuredContainer">
+                        <div class="flex justify-between items-center mb-1.5">
                             <p class="text-slate-600 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-shield-halved text-emerald-500"></i> วงเงินคุ้มครอง (บาท)</p>
                             <span class="text-[9px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากทุน</span>
                         </div>
@@ -207,8 +206,8 @@
                     </div>
 
                     <!-- Premium Card -->
-                    <div class="premium-card shrink-0 !py-3" id="premiumContainer">
-                        <div class="flex justify-between items-center mb-2">
+                    <div class="premium-card shrink-0 !py-2.5 !px-3" id="premiumContainer">
+                        <div class="flex justify-between items-center mb-1.5">
                             <p id="premiumLabel" class="text-slate-600 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-wallet text-blue-500"></i> ออมเงิน (บาท/ปี)</p>
                             <span class="text-[9px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากเบี้ย</span>
                         </div>
@@ -221,8 +220,8 @@
                         </div>
                     </div>
 
-                    <div class="premium-card shrink-0 hidden border-emerald-200 bg-emerald-50/30 !py-3" id="cashFlowContainer">
-                        <div class="flex justify-between items-center mb-2"><p class="text-emerald-700 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-money-bill-trend-up"></i> กระแสเงินสด (บาท/ปี)</p></div>
+                    <div class="premium-card shrink-0 hidden border-emerald-200 bg-emerald-50/30 !py-2.5 !px-3" id="cashFlowContainer">
+                        <div class="flex justify-between items-center mb-1.5"><p class="text-emerald-700 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-money-bill-trend-up"></i> กระแสเงินสด (บาท/ปี)</p></div>
                         <div class="quick-pill-container bg-emerald-100/50 mb-2"><button onclick="setQuickCashFlow(10000)" class="quick-pill hover:bg-emerald-200">1 หมื่น</button><button onclick="setQuickCashFlow(50000)" class="quick-pill hover:bg-emerald-200">5 หมื่น</button><button onclick="setQuickCashFlow(100000)" class="quick-pill hover:bg-emerald-200">1 แสน</button><button onclick="setQuickCashFlow(300000)" class="quick-pill hover:bg-emerald-200">3 แสน</button><button onclick="setQuickCashFlow(500000)" class="quick-pill hover:bg-emerald-200">5 แสน</button></div>
                         <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-[16px]">฿</span><input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded pl-8 text-emerald-700 bg-white focus:ring-emerald-500" oninput="handleCashFlowInput(this)"></div>
                     </div>
@@ -230,10 +229,10 @@
                     <!-- Action Buttons -->
                     <div class="pb-2 shrink-0 flex flex-col gap-2 mt-0.5">
                         <div class="grid grid-cols-4 gap-2">
-                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[48px] font-bold flex justify-center items-center gap-2 text-[15px]">
+                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[46px] font-bold flex justify-center items-center gap-2 text-[15px]">
                                 <i class="fas fa-file-alt text-lg"></i> ดูรายละเอียด
                             </button>
-                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[48px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[11px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
+                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[46px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[11px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
                                 <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[16px]"></div>
                                 <i class="fas fa-share-nodes text-[18px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
                                 <span class="relative z-10 drop-shadow-sm tracking-wide">แชร์</span>
@@ -241,14 +240,14 @@
                         </div>
                         
                         <div class="grid grid-cols-2 gap-2">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[42px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-credit-card text-blue-500"></i> ตัวเลือกชำระ
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[42px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-building-columns text-emerald-500"></i> บัญชีโอนเงิน
                             </button>
                         </div>
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[42px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
                             <i class="fas fa-laptop-code"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                         </button>
                     </div>
@@ -390,18 +389,26 @@
             </div>
         </div>
 
-        <!-- ==================== BOTTOM NAVIGATION & FOOTER ==================== -->
-        <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent transition-all duration-300 ease-in-out">
-            <div class="glass-nav rounded-[24px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-2 pointer-events-auto w-[calc(100%-2rem)] max-w-[400px] mb-2 border border-white/60">
-                <button id="navMainBtn" class="nav-item active flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('main')"><i class="fas fa-calculator text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">คำนวณ</span></button>
-                <button id="navTableBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('table')"><i class="fas fa-table-list text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">ตาราง</span></button>
-                <button class="nav-item flex flex-col items-center justify-center w-1/5 text-slate-400 -mt-5 pointer-events-auto hover:scale-105 transition-transform" onclick="startVoiceRecognition()">
-                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white shadow-[0_8px_20px_rgba(225,29,72,0.4)] border-[4px] border-white/90 active:scale-95 transition-transform">
-                        <i class="fas fa-microphone text-[22px]" id="navVoiceIcon"></i>
+        <!-- ==================== BOTTOM NAVIGATION & FOOTER (ENLARGED & AUTO-HIDE FIX) ==================== -->
+        <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe transition-all duration-300 ease-in-out">
+            <div class="glass-nav rounded-[24px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-2.5 pointer-events-auto w-[calc(100%-1.5rem)] max-w-[400px] mb-3 border border-white/60">
+                <button id="navMainBtn" class="nav-item active flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('main')">
+                    <i class="fas fa-calculator text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">คำนวณ</span>
+                </button>
+                <button id="navTableBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('table')">
+                    <i class="fas fa-table-list text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">ตาราง</span>
+                </button>
+                <button class="nav-item flex flex-col items-center justify-center w-1/5 text-slate-400 -mt-6 pointer-events-auto hover:scale-105 transition-transform" onclick="startVoiceRecognition()">
+                    <div class="w-[60px] h-[60px] rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white shadow-[0_8px_20px_rgba(225,29,72,0.4)] border-[5px] border-white/90 active:scale-95 transition-transform">
+                        <i class="fas fa-microphone text-[24px]" id="navVoiceIcon"></i>
                     </div>
                 </button>
-                <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('cash')"><i class="fas fa-money-bill-trend-up text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">CASH</span></button>
-                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('ai')"><i class="fas fa-circle-nodes text-[20px] mb-1"></i><span class="text-[9px] font-bold tracking-wide">AI</span></button>
+                <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('cash')">
+                    <i class="fas fa-money-bill-trend-up text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">CASH</span>
+                </button>
+                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('ai')">
+                    <i class="fas fa-circle-nodes text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">AI</span>
+                </button>
             </div>
             <div class="text-center font-bold text-[10px] text-slate-400/80 tracking-[0.15em] uppercase w-full pb-1.5 pt-1 pointer-events-auto">&copy; SATAWAT BUTTRAKAS</div>
         </div>
@@ -483,7 +490,7 @@
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-2 text-left">
                 <p class="text-[13px] font-bold text-[#1e3a8a] mb-2.5 text-center tracking-wide">ระบุยอดสะสมเดิมในเดือนนี้ (บาท)</p>
-                <input type="text" id="existingFYCInput" value="0" class="w-full border-none rounded-[16px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[20px] h-[50px] shadow-sm mb-5 focus:ring-2 focus:ring-blue-400" oninput="handleMBInput(this)">
+                <input type="text" id="existingFYCInput" value="0" class="w-full border-none rounded-[16px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[20px] h-[42px] shadow-sm mb-5 focus:ring-2 focus:ring-blue-400" oninput="handleMBInput(this)">
                 
                 <div id="mbTierList" class="flex flex-col mb-5"></div>
                 
@@ -524,7 +531,7 @@
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-2 text-left">
                 <p class="text-[13px] font-bold text-[#4c1d95] mb-2.5 text-center tracking-wide">ระบุยอดสะสมเดือนก่อนหน้า (บาท)</p>
-                <input type="text" id="existingHalfYearFYCInput" value="0" class="w-full border-none rounded-[16px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[20px] h-[50px] shadow-sm mb-5 focus:ring-2 focus:ring-purple-400" oninput="handleMYBInput(this)">
+                <input type="text" id="existingHalfYearFYCInput" value="0" class="w-full border-none rounded-[16px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[20px] h-[42px] shadow-sm mb-5 focus:ring-2 focus:ring-purple-400" oninput="handleMYBInput(this)">
                 
                 <div id="mybTierList" class="flex flex-col mb-5"></div>
                 
@@ -564,12 +571,12 @@
                 <button onclick="closePopup('nabModal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-200/60 text-slate-500 hover:bg-slate-300 transition-colors text-xl font-medium leading-none">&times;</button>
             </div>
             <div class="overflow-y-auto flex-1 custom-scrollbar pr-2 pb-2 text-left">
-                <select id="nabPhaseSelect" class="w-full border-none rounded-[16px] outline-none transition-all bg-white text-[#164e63] font-bold text-[15px] h-[50px] shadow-sm mb-4 px-4 focus:ring-2 focus:ring-cyan-400" onchange="refreshAllDisplays()">
+                <select id="nabPhaseSelect" class="w-full border-none rounded-[16px] outline-none transition-all bg-white text-[#164e63] font-bold text-[15px] h-[42px] shadow-sm mb-4 px-4 focus:ring-2 focus:ring-cyan-400" onchange="refreshAllDisplays()">
                     <option value="p1">เดือนที่ 1 - เดือนที่ 3</option>
                     <option value="p2">เดือนที่ 4 - เดือนที่ 6</option>
                 </select>
                 <p class="text-[13px] font-bold text-[#164e63] mb-2 text-center tracking-wide">จำนวนรายสะสมเดิม</p>
-                <input type="number" id="existingNABCases" value="0" class="w-full border-none rounded-[16px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[20px] h-[50px] shadow-sm mb-5 focus:ring-2 focus:ring-cyan-400" oninput="refreshAllDisplays()">
+                <input type="number" id="existingNABCases" value="0" class="w-full border-none rounded-[16px] text-center outline-none transition-all bg-white color-[#1e293b] font-bold text-[20px] h-[42px] shadow-sm mb-5 focus:ring-2 focus:ring-cyan-400" oninput="refreshAllDisplays()">
                 
                 <div id="nabTierList" class="flex flex-col mb-5"></div>
                 
@@ -632,11 +639,11 @@
             const btnM = document.getElementById('btnMale');
             const btnF = document.getElementById('btnFemale');
             if(gender === 'male') {
-                btnM.className = 'flex-1 rounded-[14px] text-[15px] font-bold active-male text-white transition-all';
-                btnF.className = 'flex-1 rounded-[14px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
+                btnM.className = 'flex-1 rounded-[12px] text-[14px] font-bold active-male text-white transition-all';
+                btnF.className = 'flex-1 rounded-[12px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
             } else {
-                btnM.className = 'flex-1 rounded-[14px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
-                btnF.className = 'flex-1 rounded-[14px] text-[15px] font-bold active-female text-white transition-all';
+                btnM.className = 'flex-1 rounded-[12px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all';
+                btnF.className = 'flex-1 rounded-[12px] text-[14px] font-bold active-female text-white transition-all';
             }
             calculate(currentMode); 
         }
@@ -655,9 +662,9 @@
                 if (!btn) return;
                 const isTarget = plan === currentPlanOptions[idx];
                 if (isTarget) {
-                    btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all' + (btn.classList.contains('hidden') ? ' hidden' : '');
+                    btn.className = 'flex-1 rounded-[12px] text-[13px] font-bold active-blue text-white transition-all' + (btn.classList.contains('hidden') ? ' hidden' : '');
                 } else {
-                    btn.className = 'flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all' + (btn.classList.contains('hidden') ? ' hidden' : '');
+                    btn.className = 'flex-1 rounded-[12px] text-[13px] font-bold text-slate-500 hover:bg-slate-50 transition-all' + (btn.classList.contains('hidden') ? ' hidden' : '');
                 }
             });
             calculate(currentMode); 
@@ -1228,10 +1235,29 @@
             document.querySelectorAll('.scrollable-view').forEach(el => {
                 el.addEventListener('scroll', function() {
                     let st = this.scrollTop;
-                    if (st > lastScrollTop && st > 50) {
-                        bottomNav.style.transform = 'translateY(120%)';
+                    // ป้องกันการซ่อนเมนูเมื่อเด้งกลับสุดขอบบน/ล่าง (Rubber banding ในมือถือ)
+                    if (st <= 0) {
+                        bottomNav.style.transform = 'translateY(0)';
+                        bottomNav.style.opacity = '1';
+                        lastScrollTop = st;
+                        return;
+                    }
+                    if (st + this.clientHeight >= this.scrollHeight) {
+                        bottomNav.style.transform = 'translateY(0)';
+                        bottomNav.style.opacity = '1';
+                        lastScrollTop = st;
+                        return;
+                    }
+                    
+                    // ป้องกันการขยับเล็กน้อยแล้วซ่อน
+                    if (Math.abs(lastScrollTop - st) <= 10) return; 
+                    
+                    if (st > lastScrollTop && st > 60) {
+                        // เลื่อนลง -> ซ่อน
+                        bottomNav.style.transform = 'translateY(150%)';
                         bottomNav.style.opacity = '0';
                     } else {
+                        // เลื่อนขึ้น -> แสดง
                         bottomNav.style.transform = 'translateY(0)';
                         bottomNav.style.opacity = '1';
                     }
