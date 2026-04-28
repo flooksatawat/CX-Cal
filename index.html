@@ -143,10 +143,10 @@
             
             <!-- App Header (Reduced Top Spacing for Tall Screens) -->
             <div class="w-full z-20 pt-safe px-4 pb-0 shrink-0 relative mt-1.5">
-                <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[20px] py-3 px-4 flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
+                <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[20px] py-2.5 px-4 flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
                     <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[20px]"></div>
                     
-                    <h1 class="text-[19px] font-black text-white leading-none tracking-wide mb-1 relative z-10 drop-shadow-md"><span id="headerTitleText">CI Extra Plus</span></h1>
+                    <h1 class="text-[18px] font-black text-white leading-none tracking-wide mb-1.5 relative z-10 drop-shadow-md"><span id="headerTitleText">CI Extra Plus</span></h1>
                     
                     <div class="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 w-full relative z-10 px-1">
                         <span id="headerDescText" class="text-[10px] font-medium text-blue-100/95 whitespace-nowrap drop-shadow-sm">ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ</span>
@@ -160,7 +160,7 @@
 
             <!-- Content Area (Optimized Gaps to bring Premium card up) -->
             <div class="content-area pt-3 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
-                <div class="w-full flex flex-col flex-1 min-h-0 gap-2 pb-[140px]">
+                <div class="w-full flex flex-col flex-1 min-h-0 gap-2 pb-[110px]">
                     
                     <!-- Top Toggles -->
                     <div class="flex flex-col gap-2 shrink-0">
@@ -227,27 +227,27 @@
                     </div>
                     
                     <!-- Action Buttons -->
-                    <div class="pb-2 shrink-0 flex flex-col gap-2 mt-0.5">
-                        <div class="grid grid-cols-4 gap-2">
-                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[46px] font-bold flex justify-center items-center gap-2 text-[15px]">
+                    <div class="pb-2 shrink-0 flex flex-col gap-3 mt-1">
+                        <div class="grid grid-cols-4 gap-3">
+                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[54px] font-bold flex justify-center items-center gap-2 text-[16px]">
                                 <i class="fas fa-file-alt text-lg"></i> ดูรายละเอียด
                             </button>
-                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[46px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[11px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
+                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[54px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[12px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
                                 <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[16px]"></div>
-                                <i class="fas fa-share-nodes text-[18px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
+                                <i class="fas fa-share-nodes text-[20px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
                                 <span class="relative z-10 drop-shadow-sm tracking-wide">แชร์</span>
                             </button>
                         </div>
                         
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[42px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-credit-card text-blue-500"></i> ตัวเลือกชำระ
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[42px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-building-columns text-emerald-500"></i> บัญชีโอนเงิน
                             </button>
                         </div>
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[42px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
                             <i class="fas fa-laptop-code"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                         </button>
                     </div>
@@ -390,27 +390,28 @@
         </div>
 
         <!-- ==================== BOTTOM NAVIGATION & FOOTER (ENLARGED & AUTO-HIDE FIX) ==================== -->
-        <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe transition-all duration-300 ease-in-out">
-            <div class="glass-nav rounded-[24px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-2.5 pointer-events-auto w-[calc(100%-1.5rem)] max-w-[400px] mb-3 border border-white/60">
-                <button id="navMainBtn" class="nav-item active flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('main')">
-                    <i class="fas fa-calculator text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">คำนวณ</span>
+        <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent transition-all duration-300 ease-in-out">
+            <div class="glass-nav rounded-[24px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-3 pointer-events-auto w-[calc(100%-1.5rem)] max-w-[400px] mb-3 border border-white/60">
+                <button id="navMainBtn" class="nav-item active flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('main')">
+                    <i class="fas fa-calculator text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">คำนวณ</span>
                 </button>
-                <button id="navTableBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('table')">
-                    <i class="fas fa-table-list text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">ตาราง</span>
+                <button id="navTableBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('table')">
+                    <i class="fas fa-table-list text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">ตาราง</span>
                 </button>
                 <button class="nav-item flex flex-col items-center justify-center w-1/5 text-slate-400 -mt-6 pointer-events-auto hover:scale-105 transition-transform" onclick="startVoiceRecognition()">
-                    <div class="w-[60px] h-[60px] rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white shadow-[0_8px_20px_rgba(225,29,72,0.4)] border-[5px] border-white/90 active:scale-95 transition-transform">
-                        <i class="fas fa-microphone text-[24px]" id="navVoiceIcon"></i>
+                    <!-- ย่อขนาดปุ่มไมโครโฟนลงจาก 64px เหลือ 56px -->
+                    <div class="w-[56px] h-[56px] rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white shadow-[0_8px_20px_rgba(225,29,72,0.4)] border-[4px] border-white/90 active:scale-95 transition-transform">
+                        <i class="fas fa-microphone text-[22px]" id="navVoiceIcon"></i>
                     </div>
                 </button>
-                <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('cash')">
-                    <i class="fas fa-money-bill-trend-up text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">CASH</span>
+                <button id="navCashBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('cash')">
+                    <i class="fas fa-money-bill-trend-up text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">CASH</span>
                 </button>
-                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1.5 w-1/5 text-slate-400" onclick="switchView('ai')">
-                    <i class="fas fa-circle-nodes text-[22px] mb-1"></i><span class="text-[10px] font-bold tracking-wide">AI</span>
+                <button id="navAiBtn" class="nav-item flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('ai')">
+                    <i class="fas fa-circle-nodes text-[24px] mb-1"></i><span class="text-[11px] font-bold tracking-wide">AI</span>
                 </button>
             </div>
-            <div class="text-center font-bold text-[10px] text-slate-400/80 tracking-[0.15em] uppercase w-full pb-1.5 pt-1 pointer-events-auto">&copy; SATAWAT BUTTRAKAS</div>
+            <div class="text-center font-bold text-[10px] text-slate-400/80 tracking-[0.15em] uppercase w-full pb-1.5 pt-0.5 pointer-events-auto">&copy; SATAWAT BUTTRAKAS</div>
         </div>
     </div>
     
@@ -1242,7 +1243,7 @@
                         lastScrollTop = st;
                         return;
                     }
-                    if (st + this.clientHeight >= this.scrollHeight) {
+                    if (st + this.clientHeight >= this.scrollHeight - 10) {
                         bottomNav.style.transform = 'translateY(0)';
                         bottomNav.style.opacity = '1';
                         lastScrollTop = st;
@@ -1250,18 +1251,18 @@
                     }
                     
                     // ป้องกันการขยับเล็กน้อยแล้วซ่อน
-                    if (Math.abs(lastScrollTop - st) <= 10) return; 
+                    if (Math.abs(lastScrollTop - st) <= 5) return; 
                     
-                    if (st > lastScrollTop && st > 60) {
+                    if (st > lastScrollTop && st > 40) {
                         // เลื่อนลง -> ซ่อน
-                        bottomNav.style.transform = 'translateY(150%)';
+                        bottomNav.style.transform = 'translateY(120%)';
                         bottomNav.style.opacity = '0';
-                    } else {
+                    } else if (st < lastScrollTop) {
                         // เลื่อนขึ้น -> แสดง
                         bottomNav.style.transform = 'translateY(0)';
                         bottomNav.style.opacity = '1';
                     }
-                    lastScrollTop = st <= 0 ? 0 : st;
+                    lastScrollTop = st;
                 }, { passive: true });
             });
         }
