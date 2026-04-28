@@ -40,22 +40,23 @@
         .glass-header { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.6); }
         .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 -10px 40px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.8); }
         
-        /* ปรับลดระยะขอบด้านบนให้พอดีกับหน้าจอ */
+        /* ปรับลดระยะขอบด้านบน เพื่อให้เหมาะกับหน้าจอยาว (Honor Magic V3) */
         .pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 24px); }
-        .pt-safe { padding-top: max(env(safe-area-inset-top), 16px); } /* ลดจาก 44px เหลือ 16px */
+        .pt-safe { padding-top: max(env(safe-area-inset-top), 8px); }
 
         /* ==================== INPUTS & CARDS (ULTRA PREMIUM) ==================== */
         .premium-card { 
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04), inset 0 1px 1px rgba(255, 255, 255, 1); 
+            border-radius: 20px; 
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 1); 
             border: 1px solid rgba(226, 232, 240, 0.6); 
-            padding: 16px; transition: transform 0.2s ease, box-shadow 0.2s ease; 
+            padding: 12px; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease; 
         }
         .input-box-rounded { 
-            width: 100%; border: 1px solid transparent; border-radius: 16px; text-align: center; outline: none; transition: all 0.3s; 
-            background: rgba(241, 245, 249, 0.8); color: #1e293b; font-weight: 800; font-size: 22px; height: 50px; 
+            width: 100%; border: 1px solid transparent; border-radius: 14px; text-align: center; outline: none; transition: all 0.3s; 
+            background: rgba(241, 245, 249, 0.8); color: #1e293b; font-weight: 800; font-size: 20px; height: 44px; 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); 
         }
         .input-box-rounded:focus { 
@@ -69,8 +70,8 @@
         .active-female { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; box-shadow: 0 6px 15px rgba(225, 29, 72, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
         .active-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25), inset 0 1px 0 rgba(255,255,255,0.2); }
         
-        .quick-pill-container { background: rgba(241, 245, 249, 0.7); padding: 5px; border-radius: 14px; display: flex; gap: 4px; height: 42px; border: 1px solid rgba(255,255,255,0.5); }
-        .quick-pill { font-size: 11px; font-weight: 700; border-radius: 10px; background-color: transparent; color: #64748b; border: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;}
+        .quick-pill-container { background: rgba(241, 245, 249, 0.7); padding: 4px; border-radius: 12px; display: flex; gap: 4px; height: 38px; border: 1px solid rgba(255,255,255,0.5); }
+        .quick-pill { font-size: 11px; font-weight: 700; border-radius: 8px; background-color: transparent; color: #64748b; border: none; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex: 1; text-align: center; display: flex; align-items: center; justify-content: center;}
         .quick-pill:hover { background-color: rgba(255,255,255,0.8); color: #334155; }
         .quick-pill:active { background-color: #ffffff; color: #2563eb; transform: scale(0.92); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .quick-pill.disabled-pill { color: #cbd5e1 !important; pointer-events: none; }
@@ -78,7 +79,7 @@
         @keyframes bgFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .btn-primary { 
             background: linear-gradient(135deg, #1e3a8a, #3b82f6, #1e3a8a); background-size: 200% 200%;
-            animation: bgFlow 6s ease infinite; color: white; border-radius: 20px; 
+            animation: bgFlow 6s ease infinite; color: white; border-radius: 16px; 
             box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3), inset 0 1px 0 rgba(255,255,255,0.2); transition: all 0.2s; 
         }
         .btn-primary:active { transform: scale(0.96); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
@@ -141,15 +142,15 @@
         <!-- ==================== VIEW 1: MAIN FORM ==================== -->
         <div id="mainView" class="flex flex-col flex-1 overflow-hidden w-full relative">
             
-            <!-- App Header (Reduced Top Spacing) -->
-            <div class="w-full z-20 pt-safe px-4 pb-1 shrink-0 relative mt-2">
-                <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[24px] py-4 px-4 flex flex-col items-center justify-center shadow-[0_12px_30px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
-                    <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[24px]"></div>
+            <!-- App Header (Reduced Top Spacing for Tall Screens) -->
+            <div class="w-full z-20 pt-safe px-4 pb-0 shrink-0 relative mt-1.5">
+                <button id="mainHeaderBtn" class="w-full bg-gradient-to-br from-[#243c94] via-[#2a45a3] to-[#1e327a] rounded-[24px] py-3.5 px-4 flex flex-col items-center justify-center shadow-[0_12px_30px_rgba(36,60,148,0.3)] border border-[#60a5fa]/30 active:scale-[0.97] transition-all relative overflow-hidden group select-none">
+                    <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none rounded-t-[22px]"></div>
                     
-                    <h1 class="text-[22px] font-black text-white leading-none tracking-wide mb-2 relative z-10 drop-shadow-md"><span id="headerTitleText">CI Extra Plus</span></h1>
+                    <h1 class="text-[20px] font-black text-white leading-none tracking-wide mb-1.5 relative z-10 drop-shadow-md"><span id="headerTitleText">CI Extra Plus</span></h1>
                     
                     <div class="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 w-full relative z-10 px-1">
-                        <span id="headerDescText" class="text-[11px] font-medium text-blue-100/95 whitespace-nowrap drop-shadow-sm">ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ</span>
+                        <span id="headerDescText" class="text-[10px] font-medium text-blue-100/95 whitespace-nowrap drop-shadow-sm">ออมเงิน : ชดเชยโรคร้าย+วงเงินพิเศษ</span>
                         <div class="flex items-center gap-1 opacity-90 bg-white/10 px-2 py-0.5 rounded-full border border-white/20 backdrop-blur-sm shadow-inner">
                             <i class="fas fa-hand-pointer text-[8px] text-white"></i>
                             <span class="text-[9px] font-medium text-white tracking-wide">กดค้างดูเงื่อนไข</span>
@@ -158,96 +159,96 @@
                 </button>
             </div>
 
-            <!-- Content Area -->
-            <div class="content-area pt-4 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
-                <div class="w-full flex flex-col flex-1 min-h-0 gap-3.5 pb-[180px]">
+            <!-- Content Area (Optimized Gaps) -->
+            <div class="content-area pt-3 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
+                <div class="w-full flex flex-col flex-1 min-h-0 gap-2.5 pb-[160px]">
                     
                     <!-- Top Toggles -->
-                    <div class="flex flex-col gap-3 shrink-0">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="premium-card !p-1.5 flex h-[52px]">
-                                <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[16px] text-[15px] font-bold active-male text-white transition-all">ชาย</button>
-                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[16px] text-[15px] font-bold text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
+                    <div class="flex flex-col gap-2.5 shrink-0">
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <div class="premium-card !p-1.5 flex h-[46px]">
+                                <button onclick="setGender('male')" id="btnMale" class="flex-1 rounded-[12px] text-[14px] font-bold active-male text-white transition-all">ชาย</button>
+                                <button onclick="setGender('female')" id="btnFemale" class="flex-1 rounded-[12px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">หญิง</button>
                             </div>
-                            <div class="premium-card !p-1.5 flex items-center justify-between h-[52px]">
-                                <button onclick="adjustAge(-1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[16px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-sm"></i></button>
-                                <input type="number" id="ageInput" value="30" min="0" max="65" class="w-12 bg-transparent border-none text-center font-black text-[22px] text-slate-800 outline-none p-0" oninput="calculate(currentMode)">
-                                <button onclick="adjustAge(1)" class="w-12 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[16px] hover:bg-slate-50 transition-colors"><i class="fas fa-plus text-sm"></i></button>
+                            <div class="premium-card !p-1.5 flex items-center justify-between h-[46px]">
+                                <button onclick="adjustAge(-1)" class="w-10 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[12px] hover:bg-slate-50 transition-colors"><i class="fas fa-minus text-[11px]"></i></button>
+                                <input type="number" id="ageInput" value="30" min="0" max="65" class="w-12 bg-transparent border-none text-center font-black text-[20px] text-slate-800 outline-none p-0" oninput="calculate(currentMode)">
+                                <button onclick="adjustAge(1)" class="w-10 h-full flex items-center justify-center text-slate-400 hover:text-blue-600 rounded-[12px] hover:bg-slate-50 transition-colors"><i class="fas fa-plus text-[11px]"></i></button>
                             </div>
                         </div>
                         <div id="planSelectionWrapper" class="shrink-0">
-                            <div class="premium-card !p-1.5 flex h-[52px]" id="planSelectionContainer">
-                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[16px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">10CX</button>
-                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[16px] text-[14px] font-bold active-blue text-white transition-all">20CX</button>
-                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[16px] text-[14px] font-bold hidden text-slate-500 transition-all">60</button>
-                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[16px] text-[14px] font-bold hidden text-slate-500 transition-all">90</button>
+                            <div class="premium-card !p-1.5 flex h-[46px]" id="planSelectionContainer">
+                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[12px] text-[13px] font-bold text-slate-500 hover:bg-slate-50 transition-all">10CX</button>
+                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[12px] text-[13px] font-bold active-blue text-white transition-all">20CX</button>
+                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[12px] text-[13px] font-bold hidden text-slate-500 transition-all">60</button>
+                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[12px] text-[13px] font-bold hidden text-slate-500 transition-all">90</button>
                             </div>
                         </div>
                     </div>
                     
-                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-3 shrink-0">
-                        <div class="premium-card"><p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center uppercase tracking-wider">เลือก Extra</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill h-10 bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-2 opacity-60"></i></button></div>
-                        <div class="premium-card"><p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center uppercase tracking-wider">เลือก Advance</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill h-10 bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-2 opacity-60"></i></button></div>
+                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-2.5 shrink-0">
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Extra</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill h-[38px] bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
+                        <div class="premium-card !p-2"><p class="text-slate-400 text-[10px] font-bold mb-1 text-center uppercase tracking-wider">เลือก Advance</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill h-[38px] bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[9px] ml-2 opacity-60"></i></button></div>
                     </div>
 
                     <!-- Sum Insured Card -->
-                    <div class="premium-card shrink-0" id="sumInsuredContainer">
-                        <div class="flex justify-between items-center mb-3">
-                            <p class="text-slate-600 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-shield-halved text-emerald-500"></i> วงเงินคุ้มครอง (บาท)</p>
-                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากทุน</span>
+                    <div class="premium-card shrink-0 !py-3" id="sumInsuredContainer">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="text-slate-600 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-shield-halved text-emerald-500"></i> วงเงินคุ้มครอง (บาท)</p>
+                            <span class="text-[9px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากทุน</span>
                         </div>
-                        <div class="quick-pill-container mb-3">
+                        <div class="quick-pill-container mb-2">
                             <button id="sumPill1" onclick="setQuickSum(100000)" class="quick-pill">1 แสน</button><button id="sumPill2" onclick="setQuickSum(500000)" class="quick-pill">5 แสน</button><button id="sumPill3" onclick="setQuickSum(1000000)" class="quick-pill">1 ล้าน</button><button id="sumPill4" onclick="setQuickSum(3000000)" class="quick-pill">3 ล้าน</button><button id="sumPill5" onclick="setQuickSum(5000000)" class="quick-pill">5 ล้าน</button>
                         </div>
                         <div class="relative">
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg">฿</span>
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-[16px]">฿</span>
                             <input type="text" id="sumInsuredInput" value="1,000,000" class="input-box-rounded pl-8" oninput="handleSumInput(this)">
                         </div>
                     </div>
 
                     <!-- Premium Card -->
-                    <div class="premium-card shrink-0" id="premiumContainer">
-                        <div class="flex justify-between items-center mb-3">
-                            <p id="premiumLabel" class="text-slate-600 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-wallet text-blue-500"></i> ออมเงิน (บาท/ปี)</p>
-                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากเบี้ย</span>
+                    <div class="premium-card shrink-0 !py-3" id="premiumContainer">
+                        <div class="flex justify-between items-center mb-2">
+                            <p id="premiumLabel" class="text-slate-600 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-wallet text-blue-500"></i> ออมเงิน (บาท/ปี)</p>
+                            <span class="text-[9px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium border border-slate-200">คำนวณจากเบี้ย</span>
                         </div>
-                        <div id="premiumPillContainer" class="quick-pill-container mb-3">
+                        <div id="premiumPillContainer" class="quick-pill-container mb-2">
                             <button id="premPill1" onclick="setQuickPremium(12000)" class="quick-pill">12,000</button><button id="premPill2" onclick="setQuickPremium(24000)" class="quick-pill">24,000</button><button id="premPill3" onclick="setQuickPremium(36000)" class="quick-pill">36,000</button><button id="premPill4" onclick="setQuickPremium(48000)" class="quick-pill">48,000</button><button id="premPill5" onclick="setQuickPremium(60000)" class="quick-pill">60,000</button>
                         </div>
                         <div class="relative">
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg">฿</span>
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-[16px]">฿</span>
                             <input type="text" id="premiumInput" class="input-box-rounded pl-8 text-blue-700" value="0" oninput="handlePremiumInput(this)">
                         </div>
                     </div>
 
-                    <div class="premium-card shrink-0 hidden border-emerald-200 bg-emerald-50/30" id="cashFlowContainer">
-                        <div class="flex justify-between items-center mb-2.5"><p class="text-emerald-700 text-[13px] font-bold flex items-center gap-1.5"><i class="fas fa-money-bill-trend-up"></i> กระแสเงินสด (บาท/ปี)</p></div>
-                        <div class="quick-pill-container bg-emerald-100/50 mb-3"><button onclick="setQuickCashFlow(10000)" class="quick-pill hover:bg-emerald-200">1 หมื่น</button><button onclick="setQuickCashFlow(50000)" class="quick-pill hover:bg-emerald-200">5 หมื่น</button><button onclick="setQuickCashFlow(100000)" class="quick-pill hover:bg-emerald-200">1 แสน</button><button onclick="setQuickCashFlow(300000)" class="quick-pill hover:bg-emerald-200">3 แสน</button><button onclick="setQuickCashFlow(500000)" class="quick-pill hover:bg-emerald-200">5 แสน</button></div>
-                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">฿</span><input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded pl-8 text-emerald-700 bg-white focus:ring-emerald-500" oninput="handleCashFlowInput(this)"></div>
+                    <div class="premium-card shrink-0 hidden border-emerald-200 bg-emerald-50/30 !py-3" id="cashFlowContainer">
+                        <div class="flex justify-between items-center mb-2"><p class="text-emerald-700 text-[12px] font-bold flex items-center gap-1.5"><i class="fas fa-money-bill-trend-up"></i> กระแสเงินสด (บาท/ปี)</p></div>
+                        <div class="quick-pill-container bg-emerald-100/50 mb-2"><button onclick="setQuickCashFlow(10000)" class="quick-pill hover:bg-emerald-200">1 หมื่น</button><button onclick="setQuickCashFlow(50000)" class="quick-pill hover:bg-emerald-200">5 หมื่น</button><button onclick="setQuickCashFlow(100000)" class="quick-pill hover:bg-emerald-200">1 แสน</button><button onclick="setQuickCashFlow(300000)" class="quick-pill hover:bg-emerald-200">3 แสน</button><button onclick="setQuickCashFlow(500000)" class="quick-pill hover:bg-emerald-200">5 แสน</button></div>
+                        <div class="relative"><span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-[16px]">฿</span><input type="text" id="cashFlowInput" value="10,000" class="input-box-rounded pl-8 text-emerald-700 bg-white focus:ring-emerald-500" oninput="handleCashFlowInput(this)"></div>
                     </div>
                     
                     <!-- Action Buttons -->
-                    <div class="pb-2 shrink-0 flex flex-col gap-3 mt-1">
-                        <div class="grid grid-cols-4 gap-3">
-                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[56px] font-bold flex justify-center items-center gap-2 text-[16px]">
-                                <i class="fas fa-file-alt text-xl"></i> ดูรายละเอียด
+                    <div class="pb-2 shrink-0 flex flex-col gap-2 mt-0.5">
+                        <div class="grid grid-cols-4 gap-2">
+                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[48px] font-bold flex justify-center items-center gap-2 text-[15px]">
+                                <i class="fas fa-file-alt text-lg"></i> ดูรายละเอียด
                             </button>
-                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[56px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[20px] font-bold flex flex-col justify-center items-center gap-1 text-[12px] shadow-[0_10px_20px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
-                                <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[20px]"></div>
-                                <i class="fas fa-share-nodes text-[20px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
+                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[48px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[11px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
+                                <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[16px]"></div>
+                                <i class="fas fa-share-nodes text-[18px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
                                 <span class="relative z-10 drop-shadow-sm tracking-wide">แชร์</span>
                             </button>
                         </div>
                         
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-12 rounded-[18px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-credit-card text-blue-500"></i> ตัวเลือกชำระ
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-12 rounded-[18px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-building-columns text-emerald-500"></i> บัญชีโอนเงิน
                             </button>
                         </div>
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-12 rounded-[18px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[44px] rounded-[16px] text-[13px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
                             <i class="fas fa-laptop-code"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                         </button>
                     </div>
@@ -257,7 +258,7 @@
 
         <!-- ==================== VIEW 2: TABLE ==================== -->
         <div id="tableView" class="hidden flex flex-col flex-1 overflow-hidden w-full relative z-10">
-            <div class="glass-header flex justify-between items-center px-4 pt-safe pb-3 shrink-0 relative z-20 border-b border-slate-200">
+            <div class="glass-header flex justify-between items-center px-4 pt-safe pb-3 shrink-0 relative z-20 border-b border-slate-200 mt-1">
                 <h3 id="tableHeaderTitle" class="text-[15px] font-black text-slate-800 leading-tight flex items-center gap-2 truncate w-[75%]"></h3>
                 <button onclick="exportTableToPDF()" class="bg-red-50 text-red-600 border border-red-100 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1.5 active:scale-95 transition-transform shadow-sm shrink-0"><i class="fas fa-file-pdf text-sm"></i> PDF</button>
             </div>
@@ -296,7 +297,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#ecfdf5] text-[#10b981] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-wallet"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">รายได้จากเคสนี้</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">รายได้จากเคสนี้</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-emerald-50 group-hover:text-emerald-500 transition-colors">
@@ -308,7 +309,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#fffbeb] text-[#f59e0b] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-hand-holding-usd"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">คอมมิชชัน</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">คอมมิชชัน</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-amber-50 group-hover:text-amber-500 transition-colors">
@@ -320,7 +321,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#eff6ff] text-[#3b82f6] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-gift"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">โบนัสรายเดือน (MB)</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">โบนัสรายเดือน (MB)</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
@@ -332,7 +333,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#f5f3ff] text-[#8b5cf6] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-calendar-check"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">โบนัสครึ่งปี (MYB)</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">โบนัสครึ่งปี (MYB)</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-purple-50 group-hover:text-purple-500 transition-colors">
@@ -344,7 +345,7 @@
                         <div class="flex items-center gap-4">
                             <div class="w-[48px] h-[48px] rounded-[16px] bg-[#ecfeff] text-[#06b6d4] flex items-center justify-center text-[22px] group-hover:scale-105 transition-transform"><i class="fas fa-star"></i></div>
                             <div class="text-left">
-                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight mb-1">โบนัสตัวแทนใหม่ (NAB)</h4>
+                                <h4 class="text-[16px] font-black text-[#1e293b] leading-tight">โบนัสตัวแทนใหม่ (NAB)</h4>
                             </div>
                         </div>
                         <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-cyan-50 group-hover:text-cyan-500 transition-colors">
@@ -357,10 +358,9 @@
 
         <!-- ==================== VIEW 4: AI ADVISOR ==================== -->
         <div id="aiView" class="hidden flex flex-col flex-1 overflow-hidden w-full relative z-10">
-            <div class="glass-header flex justify-between items-center px-6 pt-safe pb-4 shrink-0 relative z-20 border-b border-slate-200 mt-1">
+            <div class="glass-header flex justify-between items-center px-6 pt-safe pb-4 shrink-0 relative z-20 border-b border-slate-200 mt-1.5">
                 <div class="flex items-center gap-4">
                     <div class="w-[46px] h-[46px] bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 rounded-[16px] shadow-[0_8px_20px_rgba(79,70,229,0.3)] flex items-center justify-center shrink-0 border border-white/50 relative overflow-hidden">
-                        <!-- เอฟเฟกต์แสงสะท้อนกระจก -->
                         <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
                         <i class="fas fa-circle-nodes text-white text-[24px] relative z-10 drop-shadow-md"></i>
                     </div>
