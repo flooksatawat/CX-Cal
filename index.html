@@ -50,12 +50,12 @@
             border-radius: 20px; 
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.03), inset 0 1px 1px rgba(255, 255, 255, 1); 
             border: 1px solid rgba(226, 232, 240, 0.6); 
-            padding: 16px; /* ปรับกลับให้โปร่งสบาย ไม่บีบอัด */
+            padding: 16px; 
             transition: transform 0.2s ease, box-shadow 0.2s ease; 
         }
         .input-box-rounded { 
             width: 100%; border: 1px solid transparent; border-radius: 14px; text-align: center; outline: none; transition: all 0.3s; 
-            background: rgba(241, 245, 249, 0.8); color: #1e293b; font-weight: 800; font-size: 22px; height: 50px; /* ปรับกลับให้ใหญ่ ดูเต็มตา */
+            background: rgba(241, 245, 249, 0.8); color: #1e293b; font-weight: 800; font-size: 22px; height: 50px; 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); 
         }
         .input-box-rounded:focus { 
@@ -158,9 +158,8 @@
                 </button>
             </div>
 
-            <!-- Content Area (Restored Gaps & Clear spacing) -->
+            <!-- Content Area -->
             <div class="content-area pt-4 no-scrollbar relative z-10 scrollable-view" id="manualInputs">
-                <!-- pb-[110px] ให้พอดีกับความสูงของเมนูด้านล่าง ทำให้ลบพื้นที่ว่างสีแดงส่วนเกินทิ้ง -->
                 <div class="w-full flex flex-col flex-1 min-h-0 gap-3 pb-[110px]">
                     
                     <!-- Top Toggles -->
@@ -178,17 +177,10 @@
                         </div>
                         <div id="planSelectionWrapper" class="shrink-0">
                             <div class="premium-card !p-1.5 flex h-[50px]" id="planSelectionContainer">
-                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">10CX</button>
-                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all">20CX</button>
-                                <button onclick="setPlan('60')" id="btnPlan3" class="flex-1 rounded-[14px] text-[14px] font-bold hidden text-slate-500 transition-all">60</button>
-                                <button onclick="setPlan('90')" id="btnPlan4" class="flex-1 rounded-[14px] text-[14px] font-bold hidden text-slate-500 transition-all">90</button>
+                                <button onclick="setPlan('10CX')" id="btnPlan1" class="flex-1 rounded-[14px] text-[14px] font-bold active-blue text-white transition-all">10CX</button>
+                                <button onclick="setPlan('20CX')" id="btnPlan2" class="flex-1 rounded-[14px] text-[14px] font-bold text-slate-500 hover:bg-slate-50 transition-all">20CX</button>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div id="threeDExtraOptions" class="hidden grid grid-cols-2 gap-3 shrink-0">
-                        <div class="premium-card"><p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center uppercase tracking-wider">เลือก Extra</p><button onclick="openPopup('extraPlanModal')" id="btnExtra" class="w-full gender-pill h-10 bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-2 opacity-60"></i></button></div>
-                        <div class="premium-card"><p class="text-slate-400 text-[11px] font-bold mb-1.5 text-center uppercase tracking-wider">เลือก Advance</p><button onclick="openPopup('advancePlanModal')" id="btnAdvance" class="w-full gender-pill h-10 bg-blue-50 text-blue-700 border-blue-100">ไม่เลือก <i class="fas fa-chevron-down text-[10px] ml-2 opacity-60"></i></button></div>
                     </div>
 
                     <!-- Sum Insured Card -->
@@ -230,25 +222,25 @@
                     <!-- Action Buttons -->
                     <div class="pb-2 shrink-0 flex flex-col gap-3 mt-1">
                         <div class="grid grid-cols-4 gap-3">
-                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[56px] font-bold flex justify-center items-center gap-2 text-[16px]">
-                                <i class="fas fa-file-alt text-xl"></i> ดูรายละเอียด
+                            <button id="mainActionBtn" onclick="manualTriggerPopup()" class="col-span-3 w-full btn-primary h-[54px] font-bold flex justify-center items-center gap-2 text-[16px]">
+                                <i class="fas fa-file-alt text-lg"></i> ดูรายละเอียด
                             </button>
-                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[56px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[20px] font-bold flex flex-col justify-center items-center gap-1 text-[12px] shadow-[0_10px_20px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
-                                <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[20px]"></div>
+                            <button onclick="openGenericShareModal('all')" class="col-span-1 w-full h-[54px] bg-gradient-to-br from-emerald-400 to-teal-600 text-white rounded-[16px] font-bold flex flex-col justify-center items-center gap-1 text-[12px] shadow-[0_8px_15px_rgba(16,185,129,0.3)] border border-emerald-300/50 active:scale-[0.95] transition-all relative overflow-hidden group">
+                                <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/30 to-transparent pointer-events-none rounded-t-[16px]"></div>
                                 <i class="fas fa-share-nodes text-[20px] relative z-10 drop-shadow-sm group-hover:scale-110 transition-transform -mb-0.5"></i>
                                 <span class="relative z-10 drop-shadow-sm tracking-wide">แชร์</span>
                             </button>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-3">
-                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-12 rounded-[18px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('installmentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-credit-card text-blue-500"></i> ตัวเลือกชำระ
                             </button>
-                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-12 rounded-[18px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+                            <button onclick="openPopup('paymentModal')" class="w-full bg-white border border-slate-200 text-slate-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
                                 <i class="fas fa-building-columns text-emerald-500"></i> บัญชีโอนเงิน
                             </button>
                         </div>
-                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-12 rounded-[18px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
+                        <button onclick="openPopup('eSubQniModal')" class="w-full bg-white border border-rose-100 text-rose-700 h-[48px] rounded-[16px] text-[14px] font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:bg-rose-50 active:scale-95 transition-all">
                             <i class="fas fa-laptop-code"></i> E-Submission & QNI <i class="fas fa-chevron-right text-[10px] ml-1 opacity-50"></i>
                         </button>
                     </div>
@@ -290,7 +282,6 @@
                 </div>
             </div>
 
-            <!-- ปรับระยะ pb-[180px] ให้ลดลงเหลือ pb-[110px] เพื่อลบพื้นที่ว่างส่วนเกิน -->
             <div class="flex-1 px-4 py-3 min-h-0 flex flex-col overflow-y-auto custom-scrollbar pb-[110px] scrollable-view">
                 <div class="flex flex-col gap-3.5 w-full max-w-sm mx-auto mt-2 px-1">
                     
@@ -391,7 +382,7 @@
             </div>
         </div>
 
-        <!-- ==================== BOTTOM NAVIGATION & FOOTER (ENLARGED & AUTO-HIDE FIX) ==================== -->
+        <!-- ==================== BOTTOM NAVIGATION & FOOTER ==================== -->
         <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent transition-all duration-300 ease-in-out">
             <div class="glass-nav rounded-[24px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-3 pointer-events-auto w-[calc(100%-1.5rem)] max-w-[400px] mb-3 border border-white/60">
                 <button id="navMainBtn" class="nav-item active flex flex-col items-center justify-center py-1 w-1/5 text-slate-400" onclick="switchView('main')">
@@ -417,7 +408,7 @@
     </div>
     
     <!-- ==================== MODALS (POPUPS) ==================== -->
-    <div id="resultModal" class="modal-overlay"><div class="modal-content-card"><div class="bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] p-6 text-center text-white flex-shrink-0 relative"><button onclick="closePopup('resultModal')" class="absolute top-4 right-5 text-blue-200 hover:text-white text-2xl w-8 h-8 flex justify-center items-center rounded-full bg-white/10 backdrop-blur-sm">&times;</button><div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-md border border-white/30"><i class="fas fa-check text-3xl text-emerald-300"></i></div><h3 class="text-[22px] font-black tracking-tight">สรุปผลการคำนวณ</h3></div><div class="overflow-y-auto flex-1 custom-scrollbar p-5 pb-6 bg-slate-50"><div class="flex gap-2 mb-4"><div class="flex-1 text-center py-2.5 bg-white rounded-2xl shadow-sm border border-slate-100"><span class="text-[10px] text-slate-400 font-bold uppercase block mb-0.5">เพศ</span><span id="modalGender" class="text-[15px] font-black text-slate-800">-</span></div><div class="flex-1 text-center py-2.5 bg-white rounded-2xl shadow-sm border border-slate-100"><span class="text-[10px] text-slate-400 font-bold uppercase block mb-0.5">อายุ</span><span id="modalAge" class="text-[15px] font-black text-slate-800">-</span></div><div class="flex-1 text-center py-2.5 bg-white rounded-2xl shadow-sm border border-slate-100"><span class="text-[10px] text-slate-400 font-bold uppercase block mb-0.5">ระยะออม</span><span id="modalYears" class="text-[15px] font-black text-slate-800">-</span></div></div><div class="space-y-3"><div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border border-blue-100 border-l-4 border-l-blue-500"><span class="text-[13px] text-slate-500 font-bold flex items-center gap-2"><i class="fas fa-wallet text-blue-400"></i> ออมเงิน</span><span id="modalPremium" class="text-[18px] font-black text-blue-600">0</span></div><div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border border-emerald-100 border-l-4 border-l-emerald-500"><span class="text-[13px] text-slate-500 font-bold flex items-center gap-2"><i class="fas fa-shield-halved text-emerald-400"></i> วงเงิน</span><span id="modalSum" class="text-[18px] font-black text-emerald-600">0</span></div><div id="modalChildRow" class="hidden flex-col p-4 bg-white rounded-2xl shadow-sm border border-sky-100"><div class="flex justify-between items-center mb-2"><span class="text-[12px] text-slate-600 font-bold">ตรวจพบ 1 ใน 15 โรคเด็ก</span><span id="modalChildCI" class="text-[16px] font-black text-sky-600">0</span></div><button onclick="openPopup('disease15Modal')" class="text-[11px] text-sky-600 bg-sky-50 py-1.5 rounded-lg font-bold hover:bg-sky-100 transition-colors w-full">ดูรายชื่อโรค</button></div><div class="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-amber-100"><div class="flex justify-between items-center mb-1"><span class="text-[12px] text-slate-600 font-bold">1 ใน 5 โรคร้าย (จ่ายสูงสุด 4 ครั้ง)</span><span id="modalExtraCI" class="text-[16px] font-black text-amber-600">0</span></div><button onclick="openPopup('disease5Modal')" class="text-[11px] text-amber-600 bg-amber-50 py-1.5 rounded-lg font-bold hover:bg-amber-100 transition-colors w-full mt-2">ดูรายชื่อโรค</button></div><div class="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-rose-100"><div class="flex justify-between items-center mb-1"><span class="text-[12px] text-slate-600 font-bold">1 ใน 45 โรคร้ายระยะรุนแรง</span><span id="modalMajorCI" class="text-[16px] font-black text-rose-600">0</span></div><p class="text-[10px] text-slate-400 mb-2">* ยกเว้นการออม และมีค่ารักษาเพิ่มเติม <span id="modalMedExtra1Popup" class="font-bold text-slate-600">0</span> บาท</p><div class="flex gap-2"><button onclick="openPopup('extraPayConditionsModal')" class="flex-1 text-[11px] text-slate-600 bg-slate-100 py-1.5 rounded-lg font-bold hover:bg-slate-200 transition-colors">เงื่อนไข</button><button onclick="openPopup('disease45Modal')" class="flex-1 text-[11px] text-rose-600 bg-rose-50 py-1.5 rounded-lg font-bold hover:bg-rose-100 transition-colors">รายชื่อโรค</button></div></div><div class="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-indigo-100"><div class="flex justify-between items-center mb-1"><span class="text-[12px] text-slate-600 font-bold">จากไป หรือ ครบสัญญา</span><span id="modalMaturity" class="text-[16px] font-black text-indigo-600">0</span></div><p class="text-[10px] text-slate-400 mb-2">* หากพบโรคร้ายก่อน จ่ายเพิ่ม <span id="modalMaturityExtraPopup" class="font-bold text-slate-600">0</span> บาท</p><button onclick="openPopup('maturityExtraModal')" class="text-[11px] text-indigo-600 bg-indigo-50 py-1.5 rounded-lg font-bold hover:bg-indigo-100 transition-colors w-full">ดูเงื่อนไข</button></div></div><div class="mt-6 space-y-2"><button onclick="openGenericShareModal('premium')" class="w-full bg-slate-100 text-slate-700 py-3.5 rounded-2xl font-bold flex justify-center items-center gap-2 text-[14px] active:scale-95 transition-all"><i class="fas fa-coins text-slate-500"></i> แชร์เฉพาะออมเงิน</button><button onclick="openGenericShareModal('all')" class="w-full bg-emerald-500 text-white py-3.5 rounded-2xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-lg shadow-emerald-500/30 active:scale-95 transition-all"><i class="fas fa-share-nodes"></i> แชร์ข้อมูลสรุปทั้งหมด</button></div></div></div></div>
+    <div id="resultModal" class="modal-overlay"><div class="modal-content-card"><div class="bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] p-6 text-center text-white flex-shrink-0 relative"><button onclick="closePopup('resultModal')" class="absolute top-4 right-5 text-blue-200 hover:text-white text-2xl w-8 h-8 flex justify-center items-center rounded-full bg-white/10 backdrop-blur-sm">&times;</button><div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-md border border-white/30"><i class="fas fa-check text-3xl text-emerald-300"></i></div><h3 class="text-[22px] font-black tracking-tight">สรุปผลการคำนวณ</h3></div><div class="overflow-y-auto flex-1 custom-scrollbar p-5 pb-6 bg-slate-50"><div class="flex gap-2 mb-4"><div class="flex-1 text-center py-2.5 bg-white rounded-2xl shadow-sm border border-slate-100"><span class="text-[10px] text-slate-400 font-bold uppercase block mb-0.5">เพศ</span><span id="modalGender" class="text-[15px] font-black text-slate-800">-</span></div><div class="flex-1 text-center py-2.5 bg-white rounded-2xl shadow-sm border border-slate-100"><span class="text-[10px] text-slate-400 font-bold uppercase block mb-0.5">อายุ</span><span id="modalAge" class="text-[15px] font-black text-slate-800">-</span></div><div class="flex-1 text-center py-2.5 bg-white rounded-2xl shadow-sm border border-slate-100"><span class="text-[10px] text-slate-400 font-bold uppercase block mb-0.5">ระยะออม</span><span id="modalYears" class="text-[15px] font-black text-slate-800">-</span></div></div><div class="space-y-3"><div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border border-blue-100 border-l-4 border-l-blue-500"><span class="text-[13px] text-slate-500 font-bold flex items-center gap-2"><i class="fas fa-wallet text-blue-400"></i> ออมเงิน</span><span id="modalPremium" class="text-[18px] font-black text-blue-600">0</span></div><div class="flex justify-between items-center p-4 bg-white rounded-2xl shadow-sm border border-emerald-100 border-l-4 border-l-emerald-500"><span class="text-[13px] text-slate-500 font-bold flex items-center gap-2"><i class="fas fa-shield-halved text-emerald-400"></i> วงเงิน</span><span id="modalSum" class="text-[18px] font-black text-emerald-600">0</span></div><div id="modalChildRow" class="hidden flex-col p-4 bg-white rounded-2xl shadow-sm border border-sky-100"><div class="flex justify-between items-center mb-2"><span class="text-[12px] text-slate-600 font-bold">ตรวจพบ 1 ใน 15 โรคเด็ก</span><span id="modalChildCI" class="text-[16px] font-black text-sky-600">0</span></div><button onclick="openPopup('disease15Modal')" class="text-[11px] text-sky-600 bg-sky-50 py-1.5 rounded-lg font-bold hover:bg-sky-100 transition-colors w-full">ดูรายชื่อโรค</button></div><div class="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-amber-100"><div class="flex justify-between items-center mb-1"><span class="text-[12px] text-slate-600 font-bold">1 ใน 5 โรคร้าย (จ่ายสูงสุด 4 ครั้ง)</span><span id="modalExtraCI" class="text-[16px] font-black text-amber-600">0</span></div><button onclick="openPopup('disease5Modal')" class="text-[11px] text-amber-600 bg-amber-50 py-1.5 rounded-lg font-bold hover:bg-amber-100 transition-colors w-full mt-2">ดูรายชื่อโรค</button></div><div class="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-rose-100"><div class="flex justify-between items-center mb-1"><span class="text-[12px] text-slate-600 font-bold">1 ใน 45 โรคร้ายระยะรุนแรง</span><span id="modalMajorCI" class="text-[16px] font-black text-rose-600">0</span></div><p class="text-[10px] text-slate-400 mb-2">* ยกเว้นการออม และมีค่ารักษาเพิ่มเติม <span id="modalMedExtra1Popup" class="font-bold text-slate-600">0</span> บาท</p><div class="flex gap-2"><button onclick="openPopup('extraPayConditionsModal')" class="flex-1 text-[11px] text-slate-600 bg-slate-100 py-1.5 rounded-lg font-bold hover:bg-slate-200 transition-colors">เงื่อนไข</button><button onclick="openPopup('disease45Modal')" class="flex-1 text-[11px] text-rose-600 bg-rose-50 py-1.5 rounded-lg font-bold hover:bg-rose-100 transition-colors">รายชื่อโรค</button></div></div><div class="flex flex-col p-4 bg-white rounded-2xl shadow-sm border border-indigo-100"><div class="flex justify-between items-center mb-1"><span class="text-[12px] text-slate-600 font-bold">จากไป หรือ ครบสัญญา</span><span id="modalMaturity" class="text-[16px] font-black text-indigo-600">0</span></div><p class="text-[10px] text-slate-400 mb-2">* หากพบโรคร้ายก่อน จ่ายเพิ่ม <span id="modalMaturityExtraPopup" class="font-bold text-slate-600">0</span> บาท</p><button onclick="openPopup('maturityExtraModal')" class="text-[11px] text-indigo-600 bg-indigo-50 py-1.5 rounded-lg font-bold hover:bg-indigo-100 transition-colors w-full">ดูเงื่อนไข</button></div></div><div class="mt-6 space-y-2"><button onclick="openGenericShareModal('premium')" class="w-full bg-slate-100 text-slate-700 py-3.5 rounded-2xl font-bold flex justify-center items-center gap-2 text-[14px] active:scale-95 transition-all"><i class="fas fa-coins text-slate-500"></i> แชร์เฉพาะออมเงิน</button><button onclick="openGenericShareModal('all')" class="w-full bg-emerald-50 text-white py-3.5 rounded-2xl font-bold flex justify-center items-center gap-2 text-[14px] shadow-lg shadow-emerald-500/30 active:scale-95 transition-all"><i class="fas fa-share-nodes"></i> แชร์ข้อมูลสรุปทั้งหมด</button></div></div></div></div>
     
     <div id="planSelectModal" class="modal-overlay"><div class="bg-white w-full max-w-[26rem] rounded-[2.5rem] transform transition-transform duration-300 flex flex-col h-[85vh] max-h-[750px] shadow-2xl overflow-hidden relative"><div class="px-6 pt-7 pb-4 bg-white/90 backdrop-blur-xl shrink-0 z-20 border-b border-slate-100"><div class="flex justify-between items-center mb-5"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-[18px] bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-600 flex items-center justify-center text-xl shadow-inner border border-white"><i class="fas fa-layer-group"></i></div><div><h3 class="text-[22px] font-black text-slate-800 tracking-tight leading-none">แบบประกัน</h3><p class="text-[11px] text-slate-400 font-medium mt-1">เลือกแผนที่ต้องการคำนวณ</p></div></div><button onclick="closePopup('planSelectModal')" class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors text-xl leading-none">&times;</button></div><div class="relative"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i><input type="text" id="unifiedPlanSearchInput" class="w-full bg-slate-100 border-none text-slate-800 text-[15px] font-medium rounded-2xl py-3.5 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:bg-white transition-all placeholder:text-slate-400" placeholder="พิมพ์ค้นหาชื่อแผน..." oninput="handleUnifiedPlanSearch()"></div></div><div id="unifiedPlanList" class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2.5 bg-slate-50/50 pb-8"></div><div class="h-8 bg-gradient-to-t from-slate-50 to-transparent absolute bottom-0 left-0 right-0 pointer-events-none z-10"></div></div></div>
 
@@ -631,7 +622,7 @@
 
         function openPopup(id) { const modal = document.getElementById(id); if (modal) { modal.classList.remove('hidden'); setTimeout(() => { modal.classList.add('show'); }, 10); } }
         function closePopup(id) { const modal = document.getElementById(id); if (modal) { modal.classList.remove('show'); setTimeout(() => { modal.classList.add('hidden'); }, 300); } }
-        function handleModalClick(e, modalId) { if (e.target.closest('button, input, select, textarea, a, .list-row, .interactive-btn')) return; }
+        function handleModalClick(e, modalId) { if (e.target.closest('button, input, select, textarea, a, .list-row, .interactive-btn')) return; closePopup(modalId); }
         function showCustomError(msg) { const toast = document.createElement('div'); toast.className = "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600/95 text-white px-8 py-5 rounded-2xl text-sm font-bold z-[1000] shadow-2xl text-center backdrop-blur-sm transition-all"; toast.innerHTML = `<i class='fas fa-exclamation-triangle mb-3 block text-3xl text-red-200'></i><span class="whitespace-nowrap">${msg}</span>`; document.body.appendChild(toast); setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 1500); }
 
         function adjustAge(delta) { const input = document.getElementById('ageInput'); let val = parseInt(input.value) + delta; if (val >= 0 && val <= 65) { input.value = val; calculate(currentMode); } }
@@ -671,10 +662,6 @@
             });
             calculate(currentMode); 
         }
-
-        function setHXPlan(hxPlan, displayText) { currentPlan = hxPlan; const btn1 = document.getElementById('btnPlan1'); if (btn1) { btn1.innerHTML = `${displayText} <i class="fas fa-chevron-down text-[10px] ml-1"></i>`; } closePopup('hxPlanModal'); calculate(currentMode); }
-        function setExtraPlan(val) { currentExtra = val; const btn = document.getElementById('btnExtra'); if (btn) btn.innerHTML = `${val !== '-' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i>`; closePopup('extraPlanModal'); }
-        function setAdvancePlan(val) { currentAdvance = val; const btn = document.getElementById('btnAdvance'); if (btn) btn.innerHTML = `${val !== '-' ? val : 'ไม่เลือก'} <i class="fas fa-chevron-down text-[10px] ml-1 opacity-70"></i>`; closePopup('advancePlanModal'); }
 
         function getDiscount(sum, plan) { 
             if (plan === '10CX') { if (sum >= 5000000) return 3.0; if (sum >= 1000000) return 2.0; } 
@@ -871,7 +858,7 @@
                 if(sumInsuredContainer) sumInsuredContainer.classList.add('hidden'); if(premiumContainer) premiumContainer.classList.add('hidden');
             }
             updateQuickPills(planName);
-            if (planName !== '3D Health Excellence') { setPlan(currentPlan); } else { calculate(currentMode); setTimeout(() => openPopup('hxPlanModal'), 400); }
+            if (planName !== '3D Health Excellence') { setPlan(currentPlan); } else { calculate(currentMode); }
         }
 
         // ==================== CASH MODULE ====================
