@@ -105,24 +105,6 @@
         .list-row { transition: all 0.2s; border: 1px solid transparent; cursor: pointer; }
         .list-row:active { background-color: #f8fafc; border-color: #e2e8f0; transform: scale(0.98); }
 
-        /* ==================== AI ADVISOR ENHANCED UI ==================== */
-        .ai-content { display: flex; flex-direction: column; gap: 6px; padding-bottom: 1rem; }
-        .ai-content h4 { color: #0f172a; font-weight: 800; font-size: 1.05rem; margin-top: 1rem; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.6rem; }
-        .ai-content h4 i { background: #e0e7ff; color: #4f46e5; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.85rem; }
-        .ai-content h4:nth-of-type(1) i { background: #eff6ff; color: #3b82f6; }
-        .ai-content h4:nth-of-type(2) i { background: #fffbeb; color: #f59e0b; }
-        .ai-content h4:nth-of-type(3) i { background: #f3e8ff; color: #9333ea; }
-        .ai-content h4:nth-of-type(4) i { background: #ecfdf5; color: #10b981; }
-        .ai-content ul { list-style-type: none; padding-left: 0; margin-bottom: 0.5rem; display: flex; flex-direction: column; gap: 12px; }
-        .ai-content ul li { background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); color: #475569; font-size: 0.95rem; line-height: 1.6; }
-        .ai-content ul li::before { content: none; }
-        .ai-content ul li strong { color: #0f172a; display: block; margin-bottom: 6px; font-size: 1rem; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0; }
-        .ai-reply { margin-top: 10px; display: flex; gap: 10px; align-items: flex-start; }
-        .ai-reply::before { content: '💡'; font-size: 1.1rem; margin-top: 8px; }
-        .ai-reply em { flex: 1; font-style: normal; display: block; background: #f0f9ff; color: #1e40af; padding: 10px 14px; border-radius: 12px; font-weight: 500; border: 1px solid #dbeafe; }
-        .ai-quote { background: linear-gradient(145deg, #f0fdf4, #ecfdf5); border: 1px solid #a7f3d0; padding: 1.25rem 1.25rem 1.25rem 3.5rem; border-radius: 20px; font-style: normal; color: #065f46; margin: 0.5rem 0 1rem 0; font-weight: 600; line-height: 1.6; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.08); position: relative; font-size: 0.95rem; }
-        .ai-quote::before { content: '\201C'; position: absolute; left: 16px; top: 12px; font-size: 3.5rem; color: rgba(16, 185, 129, 0.25); font-family: Georgia, serif; line-height: 1; }
-
         .spinner { border: 3px solid rgba(59, 130, 246, 0.1); width: 44px; height: 44px; border-radius: 50%; border-left-color: #3b82f6; animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
@@ -414,40 +396,6 @@
             </div>
         </div>
 
-        <!-- ==================== VIEW 4: AI ADVISOR ==================== -->
-        <div id="aiView" class="hidden flex flex-col flex-1 overflow-hidden w-full relative z-10">
-            <div class="glass-header flex justify-between items-center px-6 pt-safe pb-4 shrink-0 relative z-20 border-b border-slate-200 mt-1.5">
-                <div class="flex items-center gap-4">
-                    <div class="w-[46px] h-[46px] bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 rounded-[16px] shadow-[0_8px_20px_rgba(79,70,229,0.3)] flex items-center justify-center shrink-0 border border-white/50 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-[45%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
-                        <i class="fas fa-circle-nodes text-white text-[24px] relative z-10 drop-shadow-md"></i>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <h3 class="text-[19px] font-black text-[#0f172a] leading-tight mb-0.5">ที่ปรึกษา AI</h3>
-                        <p class="text-[11px] text-indigo-600 font-bold uppercase tracking-wide">Smart AI Advisor</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flex-1 overflow-y-auto custom-scrollbar pb-[180px] px-4 pt-4 w-full flex flex-col relative scrollable-view">
-                
-                <div class="bg-[#f8fafc] rounded-[32px] shadow-inner border border-slate-200 w-full min-h-[400px] p-4 flex flex-col">
-
-                    <!-- Status / Result Container -->
-                    <div id="aiLoadingState" class="flex-1 flex flex-col items-center justify-center py-10">
-                        <div class="spinner mb-5"></div>
-                        <p class="text-[15px] font-bold text-slate-700 mt-5">กำลังประมวลผลกลยุทธ์...</p>
-                        <p class="text-[12px] text-slate-400 mt-1">วิเคราะห์จากข้อมูลเชิงลึกแบบเรียลไทม์</p>
-                    </div>
-
-                    <div id="aiResultState" class="hidden flex-1 flex-col px-1 py-2 ai-content text-[13px] sm:text-[14px] text-slate-700 w-full">
-                        <!-- Content injected by JS -->
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <!-- ==================== BOTTOM NAVIGATION & FOOTER ==================== -->
         <div id="bottomNavContainer" class="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-12 pb-safe bg-gradient-to-t from-[#f4f7fb] via-[#f4f7fb]/95 to-transparent transition-all duration-300 ease-in-out">
             <div class="glass-nav rounded-[20px] shadow-[0_15px_40px_rgba(15,23,42,0.12)] flex justify-around items-center px-2 py-1.5 pointer-events-auto w-[calc(100%-2rem)] max-w-[400px] mb-5 border border-white/60">
@@ -474,6 +422,35 @@
     </div>
     
     <!-- ==================== MODALS (POPUPS) ==================== -->
+    <div id="aiMenuModal" class="modal-overlay">
+        <div class="modal-content-card p-5 text-center">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5">
+                <h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-robot mr-2 text-blue-600"></i> เลือกผู้ช่วย AI</h3>
+                <button onclick="closePopup('aiMenuModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button>
+            </div>
+            <div class="space-y-2.5">
+                <button onclick="window.open('https://gemini.google.com/', '_blank'); closePopup('aiMenuModal')" class="w-full flex justify-between items-center p-3.5 bg-sky-50 border border-sky-200 rounded-xl active:bg-sky-100 transition-colors group shadow-sm hover:bg-sky-100/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm"><i class="fas fa-sparkles text-base"></i></div>
+                        <div class="text-left">
+                            <span class="text-[14px] font-bold text-sky-800 block">Google Gemini</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-external-link-alt text-xs text-sky-400"></i>
+                </button>
+                <button onclick="window.open('https://notebooklm.google.com/', '_blank'); closePopup('aiMenuModal')" class="w-full flex justify-between items-center p-3.5 bg-purple-50 border border-purple-200 rounded-xl active:bg-purple-100 transition-colors group shadow-sm hover:bg-purple-100/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-sm"><i class="fas fa-book-open text-base"></i></div>
+                        <div class="text-left">
+                            <span class="text-[14px] font-bold text-purple-800 block">Notebook LM</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-external-link-alt text-xs text-purple-400"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="resultModal" class="modal-overlay">
         <div class="modal-content-card !max-w-[22rem]">
             <div class="bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] p-5 pt-6 text-center text-white flex-shrink-0 relative">
@@ -567,44 +544,6 @@
     <div id="paymentModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-emerald-800"><i class="fas fa-money-bill-transfer mr-2 text-emerald-600"></i> บัญชีโอนเงิน</h3><button onclick="closePopup('paymentModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="overflow-y-auto flex-1 custom-scrollbar pr-1 space-y-2.5 pb-2"><div onclick="openGenericShareModal('scb'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-purple-500 p-3 rounded-xl cursor-pointer hover:bg-purple-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-black text-[10px] shadow-sm">SCB</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.ไทยพาณิชย์ <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาถนนวิทยุ</span></p><p class="text-[15px] font-black text-purple-800 tracking-wider mt-0.5">049-416-6866</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div><div onclick="openGenericShareModal('bbl'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-blue-500 p-3 rounded-xl cursor-pointer hover:bg-blue-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-black text-[10px] shadow-sm">BBL</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.กรุงเทพ <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาสุรวงศ์</span></p><p class="text-[15px] font-black text-blue-800 tracking-wider mt-0.5">147-312-5357</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div><div onclick="openGenericShareModal('bay'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-amber-500 p-3 rounded-xl cursor-pointer hover:bg-amber-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-black text-[10px] shadow-sm">BAY</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.กรุงศรี <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาเพลินจิต</span></p><p class="text-[15px] font-black text-amber-800 tracking-wider mt-0.5">001-016-4329</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div><div onclick="openGenericShareModal('kbank'); closePopup('paymentModal')" class="list-row flex justify-between items-center bg-white border-l-4 border-l-green-500 p-3 rounded-xl cursor-pointer hover:bg-green-50 shadow-sm border border-slate-100"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-black text-[10px] shadow-sm">KBANK</div><div class="text-left"><p class="text-[11px] font-bold text-slate-500">ธ.กสิกร <span class="font-normal text-slate-400 ml-1 text-[9px]">สาขาพหลโยธิน</span></p><p class="text-[15px] font-black text-green-800 tracking-wider mt-0.5">099-132-6065</p></div></div><i class="fas fa-share-nodes text-slate-300 text-sm"></i></div></div><p class="text-[9px] text-slate-400 mt-2"><i class="fas fa-hand-pointer mr-1"></i> แตะที่บัญชีเพื่อแชร์</p></div></div>
     
     <div id="eSubQniModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#9d174d]"><i class="fas fa-laptop-code mr-2 text-pink-500"></i> เลือกระบบงาน</h3><button onclick="closePopup('eSubQniModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="space-y-2.5"><button onclick="window.open('https://esales.cl-agency.in.th/prospects', '_blank')" class="w-full flex justify-between items-center p-3.5 bg-orange-50 border border-orange-200 rounded-xl active:bg-orange-100 transition-colors group shadow-sm hover:bg-orange-100/50"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-orange-600 shadow-sm"><i class="fas fa-file-signature text-base"></i></div><div class="text-left"><span class="text-[14px] font-bold text-orange-800 block">E-Submission</span></div></div><i class="fas fa-external-link-alt text-xs text-orange-400"></i></button><button onclick="window.open('https://esmart.chubblife-agency.in.th/chubb-life-qni/en/home?return=%2Fen%2Fhome', '_blank')" class="w-full flex justify-between items-center p-3.5 bg-sky-50 border border-sky-200 rounded-xl active:bg-sky-100 transition-colors group shadow-sm hover:bg-sky-100/50"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm"><i class="fas fa-file-signature text-base"></i></div><div class="text-left"><span class="text-[14px] font-bold text-sky-800 block">QNI</span></div></div><i class="fas fa-external-link-alt text-xs text-sky-400"></i></button></div></div></div>
-    
-    <div id="aiMenuModal" class="modal-overlay">
-        <div class="modal-content-card p-5 text-center">
-            <div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5">
-                <h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-robot mr-2 text-blue-600"></i> เลือกผู้ช่วย AI</h3>
-                <button onclick="closePopup('aiMenuModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button>
-            </div>
-            <div class="space-y-2.5">
-                <button onclick="closePopup('aiMenuModal'); switchView('ai');" class="w-full flex justify-between items-center p-3.5 bg-blue-50 border border-blue-200 rounded-xl active:bg-blue-100 transition-colors group shadow-sm hover:bg-blue-100/50">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm"><i class="fas fa-brain text-base"></i></div>
-                        <div class="text-left">
-                            <span class="text-[14px] font-bold text-blue-800 block">วิเคราะห์การขาย (ในแอป)</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-right text-xs text-blue-400"></i>
-                </button>
-                <button onclick="window.open('https://gemini.google.com/', '_blank'); closePopup('aiMenuModal')" class="w-full flex justify-between items-center p-3.5 bg-sky-50 border border-sky-200 rounded-xl active:bg-sky-100 transition-colors group shadow-sm hover:bg-sky-100/50">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm"><i class="fas fa-sparkles text-base"></i></div>
-                        <div class="text-left">
-                            <span class="text-[14px] font-bold text-sky-800 block">Google Gemini</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-external-link-alt text-xs text-sky-400"></i>
-                </button>
-                <button onclick="window.open('https://notebooklm.google.com/', '_blank'); closePopup('aiMenuModal')" class="w-full flex justify-between items-center p-3.5 bg-purple-50 border border-purple-200 rounded-xl active:bg-purple-100 transition-colors group shadow-sm hover:bg-purple-100/50">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-sm"><i class="fas fa-book-open text-base"></i></div>
-                        <div class="text-left">
-                            <span class="text-[14px] font-bold text-purple-800 block">Notebook LM</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-external-link-alt text-xs text-purple-400"></i>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <div id="insuranceConditionsModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2.5"><h3 class="text-base font-bold text-[#1e3a8a]"><i class="fas fa-info-circle mr-2 text-blue-600"></i> เงื่อนไขการรับประกัน</h3><button onclick="closePopup('insuranceConditionsModal')" class="w-7 h-7 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors text-lg font-medium shadow-sm leading-none">&times;</button></div><div class="text-left space-y-2.5 text-xs text-slate-700 font-medium"><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุที่รับประกัน: 0 - 65 ปี</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>ทุนประกันขั้นต่ำ: 100,000 บาท</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 0 ถึง 15 ปี ทุนสูงสุด 3 ล้าน</div><div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100"><i class="fas fa-check text-blue-500 mr-2"></i>อายุ 16 ถึง 65 ปี ทุนสูงสุด 10 ล้าน</div></div><button onclick="closePopup('insuranceConditionsModal')" class="mt-5 w-full py-3 bg-[#243c94] hover:bg-[#1e327a] text-white font-bold rounded-xl transition-colors text-sm">ตกลง</button></div></div>
     
@@ -613,35 +552,6 @@
     <div id="genericShareModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" id="genericShareIconBg"><i id="genericShareIcon" class="fas fa-share-nodes text-2xl"></i></div><h3 id="genericShareTitle" class="text-lg font-bold text-slate-800 mb-4">เลือกช่องทางการแชร์</h3><div class="grid grid-cols-3 gap-2.5"><button onclick="handleGenericShare('line')" class="w-full flex flex-col justify-center items-center gap-1.5 p-3 bg-[#00B900]/10 rounded-xl border border-[#00B900]/20 active:scale-95 transition-all shadow-sm hover:bg-[#00B900]/20"><i class="fab fa-line text-[#00B900] text-2xl"></i><span class="text-[10px] font-bold text-[#00B900] uppercase tracking-wider mt-1">LINE</span></button><button onclick="handleGenericShare('messenger')" class="w-full flex flex-col justify-center items-center gap-1.5 p-3 bg-[#0084FF]/10 rounded-xl border border-[#0084FF]/20 active:scale-95 transition-all shadow-sm hover:bg-[#0084FF]/20"><i class="fab fa-facebook-messenger text-[#0084FF] text-xl"></i><span class="text-[10px] font-bold text-[#0084FF] uppercase tracking-wider mt-1">Messenger</span></button><button onclick="handleGenericShare('copy')" class="w-full flex flex-col justify-center items-center gap-1.5 p-3 bg-slate-100 rounded-xl border border-slate-200 active:scale-95 transition-all shadow-sm hover:bg-slate-200"><i class="fas fa-copy text-slate-600 text-2xl"></i><span class="text-[10px] font-bold text-slate-600 uppercase tracking-wider mt-1">คัดลอก</span></button></div><button onclick="closePopup('genericShareModal')" class="mt-5 text-slate-400 hover:text-slate-600 text-xs font-medium w-full py-2">ยกเลิก</button></div></div>
     
     <div id="installmentShareModal" class="modal-overlay"><div class="modal-content-card p-5 text-center"><div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-share-nodes text-2xl"></i></div><h3 id="installmentShareTitle" class="text-lg font-bold text-[#1e3a8a] mb-4">เลือกรูปแบบการแชร์</h3><div class="space-y-2.5"><div class="w-full text-left"><button onclick="closePopup('installmentShareModal'); openGenericShareModal('installmentPrem')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 p-3.5 rounded-xl font-bold shadow-sm flex justify-between items-center active:scale-95 transition-all text-[14px] hover:bg-slate-100"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center"><i class="fas fa-coins text-slate-600 text-base"></i></div><span>แชร์เฉพาะออมเงิน</span></div><i class="fas fa-chevron-right text-xs text-slate-400"></i></button></div><div class="w-full text-left"><button onclick="closePopup('installmentShareModal'); openGenericShareModal('installmentAll')" class="w-full bg-blue-50 text-blue-800 border border-blue-200 p-3.5 rounded-xl font-bold shadow-sm flex justify-between items-center active:scale-95 transition-all text-[14px] hover:bg-blue-100"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center"><i class="fas fa-file-invoice text-blue-600 text-base"></i></div><span>แชร์สรุปทั้งหมด</span></div><i class="fas fa-chevron-right text-xs text-blue-400"></i></button></div></div><button onclick="closePopup('installmentShareModal')" class="mt-5 text-slate-400 hover:text-slate-600 text-xs font-medium">ยกเลิก</button></div></div>
-    
-    <!-- API Key BYOK Modal -->
-    <div id="apiKeyModal" class="modal-overlay z-[1001]">
-        <div class="modal-content-card p-5 bg-white text-center shadow-2xl">
-            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner border border-blue-100">
-                <i class="fas fa-key text-2xl"></i>
-            </div>
-            <h3 class="text-[18px] font-black text-slate-800 mb-1.5">ตั้งค่าผู้ช่วย AI (Gemini)</h3>
-            <p class="text-[12px] text-slate-500 mb-5 leading-relaxed px-2">
-                ระบบรักษาความปลอดภัย 100%<br>ระบบจะบันทึก Key ไว้ในเครื่องของคุณเท่านั้น
-            </p>
-            
-            <input type="password" id="apiKeyInputText" class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-[14px] font-medium rounded-[14px] py-3.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all placeholder:text-slate-400 shadow-inner mb-4 text-center" placeholder="วาง API Key ของคุณที่นี่">
-            
-            <div class="flex gap-2.5 mb-4">
-                <button onclick="window.open('https://aistudio.google.com/app/apikey', '_blank')" class="flex-1 bg-white text-slate-600 py-3 rounded-[14px] text-[12px] font-bold border border-slate-200 hover:bg-slate-50 shadow-sm transition-colors flex flex-col justify-center items-center gap-1">
-                    <i class="fas fa-external-link-alt text-slate-400 text-sm"></i>
-                    <span>รับ Key ฟรี</span>
-                </button>
-                <button onclick="saveApiKey()" class="flex-[2] bg-gradient-to-br from-[#1e3a8a] to-[#2563eb] text-white py-3 rounded-[14px] text-[14px] font-bold shadow-md hover:shadow-lg active:scale-95 transition-all">
-                    บันทึกและใช้งาน
-                </button>
-            </div>
-            
-            <button onclick="closePopup('apiKeyModal')" class="text-[11px] text-slate-400 font-medium hover:text-slate-600 underline">
-                ไว้ตั้งค่าภายหลัง
-            </button>
-        </div>
-    </div>
 
     <!-- 1. รายได้จากเคสนี้ (Case Income Modal) - REDESIGNED -->
     <div id="caseIncomeModal" class="modal-overlay">
@@ -1299,12 +1209,11 @@
         }
 
         function switchView(targetView) {
-            const views = { 'main': document.getElementById('mainView'), 'table': document.getElementById('tableView'), 'cash': document.getElementById('cashView'), 'ai': document.getElementById('aiView') };
-            const navBtns = { 'main': document.getElementById('navMainBtn'), 'table': document.getElementById('navTableBtn'), 'cash': document.getElementById('navCashBtn'), 'ai': document.getElementById('navAiBtn') };
-            if ((targetView === 'table' || targetView === 'cash' || targetView === 'ai') && !lastCalculationData) { showCustomError("กรุณาคำนวณก่อน"); return; }
+            const views = { 'main': document.getElementById('mainView'), 'table': document.getElementById('tableView'), 'cash': document.getElementById('cashView') };
+            const navBtns = { 'main': document.getElementById('navMainBtn'), 'table': document.getElementById('navTableBtn'), 'cash': document.getElementById('navCashBtn') };
+            if ((targetView === 'table' || targetView === 'cash') && !lastCalculationData) { showCustomError("กรุณาคำนวณก่อน"); return; }
             if (targetView === 'table') generatePolicyTableData();
             if (targetView === 'cash') refreshAllDisplays();
-            if (targetView === 'ai') generateAIAnalysis();
             Object.values(views).forEach(view => { if (view) view.classList.add('hidden'); });
             Object.values(navBtns).forEach(btn => { if (btn) btn.classList.remove('active'); });
             if (views[targetView]) views[targetView].classList.remove('hidden');
@@ -1769,106 +1678,6 @@
                 if (actionType === 'print') { doc.autoPrint(); window.open(doc.output('bloburl'), '_blank'); } 
                 else if (actionType === 'line' || actionType === 'messenger') { const pdfBlob = doc.output('blob'); const file = new File([pdfBlob], pdfFileName, { type: 'application/pdf' }); if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}`, text: `ตารางมูลค่า ${getPlanAbbr(currentAppPlan)}` }).catch(err => { if (err.name === 'NotAllowedError') doc.save(pdfFileName); }); } else { showCustomError("เบราว์เซอร์ไม่รองรับการแชร์ไฟล์"); doc.save(pdfFileName); } } else { doc.save(pdfFileName); }
             } catch (error) { showCustomError("เกิดข้อผิดพลาดในการสร้าง PDF"); } finally { toast.remove(); }
-        }
-
-        // ==================== AI MODULE (BYOK) ====================
-        
-        function saveApiKey() {
-            const keyInput = document.getElementById('apiKeyInputText').value.trim();
-            if(keyInput) {
-                localStorage.setItem('my_gemini_api_key', keyInput);
-                closePopup('apiKeyModal');
-                showCongratsToast("บันทึกคีย์ AI เรียบร้อยแล้ว!");
-                generateAIAnalysis();
-            } else {
-                showCustomError("กรุณากรอก API Key");
-            }
-        }
-
-        function getStoredApiKey() {
-            return localStorage.getItem('my_gemini_api_key');
-        }
-
-        async function generateAIAnalysis() {
-            if (!lastCalculationData || lastCalculationData.premium === 0) return;
-
-            const apiKey = getStoredApiKey();
-            if (!apiKey) {
-                document.getElementById('aiResultState').classList.add('hidden');
-                document.getElementById('aiLoadingState').classList.add('hidden');
-                openPopup('apiKeyModal');
-                return;
-            }
-
-            const d = lastCalculationData;
-
-            document.getElementById('aiLoadingState').classList.remove('hidden');
-            document.getElementById('aiLoadingState').classList.add('flex');
-            document.getElementById('aiResultState').classList.add('hidden');
-            document.getElementById('aiResultState').innerHTML = '';
-
-            const aiContent = await callGeminiAPI(d, apiKey);
-            
-            document.getElementById('aiLoadingState').classList.add('hidden');
-            document.getElementById('aiLoadingState').classList.remove('flex');
-            
-            const resultState = document.getElementById('aiResultState');
-            
-            resultState.innerHTML = aiContent;
-            resultState.classList.remove('hidden');
-            resultState.classList.add('flex', 'flex-col');
-        }
-
-        async function callGeminiAPI(userData, apiKey) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            
-            const systemPrompt = `คุณคือผู้เชี่ยวชาญด้านการวางแผนการเงินและที่ปรึกษาประกันชีวิตระดับมืออาชีพ 
-            วิเคราะห์ข้อมูลที่ได้รับแบบเรียลไทม์ เพื่อให้คำแนะนำในการนำเสนอขายที่เหมาะสมกับบริบทของลูกค้าแต่ละรายอย่างเป็นธรรมชาติ
-            กรุณาสร้างบทวิเคราะห์เป็น HTML เท่านั้น โดยใช้โครงสร้างนี้เป๊ะๆ (ห้ามเปลี่ยน Tag หรือ Class):
-            <h4><i class="fas fa-search"></i> วิเคราะห์ความต้องการ</h4>
-            <ul><li><strong>[ประเด็น]:</strong> [อธิบายความกังวลหรือเป้าหมายหลักตามช่วงวัยและข้อมูลที่ได้]</li></ul>
-            <h4><i class="fas fa-comment-dots"></i> บทสนทนาเปิดใจ</h4>
-            <div class="ai-quote">"[ประโยคเปิดการขายที่ดึงดูดความสนใจและเข้าถึงปัญหา]"</div>
-            <h4><i class="fas fa-shield-alt"></i> การตอบข้อโต้แย้ง</h4>
-            <ul><li><strong>"[ข้อโต้แย้งที่อาจพบ]":</strong><div class="ai-reply"><em>"[วิธีตอบกลับอย่างมืออาชีพ แนะนำให้สั้นกระชับและจริงใจ]"</em></div></li></ul>
-            <h4><i class="fas fa-handshake"></i> บทสรุปและจุดขาย</h4>
-            <ul><li><strong>[จุดเด่น]:</strong> [เน้นย้ำความคุ้มค่าของวงเงินและงบประมาณที่ส่ง]</li></ul>
-            ข้อห้าม: ห้ามใช้ภาษาอังกฤษยกเว้นคำศัพท์เฉพาะทาง, ห้ามใช้คำว่า "เบี้ย" (ให้ใช้ "เงินออม" หรือ "งบประมาณ"), ห้ามใช้คำว่า "ทุน" (ให้ใช้ "วงเงินคุ้มครอง" หรือ "เงินสำรอง")`;
-
-            const userPrompt = `ประมวลผลข้อมูลลูกค้าแบบเรียลไทม์:\nแบบประกัน: ${currentAppPlan}\nเพศ: ${userData.gender}\nอายุ: ${userData.age} ปี\nงบประมาณ: ${formatNum(userData.premium)} บาท/ปี\nวงเงินคุ้มครอง: ${formatNum(userData.sum)} บาท`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userPrompt }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            };
-
-            const delays = [1000, 2000, 4000, 8000];
-            
-            for (let attempt = 0; attempt < 4; attempt++) {
-                try {
-                    const response = await fetch(url, { 
-                        method: 'POST', 
-                        headers: { 'Content-Type': 'application/json' }, 
-                        body: JSON.stringify(payload) 
-                    });
-                    
-                    if (!response.ok) {
-                        if(response.status === 400 || response.status === 403) {
-                            localStorage.removeItem('my_gemini_api_key');
-                            return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-key text-[45px] text-red-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">API Key ไม่ถูกต้อง</p><p class="text-[13px] text-slate-400 mt-1 mb-4">กรุณาตรวจสอบและตั้งค่าใหม่อีกครั้ง</p><button onclick="openPopup('apiKeyModal')" class="px-4 py-2 bg-slate-100 rounded-xl text-xs font-bold text-slate-600 border border-slate-200">ตั้งค่า API Key ใหม่</button></div>`;
-                        }
-                        throw new Error('API Error');
-                    }
-                    
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/```html/g, '').replace(/```/g, '').trim() || '';
-                } catch (error) {
-                    if (attempt === 3) {
-                        return `<div class="flex flex-col items-center justify-center py-10 text-center w-full h-full"><i class="fas fa-robot text-[45px] text-slate-300 mb-4"></i><p class="text-[16px] font-bold text-slate-600">AI ขัดข้องชั่วคราว</p><p class="text-[13px] text-slate-400 mt-1">กรุณาลองกดปุ่ม AI ใหม่อีกครั้ง</p></div>`;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, delays[attempt]));
-                }
-            }
         }
 
         let pendingInstallmentData = {};
